@@ -57,7 +57,7 @@ export class LoginComponent {
           }
         },
         error: (error: HttpErrorResponse) => {
-          if (error.status === HttpStatusCode.Forbidden) {
+          if (error.status === HttpStatusCode.Unauthorized) {
             this.invalidLogin = true;
           }
         }
