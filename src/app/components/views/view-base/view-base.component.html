@@ -1,0 +1,35 @@
+<!-- title -->
+<ng-container *ngIf="showPageTitle">
+  <aw-view-title [pageTitle]="pageTitle"></aw-view-title>
+</ng-container>
+<!-- end title -->
+
+<div class="d-flex">
+  <!-- sidebar -->
+  <ng-container *ngIf="showSidebar">
+    <aw-sidebar [ngClass]="{ 'visible-navbar': showNavbar, 'visible-navbar-hide': !showNavbar }"></aw-sidebar>
+  </ng-container>
+  <!-- end sidebar -->
+
+  <div id="page-content-wrapper">
+    <!-- navbar -->
+    <ng-container *ngIf="showNavbar">
+      <aw-navbar></aw-navbar>
+    </ng-container>
+    <!-- end navbar -->
+
+    <!-- content page -->
+    <div class="fade-in" [ngClass]="{ 'visible-navbar': showNavbar, 'visible-navbar-hide': !showNavbar }">
+      <div [ngClass]="cssContent" class="pt-2">
+        <ng-content></ng-content>
+      </div>
+    </div>
+    <!-- end content page -->
+  </div>
+</div>
+
+<!-- footer -->
+<ng-container *ngIf="showFooter">
+  <aw-footer></aw-footer>
+</ng-container>
+<!-- end footer -->

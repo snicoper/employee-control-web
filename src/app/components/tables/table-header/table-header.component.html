@@ -1,0 +1,44 @@
+<th *ngFor="let header of tableHeaderConfig.headers" class="nowrap">
+  <div class="d-flex justify-content-start">
+    <!-- text header -->
+    <ng-container *ngIf="header.sortable">
+      <span (click)="onClickOrder(header)" class="cursor-pointer">
+        {{ header.text | translate }}
+      </span>
+    </ng-container>
+
+    <ng-container *ngIf="!header.sortable">
+      <span>
+        {{ header.text | translate }}
+      </span>
+    </ng-container>
+
+    <!-- end text header -->
+
+    <!-- sortable -->
+    <ng-container *ngIf="header.sortable">
+      <div (click)="onClickOrder(header)" class="cursor-pointer ml-auto">
+        <!-- sort order -->
+        <ng-container *ngIf="header.orderType !== orderings.none">
+          <span class="badge mr-2 opacity3">
+            {{ getOrderPrecedence(header) }}
+          </span>
+
+          <span
+            [ngClass]="{ 'fa-rotate-180': header.orderType === orderings.ascending }"
+            class="fas fa-angle-down arrow opacity3"
+          >
+          </span>
+        </ng-container>
+
+        <ng-container *ngIf="header.orderType === orderings.none">
+          <span class="ml-auto opacity3">
+            <span class="icon fas fa-arrows-alt-v"></span>
+          </span>
+        </ng-container>
+        <!-- end sort order -->
+      </div>
+    </ng-container>
+    <!-- end sortable -->
+  </div>
+</th>

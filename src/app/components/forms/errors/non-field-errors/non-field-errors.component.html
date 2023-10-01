@@ -1,0 +1,9 @@
+<ng-container *ngIf="hasErrors">
+  <div class="alert alert-danger pb-0">
+    <ul>
+      <li *ngFor="let error of getErrors()">
+        {{ error }}
+      </li>
+    </ul>
+  </div>
+</ng-container>

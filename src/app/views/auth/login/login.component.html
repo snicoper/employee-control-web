@@ -1,0 +1,50 @@
+<aw-view-base [showNavbar]="false" [showSidebar]="false" [showFooter]="false">
+  <div class="form-login w-100 m-auto mt-5">
+    <aw-card extraCss="p-4">
+      <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+        <h1 class="h3 mb-3 fw-normal"><span class="fa-solid fa-user"></span> Iniciar sesión</h1>
+        <hr />
+
+        <ng-container *ngIf="invalidLogin">
+          <div class="alert alert-danger" role="alert">Nombre de usuario o contraseña no validos.</div>
+        </ng-container>
+
+        <!-- userName -->
+        <div class="mb-2">
+          <aw-form-floating
+            formControlName="identifier"
+            fieldName="identifier"
+            label="Nombre de usuario"
+            [form]="form"
+            [badRequest]="badRequest"
+            [submitted]="submitted"
+            [inputType]="formTypes.text"
+          >
+          </aw-form-floating>
+        </div>
+        <!-- end userName -->
+
+        <!-- password -->
+        <aw-form-floating
+          formControlName="password"
+          fieldName="password"
+          label="Contraseña"
+          [form]="form"
+          [badRequest]="badRequest"
+          [submitted]="submitted"
+          [inputType]="formTypes.password"
+        >
+        </aw-form-floating>
+        <!-- end password -->
+
+        <aw-btn-loading
+          [loading]="loading"
+          btnText="Acceder"
+          btnClass="w-100 btn btn-lg btn-primary mt-2"
+        ></aw-btn-loading>
+
+        <button [routerLink]="[siteUrls.home]" class="w-100 btn btn-lg btn-primary mt-2" type="button">Volver</button>
+      </form>
+    </aw-card>
+  </div>
+</aw-view-base>

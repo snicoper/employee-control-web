@@ -1,0 +1,29 @@
+<ng-container *ngIf="(submitted && formHasErrors()) || controlHasErrors() || getBadRequestErrors()">
+  <div class="small text-danger mt-1 pl-1">
+    <!-- Errores Angular. -->
+    <span [ngSwitch]="true">
+      <ng-container *ngSwitchCase="getControlErrorByErrorName('required')">
+        <div>Campo requerido</div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="getControlErrorByErrorName('email')">
+        <div>Campo email no valido</div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="getControlErrorByErrorName('noPasswordMatch')">
+        <div>Las contraseñas no coinciden</div>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <div></div>
+      </ng-container>
+    </span>
+
+    <!-- Errores obtenidos del backend pertenecientes al campo concreto. -->
+    <ng-container *ngIf="getBadRequestErrors()">
+      <div>
+        <div *ngFor="let error of getBadRequestErrors()">{{ error }}</div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

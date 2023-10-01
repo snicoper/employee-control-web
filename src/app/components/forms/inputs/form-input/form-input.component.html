@@ -1,0 +1,30 @@
+<div class="form-group">
+  <ng-container *ngIf="label">
+    <label [for]="id" class="text-primary">
+      {{ label }}
+    </label>
+  </ng-container>
+
+  <input
+    [(ngModel)]="value"
+    [id]="id"
+    [value]="value"
+    [disabled]="isDisabled"
+    [type]="inputType"
+    [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
+    [placeholder]="placeholder"
+    (ngModelChange)="onChangeValue($event)"
+    class="form-control"
+  />
+
+  <ng-container *ngIf="form">
+    <aw-field-error
+      [form]="form"
+      [badRequest]="badRequest"
+      [submitted]="submitted"
+      [fieldText]="label"
+      [fieldName]="fieldName"
+    >
+    </aw-field-error>
+  </ng-container>
+</div>

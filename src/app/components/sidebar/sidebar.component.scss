@@ -1,0 +1,49 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  border-right: 0.5px solid $list-group-border-color;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+
+  .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+  }
+
+  .list-group {
+    width: 15rem;
+  }
+
+  .list-group-item {
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  .show {
+    margin-left: 0 !important;
+  }
+
+  .hide {
+    margin-left: -15rem !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .show {
+    margin-left: -15rem !important;
+  }
+
+  .hide {
+    margin-left: -0 !important;
+  }
+}

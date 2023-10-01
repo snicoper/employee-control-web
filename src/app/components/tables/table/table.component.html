@@ -1,0 +1,39 @@
+<div [ngClass]="{ 'table-responsive': tableResponsive }">
+  <table [ngClass]="tableCss" class="table">
+    <ng-content select="[awThead]"></ng-content>
+
+    <ng-container *ngIf="apiResult && !loading">
+      <!-- table content -->
+      <ng-container *ngIf="apiResult.items.length">
+        <ng-content select="[awTbody]"></ng-content>
+      </ng-container>
+      <!-- end table content -->
+
+      <!-- no data -->
+      <ng-container *ngIf="!apiResult.items.length">
+        <tbody>
+          <tr>
+            <td colspan="100%" class="text-center">
+              <h6>{{ "common.no_data" | translate }}</h6>
+            </td>
+          </tr>
+        </tbody>
+      </ng-container>
+      <!-- end no data -->
+    </ng-container>
+
+    <!-- spinner loading data -->
+    <ng-container *ngIf="showSpinnerLoading && loading">
+      <tbody>
+        <tr>
+          <td colspan="100%" class="text-center">
+            <aw-spinner [loading]="loading" [size]="100"></aw-spinner>
+          </td>
+        </tr>
+      </tbody>
+    </ng-container>
+    <!-- end spinner loading data -->
+
+    <ng-content select="[awTfoot]"></ng-content>
+  </table>
+</div>

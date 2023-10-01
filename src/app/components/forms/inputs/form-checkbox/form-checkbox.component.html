@@ -1,0 +1,32 @@
+<div class="custom-control custom-checkbox">
+  <input
+    [(ngModel)]="value"
+    [id]="id"
+    [value]="value"
+    [disabled]="isDisabled"
+    [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
+    (ngModelChange)="onChangeValue($event)"
+    class="custom-control-input"
+    type="checkbox"
+  />
+
+  <ng-container *ngIf="label">
+    <label
+      [for]="id"
+      [ngClass]="{ 'text-danger': isInvalid(), 'text-primary': !isInvalid() }"
+      class="custom-control-label"
+    >
+      {{ label }}
+    </label>
+  </ng-container>
+</div>
+
+<aw-field-error
+  *ngIf="form"
+  [form]="form"
+  [badRequest]="badRequest"
+  [submitted]="submitted"
+  [fieldText]="label"
+  [fieldName]="fieldName"
+>
+</aw-field-error>

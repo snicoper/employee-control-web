@@ -1,0 +1,22 @@
+@import "variables";
+
+.visible-navbar {
+  margin-top: $navbar-margin-top;
+  transition: all 0.3s;
+}
+
+.visible-navbar-hide {
+  margin-top: 10px;
+  transition: all 0.3s;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+@media (min-width: 768px) {
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+}
