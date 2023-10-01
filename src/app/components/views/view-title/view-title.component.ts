@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { appEnvironments } from '../../../core/config/_index';
+import { AppEnvironments } from '../../../core/constants/_index';
 
 /** Establece el titulo de la pagina (pestaña del navegador). */
 @Component({
@@ -9,9 +9,12 @@ import { appEnvironments } from '../../../core/config/_index';
   template: ''
 })
 export class ViewTitleComponent implements OnInit {
-  @Input() pageTitle = appEnvironments.siteName;
+  @Input() pageTitle = AppEnvironments.siteName;
 
-  constructor(private route: ActivatedRoute, private title: Title) {}
+  constructor(
+    private route: ActivatedRoute,
+    private title: Title
+  ) {}
 
   ngOnInit(): void {
     if (this.pageTitle) {
@@ -24,7 +27,7 @@ export class ViewTitleComponent implements OnInit {
   }
 
   private setTitle(pageTitle?: string): void {
-    let title = appEnvironments.siteName;
+    let title = AppEnvironments.siteName;
     if (pageTitle) {
       title = `${pageTitle} - ${title}`;
     }

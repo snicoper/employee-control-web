@@ -3,13 +3,13 @@
     <!-- text header -->
     <ng-container *ngIf="header.sortable">
       <span (click)="onClickOrder(header)" class="cursor-pointer">
-        {{ header.text | translate }}
+        {{ header.text }}
       </span>
     </ng-container>
 
     <ng-container *ngIf="!header.sortable">
       <span>
-        {{ header.text | translate }}
+        {{ header.text }}
       </span>
     </ng-container>
 

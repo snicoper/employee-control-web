@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { appEnvironments } from '../../core/config/_index';
+import { AppEnvironments } from '../../core/constants/_index';
 import { AuthService, JwtTokenService } from '../../services/_index';
 import { SidebarService } from '../sidebar/sidebar.service';
 import { siteUrls } from './../../core/urls/_index';
@@ -14,7 +14,7 @@ export class NavbarComponent implements OnDestroy {
   isAuth = false;
   userName = '';
   sidebarState: boolean;
-  siteName = appEnvironments.siteName;
+  siteName = AppEnvironments.siteName;
   siteUrls = siteUrls;
 
   private destroy$ = new Subject<void>();

@@ -1,4 +1,4 @@
-import { appEnvironments } from '../config/_index';
+import { AppEnvironments } from '../constants/app-environments';
 
 /** Errores que solo se mostraran en desarrollo. */
 
@@ -8,7 +8,7 @@ import { appEnvironments } from '../config/_index';
  * @param errors Errores a mostrar.
  */
 export const debugErrors = (...errors: string[]): void => {
-  if (appEnvironments.isDebug === true) {
+  if (AppEnvironments.isDebug === true) {
     errors.forEach((error) => console.error(error));
   }
 };
@@ -21,7 +21,7 @@ export const debugErrors = (...errors: string[]): void => {
  * @param message Mensaje a mostrar.
  */
 export const raiseError = (message: string): void => {
-  if (appEnvironments.isDebug === true) {
+  if (AppEnvironments.isDebug === true) {
     throw new Error(message);
   } else {
     throw new Error('Ha ocurrido un error en la aplicación');
@@ -36,7 +36,7 @@ export const raiseError = (message: string): void => {
 export const consoleLog = (message: string, key = ''): void => {
   key = key === '' ? '' : `DEV - ${key}: `;
 
-  if (appEnvironments.isDebug === true) {
+  if (AppEnvironments.isDebug === true) {
     console.log(key, message);
   }
 };

@@ -1,7 +1,7 @@
 import { environment } from '../../../environments/environment';
 
 /** Wrapper para obtener la configuración en base al environment. */
-export const appEnvironments = {
+export const AppEnvironments = {
   siteName: environment.siteName,
   apiUrl: environment.apiUrl,
   apiSegment: environment.apiSegment,

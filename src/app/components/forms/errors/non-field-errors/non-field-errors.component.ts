@@ -20,7 +20,6 @@ export class NonFieldErrorsComponent {
     return !!(this.badRequest?.errors && this.badRequest.errors.indexOf(ValidationErrors.nonFieldErrors));
   }
 
-  // FIXME: REVISAR EL INDEX Y ERRORES COMO LOS MANEJA.
   getErrors(): string {
     const index = this.badRequest.errors.indexOf(ValidationErrors.nonFieldErrors);
 

@@ -12,6 +12,8 @@ export class AppConfig {
 
   load(): Promise<boolean> {
     return new Promise((resolve) => {
+      // Code here.
+
       resolve(true);
     });
   }

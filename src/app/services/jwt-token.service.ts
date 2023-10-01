@@ -28,8 +28,7 @@ export class JwtTokenService {
     this.token = token;
     this.tokenDecode = jwtDecode(token);
 
-    // TODO: Revisar código (Original: !this.decodeToken || !this.token....)
-    if (!this.tokenDecode['exp'] || !this.tokenDecode.hasOwnProperty('exp')) {
+    if (!this.tokenDecode.hasOwnProperty('exp')) {
       this.clean();
 
       return;
