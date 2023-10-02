@@ -38,7 +38,6 @@ export class LoginComponent {
   handleSubmit(): void {
     this.submitted = true;
     this.invalidLogin = false;
-
     if (this.form.invalid) {
       return;
     }
