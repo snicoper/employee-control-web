@@ -20,7 +20,7 @@ install:
       - node_modules
 
 lint:
-  stage: quality
+  stage: test
   needs: ['install']
   script:
     - npm run lint
