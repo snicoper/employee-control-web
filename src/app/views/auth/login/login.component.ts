@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { FormInputTypes } from '../../../core/types/_index';
-import { apiUrls, siteUrls } from '../../../core/urls/_index';
+import { ApiUrls, SiteUrls } from '../../../core/utils/_index';
 import { BadRequest } from '../../../models/bad-request';
 import { JwtTokenService } from '../../../services/_index';
 import { AuthRestService } from '../../../services/rest/_index';
@@ -22,7 +22,7 @@ export class LoginComponent {
   invalidLogin = false;
   formTypes = FormInputTypes;
   loading = false;
-  siteUrls = siteUrls;
+  siteUrls = SiteUrls;
 
   constructor(
     private fb: FormBuilder,
@@ -46,7 +46,7 @@ export class LoginComponent {
     this.loading = true;
 
     this.authRestService
-      .post(this.form.value, apiUrls.login)
+      .post(this.form.value, ApiUrls.login)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (result: LoginResponse) => {

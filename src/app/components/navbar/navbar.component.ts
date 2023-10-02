@@ -1,9 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { AppEnvironments } from '../../core/constants/_index';
+import { AppEnvironments, SiteUrls } from '../../core/utils/_index';
 import { AuthService, JwtTokenService } from '../../services/_index';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { siteUrls } from './../../core/urls/_index';
 
 @Component({
   selector: 'aw-navbar',
@@ -15,7 +14,7 @@ export class NavbarComponent implements OnDestroy {
   userName = '';
   sidebarState: boolean;
   siteName = AppEnvironments.siteName;
-  siteUrls = siteUrls;
+  siteUrls = SiteUrls;
 
   private destroy$ = new Subject<void>();
 

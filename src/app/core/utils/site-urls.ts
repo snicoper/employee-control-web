@@ -1,9 +1,16 @@
 import { replaceUrlParams } from '../utils/_index';
 
-/** URLs en la API. */
-export const apiUrls = {
+/** URLs en la APP. */
+export const SiteUrls = {
+  /** Home. */
+  home: '/',
+
   /** Auth. */
-  login: 'identity/login',
+  login: 'auth/login',
+
+  /** Errors. */
+  errorsForbidden: '/errors/403',
+  errorsNotFound: '/errors/404',
 
   /**
    * Utiliza una de las propiedades de siteUrls para remplazar {algo} por valor en los args.

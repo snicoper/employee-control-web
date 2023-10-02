@@ -11,8 +11,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { siteUrls } from '../core/urls/_index';
-import { debugErrors, toastForNotificationErrors } from '../core/utils/_index';
+import { SiteUrls, debugErrors, toastForNotificationErrors } from '../core/utils/_index';
 
 @Injectable()
 export class ErrorRequestInterceptor implements HttpInterceptor {
@@ -53,7 +52,7 @@ export class ErrorRequestInterceptor implements HttpInterceptor {
 
   /** Manejar error de forbidden.  */
   private handleForbidden(): void {
-    this.router.navigate([siteUrls.errorsForbidden]);
+    this.router.navigate([SiteUrls.errorsForbidden]);
   }
 
   /** En caso de existir notificationErrors, los mostrara con toast. */

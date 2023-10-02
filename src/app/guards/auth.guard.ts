@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { siteUrls } from '../core/urls/_index';
+import { SiteUrls } from '../core/utils/_index';
 import { JwtTokenService } from '../services/_index';
 
 @Injectable({ providedIn: 'root' })
@@ -15,7 +15,7 @@ export class AuthGuard {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (!this.jwtTokenService.getToken()) {
       this.toastr.error('Requiere autorización para acceder a la página.');
-      this.router.navigate([siteUrls.login], { queryParams: { returnUrl: state.url } });
+      this.router.navigate([SiteUrls.login], { queryParams: { returnUrl: state.url } });
 
       return false;
     }
@@ -30,7 +30,7 @@ export class AuthGuard {
     for (let role of roles) {
       if (!userRoles.includes(role)) {
         this.toastr.error('Requiere permisos para acceder a la página.');
-        this.router.navigate([siteUrls.login], { queryParams: { returnUrl: state.url } });
+        this.router.navigate([SiteUrls.login], { queryParams: { returnUrl: state.url } });
 
         return false;
       }
