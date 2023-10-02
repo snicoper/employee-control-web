@@ -5,11 +5,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AuthService {
   private auth$ = new BehaviorSubject<boolean>(false);
 
-  get isAuth(): Observable<boolean> {
+  get auth(): Observable<boolean> {
     return this.auth$.asObservable();
   }
 
-  get isAuthValue(): boolean {
+  get authValue(): boolean {
     return this.auth$.getValue();
   }
 

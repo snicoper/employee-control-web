@@ -46,7 +46,7 @@ export class NavbarComponent implements OnDestroy {
       next: (result: boolean) => (this.sidebarState = result)
     });
 
-    this.authService.isAuth.pipe(takeUntil(this.destroy$)).subscribe({
+    this.authService.auth.pipe(takeUntil(this.destroy$)).subscribe({
       next: (result: boolean) => {
         this.isAuth = result;
         this.userName = this.jwtTokenService.getName();

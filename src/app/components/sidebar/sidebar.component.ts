@@ -44,7 +44,7 @@ export class SidebarComponent implements OnDestroy {
       next: (result: boolean) => (this.sidebarState = result)
     });
 
-    this.authService.isAuth.pipe(takeUntil(this.destroy$)).subscribe({
+    this.authService.auth.pipe(takeUntil(this.destroy$)).subscribe({
       next: (result: boolean) => (this.authState = result)
     });
   }
