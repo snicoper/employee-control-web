@@ -1,10 +1,8 @@
-import {
-  ApiResultItemFilter,
-  ApiResultItemOrderBy,
-  LogicalOperators,
-  OrderTypes,
-  RelationalOperators
-} from '../core/api-result/_index';
+import { ApiResultItemFilter } from './api-result-item-filter';
+import { ApiResultItemOrderBy } from './api-result-item-order-by';
+import { LogicalOperators } from './types/logical-operator';
+import { OrderTypes } from './types/order-type';
+import { RelationalOperators } from './types/relational-operator';
 
 export class ApiResult<T> {
   /** Comprueba si tiene pagina siguiente. */

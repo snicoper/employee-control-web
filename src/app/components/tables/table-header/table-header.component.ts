@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ApiResultItemOrderBy, OrderTypes } from '../../../core/api-result/_index';
-import { ApiResult } from '../../../models/_index';
+import { ApiResult, ApiResultItemOrderBy, OrderTypes } from '../../../core/api-result/_index';
 import { ITableHeaderField } from './table-header-field.interface';
 import { TableHeaderConfig } from './table-header.config';
 
