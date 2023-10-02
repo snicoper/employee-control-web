@@ -1,6 +1,12 @@
 default:
   interruptible: true
   image: node:lts-alpine
+
+stages:
+  - test
+  - build
+  - deploy
+
 install:
   stage: dependencies
   script:
@@ -12,11 +18,6 @@ install:
         - package.json
     paths:
       - node_modules
-
-stages:
-  - test
-  - build
-  - deploy
 
 lint:
   stage: quality
