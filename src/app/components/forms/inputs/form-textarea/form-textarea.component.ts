@@ -2,6 +2,10 @@ import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BadRequest } from '../../../../models/_index';
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+/* eslint-disable  @typescript-eslint/no-unused-vars */
+/* eslint-disable  @typescript-eslint/no-empty-function */
+
 @Component({
   selector: 'aw-form-textarea',
   templateUrl: './form-textarea.component.html',

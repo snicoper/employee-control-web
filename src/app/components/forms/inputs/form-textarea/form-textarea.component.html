@@ -15,8 +15,7 @@
     [rows]="rows"
     [cols]="cols"
     (ngModelChange)="onChangeValue($event)"
-    class="form-control"
-  ></textarea>
+    class="form-control"></textarea>
 
   <ng-container *ngIf="form">
     <aw-field-error
@@ -24,8 +23,7 @@
       [badRequest]="badRequest"
       [submitted]="submitted"
       [fieldText]="label"
-      [fieldName]="fieldName"
-    >
+      [fieldName]="fieldName">
     </aw-field-error>
   </ng-container>
 </div>

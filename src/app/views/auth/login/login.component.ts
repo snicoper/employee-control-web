@@ -35,7 +35,7 @@ export class LoginComponent {
     this.buildForm();
   }
 
-  public handleSubmit(): void {
+  handleSubmit(): void {
     this.submitted = true;
     this.invalidLogin = false;
 

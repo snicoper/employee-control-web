@@ -18,8 +18,7 @@
             [form]="form"
             [badRequest]="badRequest"
             [submitted]="submitted"
-            [inputType]="formTypes.text"
-          >
+            [inputType]="formTypes.text">
           </aw-form-floating>
         </div>
         <!-- end userName -->
@@ -32,16 +31,14 @@
           [form]="form"
           [badRequest]="badRequest"
           [submitted]="submitted"
-          [inputType]="formTypes.password"
-        >
+          [inputType]="formTypes.password">
         </aw-form-floating>
         <!-- end password -->
 
         <aw-btn-loading
           [loading]="loading"
           btnText="Acceder"
-          btnClass="w-100 btn btn-lg btn-primary mt-2"
-        ></aw-btn-loading>
+          btnClass="w-100 btn btn-lg btn-primary mt-2"></aw-btn-loading>
 
         <button [routerLink]="[siteUrls.home]" class="w-100 btn btn-lg btn-primary mt-2" type="button">Volver</button>
       </form>

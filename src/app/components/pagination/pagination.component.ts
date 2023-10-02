@@ -24,6 +24,7 @@ export class PaginationComponent<T> implements OnChanges {
   /** Última página. */
   lastPage = 1;
 
+  // eslint-disable-next-line
   ngOnChanges(changes: SimpleChanges): void {
     const numMaxPages = this.apiResult.ratio * 2 + 1;
     this.firstPage = 1;

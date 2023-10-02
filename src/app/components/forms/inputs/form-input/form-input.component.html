@@ -14,8 +14,7 @@
     [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
     [placeholder]="placeholder"
     (ngModelChange)="onChangeValue($event)"
-    class="form-control"
-  />
+    class="form-control" />
 
   <ng-container *ngIf="form">
     <aw-field-error
@@ -23,8 +22,7 @@
       [badRequest]="badRequest"
       [submitted]="submitted"
       [fieldText]="label"
-      [fieldName]="fieldName"
-    >
+      [fieldName]="fieldName">
     </aw-field-error>
   </ng-container>
 </div>

@@ -5,7 +5,7 @@ import { ITableHeaderField } from './table-header-field.interface';
 import { TableHeaderConfig } from './table-header.config';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
+  // eslint-disable-next-line
   selector: '[awTableHeader]',
   templateUrl: './table-header.component.html',
   styleUrls: ['./table-header.component.scss']
@@ -18,7 +18,10 @@ export class TableHeaderComponent<T> {
 
   orderings = OrderTypes;
 
-  onClickFilter(header: ITableHeaderField): void {}
+  // eslint-disable-next-line
+  onClickFilter(header: ITableHeaderField): void {
+    /** */
+  }
 
   onClickOrder(header: ITableHeaderField): void {
     this.removeOrderItemIfExists(header);

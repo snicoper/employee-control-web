@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'aw-spinner',
-  templateUrl: './spinner.component.html',
+  templateUrl: './spinner.component.html'
 })
 export class SpinnerComponent implements OnInit {
   /** Solo mostrara el spinner cuando loading sea true. */

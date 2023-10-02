@@ -20,5 +20,4 @@ import { LoginComponent } from './login/login.component';
     AwButtonsModule
   ]
 })
-export class AuthModule {
-}
+export class AuthModule {}

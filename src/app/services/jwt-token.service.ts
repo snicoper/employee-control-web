@@ -7,7 +7,7 @@ import { LocalStorageService } from './local-storage.service';
 @Injectable({ providedIn: 'root' })
 export class JwtTokenService {
   private token = '';
-  private tokenDecode: { [key: string]: any } = {};
+  private tokenDecode: { [key: string]: unknown } = {};
   private isTokenExpired = true;
 
   constructor(
@@ -28,7 +28,7 @@ export class JwtTokenService {
     this.token = token;
     this.tokenDecode = jwtDecode(token);
 
-    if (!this.tokenDecode.hasOwnProperty('exp')) {
+    if (!Object.hasOwn(this.tokenDecode, 'exp')) {
       this.clean();
 
       return;
@@ -42,7 +42,8 @@ export class JwtTokenService {
   }
 
   isExpired(): boolean {
-    const expired = parseInt(this.tokenDecode['exp']);
+    const exp = this.tokenDecode['exp'] as string;
+    const expired = parseInt(exp);
 
     if (Date.now() >= expired * 1000) {
       this.clean();
@@ -86,7 +87,7 @@ export class JwtTokenService {
       return [];
     }
 
-    return this.tokenDecode[key];
+    return this.tokenDecode[key] as string[];
   }
 
   getName(): string {
@@ -95,7 +96,7 @@ export class JwtTokenService {
       return '';
     }
 
-    return this.tokenDecode[key];
+    return this.tokenDecode[key] as string;
   }
 
   getSid(): string {
@@ -104,7 +105,7 @@ export class JwtTokenService {
       return '';
     }
 
-    return this.tokenDecode[key];
+    return this.tokenDecode[key] as string;
   }
 
   clean(redirectToLogin = false): void {

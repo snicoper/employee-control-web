@@ -5,8 +5,7 @@
       <select
         [(ngModel)]="apiResult.pageSize"
         (ngModelChange)="handleChangePageListNumber($event)"
-        class="custom-select custom-select-sm unfocus"
-      >
+        class="custom-select custom-select-sm unfocus">
         <ng-container *ngFor="let item of itemsPageList">
           <option [ngClass]="{ active: item === apiResult.pageSize }" [ngValue]="item">
             {{ item }}
@@ -72,8 +71,7 @@
         <a
           (click)="handleChangePage(item)"
           [ngClass]="{ 'cursor-pointer': item !== apiResult.pageNumber }"
-          class="page-link"
-        >
+          class="page-link">
           {{ item }}
         </a>
       </li>

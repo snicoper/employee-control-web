@@ -3,6 +3,10 @@ import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormInputTypes } from '../../../../core/types/_index';
 import { BadRequest } from '../../../../models/_index';
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+/* eslint-disable  @typescript-eslint/no-unused-vars */
+/* eslint-disable  @typescript-eslint/no-empty-function */
+
 @Component({
   selector: 'aw-form-floating',
   templateUrl: './form-floating.component.html',

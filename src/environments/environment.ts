@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 declare const window: any;
 
 // @see: https://pumpingco.de/blog/environment-variables-angular-docker/

@@ -2,6 +2,10 @@ import { Component, forwardRef, Input } from '@angular/core';
 import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BadRequest } from '../../../../models/bad-request';
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+/* eslint-disable  @typescript-eslint/no-unused-vars */
+/* eslint-disable  @typescript-eslint/no-empty-function */
+
 @Component({
   selector: 'aw-form-checkbox',
   templateUrl: './form-checkbox.component.html',

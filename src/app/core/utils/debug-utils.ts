@@ -9,6 +9,7 @@ import { AppEnvironments } from './_index';
  */
 export const debugErrors = (...errors: string[]): void => {
   if (AppEnvironments.isDebug) {
+    // eslint-disable-next-line
     errors.forEach((error) => console.error(error));
   }
 };
@@ -38,6 +39,7 @@ export const consoleLog = (message: string, key = ''): void => {
   key = key === '' ? '' : `DEV - ${key}: `;
 
   if (AppEnvironments.isDebug) {
+    // eslint-disable-next-line
     console.log(key, message);
   }
 };

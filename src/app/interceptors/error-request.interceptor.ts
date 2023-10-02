@@ -21,7 +21,7 @@ export class ErrorRequestInterceptor implements HttpInterceptor {
   ) {}
 
   /** Handle error de la aplicación. */
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         debugErrors(error.error);

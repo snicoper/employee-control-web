@@ -14,17 +14,17 @@ import { ApiResultItemFilter, ApiResultItemOrderBy } from '../core/api-result/_i
 /** Comprueba si es un ApiResult y deserializa filters. */
 @Injectable()
 export class ApiResultRequestInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(req).pipe(
       map((event) => {
         if (event instanceof HttpResponse && event.status === HttpStatusCode.Ok) {
           // Orders de ApiResult.
-          if (event.body.hasOwnProperty('orders')) {
+          if (Object.hasOwn(event.body, 'bar')) {
             event.body.orders = JSON.parse(event.body.orders) as ApiResultItemOrderBy[];
           }
 
           // Filtros de ApiResult.
-          if (event.body.hasOwnProperty('filters')) {
+          if (Object.hasOwn(event.body, 'filters')) {
             event.body.filters = JSON.parse(event.body.filters) as ApiResultItemFilter[];
           }
         }
