@@ -8,7 +8,7 @@ stages:
   - deploy
 
 install:
-  stage: dependencies
+  stage: test
   script:
     # Install dependencies
     - npm install --prefer-offline
