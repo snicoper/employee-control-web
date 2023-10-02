@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { ValidationErrors } from '../constants/_index';
+import { ValidationErrors } from '../types/_index';
 
 /** Crea un Guid. */
 export const createGuid = (): string => {

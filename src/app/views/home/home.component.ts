@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThemeColor } from '../../core/constants/_index';
+import { ThemeColor } from '../../core/types/_index';
 import { JwtTokenService, LayoutService, ThemeColorService } from '../../services/_index';
 
 @Component({

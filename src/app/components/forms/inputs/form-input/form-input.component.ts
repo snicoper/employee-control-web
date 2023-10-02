@@ -1,7 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormInputTypes } from '../../../../core/types/_index';
 import { BadRequest } from '../../../../models/_index';
-import { FormInputTypes } from '../../../../models/types/_index';
 
 @Component({
   selector: 'aw-form-input',
