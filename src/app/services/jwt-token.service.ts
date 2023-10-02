@@ -6,9 +6,9 @@ import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class JwtTokenService {
-  private token = '';
   private tokenDecode: { [key: string]: unknown } = {};
   private isTokenExpired = true;
+  private token = '';
 
   constructor(
     private route: Router,
@@ -38,7 +38,7 @@ export class JwtTokenService {
       this.localStorageService.set('token', this.token);
     }
 
-    this.authService.logIn();
+    this.authService.setAuthValue(true);
   }
 
   isExpired(): boolean {
@@ -109,7 +109,7 @@ export class JwtTokenService {
   }
 
   clean(redirectToLogin = false): void {
-    this.authService.logOut();
+    this.authService.setAuthValue(false);
     this.localStorageService.remove('token');
     this.token = '';
     this.tokenDecode = {};

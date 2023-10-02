@@ -1,5 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Component, Input, OnInit, computed, inject } from '@angular/core';
 import { LayoutService } from '../../../services/_index';
 
 @Component({
@@ -7,38 +6,27 @@ import { LayoutService } from '../../../services/_index';
   templateUrl: './view-base.component.html',
   styleUrls: ['./view-base.component.scss']
 })
-export class ViewBaseComponent implements OnDestroy {
+export class ViewBaseComponent implements OnInit {
+  /** Injects. */
+  private layoutService = inject(LayoutService);
+
+  /** Inputs. */
   @Input() cssContent = 'container-fluid';
   @Input() showPageTitle = true;
   @Input() pageTitle = '';
 
-  // States.
   @Input() showNavbar = true;
   @Input() showSidebar = true;
   @Input() showFooter = true;
 
-  private destroy$ = new Subject<void>();
+  /** Computed. */
+  showNavbar$ = computed(() => this.layoutService.showNavbar$());
+  showSidebar$ = computed(() => this.layoutService.showSidebar$());
+  showFooter$ = computed(() => this.layoutService.showFooter$());
 
-  constructor(private layoutService: LayoutService) {
-    this.eventListener();
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  private eventListener(): void {
-    this.layoutService.showNavbar.pipe(takeUntil(this.destroy$)).subscribe({
-      next: (result: boolean) => (this.showNavbar = result)
-    });
-
-    this.layoutService.showSidebar.pipe(takeUntil(this.destroy$)).subscribe({
-      next: (result: boolean) => (this.showSidebar = result)
-    });
-
-    this.layoutService.showFooter.pipe(takeUntil(this.destroy$)).subscribe({
-      next: (result: boolean) => (this.showFooter = result)
-    });
+  ngOnInit(): void {
+    this.layoutService.showNavbar$.set(this.showNavbar);
+    this.layoutService.showSidebar$.set(this.showSidebar);
+    this.layoutService.showFooter$.set(this.showFooter);
   }
 }

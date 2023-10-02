@@ -1,23 +1,14 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, computed, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private auth$ = new BehaviorSubject<boolean>(false);
+  /** Signals. */
+  private auth$ = signal(false);
 
-  get auth(): Observable<boolean> {
-    return this.auth$.asObservable();
-  }
+  /** Computed. */
+  authValue$ = computed(() => this.auth$());
 
-  get authValue(): boolean {
-    return this.auth$.getValue();
-  }
-
-  logIn(): void {
-    this.auth$.next(true);
-  }
-
-  logOut(): void {
-    this.auth$.next(false);
+  setAuthValue(auth: boolean): void {
+    this.auth$.set(auth);
   }
 }

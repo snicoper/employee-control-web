@@ -30,19 +30,19 @@ export class HomeComponent {
   }
 
   handleToggleNavbar(): void {
-    this.layoutService.toggleNavbar();
+    this.layoutService.showNavbar$.update((value) => !value);
   }
 
   handleToggleSidebar(): void {
-    this.layoutService.toggleSidebar();
+    this.layoutService.showSidebar$.update((value) => !value);
   }
 
   handleToggleFooter(): void {
-    this.layoutService.toggleFooter();
+    this.layoutService.showFooter$.update((value) => !value);
   }
 
   handleChangeThemeColor(): void {
-    const color = this.themeColorService.themeValue === ThemeColor.dark ? ThemeColor.light : ThemeColor.dark;
+    const color = this.themeColorService.getThemeValue() === ThemeColor.dark ? ThemeColor.light : ThemeColor.dark;
     this.themeColorService.setTheme(color);
   }
 }

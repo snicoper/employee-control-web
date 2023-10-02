@@ -1,5 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Component, computed, inject } from '@angular/core';
 import { SiteUrls } from '../../core/utils/_index';
 import { AuthService, JwtTokenService } from '../../services/_index';
 import { SidebarService } from './sidebar.service';
@@ -9,43 +8,24 @@ import { SidebarService } from './sidebar.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnDestroy {
-  authState = false;
-  sidebarState: boolean;
+export class SidebarComponent {
+  /** Injects. */
+  private sidebarService = inject(SidebarService);
+  private jwtTokenService = inject(JwtTokenService);
+  private authService = inject(AuthService);
+
+  /** Properties. */
   siteUrls = SiteUrls;
 
-  private destroy$ = new Subject<void>();
-
-  constructor(
-    private sidebarService: SidebarService,
-    private jwtTokenService: JwtTokenService,
-    private authService: AuthService
-  ) {
-    this.sidebarState = sidebarService.sidebarStateValue;
-
-    this.eventListener();
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  /** Computed. */
+  sidebarState$ = computed(() => this.sidebarService.sidebarState$());
+  authState$ = computed(() => this.authService.authValue$());
 
   handleClick(): void {
-    this.sidebarService.toggle();
+    this.sidebarService.sidebarState$.update((value) => !value);
   }
 
   handleLogOut(): void {
     this.jwtTokenService.clean();
-  }
-
-  private eventListener(): void {
-    this.sidebarService.sidebarState.pipe(takeUntil(this.destroy$)).subscribe({
-      next: (result: boolean) => (this.sidebarState = result)
-    });
-
-    this.authService.auth.pipe(takeUntil(this.destroy$)).subscribe({
-      next: (result: boolean) => (this.authState = result)
-    });
   }
 }

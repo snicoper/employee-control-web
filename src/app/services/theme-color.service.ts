@@ -1,22 +1,17 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, inject, signal } from '@angular/core';
 import { ThemeColor } from '../core/types/_index';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeColorService {
-  private theme$ = new BehaviorSubject<ThemeColor>(ThemeColor.auto);
+  /** Injects. */
+  private localStorageService = inject(LocalStorageService);
+
+  /** Properties. */
   private colorStorage = ThemeColor.auto;
 
-  constructor(private localStorageService: LocalStorageService) {}
-
-  get theme(): Observable<ThemeColor> {
-    return this.theme$.asObservable();
-  }
-
-  get themeValue(): ThemeColor {
-    return this.theme$.getValue();
-  }
+  /** Signals. */
+  private theme$ = signal(ThemeColor.auto);
 
   initialize(): void {
     this.colorStorage = (this.localStorageService.get('theme') as ThemeColor) || ThemeColor.auto;
@@ -31,12 +26,16 @@ export class ThemeColorService {
     this.setTheme(this.colorStorage);
   }
 
+  getThemeValue(): ThemeColor {
+    return this.theme$();
+  }
+
   setTheme(theme: ThemeColor): void {
-    if (!this.colorStorage || theme !== this.themeValue) {
+    if (!this.colorStorage || theme !== this.theme$()) {
       this.localStorageService.set('theme', theme);
     }
 
     document.documentElement.setAttribute('data-bs-theme', theme);
-    this.theme$.next(theme);
+    this.theme$.set(theme);
   }
 }
