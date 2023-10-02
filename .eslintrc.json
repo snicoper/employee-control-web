@@ -66,8 +66,13 @@
         "no-redeclare": "error",
         "no-useless-constructor": "off",
         "space-before-function-paren": ["error", "never"],
-        "padding-line-between-statements": "off",
-        "@typescript-eslint/padding-line-between-statements": [
+        "lines-between-class-members": [
+          "error",
+          {
+            "enforce": [{ "blankLine": "always", "prev": "method", "next": "method" }]
+          }
+        ],
+        "padding-line-between-statements": [
           "error",
           {
             "blankLine": "always",
