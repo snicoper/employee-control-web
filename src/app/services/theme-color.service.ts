@@ -11,7 +11,7 @@ export class ThemeColorService {
   private colorStorage = ThemeColor.auto;
 
   /** Signals. */
-  private theme$ = signal(ThemeColor.auto);
+  private readonly theme$ = signal(ThemeColor.auto);
 
   initialize(): void {
     this.colorStorage = (this.localStorageService.get('theme') as ThemeColor) || ThemeColor.auto;

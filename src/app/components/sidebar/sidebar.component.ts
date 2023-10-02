@@ -18,8 +18,8 @@ export class SidebarComponent {
   siteUrls = SiteUrls;
 
   /** Computed. */
-  sidebarState$ = computed(() => this.sidebarService.sidebarState$());
-  authState$ = computed(() => this.authService.authValue$());
+  readonly sidebarState$ = computed(() => this.sidebarService.sidebarState$());
+  readonly authState$ = computed(() => this.authService.authValue$());
 
   handleClick(): void {
     this.sidebarService.sidebarState$.update((value) => !value);

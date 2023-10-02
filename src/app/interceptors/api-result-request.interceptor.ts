@@ -19,7 +19,7 @@ export class ApiResultRequestInterceptor implements HttpInterceptor {
       map((event) => {
         if (event instanceof HttpResponse && event.status === HttpStatusCode.Ok) {
           // Orders de ApiResult.
-          if (Object.hasOwn(event.body, 'bar')) {
+          if (Object.hasOwn(event.body, 'orders')) {
             event.body.orders = JSON.parse(event.body.orders) as ApiResultItemOrderBy[];
           }
 

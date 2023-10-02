@@ -20,9 +20,9 @@ export class ViewBaseComponent implements OnInit {
   @Input() showFooter = true;
 
   /** Computed. */
-  showNavbar$ = computed(() => this.layoutService.showNavbar$());
-  showSidebar$ = computed(() => this.layoutService.showSidebar$());
-  showFooter$ = computed(() => this.layoutService.showFooter$());
+  readonly showNavbar$ = computed(() => this.layoutService.showNavbar$());
+  readonly showSidebar$ = computed(() => this.layoutService.showSidebar$());
+  readonly showFooter$ = computed(() => this.layoutService.showFooter$());
 
   ngOnInit(): void {
     this.layoutService.showNavbar$.set(this.showNavbar);
