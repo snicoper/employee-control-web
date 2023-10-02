@@ -11,9 +11,9 @@ import { SidebarService } from '../sidebar/sidebar.service';
 })
 export class NavbarComponent {
   /** Injects. */
-  private sidebarService = inject(SidebarService);
-  private jwtTokenService = inject(JwtTokenService);
-  private authService = inject(AuthService);
+  private readonly sidebarService = inject(SidebarService);
+  private readonly jwtTokenService = inject(JwtTokenService);
+  private readonly authService = inject(AuthService);
 
   /** Properties. */
   userName = this.jwtTokenService.getName();

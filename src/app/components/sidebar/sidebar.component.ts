@@ -11,9 +11,9 @@ import { SidebarService } from './sidebar.service';
 })
 export class SidebarComponent {
   /** Injects. */
-  private sidebarService = inject(SidebarService);
-  private jwtTokenService = inject(JwtTokenService);
-  private authService = inject(AuthService);
+  private readonly sidebarService = inject(SidebarService);
+  private readonly jwtTokenService = inject(JwtTokenService);
+  private readonly authService = inject(AuthService);
 
   /** Properties. */
   siteUrls = SiteUrls;

@@ -10,8 +10,4 @@ export class SidebarService {
     const newState = this.sidebarState$() === SidebarStates.open ? SidebarStates.closed : SidebarStates.open;
     this.sidebarState$.set(newState);
   }
-
-  setSidebarState(state: SidebarStates): void {
-    this.sidebarState$.set(state);
-  }
 }

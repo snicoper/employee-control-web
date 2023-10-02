@@ -8,7 +8,7 @@ import { LayoutService } from '../../../services/_index';
 })
 export class ViewBaseComponent implements OnInit {
   /** Injects. */
-  private layoutService = inject(LayoutService);
+  private readonly layoutService = inject(LayoutService);
 
   /** Inputs. */
   @Input() cssContent = 'container-fluid';
