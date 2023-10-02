@@ -1,0 +1,26 @@
+default:
+  interruptible: true
+  image: node:lts-alpine
+install:
+  stage: dependencies
+  script:
+    # Install dependencies
+    - npm install --prefer-offline
+  cache:
+    key:
+      files:
+        - package.json
+    paths:
+      - node_modules
+lint:
+  stage: quality
+  needs: ['install']
+  script:
+    - ng lint
+  cache:
+    key:
+      files:
+        - package.json
+    paths:
+      - node_modules
+    policy: pull
