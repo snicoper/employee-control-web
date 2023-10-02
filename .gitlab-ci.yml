@@ -12,6 +12,13 @@ install:
         - package.json
     paths:
       - node_modules
+
+stages:
+  - dependencies
+  - quality
+  - assemble
+  - deploy
+
 lint:
   stage: quality
   needs: ['install']
