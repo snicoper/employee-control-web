@@ -1,4 +1,4 @@
-<div class="border-right" id="sidebar-wrapper" [ngClass]="sidebarState$() ? 'show' : 'hide'">
+<div class="border-right" id="sidebar-wrapper" [ngClass]="sidebarState$() === sidebarStates.open ? 'show' : 'hide'">
   <div class="sidebar-heading">Sidebar</div>
   <div class="list-group list-group-flush">
     <a [routerLink]="[siteUrls.home]" routerLinkActive="" class="list-group-item list-group-item-action active">

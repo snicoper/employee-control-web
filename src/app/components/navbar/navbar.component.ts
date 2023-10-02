@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { AppEnvironments, SiteUrls } from '../../core/utils/_index';
 import { AuthService, JwtTokenService } from '../../services/_index';
+import { SidebarStates } from '../sidebar/sidebar-states';
 import { SidebarService } from '../sidebar/sidebar.service';
 
 @Component({
@@ -18,13 +19,14 @@ export class NavbarComponent {
   userName = this.jwtTokenService.getName();
   siteName = AppEnvironments.siteName;
   siteUrls = SiteUrls;
+  sidebarStates = SidebarStates;
 
   /** Computed. */
   readonly sidebarState$ = computed(() => this.sidebarService.sidebarState$());
   readonly authState$ = computed(() => this.authService.authValue$);
 
   toggleSidebarState(): void {
-    this.sidebarService.sidebarState$.update((value) => !value);
+    this.sidebarService.toggle();
   }
 
   logOut(): void {
