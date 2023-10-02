@@ -1,4 +1,34 @@
 {
+  "editor.formatOnSave": true,
+  "editor.rulers": [99, 119],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "editor.guides.indentation": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.fixAll.eslint": true,
+    "source.fixAll.tslint": true,
+    "source.fixAll.stylelint": true,
+    "source.organizeImports": true
+  },
+  // Prettier.
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 120,
+  "prettier.trailingComma": "none",
+  // Languages.
+  "typescript.preferences.quoteStyle": "single",
+  "javascript.preferences.quoteStyle": "single",
+  "[markdown]": {
+    "editor.tabSize": 4,
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
+    },
+    "editor.formatOnSave": false
+  },
+  // Code Spell Checker.
   "cSpell.words": [
     "deserializa",
     "devkit",
