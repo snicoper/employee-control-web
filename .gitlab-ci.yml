@@ -5,6 +5,7 @@ install:
   stage: dependencies
   script:
     # Install dependencies
+    - npm install @angular/cli --prefer-offline
     - npm install --prefer-offline
   cache:
     key:
@@ -14,9 +15,8 @@ install:
       - node_modules
 
 stages:
-  - dependencies
-  - quality
-  - assemble
+  - test
+  - build
   - deploy
 
 lint:
