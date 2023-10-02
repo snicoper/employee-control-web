@@ -1,3 +1,2 @@
-export { BadRequest } from './bad-request';
-export { FormInputTypes } from './form-input-types.enum';
+export { FormInputTypes } from './form-input-types';
 export { Roles } from './roles';

@@ -1,6 +1,8 @@
 <div [ngClass]="{ 'table-responsive': tableResponsive }">
   <table [ngClass]="tableCss" class="table">
-    <ng-content select="[awThead]"></ng-content>
+    <thead>
+      <ng-content select="[awThead]"></ng-content>
+    </thead>
 
     <ng-container *ngIf="apiResult && !loading">
       <!-- table content -->

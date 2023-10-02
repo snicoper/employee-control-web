@@ -20,14 +20,12 @@ export class ApiResultRequestInterceptor implements HttpInterceptor {
         if (event instanceof HttpResponse && event.status === HttpStatusCode.Ok) {
           // Orders de ApiResult.
           if (event.body.hasOwnProperty('orders')) {
-            const body = (event.body.orders = JSON.parse(event.body.orders) as ApiResultItemOrderBy);
-            event.body.orders = event.body.orders === '' ? [] : body;
+            event.body.orders = JSON.parse(event.body.orders) as ApiResultItemOrderBy[];
           }
 
           // Filtros de ApiResult.
           if (event.body.hasOwnProperty('filters')) {
-            const filters = (event.body.filters = JSON.parse(event.body.filters) as ApiResultItemFilter);
-            event.body.filters = event.body.filters === '' ? [] : filters;
+            event.body.filters = JSON.parse(event.body.filters) as ApiResultItemFilter[];
           }
         }
 

@@ -1,6 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BadRequest, FormInputTypes } from '../../../../models/types/_index';
+import { BadRequest } from '../../../../models/_index';
+import { FormInputTypes } from '../../../../models/types/_index';
 
 @Component({
   selector: 'aw-form-floating',

@@ -11,7 +11,7 @@ const routes: Routes = [
     loadChildren: () => import('./views/auth/auth.module').then((m) => m.AuthModule)
   },
   {
-    path: 'errors',
+    path: 'error',
     loadChildren: () => import('./views/errors/errors.module').then((m) => m.ErrorsModule)
   },
   {

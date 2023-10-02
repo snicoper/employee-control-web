@@ -3,8 +3,10 @@
   <ng-content select="[awCardImage]"></ng-content>
 
   <div class="card-body">
-    <ng-content *ngIf="!loading" select="[awCardTitle]"></ng-content>
-    <ng-content *ngIf="!loading" select="[awCardSubTitle]"></ng-content>
+    <ng-container *ngIf="!loading">
+      <ng-content select="[awCardTitle]"></ng-content>
+      <ng-content select="[awCardSubTitle]"></ng-content>
+    </ng-container>
 
     <!-- main content -->
     <ng-container *ngIf="!loading; else loadingData">

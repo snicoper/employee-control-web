@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: '404',
     component: Error404Component,
-    data: { title: 'Pagina no encontrada' }
+    data: { title: 'Página no encontrada' }
   }
 ];
 

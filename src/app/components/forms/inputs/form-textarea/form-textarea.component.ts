@@ -1,6 +1,6 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BadRequest } from '../../../../models/types/_index';
+import { BadRequest } from '../../../../models/_index';
 
 @Component({
   selector: 'aw-form-textarea',

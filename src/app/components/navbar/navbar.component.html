@@ -22,8 +22,9 @@
             aria-current="page"
             [routerLink]="[siteUrls.home]"
             routerLinkActive="active"
-            >Inicio</a
           >
+            Inicio
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link cursor-pointer">Login</a>
@@ -35,7 +36,9 @@
           <ul class="dropdown-menu border-0">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
             <li><a (click)="logOut()" class="dropdown-item cursor-pointer">Log out</a></li>
           </ul>
         </li>

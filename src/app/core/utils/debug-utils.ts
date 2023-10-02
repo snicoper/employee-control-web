@@ -8,7 +8,7 @@ import { AppEnvironments } from '../constants/app-environments';
  * @param errors Errores a mostrar.
  */
 export const debugErrors = (...errors: string[]): void => {
-  if (AppEnvironments.isDebug === true) {
+  if (AppEnvironments.isDebug) {
     errors.forEach((error) => console.error(error));
   }
 };
@@ -21,7 +21,7 @@ export const debugErrors = (...errors: string[]): void => {
  * @param message Mensaje a mostrar.
  */
 export const raiseError = (message: string): void => {
-  if (AppEnvironments.isDebug === true) {
+  if (AppEnvironments.isDebug) {
     throw new Error(message);
   } else {
     throw new Error('Ha ocurrido un error en la aplicación');
@@ -32,11 +32,12 @@ export const raiseError = (message: string): void => {
  * Pinta un console.log() solo si isDebug es true.
  *
  * @param message Mensaje de log a mostrar.
+ * @param key Clave del mensaje.
  */
 export const consoleLog = (message: string, key = ''): void => {
   key = key === '' ? '' : `DEV - ${key}: `;
 
-  if (AppEnvironments.isDebug === true) {
+  if (AppEnvironments.isDebug) {
     console.log(key, message);
   }
 };

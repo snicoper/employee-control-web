@@ -4,7 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { apiUrls, siteUrls } from '../../../core/urls/_index';
-import { BadRequest, FormInputTypes } from '../../../models/types/_index';
+import { BadRequest } from '../../../models/bad-request';
+import { FormInputTypes } from '../../../models/types/_index';
 import { JwtTokenService } from '../../../services/_index';
 import { AuthRestService } from '../../../services/rest/_index';
 import { LoginResponse } from './login-response';

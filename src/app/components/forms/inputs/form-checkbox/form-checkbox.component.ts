@@ -1,6 +1,6 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BadRequest } from '../../../../models/types/_index';
+import { BadRequest } from '../../../../models/bad-request';
 
 @Component({
   selector: 'aw-form-checkbox',
