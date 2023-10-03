@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 export class HttpResponseInterceptor implements HttpInterceptor {
   private readonly localizationService = inject(LocalizationService);
 
-  /** RequestData pasados por Headers en todas las peticiones. */
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (!request.headers.has('Accept-Language')) {
       request = request.clone({

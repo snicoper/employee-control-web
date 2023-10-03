@@ -1,4 +1,4 @@
-import { replaceUrlParams } from './common-utils';
+import { replaceStringParams } from './common-utils';
 
 /** URLs en la APP. */
 export const SiteUrls = {
@@ -18,5 +18,5 @@ export const SiteUrls = {
    * @param url Una de las propiedades.
    * @param args Remplaza el {key} por el value de.
    */
-  replace: (url: string, args: Record<string, string>): string => replaceUrlParams(url, args)
+  replace: (url: string, args: Record<string, string>): string => replaceStringParams(url, args)
 };

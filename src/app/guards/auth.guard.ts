@@ -11,7 +11,16 @@ export class AuthGuard {
   private readonly toastr = inject(ToastrService);
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (!this.jwtTokenService.getToken()) {
+    this.jwtTokenService
+      .tryRefreshToken()
+      .then(() => this.checkRoles(route, state))
+      .catch(() => false);
+
+    return true;
+  }
+
+  private checkRoles(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.jwtTokenService.isExpired() && !this.jwtTokenService.getToken()) {
       this.toastr.error('Requiere autorización para acceder a la página.');
       this.router.navigate([SiteUrls.login], { queryParams: { returnUrl: state.url } });
 

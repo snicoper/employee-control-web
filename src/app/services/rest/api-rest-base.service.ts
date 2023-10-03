@@ -32,10 +32,10 @@ export abstract class ApiRestBaseService {
    * @param urlPart Parte de la url base a concatenar.
    * @returns TEntity creado.
    */
-  post<TEntity>(entity: TEntity, urlPart = ''): Observable<TEntity> {
+  post<TEntity, TResult>(entity: TEntity, urlPart = ''): Observable<TResult> {
     urlPart = urlPart.length > 0 ? `/${urlPart}` : '';
     const url = `${this.baseUrl}${urlPart}`;
 
-    return this.http.post<TEntity>(url, entity);
+    return this.http.post<TResult>(url, entity);
   }
 }

@@ -8,7 +8,8 @@ import { BadRequest } from '@models/_index';
 import { JwtTokenService } from '@services/_index';
 import { AuthRestService } from '@services/rest/_index';
 import { finalize } from 'rxjs';
-import { LoginResponse } from './login-response';
+import { LoginModel } from './login.model';
+import { LoginResponse } from './login.response';
 
 @Component({
   selector: 'aw-login',
@@ -43,13 +44,14 @@ export class LoginComponent {
     }
 
     this.loading = true;
+    const formValue = this.form.value as LoginModel;
 
     this.authRestService
-      .post(this.form.value, ApiUrls.login)
+      .post<LoginModel, LoginResponse>(formValue, ApiUrls.login)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (result: LoginResponse) => {
-          this.jwtTokenService.setToken(result.token);
+          this.jwtTokenService.setToken(result.accessToken, result.refreshToken);
 
           if (this.jwtTokenService.getToken()) {
             const returnUrl = (this.route.snapshot.params['returnUrl'] as string) || '/';

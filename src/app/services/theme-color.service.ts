@@ -1,17 +1,14 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { ThemeColor } from '@core/types/_index';
-import { LocalStorageService } from './local-storage.service';
+import { Injectable, signal } from '@angular/core';
+import { LocalStorageItems, ThemeColor } from '@core/types/_index';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeColorService {
-  private readonly localStorageService = inject(LocalStorageService);
-
   private readonly theme$ = signal(ThemeColor.auto);
 
   private colorStorage = ThemeColor.auto;
 
   initialize(): void {
-    this.colorStorage = (this.localStorageService.get('theme') as ThemeColor) || ThemeColor.auto;
+    this.colorStorage = (localStorage.getItem(LocalStorageItems.theme) as ThemeColor) || ThemeColor.auto;
 
     if (this.colorStorage === ThemeColor.auto) {
       // Establecer el color del sistema.
@@ -29,7 +26,7 @@ export class ThemeColorService {
 
   setTheme(theme: ThemeColor): void {
     if (!this.colorStorage || theme !== this.theme$()) {
-      this.localStorageService.set('theme', theme);
+      localStorage.setItem(LocalStorageItems.theme, theme);
     }
 
     document.documentElement.setAttribute('data-bs-theme', theme);

@@ -18,7 +18,7 @@ export const createGuid = (): string => {
  * @param url Una de las propiedades.
  * @param args Remplaza el {key} por el value de.
  */
-export const replaceUrlParams = (url: string, args: Record<string, string>): string => {
+export const replaceStringParams = (url: string, args: Record<string, string>): string => {
   const keys = Object.keys(args);
   const values = Object.values(args);
 

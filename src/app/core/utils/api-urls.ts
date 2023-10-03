@@ -1,9 +1,10 @@
-import { replaceUrlParams } from './common-utils';
+import { replaceStringParams } from './common-utils';
 
 /** URLs en la API. */
 export const ApiUrls = {
-  /** Auth. */
+  /** Identity. */
   login: 'identity/login',
+  refreshToken: 'identity/refresh-token',
 
   /**
    * Utiliza una de las propiedades de siteUrls para remplazar {algo} por valor en los args.
@@ -11,5 +12,5 @@ export const ApiUrls = {
    * @param url Una de las propiedades.
    * @param args Remplaza el {key} por el value de.
    */
-  replace: (url: string, args: Record<string, string>): string => replaceUrlParams(url, args)
+  replace: (url: string, args: Record<string, string>): string => replaceStringParams(url, args)
 };

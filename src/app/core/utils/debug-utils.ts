@@ -1,7 +1,5 @@
 import { AppEnvironments } from './app-environments';
 
-/** Errores que solo se mostraran en desarrollo. */
-
 /**
  * Muestra una lista de errores solo si se esta en desarrollo.
  *

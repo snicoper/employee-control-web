@@ -45,7 +45,7 @@ export class ErrorRequestInterceptor implements HttpInterceptor {
 
   /** Manejar error de unauthorized.  */
   private handleUnauthorized(): void {
-    // Nothing.
+    this.router.navigate([SiteUrls.login]);
   }
 
   /** Manejar error de forbidden.  */
