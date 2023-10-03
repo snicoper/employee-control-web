@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class HttpResponseInterceptor implements HttpInterceptor {
-  /** Injects. */
   private readonly localizationService = inject(LocalizationService);
 
   /** RequestData pasados por Headers en todas las peticiones. */

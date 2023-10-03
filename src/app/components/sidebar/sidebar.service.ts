@@ -3,7 +3,6 @@ import { SidebarStates } from './sidebar-states';
 
 @Injectable()
 export class SidebarService {
-  /** Signals. */
   readonly sidebarState$ = signal(SidebarStates.open);
 
   toggle(): void {

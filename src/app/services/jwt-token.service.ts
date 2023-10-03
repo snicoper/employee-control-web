@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { AuthService } from './auth.service';
@@ -6,15 +6,15 @@ import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class JwtTokenService {
+  private readonly route = inject(Router);
+  private readonly localStorageService = inject(LocalStorageService);
+  private readonly authService = inject(AuthService);
+
   private tokenDecode: { [key: string]: unknown } = {};
   private isTokenExpired = true;
   private token = '';
 
-  constructor(
-    private route: Router,
-    private localStorageService: LocalStorageService,
-    private authService: AuthService
-  ) {
+  constructor() {
     const token = this.localStorageService.get('token') as string;
     this.setToken(token);
   }

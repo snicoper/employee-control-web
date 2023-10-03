@@ -1,4 +1,4 @@
-import { replaceUrlParams } from '../utils/_index';
+import { replaceUrlParams } from './common-utils';
 
 /** URLs en la APP. */
 export const SiteUrls = {

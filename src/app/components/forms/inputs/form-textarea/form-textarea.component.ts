@@ -18,6 +18,7 @@ import { BadRequest } from '../../../../models/_index';
   ]
 })
 export class FormTextareaComponent implements ControlValueAccessor {
+  /** Inputs. */
   @Input() id = '';
   @Input() form: FormGroup | undefined;
   @Input() fieldName = '';
@@ -29,6 +30,7 @@ export class FormTextareaComponent implements ControlValueAccessor {
   @Input() rows = 3;
   @Input() cols = 0;
 
+  /** Properties. */
   value = '';
   isDisabled = false;
 

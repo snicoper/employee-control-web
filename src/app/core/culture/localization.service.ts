@@ -9,7 +9,6 @@ import { LocalesSupported } from './locales-supported';
 
 @Injectable({ providedIn: 'root' })
 export class LocalizationService {
-  /** Signals. */
   readonly locale$ = signal(DateTimeUtils.defaultLocale);
 
   getCultureValue(): LocalesSupported {

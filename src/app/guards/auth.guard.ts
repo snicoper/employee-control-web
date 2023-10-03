@@ -1,16 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { SiteUrls } from '@core/utils/_index';
+import { JwtTokenService } from '@services/_index';
 import { ToastrService } from 'ngx-toastr';
-import { SiteUrls } from '../core/utils/_index';
-import { JwtTokenService } from '../services/_index';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard {
-  constructor(
-    private router: Router,
-    private jwtTokenService: JwtTokenService,
-    private toastr: ToastrService
-  ) {}
+  private readonly router = inject(Router);
+  private readonly jwtTokenService = inject(JwtTokenService);
+  private readonly toastr = inject(ToastrService);
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (!this.jwtTokenService.getToken()) {

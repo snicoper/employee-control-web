@@ -1,4 +1,4 @@
-import { OrderTypes } from '../../../core/api-result/_index';
+import { OrderTypes } from '@core/api-result/_index';
 
 export interface ITableHeaderField {
   field: string;

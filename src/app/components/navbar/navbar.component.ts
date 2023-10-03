@@ -1,8 +1,8 @@
 import { Component, computed, inject } from '@angular/core';
-import { AppEnvironments, SiteUrls } from '../../core/utils/_index';
-import { AuthService, JwtTokenService } from '../../services/_index';
-import { SidebarStates } from '../sidebar/sidebar-states';
-import { SidebarService } from '../sidebar/sidebar.service';
+import { SidebarStates } from '@components/sidebar/sidebar-states';
+import { SidebarService } from '@components/sidebar/sidebar.service';
+import { AppEnvironments, SiteUrls } from '@core/utils/_index';
+import { AuthService, JwtTokenService } from '@services/_index';
 
 @Component({
   selector: 'aw-navbar',
@@ -10,18 +10,15 @@ import { SidebarService } from '../sidebar/sidebar.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  /** Injects. */
   private readonly sidebarService = inject(SidebarService);
   private readonly jwtTokenService = inject(JwtTokenService);
   private readonly authService = inject(AuthService);
 
-  /** Properties. */
   userName = this.jwtTokenService.getName();
   siteName = AppEnvironments.siteName;
   siteUrls = SiteUrls;
   sidebarStates = SidebarStates;
 
-  /** Computed. */
   readonly sidebarState$ = computed(() => this.sidebarService.sidebarState$());
   readonly authState$ = computed(() => this.authService.authValue$);
 

@@ -4,14 +4,11 @@ import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeColorService {
-  /** Injects. */
   private readonly localStorageService = inject(LocalStorageService);
 
-  /** Properties. */
-  private colorStorage = ThemeColor.auto;
-
-  /** Signals. */
   private readonly theme$ = signal(ThemeColor.auto);
+
+  private colorStorage = ThemeColor.auto;
 
   initialize(): void {
     this.colorStorage = (this.localStorageService.get('theme') as ThemeColor) || ThemeColor.auto;

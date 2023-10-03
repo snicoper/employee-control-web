@@ -1,5 +1,5 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormInputTypes } from '@core/types/_index';
@@ -16,6 +16,12 @@ import { LoginResponse } from './login-response';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  private readonly fb = inject(FormBuilder);
+  private readonly authRestService = inject(AuthRestService);
+  private readonly jwtTokenService = inject(JwtTokenService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+
   form: FormGroup;
   badRequest: BadRequest | undefined;
   submitted = false;
@@ -24,13 +30,7 @@ export class LoginComponent {
   loading = false;
   siteUrls = SiteUrls;
 
-  constructor(
-    private fb: FormBuilder,
-    private authRestService: AuthRestService,
-    private jwtTokenService: JwtTokenService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
+  constructor() {
     this.form = this.fb.group({});
     this.buildForm();
   }

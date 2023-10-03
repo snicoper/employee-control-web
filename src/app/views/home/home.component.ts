@@ -7,7 +7,6 @@ import { JwtTokenService, LayoutService, ThemeColorService } from '@services/_in
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  /** Injects. */
   private layoutService = inject(LayoutService);
   private jwtTokenService = inject(JwtTokenService);
   private themeColorService = inject(ThemeColorService);

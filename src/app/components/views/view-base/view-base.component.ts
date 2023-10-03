@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, computed, inject } from '@angular/core';
-import { LayoutService } from '../../../services/_index';
+import { LayoutService } from '@services/_index';
 
 @Component({
   selector: 'aw-view-base',
@@ -7,10 +7,8 @@ import { LayoutService } from '../../../services/_index';
   styleUrls: ['./view-base.component.scss']
 })
 export class ViewBaseComponent implements OnInit {
-  /** Injects. */
   private readonly layoutService = inject(LayoutService);
 
-  /** Inputs. */
   @Input() cssContent = 'container-fluid';
   @Input() showPageTitle = true;
   @Input() pageTitle = '';
@@ -19,7 +17,6 @@ export class ViewBaseComponent implements OnInit {
   @Input() showSidebar = true;
   @Input() showFooter = true;
 
-  /** Computed. */
   readonly showNavbar$ = computed(() => this.layoutService.showNavbar$());
   readonly showSidebar$ = computed(() => this.layoutService.showSidebar$());
   readonly showFooter$ = computed(() => this.layoutService.showFooter$());

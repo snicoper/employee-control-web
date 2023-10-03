@@ -6,19 +6,17 @@ import {
   HttpRequest,
   HttpStatusCode
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { SiteUrls, debugErrors, toastForNotificationErrors } from '@core/utils/_index';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { SiteUrls, debugErrors, toastForNotificationErrors } from '../core/utils/_index';
 
 @Injectable()
 export class ErrorRequestInterceptor implements HttpInterceptor {
-  constructor(
-    private router: Router,
-    private toastrService: ToastrService
-  ) {}
+  private readonly router = inject(Router);
+  private readonly toastrService = inject(ToastrService);
 
   /** Handle error de la aplicación. */
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
