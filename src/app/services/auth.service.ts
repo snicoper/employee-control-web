@@ -6,7 +6,7 @@ export class AuthService {
 
   readonly authValue$ = computed(() => this.auth$());
 
-  setAuthValue(auth: boolean): void {
-    this.auth$.set(auth);
+  setAuthValue(value: boolean): void {
+    this.auth$.set(value);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ThemeColor } from '@core/types/_index';
+import { ThemeColors } from '@core/types/_index';
 import { JwtTokenService, LayoutService, ThemeColorService } from '@services/_index';
 
 @Component({
@@ -23,8 +23,8 @@ export class HomeComponent {
     return this.jwtTokenService.getRoles();
   }
 
-  logOut(): void {
-    this.jwtTokenService.clean(true);
+  handleLogOut(): void {
+    this.jwtTokenService.removeTokens();
   }
 
   handleToggleNavbar(): void {
@@ -40,7 +40,7 @@ export class HomeComponent {
   }
 
   handleChangeThemeColor(): void {
-    const color = this.themeColorService.getThemeValue() === ThemeColor.dark ? ThemeColor.light : ThemeColor.dark;
+    const color = this.themeColorService.getThemeValue() === ThemeColors.dark ? ThemeColors.light : ThemeColors.dark;
     this.themeColorService.setTheme(color);
   }
 }

@@ -25,6 +25,6 @@ export class SidebarComponent {
   }
 
   handleLogOut(): void {
-    this.jwtTokenService.clean();
+    this.jwtTokenService.removeTokens();
   }
 }

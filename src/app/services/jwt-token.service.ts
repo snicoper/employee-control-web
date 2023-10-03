@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { LocalStorageItems } from '@core/types/local-storage-items';
+import { LocalStorageKeys } from '@core/types/local-storage-keys';
 import { ApiUrls } from '@core/utils/api-urls';
 import { RefreshTokenModel, RefreshTokenResponse } from '@models/rest/_index';
 import jwtDecode from 'jwt-decode';
@@ -19,31 +19,24 @@ export class JwtTokenService {
   private refreshToken = '';
 
   constructor() {
-    this.accessToken = localStorage.getItem(LocalStorageItems.accessToken) as string;
-    this.refreshToken = localStorage.getItem(LocalStorageItems.refreshToken) as string;
+    const accessToken = localStorage.getItem(LocalStorageKeys.accessToken) as string;
+    const refreshToken = localStorage.getItem(LocalStorageKeys.refreshToken) as string;
 
-    this.setToken(this.accessToken, this.refreshToken);
+    this.setTokens(accessToken, refreshToken, false);
   }
 
-  setToken(accessToken: string, refreshToken: string): void {
-    if (!accessToken || !refreshToken) {
+  setTokens(accessToken: string, refreshToken: string, storeTokens = true): void {
+    if (!accessToken && !refreshToken) {
       return;
     }
 
-    this.clean();
+    this.tokenDecode = jwtDecode(accessToken);
     this.accessToken = accessToken;
     this.refreshToken = refreshToken;
-    this.tokenDecode = jwtDecode(accessToken);
 
-    if (!Object.hasOwn(this.tokenDecode, 'exp')) {
-      this.clean();
-
-      return;
-    }
-
-    if (!this.isExpired()) {
-      localStorage.setItem(LocalStorageItems.accessToken, this.accessToken);
-      localStorage.setItem(LocalStorageItems.refreshToken, this.refreshToken);
+    if (storeTokens) {
+      localStorage.setItem(LocalStorageKeys.accessToken, accessToken);
+      localStorage.setItem(LocalStorageKeys.refreshToken, refreshToken);
     }
 
     this.authService.setAuthValue(true);
@@ -51,7 +44,7 @@ export class JwtTokenService {
 
   tryRefreshToken(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      if (!this.isExpired()) {
+      if (this.accessToken && !this.isExpired()) {
         return;
       }
 
@@ -60,14 +53,13 @@ export class JwtTokenService {
       this.authRestService.post<RefreshTokenModel, RefreshTokenResponse>(model, ApiUrls.refreshToken).subscribe({
         next: (result: RefreshTokenResponse) => {
           if (result.accessToken) {
-            this.setToken(result.accessToken, result.refreshToken);
+            this.setTokens(result.accessToken, result.refreshToken);
             resolve(true);
           }
         },
         error: (error: HttpErrorResponse) => {
           if (error.status === HttpStatusCode.Unauthorized) {
-            this.clean();
-            localStorage.removeItem(LocalStorageItems.refreshToken);
+            this.removeTokens();
             reject();
           }
         }
@@ -76,10 +68,15 @@ export class JwtTokenService {
   }
 
   isExpired(): boolean {
-    const exp = this.tokenDecode['exp'] as string;
-    const expired = parseInt(exp);
+    if (!this.accessToken || !this.tokenDecode) {
+      this.clean();
 
-    if (!expired || Date.now() >= expired * 1000) {
+      return true;
+    }
+
+    const expire = this.tokenDecode['exp'] as number;
+
+    if (!expire || Date.now() >= expire * 1000) {
       this.clean();
 
       return true;
@@ -89,15 +86,15 @@ export class JwtTokenService {
   }
 
   getToken(): string {
-    if (!this.accessToken || this.isExpired()) {
-      if (this.accessToken) {
-        this.tryRefreshToken();
-      }
-
-      this.clean();
-    }
-
     return this.accessToken;
+  }
+
+  getRefreshToken(): string {
+    return this.refreshToken;
+  }
+
+  isInRole(role: string): boolean {
+    return !!this.getRole(role);
   }
 
   getRole(role: string): string[] | string | null {
@@ -109,10 +106,6 @@ export class JwtTokenService {
     }
 
     return null;
-  }
-
-  isInRole(role: string): boolean {
-    return !!this.getRole(role);
   }
 
   getRoles(): string[] {
@@ -145,8 +138,14 @@ export class JwtTokenService {
     return this.tokenDecode[key] as string;
   }
 
+  removeTokens(): void {
+    localStorage.removeItem(LocalStorageKeys.refreshToken);
+    this.refreshToken = '';
+    this.clean(true);
+  }
+
   clean(redirectToLogin = false): void {
-    localStorage.removeItem(LocalStorageItems.accessToken);
+    localStorage.removeItem(LocalStorageKeys.accessToken);
     this.authService.setAuthValue(false);
     this.accessToken = '';
     this.tokenDecode = {};

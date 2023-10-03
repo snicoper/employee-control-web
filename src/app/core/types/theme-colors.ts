@@ -1,5 +1,5 @@
 /** Colores soportados para el SCSS. */
-export enum ThemeColor {
+export enum ThemeColors {
   auto = 'auto',
   dark = 'dark',
   light = 'light'

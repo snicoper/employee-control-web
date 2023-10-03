@@ -1,32 +1,32 @@
 import { Injectable, signal } from '@angular/core';
-import { LocalStorageItems, ThemeColor } from '@core/types/_index';
+import { LocalStorageKeys, ThemeColors } from '@core/types/_index';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeColorService {
-  private readonly theme$ = signal(ThemeColor.auto);
+  private readonly theme$ = signal(ThemeColors.auto);
 
-  private colorStorage = ThemeColor.auto;
+  private colorStorage = ThemeColors.auto;
 
   initialize(): void {
-    this.colorStorage = (localStorage.getItem(LocalStorageItems.theme) as ThemeColor) || ThemeColor.auto;
+    this.colorStorage = (localStorage.getItem(LocalStorageKeys.theme) as ThemeColors) || ThemeColors.auto;
 
-    if (this.colorStorage === ThemeColor.auto) {
+    if (this.colorStorage === ThemeColors.auto) {
       // Establecer el color del sistema.
       this.colorStorage = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? ThemeColor.dark
-        : ThemeColor.light;
+        ? ThemeColors.dark
+        : ThemeColors.light;
     }
 
     this.setTheme(this.colorStorage);
   }
 
-  getThemeValue(): ThemeColor {
+  getThemeValue(): ThemeColors {
     return this.theme$();
   }
 
-  setTheme(theme: ThemeColor): void {
+  setTheme(theme: ThemeColors): void {
     if (!this.colorStorage || theme !== this.theme$()) {
-      localStorage.setItem(LocalStorageItems.theme, theme);
+      localStorage.setItem(LocalStorageKeys.theme, theme);
     }
 
     document.documentElement.setAttribute('data-bs-theme', theme);

@@ -1,5 +1,5 @@
 export { FormInputTypes } from './form-input-types';
-export { LocalStorageItems } from './local-storage-items';
+export { LocalStorageKeys } from './local-storage-keys';
 export { Roles } from './roles';
-export { ThemeColor } from './theme-color';
+export { ThemeColors } from './theme-colors';
 export { ValidationErrors } from './validation-errors';

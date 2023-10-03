@@ -52,7 +52,7 @@ export class LoginComponent {
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (result: LoginResponse) => {
-          this.jwtTokenService.setToken(result.accessToken, result.refreshToken);
+          this.jwtTokenService.setTokens(result.accessToken, result.refreshToken);
 
           if (this.jwtTokenService.getToken()) {
             const returnUrl = (this.route.snapshot.params['returnUrl'] as string) || '/';
