@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { AwSpinnerModule } from '../spinner/aw-spinner.module';
+import { AwSpinnerModule } from '@components/spinner/aw-spinner.module';
 import { TableHeaderComponent } from './table-header/table-header.component';
 import { TableComponent } from './table/table.component';
 
