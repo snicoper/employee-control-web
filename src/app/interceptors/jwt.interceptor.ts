@@ -1,11 +1,11 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { JwtTokenService } from '@services/_index';
+import { JwtService } from '@services/_index';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  private readonly jwtTokenService = inject(JwtTokenService);
+  private readonly jwtService = inject(JwtService);
 
   /** RequestData pasados por Headers en todas las peticiones. */
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -15,7 +15,7 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   private setAuthorization(request: HttpRequest<unknown>): HttpRequest<unknown> {
-    const token = this.jwtTokenService.getToken();
+    const token = this.jwtService.getToken();
 
     if (token && !request.headers.has('Authorization')) {
       request = request.clone({

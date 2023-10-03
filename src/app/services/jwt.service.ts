@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
 import { AuthRestService } from './rest/auth-rest.service';
 
 @Injectable({ providedIn: 'root' })
-export class JwtTokenService {
+export class JwtService {
   private readonly route = inject(Router);
   private readonly authService = inject(AuthService);
   private readonly authRestService = inject(AuthRestService);

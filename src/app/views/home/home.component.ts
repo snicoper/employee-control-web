@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ThemeColors } from '@core/types/_index';
-import { JwtTokenService, LayoutService, ThemeColorService } from '@services/_index';
+import { JwtService, LayoutService, ThemeColorService } from '@services/_index';
 
 @Component({
   selector: 'aw-home',
@@ -8,23 +8,23 @@ import { JwtTokenService, LayoutService, ThemeColorService } from '@services/_in
 })
 export class HomeComponent {
   private layoutService = inject(LayoutService);
-  private jwtTokenService = inject(JwtTokenService);
+  private jwtService = inject(JwtService);
   private themeColorService = inject(ThemeColorService);
 
   getUserId(): string {
-    return this.jwtTokenService.getSid();
+    return this.jwtService.getSid();
   }
 
   getUserName(): string {
-    return this.jwtTokenService.getName();
+    return this.jwtService.getName();
   }
 
   getRoles(): string[] {
-    return this.jwtTokenService.getRoles();
+    return this.jwtService.getRoles();
   }
 
   handleLogOut(): void {
-    this.jwtTokenService.removeTokens();
+    this.jwtService.removeTokens();
   }
 
   handleToggleNavbar(): void {

@@ -1,6 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { SiteUrls } from '@core/utils/_index';
-import { AuthService, JwtTokenService } from '@services/_index';
+import { AuthService, JwtService } from '@services/_index';
 import { SidebarStates } from './sidebar-states';
 import { SidebarService } from './sidebar.service';
 
@@ -11,7 +11,7 @@ import { SidebarService } from './sidebar.service';
 })
 export class SidebarComponent {
   private readonly sidebarService = inject(SidebarService);
-  private readonly jwtTokenService = inject(JwtTokenService);
+  private readonly jwtService = inject(JwtService);
   private readonly authService = inject(AuthService);
 
   siteUrls = SiteUrls;
@@ -25,6 +25,6 @@ export class SidebarComponent {
   }
 
   handleLogOut(): void {
-    this.jwtTokenService.removeTokens();
+    this.jwtService.removeTokens();
   }
 }

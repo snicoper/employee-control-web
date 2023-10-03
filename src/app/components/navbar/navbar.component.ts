@@ -2,7 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { SidebarStates } from '@components/sidebar/sidebar-states';
 import { SidebarService } from '@components/sidebar/sidebar.service';
 import { AppEnvironments, SiteUrls } from '@core/utils/_index';
-import { AuthService, JwtTokenService } from '@services/_index';
+import { AuthService, JwtService } from '@services/_index';
 
 @Component({
   selector: 'aw-navbar',
@@ -11,10 +11,10 @@ import { AuthService, JwtTokenService } from '@services/_index';
 })
 export class NavbarComponent {
   private readonly sidebarService = inject(SidebarService);
-  private readonly jwtTokenService = inject(JwtTokenService);
+  private readonly jwtService = inject(JwtService);
   private readonly authService = inject(AuthService);
 
-  userName = this.jwtTokenService.getName();
+  userName = this.jwtService.getName();
   siteName = AppEnvironments.siteName;
   siteUrls = SiteUrls;
   sidebarStates = SidebarStates;
@@ -27,6 +27,6 @@ export class NavbarComponent {
   }
 
   logOut(): void {
-    this.jwtTokenService.clean();
+    this.jwtService.clean();
   }
 }

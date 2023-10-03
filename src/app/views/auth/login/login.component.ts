@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormInputTypes } from '@core/types/_index';
 import { ApiUrls, SiteUrls } from '@core/utils/_index';
 import { BadRequest } from '@models/_index';
-import { JwtTokenService } from '@services/_index';
+import { JwtService } from '@services/_index';
 import { AuthRestService } from '@services/rest/_index';
 import { finalize } from 'rxjs';
 import { LoginModel } from './login.model';
@@ -19,7 +19,7 @@ import { LoginResponse } from './login.response';
 export class LoginComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authRestService = inject(AuthRestService);
-  private readonly jwtTokenService = inject(JwtTokenService);
+  private readonly jwtService = inject(JwtService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
@@ -52,9 +52,9 @@ export class LoginComponent {
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (result: LoginResponse) => {
-          this.jwtTokenService.setTokens(result.accessToken, result.refreshToken);
+          this.jwtService.setTokens(result.accessToken, result.refreshToken);
 
-          if (this.jwtTokenService.getToken()) {
+          if (this.jwtService.getToken()) {
             const returnUrl = (this.route.snapshot.params['returnUrl'] as string) || '/';
             this.router.navigateByUrl(returnUrl);
           }

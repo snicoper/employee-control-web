@@ -1,23 +1,23 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { SiteUrls } from '@core/utils/_index';
-import { JwtTokenService } from '@services/_index';
+import { JwtService } from '@services/_index';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard {
   private readonly router = inject(Router);
-  private readonly jwtTokenService = inject(JwtTokenService);
+  private readonly jwtService = inject(JwtService);
   private readonly toastr = inject(ToastrService);
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (!this.jwtTokenService.getRefreshToken()) {
+    if (!this.jwtService.getRefreshToken()) {
       this.navigateToLogin(state);
 
       return false;
     }
 
-    this.jwtTokenService
+    this.jwtService
       .tryRefreshToken()
       .then(() => this.checkRoles(route, state))
       .catch(() => this.navigateToLogin(state));
@@ -26,7 +26,7 @@ export class AuthGuard {
   }
 
   private checkRoles(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const userRoles = this.jwtTokenService.getRoles();
+    const userRoles = this.jwtService.getRoles();
     const { roles } = route.data;
 
     if (!roles) {
