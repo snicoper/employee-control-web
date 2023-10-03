@@ -2,12 +2,12 @@ import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormInputTypes } from '@core/types/_index';
+import { ApiUrls, SiteUrls } from '@core/utils/_index';
+import { BadRequest } from '@models/_index';
+import { JwtTokenService } from '@services/_index';
+import { AuthRestService } from '@services/rest/_index';
 import { finalize } from 'rxjs';
-import { FormInputTypes } from '../../../core/types/_index';
-import { ApiUrls, SiteUrls } from '../../../core/utils/_index';
-import { BadRequest } from '../../../models/bad-request';
-import { JwtTokenService } from '../../../services/_index';
-import { AuthRestService } from '../../../services/rest/_index';
 import { LoginResponse } from './login-response';
 
 @Component({

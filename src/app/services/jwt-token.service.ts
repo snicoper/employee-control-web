@@ -59,8 +59,6 @@ export class JwtTokenService {
   getToken(): string {
     if (!this.token || this.isExpired()) {
       this.clean();
-
-      return '';
     }
 
     return this.token;

@@ -1,17 +1,16 @@
-import { Component } from '@angular/core';
-import { ThemeColor } from '../../core/types/_index';
-import { JwtTokenService, LayoutService, ThemeColorService } from '../../services/_index';
+import { Component, inject } from '@angular/core';
+import { ThemeColor } from '@core/types/_index';
+import { JwtTokenService, LayoutService, ThemeColorService } from '@services/_index';
 
 @Component({
   selector: 'aw-home',
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  constructor(
-    private layoutService: LayoutService,
-    private jwtTokenService: JwtTokenService,
-    private themeColorService: ThemeColorService
-  ) {}
+  /** Injects. */
+  private layoutService = inject(LayoutService);
+  private jwtTokenService = inject(JwtTokenService);
+  private themeColorService = inject(ThemeColorService);
 
   getUserId(): string {
     return this.jwtTokenService.getSid();

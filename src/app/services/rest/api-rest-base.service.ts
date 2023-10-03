@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AppEnvironments } from '@core/utils/_index';
 import { Observable } from 'rxjs';
-import { AppEnvironments } from '../../core/utils/_index';
 
 @Injectable({ providedIn: 'root' })
 export abstract class ApiRestBaseService {

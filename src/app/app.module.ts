@@ -5,8 +5,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppConfig } from './core/config/_index';
-import { ApiResultRequestInterceptor, ErrorRequestInterceptor, JwtInterceptor } from './interceptors/_index';
+import {
+  ApiResultRequestInterceptor,
+  ErrorRequestInterceptor,
+  HttpResponseInterceptor,
+  JwtInterceptor
+} from './interceptors/_index';
+import { AppConfig } from '@core/config/_index';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +34,7 @@ import { ApiResultRequestInterceptor, ErrorRequestInterceptor, JwtInterceptor } 
     },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorRequestInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpResponseInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ApiResultRequestInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

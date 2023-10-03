@@ -1,4 +1,4 @@
-import { AppEnvironments } from './_index';
+import { AppEnvironments } from './app-environments';
 
 /** Errores que solo se mostraran en desarrollo. */
 
