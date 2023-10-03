@@ -28,6 +28,7 @@ export class ViewTitleComponent implements OnInit {
 
   private setTitle(pageTitle?: string): void {
     let title = AppEnvironments.siteName;
+
     if (pageTitle) {
       title = `${pageTitle} - ${title}`;
     }

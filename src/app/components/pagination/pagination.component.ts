@@ -65,6 +65,7 @@ export class PaginationComponent<T> implements OnChanges {
   /** Obtener rango de paginas desde 1 a total paginas. */
   pageRange(): number[] {
     const pages = [];
+
     for (let i = this.firstPage; i <= this.lastPage; i += 1) {
       pages.push(i);
     }

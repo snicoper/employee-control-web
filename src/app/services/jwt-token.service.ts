@@ -117,6 +117,7 @@ export class JwtTokenService {
 
   getRoles(): string[] {
     const key = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
+
     if (!this.accessToken || !(key in this.tokenDecode)) {
       return [];
     }
@@ -126,6 +127,7 @@ export class JwtTokenService {
 
   getName(): string {
     const key = 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name';
+
     if (!this.accessToken || !(key in this.tokenDecode)) {
       return '';
     }
@@ -135,6 +137,7 @@ export class JwtTokenService {
 
   getSid(): string {
     const key = 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid';
+
     if (!this.accessToken || !(key in this.tokenDecode)) {
       return '';
     }

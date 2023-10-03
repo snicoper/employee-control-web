@@ -7,6 +7,7 @@ export abstract class FormatUtils {
    */
   static formatSizeUnit(value: number): string {
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+
     if (value === 0) {
       return '0 Byte';
     }

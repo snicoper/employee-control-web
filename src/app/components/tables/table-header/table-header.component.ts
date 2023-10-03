@@ -53,8 +53,9 @@ export class TableHeaderComponent<T> {
   }
 
   private removeOrderItemIfExists(header: ITableHeaderField): void {
-    this.apiResult = ApiResult.clone(this.apiResult);
     const item = this.getHttpApiResultItemByHeader(header);
+    this.apiResult = ApiResult.clone(this.apiResult);
+
     if (item) {
       this.apiResult.removeOrder(item);
     }

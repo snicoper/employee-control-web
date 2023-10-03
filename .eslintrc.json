@@ -77,6 +77,11 @@
           {
             "blankLine": "always",
             "prev": "block-like",
+            "next": "*"
+          },
+          {
+            "blankLine": "always",
+            "prev": "*",
             "next": "block-like"
           }
         ]
