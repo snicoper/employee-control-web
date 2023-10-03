@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { AppEnvironments } from '@core/utils/_index';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export abstract class ApiRestBaseService {
+  protected readonly http = inject(HttpClient);
+
   protected baseUrl: string;
 
-  constructor(protected http: HttpClient) {
+  constructor() {
     this.baseUrl = AppEnvironments.baseApiUrl;
   }
 
