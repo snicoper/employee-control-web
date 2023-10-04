@@ -1,7 +1,7 @@
 import { FormGroup } from '@angular/forms';
 
-/** Custom validator para comprobar que la fecha inicio sea menor a fecha final. */
-export const startGreaterThanFinish =
+/** Custom validator para comprobar que una fecha sea menor a otra. */
+export const dateStartGreaterThanFinish =
   (controlName: string, checkControlName: string) =>
   (formGroup: FormGroup): void => {
     const control = formGroup.controls[controlName];

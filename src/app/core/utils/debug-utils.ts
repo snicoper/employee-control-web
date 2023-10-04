@@ -23,21 +23,6 @@ export const raiseError = (message: string): void => {
   if (AppEnvironments.isDebug) {
     throw new Error(message);
   } else {
-    throw new Error('Ha ocurrido un error en la aplicación');
-  }
-};
-
-/**
- * Pinta un console.log() solo si isDebug es true.
- *
- * @param message Mensaje de log a mostrar.
- * @param key Clave del mensaje.
- */
-export const consoleLog = (message: string, key = ''): void => {
-  key = key === '' ? '' : `DEV - ${key}: `;
-
-  if (AppEnvironments.isDebug) {
-    // eslint-disable-next-line
-    console.log(key, message);
+    throw new Error('Ha ocurrido un error en la aplicación.');
   }
 };

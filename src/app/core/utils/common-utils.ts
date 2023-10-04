@@ -1,6 +1,10 @@
 import { ToastrService } from 'ngx-toastr';
 
-/** Crea un Guid. */
+/**
+ * Crea un Guid.
+ *
+ * @returns Guid creado.
+ */
 export const createGuid = (): string => {
   const s4 = (): string =>
     Math.floor((1 + Math.random()) * 0x10000)
@@ -34,11 +38,9 @@ export const replaceStringParams = (url: string, args: Record<string, string>): 
 };
 
 /**
- * Comprueba si ha habido errores en la respuesta http y * en caso de haberlos,
- * mostrara los errores en un toast.
- * Solo mostrara los 400 con notificationErrors.
+ * Muestra una lista de errores con toastr.
  *
- * @param errors Errores obtenidos de una consulta a la API.
+ * @param errors Errores a mostrar con toastr.
  * @param toastrService Servicio para mostrar los errores.
  */
 export const toastForNotificationErrors = (errors: string[], toastrService: ToastrService): void => {
