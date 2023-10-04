@@ -8,34 +8,27 @@ import { BadRequest } from '@models/_index';
   templateUrl: './field-error.component.html'
 })
 export class FieldErrorComponent implements OnInit {
-  @Input() submitted = false;
+  @Input({ required: true }) badRequest: BadRequest | undefined;
+  @Input({ required: true }) form: FormGroup | undefined;
+  @Input({ required: true }) submitted = false;
   @Input() fieldText = '';
   @Input() fieldName = '';
-  @Input() badRequest: BadRequest | undefined;
-  @Input() form: FormGroup | undefined;
   @Input() validateOnlyOnSubmit = false;
 
   control: AbstractControl | undefined;
-
-  constructor() {
-    this.submitted = false;
-  }
 
   ngOnInit(): void {
     this.control = this.form?.get(this.fieldName) as FormGroup;
   }
 
   formHasErrors(): boolean | ValidationErrors | null | undefined {
-    return (
-      (this.submitted && this.form && this.form.dirty) ||
-      (this.form?.touched && this.form.get(this.fieldName) && this.form.get(this.fieldName)?.errors)
-    );
+    return (this.submitted && this.form?.dirty) || (this.form?.touched && this.control?.errors);
   }
 
   controlHasErrors(): boolean {
     const validateRules = this.validateOnlyOnSubmit
       ? this.submitted && this.control && this.control.dirty && this.control?.errors
-      : this.control?.dirty && this.control?.errors;
+      : this.control?.dirty && this.control.errors;
 
     return !!(validateRules || (this.submitted && this.control?.errors));
   }

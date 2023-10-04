@@ -12,6 +12,10 @@ export const createGuid = (): string => {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 };
 
+export const ucFirst = (value: string): string => {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+};
+
 /**
  * Utiliza una de las propiedades de urls para remplazar {algo} por valor en los args.
  *
