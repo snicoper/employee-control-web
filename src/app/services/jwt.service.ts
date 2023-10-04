@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageKeys } from '@core/types/local-storage-keys';
 import { ApiUrls } from '@core/utils/api-urls';
+import { SiteUrls } from '@core/utils/site-urls';
 import { RefreshTokenModel, RefreshTokenResponse } from '@models/rest/_index';
 import jwtDecode from 'jwt-decode';
 import { AuthService } from './auth.service';
@@ -69,20 +70,12 @@ export class JwtService {
 
   isExpired(): boolean {
     if (!this.accessToken || !this.tokenDecode) {
-      this.clean();
-
       return true;
     }
 
     const expire = this.tokenDecode['exp'] as number;
 
-    if (!expire || Date.now() >= expire * 1000) {
-      this.clean();
-
-      return true;
-    }
-
-    return false;
+    return Date.now() >= expire * 1000;
   }
 
   getToken(): string {
@@ -140,18 +133,11 @@ export class JwtService {
 
   removeTokens(): void {
     localStorage.removeItem(LocalStorageKeys.refreshToken);
-    this.refreshToken = '';
-    this.clean(true);
-  }
-
-  clean(redirectToLogin = false): void {
     localStorage.removeItem(LocalStorageKeys.accessToken);
-    this.authService.setAuthValue(false);
+    this.refreshToken = '';
     this.accessToken = '';
     this.tokenDecode = {};
-
-    if (redirectToLogin) {
-      this.route.navigateByUrl('auth/login');
-    }
+    this.authService.setAuthValue(false);
+    this.route.navigateByUrl(SiteUrls.login);
   }
 }

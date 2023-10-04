@@ -27,6 +27,6 @@ export class NavbarComponent {
   }
 
   logOut(): void {
-    this.jwtService.clean();
+    this.jwtService.removeTokens();
   }
 }
