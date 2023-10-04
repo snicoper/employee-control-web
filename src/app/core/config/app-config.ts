@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LocalizationService } from '@core/culture/_index';
+import { LocalizationService } from '@core/localization/_index';
 import { ThemeColorService } from '@services/_index';
 
 /**
