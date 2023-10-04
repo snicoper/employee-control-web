@@ -10,6 +10,7 @@ import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ValidationErrors } from '@core/types/_index';
 import { SiteUrls, debugErrors, toastForNotificationErrors } from '@core/utils/_index';
+import { BadRequestErrors } from '@models/bad-request-errors';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -56,7 +57,7 @@ export class ErrorRequestInterceptor implements HttpInterceptor {
 
   /** Manejar un BadRequest. */
   private handleBadRequest(errorResponse: HttpErrorResponse): void {
-    const errors = errorResponse.error.errors as { [key: string]: string[] };
+    const errors = errorResponse.error.errors as BadRequestErrors;
 
     if (Object.hasOwn(errors, ValidationErrors.notificationErrors)) {
       toastForNotificationErrors(errors[ValidationErrors.notificationErrors], this.toastrService);
