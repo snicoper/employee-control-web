@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'truncate' })
-export class TruncatePipe implements PipeTransform {
+@Pipe({ name: 'truncateText' })
+export class TruncateTextPipe implements PipeTransform {
   transform(value: string, limit: number, dots = true): string {
     const printDots = dots ? '...' : '';
 

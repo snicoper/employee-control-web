@@ -60,6 +60,9 @@ export class LoginComponent {
           }
         },
         error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error;
+          this.loading = false;
+
           if (error.status === HttpStatusCode.Unauthorized) {
             this.invalidLogin = true;
           }

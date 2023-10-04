@@ -40,14 +40,12 @@ export class FieldErrorComponent implements OnInit {
     return !!(validateRules || (this.submitted && this.control?.errors));
   }
 
-  getBadRequestErrors(): string | null {
+  getBadRequestErrors(): string[] | undefined {
     if (this.badRequest && this.badRequest.status === HttpStatusCode.BadRequest) {
-      const index = this.badRequest.errors.indexOf(this.fieldName);
-
-      return this.badRequest.errors[index] || null;
+      return this.badRequest.errors[this.fieldName];
     }
 
-    return null;
+    return undefined;
   }
 
   getControlErrorByErrorName(errorName: string): ValidationErrors | null {

@@ -7,22 +7,15 @@ import { BadRequest } from '@models/_index';
   templateUrl: './non-field-errors.component.html'
 })
 export class NonFieldErrorsComponent {
-  @Input() badRequest: BadRequest = {
-    errors: [],
-    status: 0,
-    title: '',
-    type: ''
-  };
+  @Input() badRequest: BadRequest | undefined;
 
   validationErrors = ValidationErrors;
 
   get hasErrors(): boolean {
-    return !!(this.badRequest?.errors && this.badRequest.errors.indexOf(ValidationErrors.nonFieldErrors));
+    return !!(this.badRequest?.errors && this.badRequest.errors[ValidationErrors.nonFieldErrors]);
   }
 
-  getErrors(): string {
-    const index = this.badRequest.errors.indexOf(ValidationErrors.nonFieldErrors);
-
-    return this.badRequest.errors[index];
+  getErrors(): string[] | undefined {
+    return this.badRequest?.errors[ValidationErrors.nonFieldErrors];
   }
 }

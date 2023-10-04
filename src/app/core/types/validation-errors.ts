@@ -4,11 +4,11 @@
  */
 export enum ValidationErrors {
   /** Errores de pagina, redirecciona a pagina de errores. */
-  pageError = 'pageError',
+  pageError = 'PageError',
 
   /** Errores del formulario. */
-  nonFieldErrors = 'nonFieldErrors',
+  nonFieldErrors = 'NonFieldErrors',
 
   /** Errores de notificación, abrirá un toast. */
-  notificationErrors = 'notificationErrors'
+  notificationErrors = 'NotificationErrors'
 }

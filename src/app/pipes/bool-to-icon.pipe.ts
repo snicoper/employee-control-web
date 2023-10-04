@@ -5,10 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Para tipos booleans, retorna el HTML con un icono según el valor.
  *
  * @example:
- *  <td [innerHTML]="employee.is_staff | iconBoolean"></td>
+ *  <td [innerHTML]="employee.is_staff | boolToIcon"></td>
  */
-@Pipe({ name: 'iconBoolean' })
-export class IconBooleanPipe implements PipeTransform {
+@Pipe({ name: 'boolToIcon' })
+export class BoolToIconPipe implements PipeTransform {
   transform(value: boolean): string {
     if (value) {
       return '<span class="icon fas fa-check text-success"></span>';

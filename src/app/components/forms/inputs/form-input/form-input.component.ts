@@ -70,7 +70,7 @@ export class FormInputComponent implements ControlValueAccessor {
 
     return !!(
       (this.submitted && control.invalid) ||
-      (this.badRequest?.errors && this.badRequest.errors.indexOf(this.fieldName))
+      (this.badRequest?.errors && this.badRequest.errors[this.fieldName])
     );
   }
 }

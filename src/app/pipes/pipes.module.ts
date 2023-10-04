@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { BoolToIconPipe } from './bool-to-icon.pipe';
 import { FormatSizeUnitPipe } from './format-size-unit.pipe';
-import { IconBooleanPipe } from './icon-boolean.pipe';
-import { TruncatePipe } from './truncate.pipe';
+import { TruncateTextPipe } from './truncate-text.pipe';
 
 @NgModule({
-  declarations: [FormatSizeUnitPipe, TruncatePipe, IconBooleanPipe],
-  exports: [FormatSizeUnitPipe, TruncatePipe, IconBooleanPipe],
+  declarations: [FormatSizeUnitPipe, TruncateTextPipe, BoolToIconPipe],
+  exports: [FormatSizeUnitPipe, TruncateTextPipe, BoolToIconPipe],
   imports: [CommonModule]
 })
 export class PipesModule {}
