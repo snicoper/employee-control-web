@@ -23,6 +23,7 @@
         "no-array-constructor": "error",
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/explicit-function-return-type": ["error"],
+        "@typescript-eslint/member-ordering": ["error", { "classes": ["field", "constructor", "method"] }],
         "@angular-eslint/component-selector": [
           "error",
           {
