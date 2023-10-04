@@ -10,7 +10,7 @@ export class HttpResponseInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (!request.headers.has('Accept-Language')) {
       request = request.clone({
-        headers: request.headers.set('Accept-Language', this.localizationService.locale$())
+        headers: request.headers.set('Accept-Language', this.localizationService.getLocaleValue())
       });
     }
 

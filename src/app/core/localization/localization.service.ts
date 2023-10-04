@@ -1,4 +1,5 @@
 import { Injectable, effect, signal } from '@angular/core';
+import { LocalStorageKeys } from '@core/types/local-storage-keys';
 import * as dayjs from 'dayjs';
 import 'dayjs/locale/en';
 import 'dayjs/locale/es';
@@ -9,18 +10,23 @@ import { LocalesSupported } from './locales-supported';
 
 @Injectable({ providedIn: 'root' })
 export class LocalizationService {
-  readonly locale$ = signal(DateTimeUtils.defaultLocale);
+  private readonly locale$ = signal<LocalesSupported>(DateTimeUtils.defaultLocale);
 
-  getCultureValue(): LocalesSupported {
+  initialise(locale?: LocalesSupported): void {
+    // Precedencia: localStorage -> parámetro -> defaultLocale.
+    locale =
+      (localStorage.getItem(LocalStorageKeys.locale) as LocalesSupported) ?? locale ?? DateTimeUtils.defaultLocale;
+
+    this.setLocale(locale);
+    this.eventListener();
+  }
+
+  getLocaleValue(): LocalesSupported {
     return this.locale$();
   }
 
-  initialise(culture?: LocalesSupported): void {
-    if (culture) {
-      this.locale$.set(culture);
-    }
-
-    this.eventListener();
+  setLocale(locale: LocalesSupported): void {
+    this.locale$.set(locale);
   }
 
   private eventListener(): void {
@@ -32,6 +38,9 @@ export class LocalizationService {
       // Establecer locale en ngx-bootstrap.
       culture = DateTimeUtils.mapLocaleToNgxBootstrap(this.locale$());
       defineLocale(culture, deLocale);
+
+      // Guardar en localStorage el locale.
+      localStorage.setItem(LocalStorageKeys.locale, this.locale$());
     });
   }
 }
