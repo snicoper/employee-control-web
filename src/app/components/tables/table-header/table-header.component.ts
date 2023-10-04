@@ -10,8 +10,8 @@ import { TableHeaderConfig } from './table-header.config';
   styleUrls: ['./table-header.component.scss']
 })
 export class TableHeaderComponent<T> {
-  @Input() tableHeaderConfig = new TableHeaderConfig();
-  @Input() apiResult = new ApiResult<T>();
+  @Input({ required: true }) tableHeaderConfig = new TableHeaderConfig();
+  @Input({ required: true }) apiResult = new ApiResult<T>();
 
   @Output() clickOrdering = new EventEmitter<void>();
 

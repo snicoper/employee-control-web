@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SpinnerComponent implements OnInit {
   /** Solo mostrara el spinner cuando loading sea true. */
-  @Input() loading = false;
+  @Input({ required: true }) loading = false;
 
   /** Alineación del spinner, por defecto: 'justify-content-center'. */
   @Input() justify = 'justify-content-center';

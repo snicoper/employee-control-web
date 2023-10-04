@@ -6,7 +6,7 @@ import { ApiResult } from '@core/api-result/_index';
   templateUrl: './pagination.component.html'
 })
 export class PaginationComponent<T> implements OnChanges {
-  @Input() apiResult = new ApiResult<T>();
+  @Input({ required: true }) apiResult = new ApiResult<T>();
   @Input() itemsPageList = [10, 25, 50, 100];
 
   /** Mostrar itemsPageList. */

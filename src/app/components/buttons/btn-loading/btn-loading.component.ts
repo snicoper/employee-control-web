@@ -6,7 +6,7 @@ import { BtnType } from './btn-loading.type';
   templateUrl: './btn-loading.component.html'
 })
 export class BtnLoadingComponent {
-  @Input() loading = false;
+  @Input({ required: true }) loading = false;
   @Input() btnClass = 'btn btn-primary';
   @Input() btnType = BtnType.submit;
   @Input() btnText = '';

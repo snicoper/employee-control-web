@@ -9,7 +9,7 @@ import { AppEnvironments } from '@core/utils/_index';
   template: ''
 })
 export class ViewTitleComponent implements OnInit {
-  @Input() pageTitle = AppEnvironments.siteName;
+  @Input({ required: true }) pageTitle = AppEnvironments.siteName;
 
   constructor(
     private route: ActivatedRoute,
