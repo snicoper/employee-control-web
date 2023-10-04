@@ -66,7 +66,7 @@ export class PaginationComponent<T> implements OnChanges {
   pageRange(): number[] {
     const pages = [];
 
-    for (let i = this.firstPage; i <= this.lastPage; i += 1) {
+    for (let i = this.firstPage; i <= this.lastPage; i++) {
       pages.push(i);
     }
 
