@@ -19,14 +19,14 @@ import { BadRequest } from '@models/_index';
   ]
 })
 export class FormFloatingComponent {
+  @Input({ required: true }) badRequest: BadRequest | undefined;
+  @Input({ required: true }) form: FormGroup | undefined;
+  @Input({ required: true }) submitted = false;
+  @Input({ required: true }) fieldName = '';
   @Input() id = '';
-  @Input() form: FormGroup | undefined;
-  @Input() fieldName = '';
   @Input() inputType = FormInputTypes.text;
   @Input() label = '';
   @Input() extraCss = '';
-  @Input() badRequest: BadRequest | undefined;
-  @Input() submitted = false;
   @Input() placeholder = '';
 
   value = '';

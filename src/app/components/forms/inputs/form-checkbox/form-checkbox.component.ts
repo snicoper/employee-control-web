@@ -18,13 +18,13 @@ import { BadRequest } from '@models/_index';
   ]
 })
 export class FormCheckboxComponent {
+  @Input({ required: true }) badRequest: BadRequest | undefined;
+  @Input({ required: true }) form: FormGroup | undefined;
+  @Input({ required: true }) submitted = false;
+  @Input({ required: true }) fieldName = '';
   @Input() id: string;
-  @Input() form: FormGroup | undefined;
-  @Input() fieldName = '';
   @Input() label = '';
   @Input() extraCss = '';
-  @Input() badRequest: BadRequest | undefined;
-  @Input() submitted = false;
   @Input() placeholder = '';
 
   value = '';

@@ -7,7 +7,7 @@ import { BadRequest } from '@models/_index';
   templateUrl: './non-field-errors.component.html'
 })
 export class NonFieldErrorsComponent {
-  @Input() badRequest: BadRequest | undefined;
+  @Input({ required: true }) badRequest: BadRequest | undefined;
 
   validationErrors = ValidationErrors;
 
