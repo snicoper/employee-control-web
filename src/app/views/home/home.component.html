@@ -1,13 +1,32 @@
 <aw-view-base>
   <h1>Hello world</h1>
-  <button (click)="handleToggleNavbar()" class="btn btn-outline-primary">Navbar</button>
-  <button (click)="handleToggleSidebar()" class="btn btn-outline-warning ms-2">Sidebar</button>
-  <button (click)="handleToggleFooter()" class="btn btn-outline-success ms-2">Footer</button>
+
+  <button
+    (click)="handleToggleNavbar()"
+    [ngClass]="{ 'btn-primary': layoutService.showNavbar$(), 'btn-outline-primary': !layoutService.showNavbar$() }"
+    class="btn">
+    Navbar
+  </button>
+
+  <button
+    (click)="handleToggleSidebar()"
+    [ngClass]="{ 'btn-warning': layoutService.showSidebar$(), 'btn-outline-warning': !layoutService.showSidebar$() }"
+    class="btn ms-2">
+    Sidebar
+  </button>
+
+  <button
+    (click)="handleToggleFooter()"
+    [ngClass]="{ 'btn-success': layoutService.showFooter$(), 'btn-outline-success': !layoutService.showFooter$() }"
+    class="btn ms-2">
+    Footer
+  </button>
 
   <ng-container *ngIf="getUserName()">
     <div class="mt-3">
       User Id: <span class="text-success">{{ getUserId() }}</span>
     </div>
+
     <div>
       User name: <span class="text-success">{{ getUserName() }}</span>
     </div>
@@ -28,7 +47,16 @@
     <button (click)="handleChangeThemeColor()" class="btn btn-primary">Change theme color</button>
   </div>
 
-  <aw-card>
-    <h5 class="bg-mode">Hello card</h5>
-  </aw-card>
+  <div class="row">
+    <div class="col">
+      <aw-card>
+        <h5 class="bg-mode">Hello card 1</h5>
+      </aw-card>
+    </div>
+    <div class="col">
+      <aw-card>
+        <h5 class="bg-mode">Hello card 2</h5>
+      </aw-card>
+    </div>
+  </div>
 </aw-view-base>
