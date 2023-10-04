@@ -6,7 +6,7 @@ export const SiteUrls = {
   home: '/',
 
   /** Auth. */
-  login: 'auth/login',
+  login: '/auth/login',
 
   /** Errors. */
   errorsForbidden: '/errors/403',

@@ -11,12 +11,12 @@ const routes: Routes = [
     loadChildren: () => import('@views/auth/auth.module').then((m) => m.AuthModule)
   },
   {
-    path: 'error',
+    path: 'errors',
     loadChildren: () => import('@views/errors/errors.module').then((m) => m.ErrorsModule)
   },
   {
     path: '**',
-    redirectTo: 'error/404',
+    redirectTo: 'errors/404',
     pathMatch: 'full'
   }
 ];

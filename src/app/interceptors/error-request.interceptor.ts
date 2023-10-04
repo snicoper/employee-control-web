@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { ValidationErrors } from '@core/types/_index';
 import { SiteUrls, debugErrors, toastForNotificationErrors } from '@core/utils/_index';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
@@ -53,14 +54,19 @@ export class ErrorRequestInterceptor implements HttpInterceptor {
     this.router.navigate([SiteUrls.errorsForbidden]);
   }
 
-  /** En caso de existir notificationErrors, los mostrara con toast. */
+  /** Manejar un BadRequest. */
   private handleBadRequest(errorResponse: HttpErrorResponse): void {
-    toastForNotificationErrors(errorResponse, this.toastrService);
+    const errors = errorResponse.error.errors as { [key: string]: string[] };
+
+    if (Object.hasOwn(errors, ValidationErrors.notificationErrors)) {
+      toastForNotificationErrors(errors[ValidationErrors.notificationErrors], this.toastrService);
+    }
   }
 
   /** Errores 500. */
   private handleUnknownError(): void {
-    this.toastrService.error(`Ha ocurrido un error, por favor si el problema persiste póngase en
-      contacto con la administración.`);
+    this.toastrService.error(
+      `Ha ocurrido un error, por favor si el problema persiste póngase en contacto con la administración.`
+    );
   }
 }
