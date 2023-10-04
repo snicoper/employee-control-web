@@ -14,6 +14,12 @@ export const createGuid = (): string => {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 };
 
+/**
+ * Primera letra en mayúsculas, el resto en minúsculas.
+ *
+ * @param value  String a formatear.
+ * @returns El string formateado.
+ */
 export const ucFirst = (value: string): string => {
   return value.charAt(0).toUpperCase() + value.slice(1);
 };

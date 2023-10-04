@@ -66,6 +66,12 @@
         "no-redeclare": "error",
         "no-useless-constructor": "off",
         "space-before-function-paren": ["error", "never"],
+        "no-inline-comments": "error",
+        "no-constructor-return": "error",
+        "no-self-compare": "error",
+        "no-unused-private-class-members": "error",
+        "camelcase": "error",
+        "curly": "error",
         "lines-between-class-members": [
           "error",
           {
@@ -83,6 +89,19 @@
             "blankLine": "always",
             "prev": "*",
             "next": "block-like"
+          }
+        ],
+        "capitalized-comments": [
+          "error",
+          "always",
+          {
+            "line": {
+              "ignorePattern": "pragma|ignored"
+            },
+            "block": {
+              "ignoreInlineComments": false,
+              "ignorePattern": "ignored"
+            }
           }
         ]
       }
