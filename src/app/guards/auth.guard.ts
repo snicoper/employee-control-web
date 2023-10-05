@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { SiteUrls, debugErrors, debugMessages } from '@aw/core/utils/_index';
@@ -13,28 +14,23 @@ export class AuthGuard {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const { roles } = route.data;
 
-    if ((roles && this.jwtService.isExpired()) || !this.jwtService.getRoles()) {
-      this.jwtService
-        .tryRefreshToken()
-        .then((result: boolean) => {
-          debugMessages('Refresh tokens');
-
-          if (!result) {
-            this.navigateToLogin(state.url);
-          }
-        })
-        .catch((error: Error) => {
-          debugErrors(error.message);
-
-          this.navigateToLogin(state.url);
-        });
-    }
-
-    const userRoles = this.jwtService.getRoles();
-
     if (!roles) {
       return true;
     }
+
+    if (this.jwtService.isExpired() || !this.jwtService.getRoles()) {
+      this.jwtService.tryRefreshToken().subscribe({
+        next: () => debugMessages('Refresh tokens'),
+        error: (error: HttpErrorResponse) => {
+          debugErrors(error.message);
+          this.navigateToLogin(state.url);
+
+          return false;
+        }
+      });
+    }
+
+    const userRoles = this.jwtService.getRoles();
 
     for (const role of roles) {
       if (!userRoles.includes(role)) {
@@ -47,8 +43,8 @@ export class AuthGuard {
     return true;
   }
 
-  private navigateToLogin(url: string): void {
+  private navigateToLogin(returnUrl: string): void {
     this.toastr.error('Requiere autorización para acceder a la página.');
-    this.router.navigate([SiteUrls.login], { queryParams: { returnUrl: url } });
+    this.router.navigate([SiteUrls.login], { queryParams: { returnUrl: returnUrl } });
   }
 }

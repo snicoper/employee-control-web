@@ -1,10 +1,10 @@
-import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageKeys } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/utils/_index';
 import { RefreshTokenModel, RefreshTokenResponseModel } from '@aw/models/api/_index';
 import jwtDecode from 'jwt-decode';
+import { EMPTY, Observable, map } from 'rxjs';
 import { AuthApiService } from './api/_index';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
@@ -44,30 +44,24 @@ export class JwtService {
     this.authService.setAuthValue(true);
   }
 
-  tryRefreshToken(): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      if (this.accessToken && !this.isExpired()) {
-        return;
-      }
+  tryRefreshToken(): Observable<RefreshTokenResponseModel> | Observable<never> {
+    if (!this.refreshToken) {
+      return EMPTY;
+    }
 
-      const model = { refreshToken: this.refreshToken } as RefreshTokenModel;
+    const model = { refreshToken: this.refreshToken } as RefreshTokenModel;
 
-      this.authApiService.post<RefreshTokenModel, RefreshTokenResponseModel>(model, ApiUrls.refreshToken).subscribe({
-        next: (result: RefreshTokenResponseModel) => {
-          if (result.accessToken) {
-            this.setTokens(result.accessToken, result.refreshToken);
-            resolve(true);
-          }
-        },
-        error: (error: HttpErrorResponse) => {
-          if (error.status === HttpStatusCode.Unauthorized) {
-            this.removeTokens();
-          }
-
-          reject(new Error(error.error));
+    return this.authApiService.post<RefreshTokenModel, RefreshTokenResponseModel>(model, ApiUrls.refreshToken).pipe(
+      map((result: RefreshTokenResponseModel) => {
+        if (!result.accessToken || !result.refreshToken) {
+          return result;
         }
-      });
-    });
+
+        this.setTokens(result.accessToken, result.refreshToken);
+
+        return result;
+      })
+    );
   }
 
   isExpired(): boolean {

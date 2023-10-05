@@ -7,6 +7,11 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     data: { title: 'Inicio de sesión' }
+  },
+  {
+    path: '**',
+    redirectTo: '/errors/404',
+    pathMatch: 'full'
   }
 ];
 
