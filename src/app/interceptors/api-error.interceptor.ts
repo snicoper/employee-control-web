@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 import { ValidationErrors } from '@aw/core/types/_index';
 import { SiteUrls, debugErrors, toastForNotificationErrors } from '@aw/core/utils/_index';
 import { BadRequestErrors } from '@aw/models/bad-request-errors';
-import { JwtService } from '@aw/services/_index';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -20,8 +19,6 @@ import { catchError } from 'rxjs/operators';
 export class ApiErrorInterceptor implements HttpInterceptor {
   private readonly router = inject(Router);
   private readonly toastrService = inject(ToastrService);
-  private readonly jwtService = inject(JwtService);
-  private readonly toastr = inject(ToastrService);
 
   /** Handle error de la aplicación. */
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
