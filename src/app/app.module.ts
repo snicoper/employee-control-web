@@ -2,16 +2,11 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppConfig } from '@core/config/_index';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {
-  ApiResultRequestInterceptor,
-  ErrorRequestInterceptor,
-  HttpResponseInterceptor,
-  JwtInterceptor
-} from './interceptors/_index';
-import { AppConfig } from '@core/config/_index';
+import { ApiErrorInterceptor, ApiInterceptor, ApiResultInterceptor } from './interceptors/_index';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,10 +27,9 @@ import { AppConfig } from '@core/config/_index';
       deps: [AppConfig],
       multi: true
     },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorRequestInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpResponseInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ApiResultRequestInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiResultInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

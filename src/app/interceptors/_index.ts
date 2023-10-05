@@ -1,4 +1,3 @@
-export { ApiResultRequestInterceptor } from './api-result-request.interceptor';
-export { ErrorRequestInterceptor } from './error-request.interceptor';
-export { HttpResponseInterceptor } from './http-response.interceptor';
-export { JwtInterceptor } from './jwt.interceptor';
+export { ApiErrorInterceptor } from './api-error.interceptor';
+export { ApiResultInterceptor } from './api-result.interceptor';
+export { ApiInterceptor } from './api.interceptor';

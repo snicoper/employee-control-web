@@ -16,7 +16,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
-export class ErrorRequestInterceptor implements HttpInterceptor {
+export class ApiErrorInterceptor implements HttpInterceptor {
   private readonly router = inject(Router);
   private readonly toastrService = inject(ToastrService);
 

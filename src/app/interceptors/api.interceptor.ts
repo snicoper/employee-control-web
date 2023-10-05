@@ -1,20 +1,15 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { LocalizationService } from '@core/localization/localization.service';
 import { JwtService } from '@services/_index';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class JwtInterceptor implements HttpInterceptor {
+export class ApiInterceptor implements HttpInterceptor {
   private readonly jwtService = inject(JwtService);
+  private readonly localizationService = inject(LocalizationService);
 
-  /** RequestData pasados por Headers en todas las peticiones. */
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    request = this.setAuthorization(request);
-
-    return next.handle(request);
-  }
-
-  private setAuthorization(request: HttpRequest<unknown>): HttpRequest<unknown> {
     const token = this.jwtService.getToken();
 
     if (token && !request.headers.has('Authorization')) {
@@ -23,6 +18,18 @@ export class JwtInterceptor implements HttpInterceptor {
       });
     }
 
-    return request;
+    if (!request.headers.has('Accept-Language')) {
+      request = request.clone({
+        headers: request.headers.set('Accept-Language', this.localizationService.getLocaleValue())
+      });
+    }
+
+    if (!request.headers.has('Content-Type')) {
+      request = request.clone({
+        headers: request.headers.set('Content-Type', 'application/json')
+      });
+    }
+
+    return next.handle(request);
   }
 }

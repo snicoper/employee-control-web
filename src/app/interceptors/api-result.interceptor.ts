@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 
 /** Comprueba si es un ApiResult y deserializa filters. */
 @Injectable()
-export class ApiResultRequestInterceptor implements HttpInterceptor {
+export class ApiResultInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(req).pipe(
       map((event) => {
