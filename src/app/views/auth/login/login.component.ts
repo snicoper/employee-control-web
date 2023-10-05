@@ -6,7 +6,7 @@ import { FormInputTypes } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/utils/_index';
 import { BadRequest } from '@aw/models/_index';
 import { JwtService } from '@aw/services/_index';
-import { AuthRestService } from '@aw/services/rest/_index';
+import { AuthApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
 import { LoginModel } from './login.model';
 import { LoginResponse } from './login.response';
@@ -18,7 +18,7 @@ import { LoginResponse } from './login.response';
 })
 export class LoginComponent {
   private readonly fb = inject(FormBuilder);
-  private readonly authRestService = inject(AuthRestService);
+  private readonly authApiService = inject(AuthApiService);
   private readonly jwtService = inject(JwtService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
@@ -47,7 +47,7 @@ export class LoginComponent {
     this.loading = true;
     const loginModel = this.form.value as LoginModel;
 
-    this.authRestService
+    this.authApiService
       .post<LoginModel, LoginResponse>(loginModel, ApiUrls.login)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

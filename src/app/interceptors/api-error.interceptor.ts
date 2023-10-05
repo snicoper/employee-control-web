@@ -31,7 +31,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
         switch (error.status) {
           case HttpStatusCode.Unauthorized:
-            this.handleUnauthorized(request.url);
+            this.handleUnauthorized();
             break;
           case HttpStatusCode.Forbidden:
             this.handleForbidden();
@@ -49,26 +49,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   }
 
   /** Manejar error de unauthorized. */
-  private handleUnauthorized(url: string): void {
-    if (!this.jwtService.getToken() || !this.jwtService.getRefreshToken()) {
-      this.navigateToLogin(url);
-
-      return;
-    }
-
-    this.jwtService
-      .tryRefreshToken()
-      .then((result: boolean) => {
-        if (!result) {
-          this.navigateToLogin(url);
-        }
-      })
-      .catch((error: Error) => {
-        debugErrors(error.message);
-
-        this.navigateToLogin(url);
-      });
-
+  private handleUnauthorized(): void {
     this.router.navigate([SiteUrls.login]);
   }
 
@@ -91,10 +72,5 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     this.toastrService.error(
       `Ha ocurrido un error, por favor si el problema persiste póngase en contacto con la administración.`
     );
-  }
-
-  private navigateToLogin(url: string): void {
-    this.toastr.error('Requiere autorización para acceder a la página.');
-    this.router.navigate([SiteUrls.login], { queryParams: { returnUrl: url } });
   }
 }

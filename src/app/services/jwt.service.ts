@@ -3,17 +3,17 @@ import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageKeys } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/utils/_index';
-import { RefreshTokenModel, RefreshTokenResponse } from '@aw/models/rest/_index';
+import { RefreshTokenModel, RefreshTokenResponseModel } from '@aw/models/api/_index';
 import jwtDecode from 'jwt-decode';
+import { AuthApiService } from './api/_index';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
-import { AuthRestService } from './rest/auth-rest.service';
 
 @Injectable({ providedIn: 'root' })
 export class JwtService {
   private readonly route = inject(Router);
   private readonly authService = inject(AuthService);
-  private readonly authRestService = inject(AuthRestService);
+  private readonly authApiService = inject(AuthApiService);
   private readonly localStorageService = inject(LocalStorageService);
 
   private tokenDecode: { [key: string]: unknown } = {};
@@ -52,8 +52,8 @@ export class JwtService {
 
       const model = { refreshToken: this.refreshToken } as RefreshTokenModel;
 
-      this.authRestService.post<RefreshTokenModel, RefreshTokenResponse>(model, ApiUrls.refreshToken).subscribe({
-        next: (result: RefreshTokenResponse) => {
+      this.authApiService.post<RefreshTokenModel, RefreshTokenResponseModel>(model, ApiUrls.refreshToken).subscribe({
+        next: (result: RefreshTokenResponseModel) => {
           if (result.accessToken) {
             this.setTokens(result.accessToken, result.refreshToken);
             resolve(true);
