@@ -7,7 +7,7 @@ import {
   HttpStatusCode
 } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ValidationErrors } from '@aw/core/types/_index';
 import { SiteUrls, debugErrors, toastForNotificationErrors } from '@aw/core/utils/_index';
 import { BadRequestErrors } from '@aw/models/bad-request-errors';
@@ -21,7 +21,6 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   private readonly router = inject(Router);
   private readonly toastrService = inject(ToastrService);
   private readonly jwtService = inject(JwtService);
-  private readonly route = inject(ActivatedRoute);
   private readonly toastr = inject(ToastrService);
 
   /** Handle error de la aplicación. */
@@ -32,7 +31,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
         switch (error.status) {
           case HttpStatusCode.Unauthorized:
-            this.handleUnauthorized();
+            this.handleUnauthorized(request.url);
             break;
           case HttpStatusCode.Forbidden:
             this.handleForbidden();
@@ -50,9 +49,9 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   }
 
   /** Manejar error de unauthorized. */
-  private handleUnauthorized(): void {
+  private handleUnauthorized(url: string): void {
     if (!this.jwtService.getToken() || !this.jwtService.getRefreshToken()) {
-      this.navigateToLogin();
+      this.navigateToLogin(url);
 
       return;
     }
@@ -61,13 +60,13 @@ export class ApiErrorInterceptor implements HttpInterceptor {
       .tryRefreshToken()
       .then((result: boolean) => {
         if (!result) {
-          this.navigateToLogin();
+          this.navigateToLogin(url);
         }
       })
       .catch((error: Error) => {
         debugErrors(error.message);
 
-        this.navigateToLogin();
+        this.navigateToLogin(url);
       });
 
     this.router.navigate([SiteUrls.login]);
@@ -94,8 +93,8 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     );
   }
 
-  private navigateToLogin(): void {
+  private navigateToLogin(url: string): void {
     this.toastr.error('Requiere autorización para acceder a la página.');
-    this.router.navigate([SiteUrls.login], { queryParams: { returnUrl: this.route.url } });
+    this.router.navigate([SiteUrls.login], { queryParams: { returnUrl: url } });
   }
 }

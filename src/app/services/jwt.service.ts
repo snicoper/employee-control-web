@@ -139,7 +139,9 @@ export class JwtService {
     this.refreshToken = '';
     this.accessToken = '';
     this.tokenDecode = {};
+
     this.authService.setAuthValue(false);
+
     this.route.navigateByUrl(SiteUrls.login);
   }
 }
