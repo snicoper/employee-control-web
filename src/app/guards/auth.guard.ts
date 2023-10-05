@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { SiteUrls, debugErrors, debugMessage } from '@aw/core/utils/_index';
+import { SiteUrls, debugErrors, debugMessages } from '@aw/core/utils/_index';
 import { JwtService } from '@aw/services/_index';
 import { ToastrService } from 'ngx-toastr';
 
@@ -17,7 +17,7 @@ export class AuthGuard {
       this.jwtService
         .tryRefreshToken()
         .then((result: boolean) => {
-          debugMessage('Refresh tokens');
+          debugMessages('Refresh tokens');
 
           if (!result) {
             this.navigateToLogin(state.url);

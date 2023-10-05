@@ -17,7 +17,7 @@ export const debugErrors = (...errors: string[]): void => {
  *
  * @param errors Errores a mostrar.
  */
-export const debugMessage = (...errors: string[]): void => {
+export const debugMessages = (...errors: string[]): void => {
   if (AppEnvironments.isDebug) {
     // eslint-disable-next-line
     errors.forEach((error) => console.log(`%c Debug message: ${error} `, 'background: #EBD63F; color: black'));
