@@ -1,8 +1,8 @@
 import { Component, computed, inject } from '@angular/core';
-import { SidebarStates } from '@components/sidebar/sidebar-states';
-import { SidebarService } from '@components/sidebar/sidebar.service';
-import { AppEnvironments, SiteUrls } from '@core/utils/_index';
-import { AuthService, JwtService } from '@services/_index';
+import { SidebarStates } from '@aw/components/sidebar/sidebar-states';
+import { SidebarService } from '@aw/components/sidebar/sidebar.service';
+import { AppEnvironments, SiteUrls } from '@aw/core/utils/_index';
+import { AuthService, JwtService } from '@aw/services/_index';
 
 @Component({
   selector: 'aw-navbar',

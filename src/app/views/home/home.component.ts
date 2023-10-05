@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { ThemeColors } from '@core/types/_index';
-import { JwtService, LayoutService, ThemeColorService } from '@services/_index';
+import { ThemeColors } from '@aw/core/types/_index';
+import { JwtService, LayoutService, ThemeColorService } from '@aw/services/_index';
 
 @Component({
   selector: 'aw-home',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { LocalizationService } from '@core/localization/_index';
-import { ThemeColorService } from '@services/_index';
+import { LocalizationService } from '@aw/core/localization/_index';
+import { ThemeColorService } from '@aw/services/_index';
 
 /**
  * Configuración inicial de la aplicación.

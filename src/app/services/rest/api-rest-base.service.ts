@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { AppEnvironments } from '@core/utils/_index';
+import { AppEnvironments } from '@aw/core/utils/_index';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })

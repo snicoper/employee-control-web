@@ -8,9 +8,9 @@ import {
 } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ValidationErrors } from '@core/types/_index';
-import { SiteUrls, debugErrors, toastForNotificationErrors } from '@core/utils/_index';
-import { BadRequestErrors } from '@models/bad-request-errors';
+import { ValidationErrors } from '@aw/core/types/_index';
+import { SiteUrls, debugErrors, toastForNotificationErrors } from '@aw/core/utils/_index';
+import { BadRequestErrors } from '@aw/models/bad-request-errors';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { SiteUrls } from '@core/utils/_index';
-import { JwtService } from '@services/_index';
+import { SiteUrls } from '@aw/core/utils/_index';
+import { JwtService } from '@aw/services/_index';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({ providedIn: 'root' })

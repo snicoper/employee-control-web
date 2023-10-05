@@ -31,6 +31,7 @@
   },
   // Code Spell Checker.
   "cSpell.words": [
+    "datetime",
     "dayjs",
     "deserializa",
     "devkit",

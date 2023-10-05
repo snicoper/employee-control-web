@@ -1,6 +1,6 @@
 import { Injectable, effect, inject, signal } from '@angular/core';
-import { LocalStorageKeys } from '@core/types/local-storage-keys';
-import { LocalStorageService } from '@services/_index';
+import { LocalStorageKeys } from '@aw/core/types/local-storage-keys';
+import { LocalStorageService } from '@aw/services/_index';
 import * as dayjs from 'dayjs';
 import 'dayjs/locale/en';
 import 'dayjs/locale/es';

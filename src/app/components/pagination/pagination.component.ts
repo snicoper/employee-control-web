@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { ApiResult } from '@core/api-result/_index';
+import { ApiResult } from '@aw/core/api-result/_index';
 
 @Component({
   selector: 'aw-pagination',

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { formatSizeUnit } from '@core/utils/_index';
+import { formatSizeUnit } from '@aw/core/utils/_index';
 
 /** Pasar bytes a una medida legible según el size. */
 @Pipe({ name: 'formatSizeUnit' })

@@ -1,10 +1,9 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { LocalStorageKeys } from '@core/types/local-storage-keys';
-import { ApiUrls } from '@core/utils/api-urls';
-import { SiteUrls } from '@core/utils/site-urls';
-import { RefreshTokenModel, RefreshTokenResponse } from '@models/rest/_index';
+import { LocalStorageKeys } from '@aw/core/types/_index';
+import { ApiUrls, SiteUrls } from '@aw/core/utils/_index';
+import { RefreshTokenModel, RefreshTokenResponse } from '@aw/models/rest/_index';
 import jwtDecode from 'jwt-decode';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';

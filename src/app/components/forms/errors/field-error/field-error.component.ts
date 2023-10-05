@@ -1,7 +1,7 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { BadRequest } from '@models/_index';
+import { BadRequest } from '@aw/models/_index';
 
 @Component({
   selector: 'aw-field-error',

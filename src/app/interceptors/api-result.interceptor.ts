@@ -7,7 +7,7 @@ import {
   HttpStatusCode
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ApiResultItemFilter, ApiResultItemOrderBy } from '@core/api-result/_index';
+import { ApiResultItemFilter, ApiResultItemOrderBy } from '@aw/core/api-result/_index';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

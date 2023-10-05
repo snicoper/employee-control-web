@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, computed, inject } from '@angular/core';
-import { LayoutService } from '@services/_index';
+import { LayoutService } from '@aw/services/_index';
 
 @Component({
   selector: 'aw-view-base',
