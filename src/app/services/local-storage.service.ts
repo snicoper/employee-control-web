@@ -11,8 +11,8 @@ export class LocalStorageService {
     return localStorage.getItem(key) as string;
   }
 
-  setStringify<T>(key: LocalStorageKeys, values: T): string {
-    const value = JSON.stringify(values);
+  setStringify<T>(key: LocalStorageKeys, obj: T): string {
+    const value = JSON.stringify(obj);
     this.set(key, value);
 
     return value;
@@ -31,9 +31,5 @@ export class LocalStorageService {
 
   clear(): void {
     localStorage.clear();
-  }
-
-  exists(key: LocalStorageKeys): boolean {
-    return !!this.get(key);
   }
 }
