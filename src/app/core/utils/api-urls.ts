@@ -6,6 +6,10 @@ export const ApiUrls = {
   login: 'identity/login',
   refreshToken: 'identity/refresh-token',
 
+  /** Localization. */
+  currentLocale: 'localization/current-locale',
+  supportedLocales: 'localization/supported-locales',
+
   /**
    * Utiliza una de las propiedades de siteUrls para remplazar {algo} por valor en los args.
    *

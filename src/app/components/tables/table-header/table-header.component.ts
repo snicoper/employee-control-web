@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ApiResult, ApiResultItemOrderBy, OrderTypes } from '@aw/core/api-result/_index';
-import { ITableHeaderField } from './table-header-field.interface';
+import { TableHeaderField } from './table-header-field.interface';
 import { TableHeaderConfig } from './table-header.config';
 
 @Component({
@@ -18,11 +18,11 @@ export class TableHeaderComponent<T> {
   orderings = OrderTypes;
 
   // eslint-disable-next-line
-  onClickFilter(header: ITableHeaderField): void {
+  onClickFilter(header: TableHeaderField): void {
     /** */
   }
 
-  onClickOrder(header: ITableHeaderField): void {
+  onClickOrder(header: TableHeaderField): void {
     this.removeOrderItemIfExists(header);
 
     switch (header.orderType) {
@@ -41,18 +41,18 @@ export class TableHeaderComponent<T> {
     this.clickOrdering.emit();
   }
 
-  getOrderPrecedence(header: ITableHeaderField): number | undefined {
+  getOrderPrecedence(header: TableHeaderField): number | undefined {
     const item = this.getHttpApiResultItemByHeader(header);
 
     return item ? item.precedence : undefined;
   }
 
-  private updateOrderItem(header: ITableHeaderField): void {
+  private updateOrderItem(header: TableHeaderField): void {
     this.apiResult = ApiResult.clone(this.apiResult);
     this.apiResult.addOrder(header.field, header.orderType, 1);
   }
 
-  private removeOrderItemIfExists(header: ITableHeaderField): void {
+  private removeOrderItemIfExists(header: TableHeaderField): void {
     const item = this.getHttpApiResultItemByHeader(header);
     this.apiResult = ApiResult.clone(this.apiResult);
 
@@ -67,7 +67,7 @@ export class TableHeaderComponent<T> {
     }
   }
 
-  private getHttpApiResultItemByHeader(header: ITableHeaderField): ApiResultItemOrderBy | undefined {
+  private getHttpApiResultItemByHeader(header: TableHeaderField): ApiResultItemOrderBy | undefined {
     this.apiResult = ApiResult.clone(this.apiResult);
 
     return this.apiResult.orders.find((field) => field.propertyName === header.field);

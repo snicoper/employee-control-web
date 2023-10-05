@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { LocalizationService } from '@aw/core/localization/_index';
 import { ThemeColorService } from '@aw/services/_index';
 
@@ -7,12 +7,12 @@ import { ThemeColorService } from '@aw/services/_index';
  */
 @Injectable()
 export class AppConfig {
-  constructor(
-    private themeColorService: ThemeColorService,
-    private localizationService: LocalizationService
-  ) {
+  private readonly themeColorService = inject(ThemeColorService);
+  private readonly localizationService = inject(LocalizationService);
+
+  constructor() {
     this.themeColorService.initialize();
-    this.localizationService.initialise();
+    this.localizationService.initialize();
   }
 
   load(): Promise<boolean> {

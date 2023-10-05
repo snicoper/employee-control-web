@@ -15,13 +15,15 @@ export class LocalizationService {
 
   private readonly locale$ = signal<LocalesSupported>(DateTimeUtils.defaultLocale);
 
-  initialise(locale?: LocalesSupported): void {
+  initialize(locale?: LocalesSupported): void {
     // Precedencia: localStorage -> parámetro -> defaultLocale.
     locale =
       (this.localStorageService.get(LocalStorageKeys.locale) as LocalesSupported) ??
       locale ??
       DateTimeUtils.defaultLocale;
 
+    // La inicialización no contiene los datos de locales supported en el Store por lo que
+    // No comprobará la validación.
     this.setLocale(locale);
     this.eventListener();
   }
@@ -37,12 +39,12 @@ export class LocalizationService {
   private eventListener(): void {
     effect(() => {
       // Establecer locale en dayJs.
-      let culture = DateTimeUtils.mapLocaleToDayJs(this.locale$());
-      dayjs.locale(culture);
+      let locale = DateTimeUtils.mapLocaleToDayJs(this.locale$());
+      dayjs.locale(locale);
 
       // Establecer locale en ngx-bootstrap.
-      culture = DateTimeUtils.mapLocaleToNgxBootstrap(this.locale$());
-      defineLocale(culture, deLocale);
+      locale = DateTimeUtils.mapLocaleToNgxBootstrap(this.locale$());
+      defineLocale(locale, deLocale);
 
       // Guardar en localStorage el locale.
       this.localStorageService.set(LocalStorageKeys.locale, this.locale$());

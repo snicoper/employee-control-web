@@ -1,6 +1,6 @@
 import { OrderTypes } from '@aw/core/api-result/_index';
 
-export interface ITableHeaderField {
+export interface TableHeaderField {
   field: string;
   text: string;
   sortable: boolean;

@@ -1,17 +1,17 @@
-import { ITableHeaderField } from './table-header-field.interface';
+import { TableHeaderField } from './table-header-field.interface';
 
 export class TableHeaderConfig {
-  headers: ITableHeaderField[] = [];
+  headers: TableHeaderField[] = [];
 
   /** Añadir un header. */
-  addHeader(field: ITableHeaderField): this {
+  addHeader(field: TableHeaderField): this {
     this.headers.push(field);
 
     return this;
   }
 
   /** Añadir una lista de header. */
-  addHeaders(fields: ITableHeaderField[]): this {
+  addHeaders(fields: TableHeaderField[]): this {
     fields.forEach((field) => this.headers.push(field));
 
     return this;
