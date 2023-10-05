@@ -45,10 +45,10 @@ export class LoginComponent {
     }
 
     this.loading = true;
-    const formValue = this.form.value as LoginModel;
+    const loginModel = this.form.value as LoginModel;
 
     this.authRestService
-      .post<LoginModel, LoginResponse>(formValue, ApiUrls.login)
+      .post<LoginModel, LoginResponse>(loginModel, ApiUrls.login)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (result: LoginResponse) => {
@@ -59,11 +59,11 @@ export class LoginComponent {
             this.router.navigateByUrl(returnUrl);
           }
         },
-        error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error;
+        error: (httpError: HttpErrorResponse) => {
+          this.badRequest = httpError.error as BadRequest;
           this.loading = false;
 
-          if (error.status === HttpStatusCode.Unauthorized) {
+          if (httpError.status === HttpStatusCode.Unauthorized) {
             this.invalidLogin = true;
           }
         }
