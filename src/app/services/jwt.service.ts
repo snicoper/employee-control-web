@@ -28,7 +28,7 @@ export class JwtService {
   }
 
   setTokens(accessToken: string, refreshToken: string, storeTokens = true): void {
-    if (!accessToken && !refreshToken) {
+    if (!accessToken || !refreshToken) {
       return;
     }
 
@@ -64,7 +64,7 @@ export class JwtService {
             this.removeTokens();
           }
 
-          reject();
+          reject(new Error(error.error));
         }
       });
     });
