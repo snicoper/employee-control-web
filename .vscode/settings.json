@@ -31,6 +31,7 @@
   },
   // Code Spell Checker.
   "cSpell.words": [
+    "dayjs",
     "deserializa",
     "devkit",
     "fontawesome",

@@ -7,6 +7,7 @@ import { SiteUrls } from '@core/utils/site-urls';
 import { RefreshTokenModel, RefreshTokenResponse } from '@models/rest/_index';
 import jwtDecode from 'jwt-decode';
 import { AuthService } from './auth.service';
+import { LocalStorageService } from './local-storage.service';
 import { AuthRestService } from './rest/auth-rest.service';
 
 @Injectable({ providedIn: 'root' })
@@ -14,14 +15,15 @@ export class JwtService {
   private readonly route = inject(Router);
   private readonly authService = inject(AuthService);
   private readonly authRestService = inject(AuthRestService);
+  private readonly localStorageService = inject(LocalStorageService);
 
   private tokenDecode: { [key: string]: unknown } = {};
   private accessToken = '';
   private refreshToken = '';
 
   constructor() {
-    const accessToken = localStorage.getItem(LocalStorageKeys.accessToken) as string;
-    const refreshToken = localStorage.getItem(LocalStorageKeys.refreshToken) as string;
+    const accessToken = this.localStorageService.get(LocalStorageKeys.accessToken);
+    const refreshToken = this.localStorageService.get(LocalStorageKeys.refreshToken);
 
     this.setTokens(accessToken, refreshToken, false);
   }
@@ -36,8 +38,8 @@ export class JwtService {
     this.refreshToken = refreshToken;
 
     if (storeTokens) {
-      localStorage.setItem(LocalStorageKeys.accessToken, accessToken);
-      localStorage.setItem(LocalStorageKeys.refreshToken, refreshToken);
+      this.localStorageService.set(LocalStorageKeys.accessToken, accessToken);
+      this.localStorageService.set(LocalStorageKeys.refreshToken, refreshToken);
     }
 
     this.authService.setAuthValue(true);
@@ -61,8 +63,9 @@ export class JwtService {
         error: (error: HttpErrorResponse) => {
           if (error.status === HttpStatusCode.Unauthorized) {
             this.removeTokens();
-            reject();
           }
+
+          reject();
         }
       });
     });
@@ -132,8 +135,8 @@ export class JwtService {
   }
 
   removeTokens(): void {
-    localStorage.removeItem(LocalStorageKeys.refreshToken);
-    localStorage.removeItem(LocalStorageKeys.accessToken);
+    this.localStorageService.remove(LocalStorageKeys.refreshToken);
+    this.localStorageService.remove(LocalStorageKeys.accessToken);
     this.refreshToken = '';
     this.accessToken = '';
     this.tokenDecode = {};
