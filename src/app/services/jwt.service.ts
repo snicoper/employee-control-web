@@ -1,17 +1,17 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageKeys } from '@aw/core/types/_index';
-import { ApiUrls, SiteUrls } from '@aw/core/utils/_index';
+import { ApiUrls, SiteUrls, debugErrors, debugMessages } from '@aw/core/utils/_index';
 import { RefreshTokenModel, RefreshTokenResponseModel } from '@aw/models/api/_index';
 import jwtDecode from 'jwt-decode';
-import { EMPTY, Observable, map } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { AuthApiService } from './api/_index';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class JwtService {
-  private readonly route = inject(Router);
+  private readonly router = inject(Router);
   private readonly authService = inject(AuthService);
   private readonly authApiService = inject(AuthApiService);
   private readonly localStorageService = inject(LocalStorageService);
@@ -44,24 +44,33 @@ export class JwtService {
     this.authService.setAuthValue(true);
   }
 
-  tryRefreshToken(): Observable<RefreshTokenResponseModel> | Observable<never> {
-    if (!this.refreshToken) {
-      return EMPTY;
+  async refreshingTokens(): Promise<boolean> {
+    if (!this.refreshToken || !this.accessToken) {
+      return false;
     }
+
+    debugMessages('Se va a renovar refresh token.');
 
     const model = { refreshToken: this.refreshToken } as RefreshTokenModel;
 
-    return this.authApiService.post<RefreshTokenModel, RefreshTokenResponseModel>(model, ApiUrls.refreshToken).pipe(
-      map((result: RefreshTokenResponseModel) => {
-        if (!result.accessToken || !result.refreshToken) {
-          return result;
-        }
+    try {
+      const response = await lastValueFrom(
+        this.authApiService.post<RefreshTokenModel, RefreshTokenResponseModel>(model, ApiUrls.refreshToken)
+      );
 
-        this.setTokens(result.accessToken, result.refreshToken);
+      if (!response.accessToken || !response.refreshToken) {
+        return false;
+      }
 
-        return result;
-      })
-    );
+      debugMessages('Estableciendo nuevos tokens.');
+      this.setTokens(response.accessToken, response.refreshToken);
+
+      return true;
+    } catch (error: unknown) {
+      debugErrors(error as string);
+
+      return false;
+    }
   }
 
   isExpired(): boolean {
@@ -69,9 +78,9 @@ export class JwtService {
       return true;
     }
 
-    const expire = this.tokenDecode['exp'] as number;
+    const expiry = this.tokenDecode['exp'] as number;
 
-    return Date.now() >= expire * 1000;
+    return Math.floor(new Date().getTime() / 1000) >= expiry;
   }
 
   getToken(): string {
@@ -83,18 +92,13 @@ export class JwtService {
   }
 
   isInRole(role: string): boolean {
-    return !!this.getRole(role);
+    return this.getRoles().includes(role);
   }
 
-  getRole(role: string): string[] | string | null {
-    const roles = this.getRoles();
-    const index = roles.indexOf(role);
+  getRole(role: string): string[] | string {
+    const index = this.getRoles().indexOf(role);
 
-    if (index >= 0) {
-      return roles[index];
-    }
-
-    return null;
+    return index >= 0 ? this.getRoles()[index] : '';
   }
 
   getRoles(): string[] {
@@ -136,6 +140,6 @@ export class JwtService {
 
     this.authService.setAuthValue(false);
 
-    this.route.navigateByUrl(SiteUrls.login);
+    this.router.navigateByUrl(SiteUrls.login);
   }
 }
