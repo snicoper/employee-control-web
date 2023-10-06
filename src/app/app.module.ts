@@ -27,9 +27,9 @@ import { ApiErrorInterceptor, ApiInterceptor, ApiResultInterceptor } from './int
       deps: [AppConfig],
       multi: true
     },
-    { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ApiResultInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ApiResultInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
