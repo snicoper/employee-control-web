@@ -8,7 +8,7 @@ import { AppEnvironments } from './app-environments';
 export const debugErrors = (...errors: string[]): void => {
   if (AppEnvironments.isDebug) {
     // eslint-disable-next-line
-    errors.forEach((error) => console.log(`%c Error message: ${error} `, 'background: #B0280B; color: white'));
+    errors.forEach((error) => console.log(`%c Error: ${error} `, 'background: ##900C3F; color: white'));
   }
 };
 
@@ -20,7 +20,7 @@ export const debugErrors = (...errors: string[]): void => {
 export const debugMessages = (...errors: string[]): void => {
   if (AppEnvironments.isDebug) {
     // eslint-disable-next-line
-    errors.forEach((error) => console.log(`%c Debug message: ${error} `, 'background: #EBD63F; color: black'));
+    errors.forEach((error) => console.log(`%c DEBUG: ${error} `, 'background: #3B499E; color: white'));
   }
 };
 
