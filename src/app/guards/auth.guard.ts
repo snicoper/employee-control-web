@@ -12,7 +12,7 @@ export class AuthGuard {
   private readonly toastr = inject(ToastrService);
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-    if (!this.authService.authValue$() || !this.jwtService.getToken()) {
+    if (!this.authService.authValue$() || !this.jwtService.existsTokens()) {
       this.redirectToLogin(state.url);
 
       return false;

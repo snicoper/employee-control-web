@@ -47,10 +47,16 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     );
   }
 
-  /** Manejar error de unauthorized. */
+  /** Manejar error Unauthorized. */
   private handleUnauthorized(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    if (!this.jwtService.existsTokens()) {
+      this.router.navigate([SiteUrls.login]);
+
+      return next.handle(request);
+    }
+
     if (!this.jwtService.isRefreshing$()) {
-      debugMessages('Se va a renovar el token.');
+      debugMessages('Se va a renovar el token...');
 
       this.jwtService.refreshedTokens$.set(null);
       this.jwtService.isRefreshing$.set(true);
@@ -62,7 +68,8 @@ export class ApiErrorInterceptor implements HttpInterceptor {
           this.jwtService.refreshedTokens$.set(result);
 
           return next.handle(this.addHeaderToken(request, result.accessToken));
-        })
+        }),
+        catchError((error: HttpErrorResponse) => throwError(() => error))
       );
     } else {
       const tokens = this.jwtService.refreshedTokens$();
@@ -71,12 +78,12 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     }
   }
 
-  /** Manejar error de forbidden.  */
+  /** Manejar error forbidden.  */
   private handleForbidden(): void {
     this.router.navigate([SiteUrls.errorsForbidden]);
   }
 
-  /** Manejar un BadRequest. */
+  /** Manejar error BadRequest. */
   private handleBadRequest(errorResponse: HttpErrorResponse): void {
     const errors = errorResponse.error.errors as BadRequestErrors;
 

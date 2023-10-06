@@ -79,6 +79,10 @@ export class JwtService {
     return this.refreshToken;
   }
 
+  existsTokens(): boolean {
+    return !!(this.accessToken && this.refreshToken);
+  }
+
   isInRole(role: string): boolean {
     return this.getRoles().includes(role);
   }
