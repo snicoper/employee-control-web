@@ -67,15 +67,13 @@ export class ApiErrorInterceptor implements HttpInterceptor {
           debugMessages('Se a renovado el token.');
           this.jwtService.refreshedTokens$.set(result);
 
-          return next.handle(this.jwtService.setHeaderAuthorization(request, result.accessToken));
+          return next.handle(this.setHeaderAuthorization(request, result.accessToken));
         }),
         catchError((error: HttpErrorResponse) => throwError(() => error))
       );
-    } else {
-      const tokens = this.jwtService.refreshedTokens$();
-
-      return next.handle(this.jwtService.setHeaderAuthorization(request, tokens?.accessToken.toString() ?? ''));
     }
+
+    return next.handle(request);
   }
 
   /** Manejar error forbidden.  */
@@ -97,5 +95,11 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     this.toastrService.error(
       `Ha ocurrido un error, por favor si el problema persiste póngase en contacto con la administración.`
     );
+  }
+
+  setHeaderAuthorization(request: HttpRequest<unknown>, token: string): HttpRequest<unknown> {
+    return request.clone({
+      headers: request.headers.set('Authorization', `Bearer ${token}`)
+    });
   }
 }

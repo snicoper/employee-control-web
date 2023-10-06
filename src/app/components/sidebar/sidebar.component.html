@@ -1,21 +1,25 @@
 <div class="border-right" id="sidebar-wrapper" [ngClass]="sidebarState$() === sidebarStates.open ? 'show' : 'hide'">
-  <div class="sidebar-heading">Sidebar</div>
+  <div class="sidebar-heading">Employee control</div>
   <div class="list-group list-group-flush">
-    <a [routerLink]="[siteUrls.home]" routerLinkActive="" class="list-group-item list-group-item-action active">
+    <a
+      [routerLink]="[siteUrls.home]"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="list-group-item list-group-item-action">
       Dashboard
     </a>
-    <a [routerLink]="[siteUrls.homeTests]" routerLinkActive="" class="list-group-item list-group-item-action">Tests</a>
-    <a [routerLink]="[siteUrls.home]" routerLinkActive="" class="list-group-item list-group-item-action">Overview</a>
     <a
-      (click)="handleLogOut()"
-      [routerLink]="[siteUrls.home]"
-      routerLinkActive=""
+      [routerLink]="[siteUrls.homeTests]"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
       class="list-group-item list-group-item-action">
-      Log out
+      Tests
     </a>
-    <a [routerLink]="[siteUrls.login]" routerLinkActive="" class="list-group-item list-group-item-action">Login</a>
-    <a (click)="handleClick()" class="list-group-item list-group-item-action cursor-pointer">
-      Status {{ authState$() }}
-    </a>
+
+    <ng-container *ngIf="!authState$()">
+      <a [routerLink]="[siteUrls.login]" class="list-group-item list-group-item-action">Login</a>
+    </ng-container>
+
+    <a (click)="handleLogOut()" class="list-group-item list-group-item-action">Log out</a>
   </div>
 </div>
