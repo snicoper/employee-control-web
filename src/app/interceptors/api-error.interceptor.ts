@@ -55,7 +55,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
 
-    if (!this.jwtService.isRefreshing$()) {
+    if (!this.jwtService.isRefreshing$() && this.jwtService.isExpired()) {
       debugMessages('Se va a renovar el token...');
 
       this.jwtService.refreshedTokens$.set(null);
@@ -67,14 +67,14 @@ export class ApiErrorInterceptor implements HttpInterceptor {
           debugMessages('Se a renovado el token.');
           this.jwtService.refreshedTokens$.set(result);
 
-          return next.handle(this.addHeaderToken(request, result.accessToken));
+          return next.handle(this.jwtService.setHeaderAuthorization(request, result.accessToken));
         }),
         catchError((error: HttpErrorResponse) => throwError(() => error))
       );
     } else {
       const tokens = this.jwtService.refreshedTokens$();
 
-      return next.handle(this.addHeaderToken(request, tokens?.accessToken.toString() ?? ''));
+      return next.handle(this.jwtService.setHeaderAuthorization(request, tokens?.accessToken.toString() ?? ''));
     }
   }
 
@@ -97,13 +97,5 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     this.toastrService.error(
       `Ha ocurrido un error, por favor si el problema persiste póngase en contacto con la administración.`
     );
-  }
-
-  private addHeaderToken(request: HttpRequest<unknown>, token: string): HttpRequest<unknown> {
-    return request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
   }
 }

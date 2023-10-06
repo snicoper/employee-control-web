@@ -1,3 +1,4 @@
+import { HttpRequest } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageKeys } from '@aw/core/types/_index';
@@ -59,6 +60,12 @@ export class JwtService {
         this.setTokens(result.accessToken, result.refreshToken);
       })
     );
+  }
+
+  setHeaderAuthorization(request: HttpRequest<unknown>, token: string): HttpRequest<unknown> {
+    return request.clone({
+      headers: request.headers.set('Authorization', `Bearer ${token}`)
+    });
   }
 
   isExpired(): boolean {

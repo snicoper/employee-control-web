@@ -13,9 +13,7 @@ export class ApiInterceptor implements HttpInterceptor {
     const token = this.jwtService.getToken();
 
     if (token && !request.headers.has('Authorization')) {
-      request = request.clone({
-        headers: request.headers.set('Authorization', `Bearer ${token}`)
-      });
+      this.jwtService.setHeaderAuthorization(request, token);
     }
 
     if (!request.headers.has('Accept-Language')) {
