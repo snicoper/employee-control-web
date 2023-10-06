@@ -1,17 +1,33 @@
 import { AppEnvironments } from '../config/_index';
 
+/* eslint-disable  no-console */
+
 const logSettings = {
   error: { key: 'ERROR', color: '#cc0066' },
   warning: { key: 'WARNING', color: '#cc7a00' },
-  info: { key: 'INFO', color: '#cc0066' },
-  success: { key: 'SUCCESS', color: '#009933' }
+  info: { key: 'INFO', color: '#4169e1' },
+  debug: { key: 'DEBUG', color: '#009933' }
 };
 
 const displayLogMessage = (message: string, settings: { key: string; color: string }): void => {
   if (AppEnvironments.isDebug) {
     const background = `background: ${settings.color}; color: white`;
-    // eslint-disable-next-line
-    console.log(`%c ${settings.key}: ${message} `, background);
+    const formatMessage = `%c ${settings.key}: ${message} `;
+
+    switch (settings.key.toString()) {
+      case 'ERROR':
+        console.error(formatMessage, background);
+        break;
+      case 'WARNING':
+        console.warn(formatMessage, background);
+        break;
+      case 'INFO':
+        console.info(formatMessage, background);
+        break;
+      case 'DEBUG':
+        console.log(formatMessage, background);
+        break;
+    }
   }
 };
 
@@ -43,10 +59,10 @@ export const logInfo = (message: string): void => {
 };
 
 /**
- * Muestra message de tipo success solo si se esta en desarrollo.
+ * Muestra message de tipo debug solo si se esta en desarrollo.
  *
  * @param message Error a mostrar.
  */
-export const logSuccess = (message: string): void => {
-  displayLogMessage(message, logSettings.success);
+export const logDebug = (message: string): void => {
+  displayLogMessage(message, logSettings.debug);
 };

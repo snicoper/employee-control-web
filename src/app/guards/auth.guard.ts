@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { logError } from '@aw/core/errors/_index';
+import { logDebug } from '@aw/core/errors/_index';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { AuthService, JwtService } from '@aw/services/_index';
 import { ToastrService } from 'ngx-toastr';
@@ -27,7 +27,7 @@ export class AuthGuard {
 
     for (const role of roles) {
       if (!this.jwtService.isInRole(role)) {
-        logError(`Role requerido para acceder a esta pagina: ${role}`);
+        logDebug(`Role requerido para acceder a esta pagina: ${role}`);
 
         return false;
       }

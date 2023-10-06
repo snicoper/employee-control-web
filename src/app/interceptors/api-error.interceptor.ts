@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { logError, logSuccess, logWarning } from '@aw/core/errors/_index';
+import { logDebug, logError, logWarning } from '@aw/core/errors/_index';
 import { ValidationErrors } from '@aw/core/types/_index';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { toastForNotificationErrors } from '@aw/core/utils/_index';
@@ -72,7 +72,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
             headers: request.headers.set('Authorization', `Bearer ${result.accessToken}`)
           });
 
-          logSuccess('Se a renovado el token.');
+          logDebug('Se a renovado el token.');
 
           return next.handle(request);
         }),
