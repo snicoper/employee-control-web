@@ -91,19 +91,6 @@
             "prev": "*",
             "next": "block-like"
           }
-        ],
-        "capitalized-comments": [
-          "error",
-          "always",
-          {
-            "line": {
-              "ignorePattern": "pragma|ignored"
-            },
-            "block": {
-              "ignoreInlineComments": false,
-              "ignorePattern": "ignored"
-            }
-          }
         ]
       }
     },
