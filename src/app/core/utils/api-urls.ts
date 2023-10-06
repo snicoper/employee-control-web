@@ -3,7 +3,10 @@ import { replaceStringParams } from './common-utils';
 /** URLs en la API. */
 export const ApiUrls = {
   /** Admin. */
-  getAdminIdentitiesPaginated: 'admin/identity/paginated',
+  admin: {
+    /** Identity. */
+    getAdminIdentitiesPaginated: 'admin/identity/paginated',
+  },
 
   /** Identity. */
   login: 'identity/login',

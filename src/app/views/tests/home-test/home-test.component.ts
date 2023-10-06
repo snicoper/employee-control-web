@@ -26,10 +26,12 @@ export class HomeTestComponent implements OnInit {
   }
 
   private eventListener(): void {
-    this.adminIdentityApiService.get<ApiResult<AdminIdentityPaginated>>(ApiUrls.getAdminIdentitiesPaginated).subscribe({
-      next: (result: ApiResult<AdminIdentityPaginated>) => {
-        this.employees = result;
-      }
-    });
+    this.adminIdentityApiService
+      .get<ApiResult<AdminIdentityPaginated>>(ApiUrls.admin.getAdminIdentitiesPaginated)
+      .subscribe({
+        next: (result: ApiResult<AdminIdentityPaginated>) => {
+          this.employees = result;
+        }
+      });
   }
 }
