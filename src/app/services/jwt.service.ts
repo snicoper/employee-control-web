@@ -1,10 +1,10 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageKeys } from '@aw/core/types/_index';
-import { ApiUrls, SiteUrls, debugErrors, debugMessages } from '@aw/core/utils/_index';
+import { ApiUrls, SiteUrls } from '@aw/core/utils/_index';
 import { RefreshTokenModel, RefreshTokenResponseModel } from '@aw/models/api/_index';
 import jwtDecode from 'jwt-decode';
-import { lastValueFrom } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AuthApiService } from './api/_index';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
@@ -16,6 +16,13 @@ export class JwtService {
   private readonly authApiService = inject(AuthApiService);
   private readonly localStorageService = inject(LocalStorageService);
 
+  /** Comprueba si el token se esta refrescando. */
+  readonly isRefreshing$ = signal(false);
+
+  /** Último valor de refresco. */
+  readonly refreshedToken$ = signal<RefreshTokenResponseModel | null>(null);
+
+  /** Token data. */
   private tokenDecode: { [key: string]: unknown } = {};
   private accessToken = '';
   private refreshToken = '';
@@ -44,33 +51,14 @@ export class JwtService {
     this.authService.setAuthValue(true);
   }
 
-  async refreshingTokens(): Promise<boolean> {
-    if (!this.refreshToken || !this.accessToken) {
-      return false;
-    }
-
-    debugMessages('Se va a renovar refresh token.');
-
+  refreshingTokens(): Observable<RefreshTokenResponseModel> {
     const model = { refreshToken: this.refreshToken } as RefreshTokenModel;
 
-    try {
-      const response = await lastValueFrom(
-        this.authApiService.post<RefreshTokenModel, RefreshTokenResponseModel>(model, ApiUrls.refreshToken)
-      );
-
-      if (!response.accessToken || !response.refreshToken) {
-        return false;
-      }
-
-      debugMessages('Estableciendo nuevos tokens.');
-      this.setTokens(response.accessToken, response.refreshToken);
-
-      return true;
-    } catch (error: unknown) {
-      debugErrors(error as string);
-
-      return false;
-    }
+    return this.authApiService.post<RefreshTokenModel, RefreshTokenResponseModel>(model, ApiUrls.refreshToken).pipe(
+      tap((result) => {
+        this.setTokens(result.accessToken, result.refreshToken);
+      })
+    );
   }
 
   isExpired(): boolean {

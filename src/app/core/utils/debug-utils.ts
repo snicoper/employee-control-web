@@ -9,7 +9,7 @@ import { replaceStringParams } from './common-utils';
 export const debugErrors = (...errors: string[]): void => {
   if (AppEnvironments.isDebug) {
     // eslint-disable-next-line
-    errors.forEach((error) => console.log(`%c Error: ${error} `, 'background: ##900C3F; color: white'));
+    errors.forEach((error) => console.log(`%c ERROR: ${error} `, 'background: #900C3F; color: white'));
   }
 };
 
