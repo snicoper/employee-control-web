@@ -64,10 +64,15 @@ export class ApiErrorInterceptor implements HttpInterceptor {
       return this.jwtService.refreshingTokens().pipe(
         finalize(() => this.jwtService.isRefreshing$.set(false)),
         switchMap((result: RefreshTokenResponseModel) => {
-          logSuccess('Se a renovado el token.');
           this.jwtService.refreshedTokens$.set(result);
 
-          return next.handle(this.setHeaderAuthorization(request, result.accessToken));
+          request = request.clone({
+            headers: request.headers.set('Authorization', `Bearer ${result.accessToken}`)
+          });
+
+          logSuccess('Se a renovado el token.');
+
+          return next.handle(request);
         }),
         catchError((error: HttpErrorResponse) => throwError(() => error))
       );
@@ -95,11 +100,5 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     this.toastrService.error(
       `Ha ocurrido un error, por favor si el problema persiste póngase en contacto con la administración.`
     );
-  }
-
-  setHeaderAuthorization(request: HttpRequest<unknown>, token: string): HttpRequest<unknown> {
-    return request.clone({
-      headers: request.headers.set('Authorization', `Bearer ${token}`)
-    });
   }
 }

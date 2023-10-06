@@ -1,3 +1,4 @@
+import { HttpRequest } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageKeys } from '@aw/core/types/_index';
@@ -49,6 +50,16 @@ export class JwtService {
     }
 
     this.authService.setAuthValue(true);
+  }
+
+  setHeaderAuthorization(request: HttpRequest<unknown>): HttpRequest<unknown> {
+    if (this.accessToken && !request.headers.has('Authorization')) {
+      return request.clone({
+        headers: request.headers.set('Authorization', `Bearer ${this.accessToken}`)
+      });
+    }
+
+    return request;
   }
 
   refreshingTokens(): Observable<RefreshTokenResponseModel> {
