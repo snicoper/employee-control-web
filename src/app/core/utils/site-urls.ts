@@ -8,6 +8,9 @@ export const SiteUrls = {
   /** Auth. */
   login: '/auth/login',
 
+  /** Tests. */
+  homeTests: '/tests',
+
   /** Errors. */
   errorsForbidden: '/errors/403',
   errorsNotFound: '/errors/404',

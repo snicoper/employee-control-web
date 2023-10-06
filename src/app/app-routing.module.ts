@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { Roles } from './core/types/roles';
+import { AuthGuard } from './guards/_index';
 
 const routes: Routes = [
   {
@@ -13,6 +15,12 @@ const routes: Routes = [
   {
     path: 'errors',
     loadChildren: () => import('@aw/views/errors/errors.module').then((m) => m.ErrorsModule)
+  },
+  {
+    path: 'tests',
+    data: { title: 'tests', roles: [Roles.administrator] },
+    canActivate: [AuthGuard],
+    loadChildren: () => import('@aw/views/tests/tests.module').then((m) => m.TestsModule)
   },
   {
     path: '**',
