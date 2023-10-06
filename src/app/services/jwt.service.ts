@@ -20,7 +20,7 @@ export class JwtService {
   readonly isRefreshing$ = signal(false);
 
   /** Último valor de refresco. */
-  readonly refreshedToken$ = signal<RefreshTokenResponseModel | null>(null);
+  readonly refreshedTokens$ = signal<RefreshTokenResponseModel | null>(null);
 
   /** Token data. */
   private tokenDecode: { [key: string]: unknown } = {};

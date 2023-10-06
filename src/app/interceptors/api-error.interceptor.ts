@@ -52,20 +52,20 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     if (!this.jwtService.isRefreshing$()) {
       debugMessages('Se va a renovar el token.');
 
-      this.jwtService.refreshedToken$.set(null);
+      this.jwtService.refreshedTokens$.set(null);
       this.jwtService.isRefreshing$.set(true);
 
       return this.jwtService.refreshingTokens().pipe(
         finalize(() => this.jwtService.isRefreshing$.set(false)),
         switchMap((result: RefreshTokenResponseModel) => {
           debugMessages('Se a renovado el token.');
-          this.jwtService.refreshedToken$.set(result);
+          this.jwtService.refreshedTokens$.set(result);
 
           return next.handle(this.addHeaderToken(request, result.accessToken));
         })
       );
     } else {
-      const tokens = this.jwtService.refreshedToken$();
+      const tokens = this.jwtService.refreshedTokens$();
 
       return next.handle(this.addHeaderToken(request, tokens?.accessToken.toString() ?? ''));
     }
