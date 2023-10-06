@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ApiResult } from '@aw/core/api-result/api-result';
+import { logError, logInfo, logSuccess, logWarning } from '@aw/core/utils/_index';
 import { ApiUrls } from '@aw/core/utils/api-urls';
 import { AdminIdentityPaginated } from '@aw/models/api/_index';
 import { AdminIdentityApiService } from '@aw/services/api/_index';
@@ -15,6 +16,13 @@ export class HomeTestComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventListener();
+  }
+
+  handleAlertsConsole(): void {
+    logError('Hello world');
+    logWarning('Hello world');
+    logInfo('Hello world');
+    logSuccess('Hello world');
   }
 
   private eventListener(): void {

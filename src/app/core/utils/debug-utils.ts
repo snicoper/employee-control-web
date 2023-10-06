@@ -1,41 +1,45 @@
 import { AppEnvironments } from './app-environments';
-import { replaceStringParams } from './common-utils';
 
 /**
- * Muestra una lista de errores solo si se esta en desarrollo.
+ * Muestra message de tipo error solo si se esta en desarrollo.
  *
- * @param errors Errores a mostrar.
+ * @param message Error a mostrar.
  */
-export const debugErrors = (...errors: string[]): void => {
-  if (AppEnvironments.isDebug) {
-    // eslint-disable-next-line
-    errors.forEach((error) => console.log(`%c ERROR: ${error} `, 'background: #900C3F; color: white'));
-  }
+export const logError = (message: string): void => {
+  displayLogMessage('ERROR', message, '#cc0066');
 };
 
 /**
- * Muestra una lista de errores solo si se esta en desarrollo.
+ * Muestra message de tipo warning solo si se esta en desarrollo.
  *
- * @param errors Errores a mostrar.
+ * @param message Error a mostrar.
  */
-export const debugMessages = (...errors: string[]): void => {
-  if (AppEnvironments.isDebug) {
-    // eslint-disable-next-line
-    errors.forEach((error) => console.log(`%c DEBUG: ${error} `, 'background: #3B499E; color: white'));
-  }
+export const logWarning = (message: string): void => {
+  displayLogMessage('WARNING', message, '#cc7a00');
 };
 
 /**
- * Muestra un error solo si se esta en desarrollo.
- * Example: debugMessage('El valor de 2 + 2 es: {valor}', { valor: '4' }).
+ * Muestra message de tipo info solo si se esta en desarrollo.
  *
- * @param url Una de las propiedades.
- * @param args Remplaza el {key} por el value de.
+ * @param message Error a mostrar.
  */
-export const debugMessage = (url: string, args: Record<string, string>): void => {
+export const logInfo = (message: string): void => {
+  displayLogMessage('INFO', message, '#3366ff');
+};
+
+/**
+ * Muestra message de tipo success solo si se esta en desarrollo.
+ *
+ * @param message Error a mostrar.
+ */
+export const logSuccess = (message: string): void => {
+  displayLogMessage('SUCCESS', message, '#009933');
+};
+
+const displayLogMessage = (type: string, message: string, color: string): void => {
   if (AppEnvironments.isDebug) {
-    const message = replaceStringParams(url, args);
+    const background = `background: ${color}; color: white`;
     // eslint-disable-next-line
-    debugMessages(message);
+    console.log(`%c ${type}: ${message} `, background);
   }
 };

@@ -9,7 +9,7 @@ import {
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ValidationErrors } from '@aw/core/types/_index';
-import { SiteUrls, debugErrors, debugMessages, toastForNotificationErrors } from '@aw/core/utils/_index';
+import { SiteUrls, logError, logSuccess, logWarning, toastForNotificationErrors } from '@aw/core/utils/_index';
 import { RefreshTokenResponseModel } from '@aw/models/api/_index';
 import { BadRequestErrors } from '@aw/models/bad-request-errors';
 import { JwtService } from '@aw/services/jwt.service';
@@ -27,7 +27,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        debugErrors(error.message);
+        logError(error.message);
 
         switch (error.status) {
           case HttpStatusCode.Unauthorized:
@@ -56,7 +56,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     }
 
     if (!this.jwtService.isRefreshing$() && this.jwtService.isExpired()) {
-      debugMessages('Se va a renovar el token...');
+      logWarning('Se va a renovar el token...');
 
       this.jwtService.refreshedTokens$.set(null);
       this.jwtService.isRefreshing$.set(true);
@@ -64,7 +64,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
       return this.jwtService.refreshingTokens().pipe(
         finalize(() => this.jwtService.isRefreshing$.set(false)),
         switchMap((result: RefreshTokenResponseModel) => {
-          debugMessages('Se a renovado el token.');
+          logSuccess('Se a renovado el token.');
           this.jwtService.refreshedTokens$.set(result);
 
           return next.handle(this.setHeaderAuthorization(request, result.accessToken));
