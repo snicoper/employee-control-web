@@ -2,7 +2,7 @@ import { HttpRequest } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageKeys } from '@aw/core/types/_index';
-import { ApiUrls, SiteUrls } from '@aw/core/utils/_index';
+import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { RefreshTokenModel, RefreshTokenResponseModel } from '@aw/models/api/_index';
 import jwtDecode from 'jwt-decode';
 import { Observable, tap } from 'rxjs';

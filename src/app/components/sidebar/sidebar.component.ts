@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import { SiteUrls } from '@aw/core/utils/_index';
+import { SiteUrls } from '@aw/core/urls/_index';
 import { AuthService, JwtService } from '@aw/services/_index';
 import { SidebarStates } from './sidebar-states';
 import { SidebarService } from './sidebar.service';

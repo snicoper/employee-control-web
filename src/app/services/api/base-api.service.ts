@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { AppEnvironments } from '@aw/core/utils/_index';
+import { AppEnvironments } from '@aw/core/config/_index';
 import { Observable } from 'rxjs';
 
 export abstract class BaseApiService {

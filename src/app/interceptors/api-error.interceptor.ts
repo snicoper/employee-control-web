@@ -8,8 +8,10 @@ import {
 } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { logError, logSuccess, logWarning } from '@aw/core/errors/_index';
 import { ValidationErrors } from '@aw/core/types/_index';
-import { SiteUrls, logError, logSuccess, logWarning, toastForNotificationErrors } from '@aw/core/utils/_index';
+import { SiteUrls } from '@aw/core/urls/_index';
+import { toastForNotificationErrors } from '@aw/core/utils/_index';
 import { RefreshTokenResponseModel } from '@aw/models/api/_index';
 import { BadRequestErrors } from '@aw/models/bad-request-errors';
 import { JwtService } from '@aw/services/jwt.service';

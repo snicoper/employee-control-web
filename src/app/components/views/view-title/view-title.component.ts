@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { AppEnvironments } from '@aw/core/utils/_index';
+import { AppEnvironments } from '@aw/core/config/_index';
 
 /** Establece el titulo de la pagina (pestaña del navegador). */
 @Component({

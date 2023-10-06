@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ApiResult } from '@aw/core/api-result/api-result';
-import { logError, logInfo, logSuccess, logWarning } from '@aw/core/utils/_index';
-import { ApiUrls } from '@aw/core/utils/api-urls';
+import { logError, logInfo, logSuccess, logWarning } from '@aw/core/errors/_index';
+import { ApiUrls } from '@aw/core/urls/api-urls';
 import { AdminIdentityPaginated } from '@aw/models/api/_index';
 import { AdminIdentityApiService } from '@aw/services/api/_index';
 

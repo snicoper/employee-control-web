@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { SiteUrls, logError } from '@aw/core/utils/_index';
+import { logError } from '@aw/core/errors/_index';
+import { SiteUrls } from '@aw/core/urls/_index';
 import { AuthService, JwtService } from '@aw/services/_index';
 import { ToastrService } from 'ngx-toastr';
 

@@ -1,4 +1,4 @@
-import { AppEnvironments } from './app-environments';
+import { AppEnvironments } from '../config/_index';
 
 const logSettings = {
   error: { key: 'ERROR', color: '#cc0066' },

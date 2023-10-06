@@ -1,11 +1,11 @@
-import { replaceStringParams } from './common-utils';
+import { replaceStringParams } from '../utils/_index';
 
 /** URLs en la API. */
 export const ApiUrls = {
   /** Admin. */
   admin: {
     /** Identity. */
-    getAdminIdentitiesPaginated: 'admin/identity/paginated',
+    getAdminIdentitiesPaginated: 'admin/identity/paginated'
   },
 
   /** Identity. */
