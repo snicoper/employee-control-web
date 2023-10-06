@@ -23,19 +23,3 @@ export const debugMessages = (...errors: string[]): void => {
     errors.forEach((error) => console.log(`%c DEBUG: ${error} `, 'background: #3B499E; color: white'));
   }
 };
-
-/**
- * Lanza un Error y para la ejecución de la aplicación..
- *
- * Mostrara el error solo si se esta en desarrollo, en caso contrario
- * solo mostrara un error genérico.
- *
- * @param message Mensaje a mostrar.
- */
-export const raiseError = (message: string): void => {
-  if (AppEnvironments.isDebug) {
-    throw new Error(message);
-  } else {
-    throw new Error('Ha ocurrido un error en la aplicación.');
-  }
-};
