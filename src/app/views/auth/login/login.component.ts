@@ -48,10 +48,10 @@ export class LoginComponent {
     const loginRequest = this.form.value as LoginRequest;
 
     this.authApiService
-      .post<LoginRequest, LoginResponse>(loginRequest, ApiUrls.login)
+      .create<LoginRequest, LoginResponse>(loginRequest, ApiUrls.login)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: LoginResponse) => {
+        next: (result) => {
           this.jwtService.setTokens(result.accessToken, result.refreshToken);
 
           if (this.jwtService.getToken()) {
