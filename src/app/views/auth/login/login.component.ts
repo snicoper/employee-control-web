@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormInputTypes } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
-import { BadRequest } from '@aw/models/_index';
+import { BadResponse } from '@aw/models/_index';
 import { JwtService } from '@aw/services/_index';
 import { AuthApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
@@ -24,7 +24,7 @@ export class LoginComponent {
   private readonly route = inject(ActivatedRoute);
 
   form: FormGroup;
-  badRequest: BadRequest | undefined;
+  badRequest: BadResponse | undefined;
   submitted = false;
   invalidLogin = false;
   formTypes = FormInputTypes;
@@ -60,7 +60,7 @@ export class LoginComponent {
           }
         },
         error: (httpError: HttpErrorResponse) => {
-          this.badRequest = httpError.error as BadRequest;
+          this.badRequest = httpError.error as BadResponse;
           this.loading = false;
 
           if (httpError.status === HttpStatusCode.Unauthorized) {

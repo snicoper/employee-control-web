@@ -1,14 +1,14 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { BadRequest } from '@aw/models/_index';
+import { BadResponse } from '@aw/models/_index';
 
 @Component({
   selector: 'aw-field-error',
   templateUrl: './field-error.component.html'
 })
 export class FieldErrorComponent implements OnInit {
-  @Input({ required: true }) badRequest: BadRequest | undefined;
+  @Input({ required: true }) badRequest: BadResponse | undefined;
   @Input({ required: true }) form: FormGroup | undefined;
   @Input({ required: true }) submitted = false;
   @Input() fieldText = '';
