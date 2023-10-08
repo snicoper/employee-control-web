@@ -1,6 +1,6 @@
-import { BaseModel } from './base.model';
+import { BaseModel } from './base-model.model';
 
-export interface BaseAuditableModel extends BaseModel {
+export interface BaseAuditable extends BaseModel {
   created: Date;
   createdBy?: string;
   lastModified: Date;

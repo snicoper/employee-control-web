@@ -13,7 +13,7 @@ import { ValidationErrors } from '@aw/core/types/_index';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { toastForNotificationErrors } from '@aw/core/utils/_index';
 import { BadResponseErrors } from '@aw/models/_index';
-import { RefreshTokenResponseModel } from '@aw/models/api/_index';
+import { RefreshTokenResponse } from '@aw/models/api/_index';
 import { JwtService } from '@aw/services/jwt.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, finalize, throwError } from 'rxjs';
@@ -65,7 +65,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
       return this.jwtService.refreshingTokens().pipe(
         finalize(() => this.jwtService.isRefreshing$.set(false)),
-        switchMap((result: RefreshTokenResponseModel) => {
+        switchMap((result: RefreshTokenResponse) => {
           this.jwtService.refreshedTokens$.set(result);
 
           request = request.clone({

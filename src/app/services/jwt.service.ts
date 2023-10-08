@@ -3,7 +3,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageKeys } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
-import { RefreshTokenModel, RefreshTokenResponseModel } from '@aw/models/api/_index';
+import { RefreshTokenRequest, RefreshTokenResponse } from '@aw/models/api/_index';
 import jwtDecode from 'jwt-decode';
 import { Observable, tap } from 'rxjs';
 import { AuthApiService } from './api/_index';
@@ -21,7 +21,7 @@ export class JwtService {
   readonly isRefreshing$ = signal(false);
 
   /** Último valor de refresco. */
-  readonly refreshedTokens$ = signal<RefreshTokenResponseModel | null>(null);
+  readonly refreshedTokens$ = signal<RefreshTokenResponse | null>(null);
 
   /** Token data. */
   private tokenDecode: { [key: string]: unknown } = {};
@@ -62,10 +62,10 @@ export class JwtService {
     return request;
   }
 
-  refreshingTokens(): Observable<RefreshTokenResponseModel> {
-    const model = { refreshToken: this.refreshToken } as RefreshTokenModel;
+  refreshingTokens(): Observable<RefreshTokenResponse> {
+    const model = { refreshToken: this.refreshToken } as RefreshTokenRequest;
 
-    return this.authApiService.post<RefreshTokenModel, RefreshTokenResponseModel>(model, ApiUrls.refreshToken).pipe(
+    return this.authApiService.post<RefreshTokenRequest, RefreshTokenResponse>(model, ApiUrls.refreshToken).pipe(
       tap((result) => {
         this.setTokens(result.accessToken, result.refreshToken);
       })

@@ -1,5 +1,5 @@
 /** Respuesta al hacer refresh token. */
-export interface RefreshTokenResponseModel {
+export interface RefreshTokenResponse {
   accessToken: string;
   refreshToken: string;
 }

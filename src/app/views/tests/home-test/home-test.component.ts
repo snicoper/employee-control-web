@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ApiResult } from '@aw/core/api-result/api-result';
 import { logDebug, logError, logInfo, logWarning } from '@aw/core/errors/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
-import { AdminIdentityPaginated } from '@aw/models/api/_index';
+import { AdminIdentityPaginatedResponse } from '@aw/models/api/_index';
 import { AdminIdentityApiService } from '@aw/services/api/_index';
 
 @Component({
@@ -12,7 +12,7 @@ import { AdminIdentityApiService } from '@aw/services/api/_index';
 export class HomeTestComponent implements OnInit {
   private readonly adminIdentityApiService = inject(AdminIdentityApiService);
 
-  employees: ApiResult<AdminIdentityPaginated> = new ApiResult<AdminIdentityPaginated>();
+  employees: ApiResult<AdminIdentityPaginatedResponse> = new ApiResult<AdminIdentityPaginatedResponse>();
 
   ngOnInit(): void {
     this.eventListener();
@@ -27,9 +27,9 @@ export class HomeTestComponent implements OnInit {
 
   private eventListener(): void {
     this.adminIdentityApiService
-      .get<ApiResult<AdminIdentityPaginated>>(ApiUrls.admin.getAdminIdentitiesPaginated)
+      .get<ApiResult<AdminIdentityPaginatedResponse>>(ApiUrls.admin.getAdminIdentitiesPaginated)
       .subscribe({
-        next: (result: ApiResult<AdminIdentityPaginated>) => {
+        next: (result: ApiResult<AdminIdentityPaginatedResponse>) => {
           this.employees = result;
         }
       });

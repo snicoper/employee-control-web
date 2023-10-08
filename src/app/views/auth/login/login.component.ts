@@ -8,8 +8,8 @@ import { BadResponse } from '@aw/models/_index';
 import { JwtService } from '@aw/services/_index';
 import { AuthApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
-import { LoginModel } from './login.model';
-import { LoginResponse } from './login.response';
+import { LoginRequest } from './login-request.model';
+import { LoginResponse } from './login-response.model';
 
 @Component({
   selector: 'aw-login',
@@ -45,10 +45,10 @@ export class LoginComponent {
     }
 
     this.loading = true;
-    const loginModel = this.form.value as LoginModel;
+    const loginRequest = this.form.value as LoginRequest;
 
     this.authApiService
-      .post<LoginModel, LoginResponse>(loginModel, ApiUrls.login)
+      .post<LoginRequest, LoginResponse>(loginRequest, ApiUrls.login)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (result: LoginResponse) => {
