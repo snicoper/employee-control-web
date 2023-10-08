@@ -11,7 +11,7 @@ export class LocalStorageService {
     return localStorage.getItem(key) as string;
   }
 
-  setStringify<T>(key: LocalStorageKeys, obj: T): string {
+  setObject<T>(key: LocalStorageKeys, obj: T): string {
     const value = JSON.stringify(obj);
     this.set(key, value);
 
