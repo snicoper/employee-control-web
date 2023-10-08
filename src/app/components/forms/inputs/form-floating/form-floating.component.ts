@@ -1,7 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormInputTypes } from '@aw/core/types/_index';
-import { BadResponse } from '@aw/models/_index';
+import { BadResponse } from '@aw/models/api/_index';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 /* eslint-disable  @typescript-eslint/no-unused-vars */
