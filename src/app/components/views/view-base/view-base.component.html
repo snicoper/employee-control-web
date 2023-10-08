@@ -4,7 +4,7 @@
 </ng-container>
 <!-- end title -->
 
-<div class="d-flex">
+<section class="d-flex">
   <!-- sidebar -->
   <ng-container *ngIf="showSidebar$()">
     <aw-sidebar [ngClass]="{ 'visible-navbar': showNavbar$(), 'visible-navbar-hide': !showNavbar$() }"></aw-sidebar>
@@ -19,14 +19,14 @@
     <!-- end navbar -->
 
     <!-- content page -->
-    <div class="fade-in" [ngClass]="{ 'visible-navbar': showNavbar$(), 'visible-navbar-hide': !showNavbar$() }">
+    <section class="fade-in" [ngClass]="{ 'visible-navbar': showNavbar$(), 'visible-navbar-hide': !showNavbar$() }">
       <div [ngClass]="cssContent" class="pt-2">
         <ng-content></ng-content>
       </div>
-    </div>
+    </section>
     <!-- end content page -->
   </div>
-</div>
+</section>
 
 <!-- footer -->
 <ng-container *ngIf="showFooter$()">

@@ -1,4 +1,4 @@
-<div class="border-right" id="sidebar-wrapper" [ngClass]="sidebarState$() === sidebarStates.open ? 'show' : 'hide'">
+<section class="border-right" id="sidebar-wrapper" [ngClass]="sidebarState$() === sidebarStates.open ? 'show' : 'hide'">
   <div class="sidebar-heading">Employee control</div>
   <div class="list-group list-group-flush">
     <a
@@ -22,4 +22,4 @@
 
     <a (click)="handleLogOut()" class="list-group-item list-group-item-action">Log out</a>
   </div>
-</div>
+</section>
