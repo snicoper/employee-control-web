@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormInputTypes } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
@@ -59,11 +59,11 @@ export class LoginComponent {
             this.router.navigateByUrl(returnUrl);
           }
         },
-        error: (httpError: HttpErrorResponse) => {
-          this.badRequest = httpError.error as BadResponse;
+        error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error as BadResponse;
           this.loading = false;
 
-          if (httpError.status === HttpStatusCode.Unauthorized) {
+          if (error.status === HttpStatusCode.Unauthorized) {
             this.invalidLogin = true;
           }
         }
@@ -72,8 +72,8 @@ export class LoginComponent {
 
   private buildForm(): void {
     this.form = this.fb.group({
-      identifier: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required])
+      identifier: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
   }
 }
