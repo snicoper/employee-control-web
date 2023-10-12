@@ -8,9 +8,10 @@ export const ApiUrls = {
     getAdminIdentitiesPaginated: 'admin/identity/paginated'
   },
 
-  /** Identity. */
-  login: 'identity/login',
-  refreshToken: 'identity/refresh-token',
+  /** Auth. */
+  login: 'auth/login',
+  refreshToken: 'auth/refresh-token',
+  register: 'auth/register',
 
   /** Localization. */
   currentLocale: 'localization/current-locale',

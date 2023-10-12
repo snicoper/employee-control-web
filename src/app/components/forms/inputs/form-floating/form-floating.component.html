@@ -1,14 +1,14 @@
 <div class="form-floating">
   <input
+    (ngModelChange)="onChangeValue($event)"
     [(ngModel)]="value"
-    [id]="id"
-    [value]="value"
     [disabled]="isDisabled"
-    [type]="inputType"
+    [id]="id"
     [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
     [placeholder]="placeholder"
-    (ngModelChange)="onChangeValue($event)"
-    class="form-control" />
+    [type]="inputType"
+    [value]="value"
+    class="form-control"/>
   <ng-container *ngIf="label">
     <label [for]="id">
       {{ label }}
@@ -18,10 +18,10 @@
 
 <ng-container *ngIf="form">
   <aw-field-error
-    [form]="form"
     [badRequest]="badRequest"
-    [submitted]="submitted"
+    [fieldName]="fieldName"
     [fieldText]="label"
-    [fieldName]="fieldName">
+    [form]="form"
+    [submitted]="submitted">
   </aw-field-error>
 </ng-container>

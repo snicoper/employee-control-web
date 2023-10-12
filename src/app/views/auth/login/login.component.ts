@@ -23,7 +23,7 @@ export class LoginComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
-  form: FormGroup;
+  form: FormGroup = this.fb.group({});
   badRequest: BadResponse | undefined;
   submitted = false;
   invalidLogin = false;
@@ -32,7 +32,6 @@ export class LoginComponent {
   siteUrls = SiteUrls;
 
   constructor() {
-    this.form = this.fb.group({});
     this.buildForm();
   }
 
@@ -61,7 +60,6 @@ export class LoginComponent {
         },
         error: (error: HttpErrorResponse) => {
           this.badRequest = error.error as BadResponse;
-          this.loading = false;
 
           if (error.status === HttpStatusCode.Unauthorized) {
             this.invalidLogin = true;

@@ -3,8 +3,8 @@
   <ng-container *ngIf="showPageList">
     <li class="mr-2">
       <select
-        [(ngModel)]="apiResult.pageSize"
         (ngModelChange)="handleChangePageListNumber($event)"
+        [(ngModel)]="apiResult.pageSize"
         class="custom-select custom-select-sm unfocus">
         <ng-container *ngFor="let item of itemsPageList">
           <option [ngClass]="{ active: item === apiResult.pageSize }" [ngValue]="item">
@@ -20,7 +20,7 @@
     <!-- first page -->
     <ng-container *ngIf="!apiResult.hasPreviousPage">
       <li class="page-item disabled">
-        <a class="page-link" href="#" aria-label="Previous">
+        <a aria-label="Previous" class="page-link" href="#">
           <span aria-hidden="true">
             <span class="icon fas fa-angle-double-left text-muted"></span>
           </span>
@@ -30,8 +30,8 @@
     </ng-container>
 
     <ng-container *ngIf="apiResult.hasPreviousPage">
-      <li class="page-item" [tooltip]="'common.first'">
-        <a (click)="handleChangePage(1)" class="page-link cursor-pointer" aria-label="Previous">
+      <li [tooltip]="'common.first'" class="page-item">
+        <a (click)="handleChangePage(1)" aria-label="Previous" class="page-link cursor-pointer">
           <span aria-hidden="true">
             <span class="icon fas fa-angle-double-left"></span>
           </span>
@@ -44,7 +44,7 @@
     <!-- previous page -->
     <ng-container *ngIf="!apiResult.hasPreviousPage">
       <li class="page-item disabled mr-2">
-        <a class="page-link" href="#" aria-label="Previous">
+        <a aria-label="Previous" class="page-link" href="#">
           <span aria-hidden="true">
             <span class="icon fas fa-angle-left text-muted"></span>
           </span>
@@ -54,8 +54,8 @@
     </ng-container>
 
     <ng-container *ngIf="apiResult.hasPreviousPage">
-      <li class="page-item mr-2" [tooltip]="'common.previous'">
-        <a (click)="handleChangePage(apiResult.pageNumber - 1)" class="page-link cursor-pointer" aria-label="Previous">
+      <li [tooltip]="'common.previous'" class="page-item mr-2">
+        <a (click)="handleChangePage(apiResult.pageNumber - 1)" aria-label="Previous" class="page-link cursor-pointer">
           <span aria-hidden="true">
             <span class="icon fas fa-angle-left"></span>
           </span>
@@ -81,7 +81,7 @@
     <!-- next page -->
     <ng-container *ngIf="!apiResult.hasNextPage">
       <li class="page-item disabled ml-2">
-        <a class="page-link" href="#" aria-label="Previous">
+        <a aria-label="Previous" class="page-link" href="#">
           <span aria-hidden="true">
             <span class="icon fas fa-angle-right text-muted"></span>
           </span>
@@ -91,8 +91,8 @@
     </ng-container>
 
     <ng-container *ngIf="apiResult.hasNextPage">
-      <li class="page-item ml-2" [tooltip]="'common.next'">
-        <a (click)="handleChangePage(apiResult.pageNumber + 1)" class="page-link cursor-pointer" aria-label="Next">
+      <li [tooltip]="'common.next'" class="page-item ml-2">
+        <a (click)="handleChangePage(apiResult.pageNumber + 1)" aria-label="Next" class="page-link cursor-pointer">
           <span aria-hidden="true">
             <span class="icon fas fa-angle-right"></span>
           </span>
@@ -105,7 +105,7 @@
     <!-- last page -->
     <ng-container *ngIf="!apiResult.hasNextPage">
       <li class="page-item disabled">
-        <a class="page-link" href="#" aria-label="Next">
+        <a aria-label="Next" class="page-link" href="#">
           <span aria-hidden="true">
             <span class="icon fas fa-angle-double-right text-muted"></span>
           </span>
@@ -115,8 +115,8 @@
     </ng-container>
 
     <ng-container *ngIf="apiResult.hasNextPage">
-      <li class="page-item" [tooltip]="'common.last'">
-        <a (click)="handleChangePage(apiResult.totalPages)" class="page-link cursor-pointer" aria-label="Next">
+      <li [tooltip]="'common.last'" class="page-item">
+        <a (click)="handleChangePage(apiResult.totalPages)" aria-label="Next" class="page-link cursor-pointer">
           <span aria-hidden="true">
             <span class="icon fas fa-angle-double-right"></span>
           </span>

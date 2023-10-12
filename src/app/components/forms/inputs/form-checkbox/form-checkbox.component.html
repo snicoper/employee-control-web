@@ -1,13 +1,13 @@
 <div class="custom-control custom-checkbox">
   <input
-    [(ngModel)]="value"
-    [id]="id"
-    [value]="value"
-    [disabled]="isDisabled"
-    [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
     (ngModelChange)="onChangeValue($event)"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+    [id]="id"
+    [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
+    [value]="value"
     class="custom-control-input"
-    type="checkbox" />
+    type="checkbox"/>
 
   <ng-container *ngIf="label">
     <label
@@ -21,9 +21,9 @@
 
 <aw-field-error
   *ngIf="form"
-  [form]="form"
   [badRequest]="badRequest"
-  [submitted]="submitted"
+  [fieldName]="fieldName"
   [fieldText]="label"
-  [fieldName]="fieldName">
+  [form]="form"
+  [submitted]="submitted">
 </aw-field-error>

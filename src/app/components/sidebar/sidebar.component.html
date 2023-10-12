@@ -1,25 +1,20 @@
-<section class="border-right" id="sidebar-wrapper" [ngClass]="sidebarState$() === sidebarStates.open ? 'show' : 'hide'">
+<section [ngClass]="sidebarState$() === sidebarStates.open ? 'show' : 'hide'" class="border-right" id="sidebar-wrapper">
   <div class="sidebar-heading">Employee control</div>
   <div class="list-group list-group-flush">
     <a
-      [routerLink]="[siteUrls.home]"
-      routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
-      class="list-group-item list-group-item-action">
-      Dashboard
+      [routerLink]="[siteUrls.home]"
+      class="list-group-item list-group-item-action"
+      routerLinkActive="active">
+      Inicio
     </a>
     <a
-      [routerLink]="[siteUrls.homeTests]"
-      routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
-      class="list-group-item list-group-item-action">
+      [routerLink]="[siteUrls.homeTests]"
+      class="list-group-item list-group-item-action"
+      routerLinkActive="active">
       Tests
     </a>
-
-    <ng-container *ngIf="!authState$()">
-      <a [routerLink]="[siteUrls.login]" class="list-group-item list-group-item-action">Login</a>
-    </ng-container>
-
     <a (click)="handleLogOut()" class="list-group-item list-group-item-action">Log out</a>
   </div>
 </section>

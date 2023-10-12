@@ -1,0 +1,24 @@
+<aw-view-base [showFooter]="false" [showNavbar]="false" [showSidebar]="false">
+  <div class="form-register w-100 m-auto mt-5">
+    <aw-card extraCss="p-4">
+      <form (ngSubmit)="handleSubmit()" [formGroup]="form">
+        <h1 class="h3 mb-3 fw-normal"><span class="fa-solid fa-user"></span>Registro</h1>
+        <hr />
+
+        <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
+        <!-- userName -->
+        <div class="mb-2">
+          <aw-form-floating
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            fieldName="userName"
+            formControlName="userName"
+            label="Nombre de usuario">
+          </aw-form-floating>
+        </div>
+        <!-- end userName -->
+      </form>
+    </aw-card>
+  </div>
+</aw-view-base>

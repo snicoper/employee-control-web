@@ -7,9 +7,10 @@ import { AwFormsModule } from '@aw/components/forms/aw-forms.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

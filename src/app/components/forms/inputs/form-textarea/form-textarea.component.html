@@ -6,24 +6,24 @@
   </ng-container>
 
   <textarea
+    (ngModelChange)="onChangeValue($event)"
     [(ngModel)]="value"
-    [id]="id"
-    [value]="value"
+    [cols]="cols"
     [disabled]="isDisabled"
+    [id]="id"
     [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
     [placeholder]="placeholder"
     [rows]="rows"
-    [cols]="cols"
-    (ngModelChange)="onChangeValue($event)"
+    [value]="value"
     class="form-control"></textarea>
 
   <ng-container *ngIf="form">
     <aw-field-error
-      [form]="form"
       [badRequest]="badRequest"
-      [submitted]="submitted"
+      [fieldName]="fieldName"
       [fieldText]="label"
-      [fieldName]="fieldName">
+      [form]="form"
+      [submitted]="submitted">
     </aw-field-error>
   </ng-container>
 </div>

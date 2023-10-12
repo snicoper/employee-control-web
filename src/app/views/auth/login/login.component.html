@@ -1,7 +1,7 @@
-<aw-view-base [showNavbar]="false" [showSidebar]="false" [showFooter]="false">
+<aw-view-base [showFooter]="false" [showNavbar]="false" [showSidebar]="false">
   <div class="form-login w-100 m-auto mt-5">
     <aw-card extraCss="p-4">
-      <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+      <form (ngSubmit)="handleSubmit()" [formGroup]="form">
         <h1 class="h3 mb-3 fw-normal"><span class="fa-solid fa-user"></span>Iniciar sesión</h1>
         <hr />
 
@@ -14,34 +14,34 @@
         <!-- userName -->
         <div class="mb-2">
           <aw-form-floating
-            formControlName="identifier"
-            fieldName="identifier"
-            label="Nombre de usuario"
-            [form]="form"
             [badRequest]="badRequest"
-            [submitted]="submitted">
+            [form]="form"
+            [submitted]="submitted"
+            fieldName="identifier"
+            formControlName="identifier"
+            label="Email">
           </aw-form-floating>
         </div>
         <!-- end userName -->
 
         <!-- password -->
         <aw-form-floating
-          formControlName="password"
-          fieldName="password"
-          label="Contraseña"
-          [form]="form"
           [badRequest]="badRequest"
+          [form]="form"
+          [inputType]="formTypes.password"
           [submitted]="submitted"
-          [inputType]="formTypes.password">
+          fieldName="password"
+          formControlName="password"
+          label="Contraseña">
         </aw-form-floating>
         <!-- end password -->
 
+        <a [routerLink]="[siteUrls.register]" class="small">Registro nuevo usuario</a>
+
         <aw-btn-loading
           [loading]="loading"
-          btnText="Acceder"
-          btnClass="w-100 btn btn-lg btn-primary mt-2"></aw-btn-loading>
-
-        <button [routerLink]="[siteUrls.home]" class="w-100 btn btn-lg btn-primary mt-2" type="button">Volver</button>
+          btnClass="w-100 btn btn-lg btn-primary mt-2"
+          btnText="Acceder"></aw-btn-loading>
       </form>
     </aw-card>
   </div>

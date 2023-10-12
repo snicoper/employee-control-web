@@ -1,4 +1,4 @@
-<button [disabled]="loading" [class]="btnClass" [type]="btnType">
+<button [class]="btnClass" [disabled]="loading" [type]="btnType">
   <ng-container *ngIf="!loading">
     <span>
       <ng-content></ng-content>
@@ -7,10 +7,10 @@
   </ng-container>
 
   <aw-spinner
-    [loading]="loading"
-    [extraCss]="spinnerClass"
-    [text]="spinnerLoadingText"
     [color]="spinnerColor"
-    [size]="spinnerSize">
+    [extraCss]="spinnerClass"
+    [loading]="loading"
+    [size]="spinnerSize"
+    [text]="spinnerLoadingText">
   </aw-spinner>
 </button>
