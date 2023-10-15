@@ -70,7 +70,7 @@ export class LoginComponent {
 
   private buildForm(): void {
     this.form = this.fb.group({
-      identifier: ['', [Validators.required]],
+      email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
   }

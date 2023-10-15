@@ -1,5 +1,5 @@
 /** Datos de envío para hacer login. */
 export interface LoginRequest {
-  identifier: string;
+  email: string;
   password: string;
 }
