@@ -13,6 +13,10 @@ const routes: Routes = [
     loadChildren: () => import('@aw/views/auth/auth.module').then((m) => m.AuthModule)
   },
   {
+    path: 'identity',
+    loadChildren: () => import('@aw/views/identity/identity.module').then((m) => m.IdentityModule)
+  },
+  {
     path: 'dashboard',
     loadChildren: () => import('@aw/views/dashboard/dashboard.module').then((m) => m.DashboardModule)
   },
