@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormInputTypes } from '@aw/core/types/form-input-types';
+import { SiteUrls } from '@aw/core/urls/site-urls';
 import { BadResponse } from '@aw/models/api/_index';
 import { AuthApiService } from '@aw/services/api/auth-api.service';
 import { finalize } from 'rxjs';
@@ -17,6 +19,8 @@ export class RegisterComponent {
 
   form: FormGroup = this.fb.group({});
   badRequest: BadResponse | undefined;
+  formInputTypes = FormInputTypes;
+  siteUrls = SiteUrls;
   submitted = false;
   loading = false;
 
@@ -49,7 +53,12 @@ export class RegisterComponent {
 
   private buildForm(): void {
     this.form = this.fb.group({
-      userName: ['', [Validators.required]]
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      email: ['', [Validators.email]],
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]],
+      companyName: ['', [Validators.required]]
     });
   }
 }

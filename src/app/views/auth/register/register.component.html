@@ -1,23 +1,99 @@
 <aw-view-base [showFooter]="false" [showNavbar]="false" [showSidebar]="false">
-  <div class="form-register w-100 m-auto mt-5">
+  <div class="form-register w-100 m-auto">
     <aw-card extraCss="p-4">
       <form (ngSubmit)="handleSubmit()" [formGroup]="form">
         <h1 class="h3 mb-3 fw-normal"><span class="fa-solid fa-user"></span>Registro</h1>
         <hr />
 
         <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
-        <!-- userName -->
+
+        <!-- firstName -->
         <div class="mb-2">
           <aw-form-floating
             [badRequest]="badRequest"
             [form]="form"
             [submitted]="submitted"
-            fieldName="userName"
-            formControlName="userName"
-            label="Nombre de usuario">
+            fieldName="firstName"
+            formControlName="firstName"
+            label="Nombre">
           </aw-form-floating>
         </div>
-        <!-- end userName -->
+        <!-- end firstName -->
+
+        <!-- lastName -->
+        <div class="mb-2">
+          <aw-form-floating
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            fieldName="lastName"
+            formControlName="lastName"
+            label="Apellidos">
+          </aw-form-floating>
+        </div>
+        <!-- end lastName -->
+
+        <!-- email -->
+        <div class="mb-2">
+          <aw-form-floating
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            [inputType]="formInputTypes.email"
+            fieldName="email"
+            formControlName="email"
+            label="Correo electrónico">
+          </aw-form-floating>
+        </div>
+        <!-- end email -->
+
+        <!-- password -->
+        <div class="mb-2">
+          <aw-form-floating
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            [inputType]="formInputTypes.password"
+            fieldName="password"
+            formControlName="password"
+            label="Contraseña">
+          </aw-form-floating>
+        </div>
+        <!-- end password -->
+
+        <!-- confirmPassword -->
+        <div class="mb-2">
+          <aw-form-floating
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            [inputType]="formInputTypes.password"
+            fieldName="confirmPassword"
+            formControlName="confirmPassword"
+            label="Confirmar contraseña">
+          </aw-form-floating>
+        </div>
+        <!-- end confirmPassword -->
+
+        <!-- companyName -->
+        <div class="mb-2">
+          <aw-form-floating
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            fieldName="companyName"
+            formControlName="companyName"
+            label="Nombre de empresa">
+          </aw-form-floating>
+        </div>
+        <!-- end companyName -->
+
+        <a [routerLink]="[siteUrls.login]" class="small">Identificarse</a>
+
+        <aw-btn-loading
+          [loading]="loading"
+          btnClass="w-100 btn btn-lg btn-primary mt-2"
+          btnText="Registrar"></aw-btn-loading>
       </form>
     </aw-card>
   </div>
