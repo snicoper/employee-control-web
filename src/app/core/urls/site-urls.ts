@@ -10,6 +10,8 @@ export const SiteUrls = {
 
   /** identity. */
   register: '/identity/register',
+  registerSuccess: 'identity/register-success',
+  registerValidate: 'identity/register-validate',
 
   /** Tests. */
   homeTests: '/tests',

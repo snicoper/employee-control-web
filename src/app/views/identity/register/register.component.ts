@@ -1,10 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FormInputTypes } from '@aw/core/types/form-input-types';
+import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { BadResponse } from '@aw/models/api/_index';
 import { AuthApiService } from '@aw/services/api/auth-api.service';
+import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { RegisterRequest } from './register-request.model';
 
@@ -16,6 +19,8 @@ import { RegisterRequest } from './register-request.model';
 export class RegisterComponent {
   private fb = inject(FormBuilder);
   private authApiService = inject(AuthApiService);
+  private route = inject(Router);
+  private toastrService = inject(ToastrService);
 
   form: FormGroup = this.fb.group({});
   badRequest: BadResponse | undefined;
@@ -39,11 +44,12 @@ export class RegisterComponent {
     const registerRequest = this.form.value as RegisterRequest;
 
     this.authApiService
-      .create<RegisterRequest, string>(registerRequest)
+      .create<RegisterRequest, string>(registerRequest, ApiUrls.register)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: () => {
-          // Redireccionar a register-success a falta de validación del correo.
+          this.toastrService.success('La cuenta ha sido creada con éxito.');
+          this.route.navigateByUrl(SiteUrls.registerSuccess);
         },
         error: (error: HttpErrorResponse) => {
           this.badRequest = error.error;

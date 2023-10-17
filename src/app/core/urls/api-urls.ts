@@ -11,7 +11,9 @@ export const ApiUrls = {
   /** Auth. */
   login: 'auth/login',
   refreshToken: 'auth/refresh-token',
-  register: 'auth/register',
+
+  // Identity.
+  register: 'identity/register',
 
   /** Localization. */
   currentLocale: 'localization/current-locale',
