@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { logDebug } from '@aw/core/errors/log-messages';
+import { logError } from '@aw/core/errors/log-messages';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { ResultResponse } from '@aw/models/api/result-response.model';
@@ -26,7 +26,7 @@ export class RegisterValidateComponent implements OnInit {
     this.registerValidateRequest.code = this.route.snapshot.queryParamMap.get('code') as string;
     this.registerValidateRequest.userId = this.route.snapshot.queryParamMap.get('userId') as string;
 
-    if (!this.isValidQueryParams()) {
+    if (!this.registerValidateRequest.code || !this.registerValidateRequest.userId) {
       this.errorMessages.push('Faltan datos necesarios para validar el correo electrónico.');
     }
   }
@@ -35,13 +35,9 @@ export class RegisterValidateComponent implements OnInit {
     this.validateEmail();
   }
 
-  private isValidQueryParams(): boolean {
-    return !(!this.registerValidateRequest.code || !this.registerValidateRequest.userId);
-  }
-
   private validateEmail(): void {
     this.identityApiService
-      .create<RegisterValidateRequest, ResultResponse>(this.registerValidateRequest, ApiUrls.validateEmail)
+      .create<RegisterValidateRequest, ResultResponse>(this.registerValidateRequest, ApiUrls.registerValidateEmail)
       .subscribe({
         next: (result: ResultResponse) => {
           if (!result.succeeded) {
@@ -49,7 +45,7 @@ export class RegisterValidateComponent implements OnInit {
           }
         },
         error: (error: HttpErrorResponse) => {
-          logDebug(error.message);
+          logError(error.message);
         }
       });
   }

@@ -13,8 +13,9 @@ export const ApiUrls = {
   refreshToken: 'auth/refresh-token',
 
   // Identity.
-  register: 'identity/register',
-  validateEmail: 'identity/validate-email',
+  registerIdentity: 'identity/register',
+  registerValidateEmail: 'identity/validate-email',
+  emailValidationForwarding: 'identity/email-validation-forwarding',
 
   /** Localization. */
   currentLocale: 'localization/current-locale',

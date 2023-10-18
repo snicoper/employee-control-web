@@ -21,6 +21,12 @@
           Ha ocurrido un error en la validación del correo.<br />
           <strong>Error:</strong> {{ errorMessages[0] }}
         </div>
+
+        <div class="d-flex">
+          <button [routerLink]="siteUrls.register" class="btn btn-outline-success align-self-center mx-auto">
+            Ir a página de registro
+          </button>
+        </div>
       </ng-container>
       <!-- end failure-->
     </div>
