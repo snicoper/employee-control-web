@@ -16,6 +16,7 @@ export const ApiUrls = {
   registerIdentity: 'identity/register',
   registerValidateEmail: 'identity/validate-email',
   emailValidationForwarding: 'identity/email-validation-forwarding',
+  recoveryPassword: 'identity/recovery-password',
 
   /** Localization. */
   currentLocale: 'localization/current-locale',

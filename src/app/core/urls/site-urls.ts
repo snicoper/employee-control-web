@@ -10,11 +10,12 @@ export const SiteUrls = {
 
   /** identity. */
   register: '/identity/register',
-  registerSuccess: 'identity/register-success',
-  registerValidate: 'identity/register-validate',
+  registerSuccess: '/identity/register-success',
+  registerValidate: '/identity/register-validate',
+  recoveryPassword: '/identity/recovery-password',
 
   /** Dashboard. */
-  dashboard: 'dashboard',
+  dashboard: '/dashboard',
 
   /** Tests. */
   homeTests: '/tests',

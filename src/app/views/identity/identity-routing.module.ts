@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { RegisterSuccessComponent } from './register-success/register-success.component';
 import { RegisterValidateComponent } from './register-validate/register-validate.component';
 import { RegisterComponent } from './register/register.component';
@@ -19,6 +20,11 @@ const routes: Routes = [
     path: 'register-validate',
     component: RegisterValidateComponent,
     data: { title: 'Validación de registro' }
+  },
+  {
+    path: 'recovery-password',
+    component: RecoveryPasswordComponent,
+    data: { title: 'Recordar contraseña' }
   }
 ];
 
