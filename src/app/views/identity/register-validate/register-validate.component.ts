@@ -6,7 +6,6 @@ import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { ResultResponse } from '@aw/models/api/result-response.model';
 import { IdentityApiService } from '@aw/services/api/_index';
-import { ToastrService } from 'ngx-toastr';
 import { RegisterValidateRequest } from './register-validate-request.model';
 
 @Component({
@@ -16,7 +15,6 @@ import { RegisterValidateRequest } from './register-validate-request.model';
 export class RegisterValidateComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private identityApiService = inject(IdentityApiService);
-  private toastrService = inject(ToastrService);
 
   errorMessages: string[] = [];
   siteUrls = SiteUrls;
@@ -27,10 +25,18 @@ export class RegisterValidateComponent implements OnInit {
     this.registerValidateRequest = { code: '', userId: '' };
     this.registerValidateRequest.code = this.route.snapshot.queryParamMap.get('code') as string;
     this.registerValidateRequest.userId = this.route.snapshot.queryParamMap.get('userId') as string;
+
+    if (!this.isValidQueryParams()) {
+      this.errorMessages.push('Faltan datos necesarios para validar el correo electrónico.');
+    }
   }
 
   ngOnInit(): void {
     this.validateEmail();
+  }
+
+  private isValidQueryParams(): boolean {
+    return !(!this.registerValidateRequest.code || !this.registerValidateRequest.userId);
   }
 
   private validateEmail(): void {
