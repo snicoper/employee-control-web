@@ -14,6 +14,7 @@ export const ApiUrls = {
 
   // Identity.
   register: 'identity/register',
+  validateEmail: 'identity/validate-email',
 
   /** Localization. */
   currentLocale: 'localization/current-locale',

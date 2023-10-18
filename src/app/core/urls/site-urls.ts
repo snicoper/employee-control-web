@@ -13,6 +13,9 @@ export const SiteUrls = {
   registerSuccess: 'identity/register-success',
   registerValidate: 'identity/register-validate',
 
+  /** Dashboard. */
+  dashboard: 'dashboard',
+
   /** Tests. */
   homeTests: '/tests',
 

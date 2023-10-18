@@ -6,7 +6,7 @@ import { FormInputTypes } from '@aw/core/types/form-input-types';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { BadResponse } from '@aw/models/api/_index';
-import { AuthApiService } from '@aw/services/api/auth-api.service';
+import { IdentityApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { RegisterRequest } from './register-request.model';
@@ -18,7 +18,7 @@ import { RegisterRequest } from './register-request.model';
 })
 export class RegisterComponent {
   private fb = inject(FormBuilder);
-  private authApiService = inject(AuthApiService);
+  private identityApiService = inject(IdentityApiService);
   private route = inject(Router);
   private toastrService = inject(ToastrService);
 
@@ -43,7 +43,7 @@ export class RegisterComponent {
     this.loading = true;
     const registerRequest = this.form.value as RegisterRequest;
 
-    this.authApiService
+    this.identityApiService
       .create<RegisterRequest, string>(registerRequest, ApiUrls.register)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

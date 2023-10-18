@@ -1,1 +1,11 @@
-<p>register-validate works!</p>
+<aw-view-base [showFooter]="false" [showNavbar]="false" [showSidebar]="false" cssContent="container">
+  <ng-container *ngIf="errorMessages.length === 0">
+    <div class="alert alert-success mt-4">
+      Se ha validado con éxito el email, ahora puede <a [routerLink]="siteUrls.login">identificarse</a> como usuario.
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="errorMessages.length > 0">
+    <div class="alert alert-danger mt-4">Ha ocurrido un error en la validación del correo.</div>
+  </ng-container>
+</aw-view-base>
