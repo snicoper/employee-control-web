@@ -24,7 +24,7 @@ export class RecoveryPasswordComponent {
   siteUrls = SiteUrls;
   submitted = false;
   loading = false;
-  succeeded = false;
+  hasResponse = false;
 
   constructor() {
     this.buildForm();
@@ -32,6 +32,7 @@ export class RecoveryPasswordComponent {
 
   handleSubmit(): void {
     this.submitted = true;
+    this.hasResponse = false;
 
     if (this.form.invalid) {
       return;
@@ -45,7 +46,7 @@ export class RecoveryPasswordComponent {
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: () => {
-          this.succeeded = true;
+          this.hasResponse = true;
         },
         error: (error: HttpErrorResponse) => {
           this.badRequest = error.error;
@@ -55,7 +56,7 @@ export class RecoveryPasswordComponent {
 
   private buildForm(): void {
     this.form = this.fb.group({
-      email: ['', [Validators.email]]
+      email: ['', [Validators.email, Validators.required]]
     });
   }
 }
