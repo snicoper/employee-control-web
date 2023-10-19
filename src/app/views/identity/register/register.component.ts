@@ -44,7 +44,7 @@ export class RegisterComponent {
     const registerRequest = this.form.value as RegisterRequest;
 
     this.identityApiService
-      .create<RegisterRequest, string>(registerRequest, ApiUrls.registerIdentity)
+      .post<RegisterRequest, string>(registerRequest, ApiUrls.registerIdentity)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: () => {

@@ -26,7 +26,7 @@ export abstract class BaseApiService {
    * @param urlPart Parte de la url base a concatenar.
    * @returns TEntity creado.
    */
-  create<TEntity, TResult>(entity: TEntity, urlPart = ''): Observable<TResult> {
+  post<TEntity, TResult>(entity: TEntity, urlPart = ''): Observable<TResult> {
     urlPart = urlPart.length > 0 ? `/${urlPart}` : '';
     const url = `${this.baseUrl}${urlPart}`;
 
