@@ -17,10 +17,10 @@ import { RegisterRequest } from './register-request.model';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  private fb = inject(FormBuilder);
-  private identityApiService = inject(IdentityApiService);
-  private route = inject(Router);
-  private toastrService = inject(ToastrService);
+  private readonly fb = inject(FormBuilder);
+  private readonly identityApiService = inject(IdentityApiService);
+  private readonly route = inject(Router);
+  private readonly toastrService = inject(ToastrService);
 
   form: FormGroup = this.fb.group({});
   badRequest: BadResponse | undefined;

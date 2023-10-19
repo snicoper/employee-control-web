@@ -13,8 +13,8 @@ import { RegisterValidateRequest } from './register-validate-request.model';
   templateUrl: './register-validate.component.html'
 })
 export class RegisterValidateComponent implements OnInit {
-  private route = inject(ActivatedRoute);
-  private identityApiService = inject(IdentityApiService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly identityApiService = inject(IdentityApiService);
 
   errorMessages: string[] = [];
   siteUrls = SiteUrls;

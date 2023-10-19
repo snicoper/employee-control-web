@@ -16,7 +16,7 @@ import { RecoveryPasswordRequest } from './recovery-password-request.model';
 })
 export class RecoveryPasswordComponent {
   private readonly fb = inject(FormBuilder);
-  private identityApiService = inject(IdentityApiService);
+  private readonly identityApiService = inject(IdentityApiService);
 
   form: FormGroup = this.fb.group({});
   badRequest: BadResponse | undefined;

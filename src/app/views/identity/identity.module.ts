@@ -10,9 +10,10 @@ import { RecoveryPasswordComponent } from './recovery-password/recovery-password
 import { RegisterSuccessComponent } from './register-success/register-success.component';
 import { RegisterValidateComponent } from './register-validate/register-validate.component';
 import { RegisterComponent } from './register/register.component';
+import { RecoveryPasswordChangeComponent } from './recovery-password-change/recovery-password-change.component';
 
 @NgModule({
-  declarations: [RegisterComponent, RegisterSuccessComponent, RegisterValidateComponent, RecoveryPasswordComponent],
+  declarations: [RegisterComponent, RegisterSuccessComponent, RegisterValidateComponent, RecoveryPasswordComponent, RecoveryPasswordChangeComponent],
   imports: [
     CommonModule,
     IdentityRoutingModule,
