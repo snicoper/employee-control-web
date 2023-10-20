@@ -7,9 +7,9 @@ import { JwtService, LayoutService, ThemeColorService } from '@aw/services/_inde
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  layoutService = inject(LayoutService);
-  private jwtService = inject(JwtService);
-  private themeColorService = inject(ThemeColorService);
+  readonly layoutService = inject(LayoutService);
+  private readonly jwtService = inject(JwtService);
+  private readonly themeColorService = inject(ThemeColorService);
 
   getUserId(): string {
     return this.jwtService.getSid();
