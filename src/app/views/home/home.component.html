@@ -3,21 +3,21 @@
 
   <button
     (click)="handleToggleNavbar()"
-    [ngClass]="{ 'btn-primary': layoutService.showNavbar$(), 'btn-outline-primary': !layoutService.showNavbar$() }"
+    [ngClass]="{ 'btn-primary': layoutService.navbarState$(), 'btn-outline-primary': !layoutService.navbarState$() }"
     class="btn">
     Navbar
   </button>
 
   <button
     (click)="handleToggleSidebar()"
-    [ngClass]="{ 'btn-warning': layoutService.showSidebar$(), 'btn-outline-warning': !layoutService.showSidebar$() }"
+    [ngClass]="{ 'btn-warning': layoutService.sidebarState$(), 'btn-outline-warning': !layoutService.sidebarState$() }"
     class="btn ms-2">
     Sidebar
   </button>
 
   <button
     (click)="handleToggleFooter()"
-    [ngClass]="{ 'btn-success': layoutService.showFooter$(), 'btn-outline-success': !layoutService.showFooter$() }"
+    [ngClass]="{ 'btn-success': layoutService.footerState$(), 'btn-outline-success': !layoutService.footerState$() }"
     class="btn ms-2">
     Footer
   </button>

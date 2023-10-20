@@ -6,20 +6,20 @@
 
 <section class="d-flex">
   <!-- sidebar -->
-  <ng-container *ngIf="showSidebar$()">
-    <aw-sidebar [ngClass]="{ 'visible-navbar': showNavbar$(), 'visible-navbar-hide': !showNavbar$() }"></aw-sidebar>
+  <ng-container *ngIf="sidebarState$()">
+    <aw-sidebar [ngClass]="{ 'visible-navbar': navbarState$(), 'visible-navbar-hide': !navbarState$() }"></aw-sidebar>
   </ng-container>
   <!-- end sidebar -->
 
   <div id="page-content-wrapper">
     <!-- navbar -->
-    <ng-container *ngIf="showNavbar$()">
+    <ng-container *ngIf="navbarState$()">
       <aw-navbar></aw-navbar>
     </ng-container>
     <!-- end navbar -->
 
     <!-- content page -->
-    <section class="fade-in" [ngClass]="{ 'visible-navbar': showNavbar$(), 'visible-navbar-hide': !showNavbar$() }">
+    <section class="fade-in" [ngClass]="{ 'visible-navbar': navbarState$(), 'visible-navbar-hide': !navbarState$() }">
       <div [ngClass]="cssContent" class="pt-2">
         <ng-content></ng-content>
       </div>
@@ -29,7 +29,7 @@
 </section>
 
 <!-- footer -->
-<ng-container *ngIf="showFooter$()">
+<ng-container *ngIf="footerState$()">
   <aw-footer></aw-footer>
 </ng-container>
 <!-- end footer -->

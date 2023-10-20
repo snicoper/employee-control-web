@@ -13,17 +13,17 @@ export class ViewBaseComponent implements OnInit {
   @Input() showPageTitle = true;
   @Input() pageTitle = '';
 
-  @Input() showNavbar = true;
-  @Input() showSidebar = true;
-  @Input() showFooter = true;
+  @Input() navbarState = true;
+  @Input() sidebarState = true;
+  @Input() footerState = true;
 
-  readonly showNavbar$ = computed(() => this.layoutService.showNavbar$());
-  readonly showSidebar$ = computed(() => this.layoutService.showSidebar$());
-  readonly showFooter$ = computed(() => this.layoutService.showFooter$());
+  readonly navbarState$ = computed(() => this.layoutService.navbarState$());
+  readonly sidebarState$ = computed(() => this.layoutService.sidebarState$());
+  readonly footerState$ = computed(() => this.layoutService.footerState$());
 
   ngOnInit(): void {
-    this.layoutService.showNavbar$.set(this.showNavbar);
-    this.layoutService.showSidebar$.set(this.showSidebar);
-    this.layoutService.showFooter$.set(this.showFooter);
+    this.layoutService.navbarState$.set(this.navbarState);
+    this.layoutService.sidebarState$.set(this.sidebarState);
+    this.layoutService.footerState$.set(this.footerState);
   }
 }

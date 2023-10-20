@@ -28,15 +28,15 @@ export class HomeComponent {
   }
 
   handleToggleNavbar(): void {
-    this.layoutService.showNavbar$.update((value) => !value);
+    this.layoutService.navbarState$.update((value) => !value);
   }
 
   handleToggleSidebar(): void {
-    this.layoutService.showSidebar$.update((value) => !value);
+    this.layoutService.sidebarState$.update((value) => !value);
   }
 
   handleToggleFooter(): void {
-    this.layoutService.showFooter$.update((value) => !value);
+    this.layoutService.footerState$.update((value) => !value);
   }
 
   handleChangeThemeColor(): void {
