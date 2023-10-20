@@ -1,4 +1,5 @@
 export interface AdminIdentityPaginatedResponse {
   id: string;
-  nombreDeUsuario: string;
+  firstName: string;
+  lastName: string;
 }
