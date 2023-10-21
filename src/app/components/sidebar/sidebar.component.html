@@ -70,6 +70,14 @@
                       [routerLinkActiveOptions]="{ exact: true }"
                       routerLinkActive="active"
                       href="#">
+                      <ng-container *ngIf="submenu.icon">
+                        <span [ngClass]="submenu.icon"></span>
+                      </ng-container>
+
+                      <ng-container *ngIf="!submenu.icon">
+                        <span class="fa-regular fa-circle"></span>
+                      </ng-container>
+
                       {{ submenu.title }}
 
                       <ng-container *ngIf="submenu.badge">

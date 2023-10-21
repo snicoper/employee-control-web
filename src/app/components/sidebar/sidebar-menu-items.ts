@@ -13,6 +13,7 @@ export const sidebarMenu: SidebarMenu[] = [
       {
         title: 'Panel',
         link: SiteUrls.dashboard,
+        icon: 'fas fa-user-shield',
         active: false
       },
       {

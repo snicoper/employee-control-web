@@ -20,20 +20,11 @@ $hover-color: #ffffff;
   background-color: $bg-sidebar-wrapper;
 
   .sidebar-profile,
-  .sidebar-search,
   .sidebar-menu {
     border-top: 1px solid $border-color;
   }
 
-  .sidebar-search,
-  .sidebar-search .input-group-text {
-    border-color: $border-color;
-    box-shadow: none;
-  }
-
   .sidebar-profile .user-info,
-  .sidebar-search input.search-menu,
-  .sidebar-search .input-group-text,
   .sidebar-header > a,
   .sidebar-menu ul li a,
   .sidebar-menu ul li:hover > a,
@@ -41,15 +32,12 @@ $hover-color: #ffffff;
   .sidebar-header > a:hover,
   ul li:hover a i,
   .sidebar-dropdown .sidebar-submenu li a:hover:before,
-  .sidebar-search input.search-menu:focus + span,
   .sidebar-menu .sidebar-dropdown.active a i {
     color: $hover-color;
   }
 
   .sidebar-menu ul li a i,
-  .sidebar-menu .sidebar-dropdown div,
-  .sidebar-search input.search-menu,
-  .sidebar-search .input-group-text {
+  .sidebar-menu .sidebar-dropdown div {
     background-color: $border-color;
     border: none;
     margin-left: 1px;
@@ -200,24 +188,7 @@ $hover-color: #ffffff;
 
               &.active {
                 background-color: lighten($dark, 7);
-
-                &:before {
-                  color: $success;
-                }
-              }
-
-              &:before {
-                content: "\f111";
-                font-family: "Font Awesome 6 Free";
-                font-weight: 400;
-                font-style: normal;
-                display: inline-block;
-                text-align: center;
-                text-decoration: none;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-                margin-right: 10px;
-                font-size: 8px;
+                color: $success;
               }
 
               .badge,

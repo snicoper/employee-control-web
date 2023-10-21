@@ -23,6 +23,7 @@ export type SidebarMenu = {
     title: string;
     link: string;
     active: boolean;
+    icon?: string;
     requiredRole?: Roles;
 
     badge?: {
