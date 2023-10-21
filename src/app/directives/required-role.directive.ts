@@ -7,14 +7,21 @@ export class RequiredRoleDirective implements OnInit {
   private readonly elementRef = inject(ElementRef);
   private readonly jwtService = inject(JwtService);
 
-  @Input({ required: true }) awRequiredRole = Roles.anonymous;
+  @Input() awRequiredRole? = Roles.anonymous;
 
   ngOnInit(): void {
     this.elementRef.nativeElement.style.display = 'none';
-    this.checkAccess();
+    this.checkRole();
   }
 
-  checkAccess(): void {
+  checkRole(): void {
+    // Si awRequiredRole es nulo, mostrar siempre.
+    if (!this.awRequiredRole) {
+      this.elementRef.nativeElement.style.display = 'block';
+
+      return;
+    }
+
     const isInRole = this.jwtService.isInRole(this.awRequiredRole as string);
     this.elementRef.nativeElement.style.display = isInRole ? 'block' : 'none';
   }

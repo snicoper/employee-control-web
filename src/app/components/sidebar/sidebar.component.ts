@@ -1,5 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, computed, inject } from '@angular/core';
+import { Roles } from '@aw/core/types/roles';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { JwtService, LayoutService } from '@aw/services/_index';
 import { SidebarMenu, SidebarMenuTypes } from './sidebar.model';
@@ -27,6 +28,7 @@ export class SidebarComponent {
   readonly sidebarMenus: SidebarMenu[];
   readonly sidebarMenuTypes = SidebarMenuTypes;
   readonly siteUrls = SiteUrls;
+  readonly roles = Roles;
 
   constructor() {
     this.sidebarMenus = this.sidebarService.getMenuList();

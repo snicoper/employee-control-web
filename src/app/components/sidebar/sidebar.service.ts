@@ -50,6 +50,6 @@ export class SidebarService {
 
   // TODO: Eliminar guardar datos de sidebar en localStorage?
   private saveToLocalStorage(): void {
-    this.localStorageService.setObject(LocalStorageKeys.sidebar, this.sidebarMenus);
+    // this.localStorageService.setObject(LocalStorageKeys.sidebar, this.sidebarMenus);
   }
 }

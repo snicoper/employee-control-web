@@ -1,3 +1,5 @@
+import { Roles } from '@aw/core/types/roles';
+
 export enum SidebarMenuTypes {
   header = 'header',
   simple = 'simple',
@@ -10,6 +12,7 @@ export type SidebarMenu = {
   active: boolean;
   type: SidebarMenuTypes;
   link?: string;
+  requiredRole?: Roles;
 
   badge?: {
     text: string;
@@ -20,6 +23,7 @@ export type SidebarMenu = {
     title: string;
     link: string;
     active: boolean;
+    requiredRole?: Roles;
 
     badge?: {
       text: string;

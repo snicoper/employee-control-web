@@ -15,6 +15,7 @@
         <ul>
           <li
             *ngFor="let sidebarMenu of sidebarMenus"
+            [awRequiredRole]="sidebarMenu.requiredRole"
             [ngClass]="{
               active: sidebarMenu.active,
               'sidebar-dropdown': sidebarMenu.type === sidebarMenuTypes.dropdown,
@@ -63,7 +64,7 @@
             <ng-container *ngIf="sidebarMenu.type === sidebarMenuTypes.dropdown">
               <div class="sidebar-submenu" [@slide]="getState(sidebarMenu)">
                 <ul>
-                  <li *ngFor="let submenu of sidebarMenu.submenus">
+                  <li *ngFor="let submenu of sidebarMenu.submenus" [awRequiredRole]="submenu.requiredRole">
                     <a
                       [routerLink]="submenu.link"
                       [routerLinkActiveOptions]="{ exact: true }"

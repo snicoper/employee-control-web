@@ -1,3 +1,4 @@
+import { Roles } from '@aw/core/types/roles';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { SidebarMenu, SidebarMenuTypes } from './sidebar.model';
 
@@ -7,6 +8,7 @@ export const sidebarMenu: SidebarMenu[] = [
     icon: 'fas fa-user-shield',
     active: false,
     type: SidebarMenuTypes.dropdown,
+    requiredRole: Roles.administrator,
     submenus: [
       {
         title: 'Panel',
@@ -16,7 +18,8 @@ export const sidebarMenu: SidebarMenu[] = [
       {
         title: 'Usuarios',
         link: SiteUrls.home,
-        active: false
+        active: false,
+        requiredRole: Roles.anonymous
       }
     ]
   },
