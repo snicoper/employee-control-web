@@ -1,6 +1,6 @@
 import { Roles } from '@aw/core/types/roles';
 import { SiteUrls } from '@aw/core/urls/site-urls';
-import { SidebarMenu, SidebarMenuTypes } from './sidebar.model';
+import { SidebarMenu, SidebarMenuTypes } from './sidebar-menu-types.model';
 
 export const sidebarMenu: SidebarMenu[] = [
   {

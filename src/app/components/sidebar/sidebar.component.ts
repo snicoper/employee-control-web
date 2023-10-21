@@ -3,7 +3,7 @@ import { Component, computed, inject } from '@angular/core';
 import { Roles } from '@aw/core/types/roles';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { JwtService, LayoutService } from '@aw/services/_index';
-import { SidebarMenu, SidebarMenuTypes } from './sidebar.model';
+import { SidebarMenu, SidebarMenuTypes } from './sidebar-menu-types.model';
 import { SidebarService } from './sidebar.service';
 
 @Component({

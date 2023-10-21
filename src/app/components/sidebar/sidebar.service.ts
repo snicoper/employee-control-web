@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { sidebarMenu } from './sidebar-menu-items';
-import { SidebarMenu } from './sidebar.model';
+import { sidebarMenu } from './sidebar-menu';
+import { SidebarMenu } from './sidebar-menu-types.model';
 
 @Injectable({ providedIn: 'root' })
 export class SidebarService {
