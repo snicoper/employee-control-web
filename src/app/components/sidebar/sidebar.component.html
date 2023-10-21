@@ -29,7 +29,7 @@
 
             <!-- type != header -->
             <ng-container *ngIf="sidebarMenu.type !== sidebarMenuTypes.header">
-              <a href="#" (click)="toggle(sidebarMenu)">
+              <a (click)="toggle(sidebarMenu)" class="cursor-pointer">
                 <span class="{{ sidebarMenu.icon }}"></span>
                 <span> {{ sidebarMenu.title }}</span>
 

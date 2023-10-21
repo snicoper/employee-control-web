@@ -16,10 +16,9 @@ export const sidebarMenu: SidebarMenu[] = [
         active: false
       },
       {
-        title: 'Usuarios',
-        link: SiteUrls.home,
-        active: false,
-        requiredRole: Roles.anonymous
+        title: 'Tests',
+        link: SiteUrls.homeTests,
+        active: false
       }
     ]
   },
@@ -35,8 +34,8 @@ export const sidebarMenu: SidebarMenu[] = [
         active: false
       },
       {
-        title: 'Cambiar contraseña',
-        link: '/accounts/change-password',
+        title: 'Cerrar sesión',
+        link: SiteUrls.logout,
         active: false
       }
     ]

@@ -7,6 +7,7 @@ export const SiteUrls = {
 
   /** Auth. */
   login: '/auth/login',
+  logout: '/auth/logout',
 
   /** identity. */
   register: '/identity/register',
