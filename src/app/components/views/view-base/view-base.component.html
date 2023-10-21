@@ -4,32 +4,30 @@
 </ng-container>
 <!-- end title -->
 
-<section class="d-flex">
+<div class="page-wrapper" [ngClass]="{ toggled: !sidebarState$() }">
   <!-- sidebar -->
   <ng-container *ngIf="sidebarState$()">
-    <aw-sidebar [ngClass]="{ 'visible-navbar': navbarState$(), 'visible-navbar-hide': !navbarState$() }"></aw-sidebar>
+    <aw-sidebar></aw-sidebar>
   </ng-container>
   <!-- end sidebar -->
 
-  <div id="page-content-wrapper">
+  <main class="page-content">
     <!-- navbar -->
     <ng-container *ngIf="navbarState$()">
       <aw-navbar></aw-navbar>
     </ng-container>
     <!-- end navbar -->
 
-    <!-- content page -->
-    <section class="fade-in" [ngClass]="{ 'visible-navbar': navbarState$(), 'visible-navbar-hide': !navbarState$() }">
-      <div [ngClass]="cssContent" class="pt-2">
-        <ng-content></ng-content>
-      </div>
-    </section>
-    <!-- end content page -->
-  </div>
-</section>
+    <!-- page content -->
+    <div [ngClass]="cssContent">
+      <ng-content></ng-content>
+    </div>
+    <!-- end page content -->
+  </main>
 
-<!-- footer -->
-<ng-container *ngIf="footerState$()">
-  <aw-footer></aw-footer>
-</ng-container>
-<!-- end footer -->
+  <!-- footer -->
+  <ng-container *ngIf="footerState$()">
+    <aw-footer [cssContent]="cssContent"></aw-footer>
+  </ng-container>
+  <!-- end footer -->
+</div>

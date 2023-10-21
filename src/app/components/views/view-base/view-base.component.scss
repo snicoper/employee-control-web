@@ -1,22 +1,23 @@
 @import "variables-local";
 
-.visible-navbar {
-  margin-top: $navbar-margin-top;
-  transition: all 0.3s;
-}
+.page-wrapper {
+  height: 100vh;
 
-.visible-navbar-hide {
-  margin-top: 10px;
-  transition: all 0.3s;
-}
-
-#page-content-wrapper {
-  min-width: 100vw;
-}
-
-@media (min-width: 768px) {
-  #page-content-wrapper {
-    min-width: 0;
+  .page-content {
+    margin-top: $navbar-margin-top;
+    display: inline-block;
     width: 100%;
+    transition: padding-left 0.3s ease;
+    height: 100vh;
+
+    @media screen and (min-width: 768px) {
+      padding-left: 260px;
+    }
+  }
+
+  &.toggled {
+    .page-content {
+      padding-left: 0;
+    }
   }
 }

@@ -1,20 +1,90 @@
-<section [ngClass]="sidebarState$() === sidebarStates.open ? 'show' : 'hide'" class="border-right" id="sidebar-wrapper">
-  <div class="sidebar-heading">Employee control</div>
-  <div class="list-group list-group-flush">
-    <a
-      [routerLinkActiveOptions]="{ exact: true }"
-      [routerLink]="[siteUrls.home]"
-      class="list-group-item list-group-item-action"
-      routerLinkActive="active">
-      Inicio
-    </a>
-    <a
-      [routerLinkActiveOptions]="{ exact: true }"
-      [routerLink]="[siteUrls.homeTests]"
-      class="list-group-item list-group-item-action"
-      routerLinkActive="active">
-      Tests
-    </a>
-    <a (click)="handleLogOut()" class="list-group-item list-group-item-action">Log out</a>
+<nav id="sidebar" class="sidebar">
+  <div class="sidebar-content">
+    <ng-scrollbar>
+      <div class="sidebar-profile">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded" src="assets/images/user.jpg" alt="User picture" />
+        </div>
+
+        <div class="user-info">
+          <span class="user-name">{{ getUsername() }}</span>
+        </div>
+      </div>
+
+      <div class="sidebar-menu">
+        <ul>
+          <li
+            *ngFor="let sidebarMenu of sidebarMenus"
+            [ngClass]="{
+              active: sidebarMenu.active,
+              'sidebar-dropdown': sidebarMenu.type === sidebarMenuTypes.dropdown,
+              'header-menu': sidebarMenu.type === sidebarMenuTypes.header
+            }">
+            <!-- type header -->
+            <ng-container *ngIf="sidebarMenu.type === sidebarMenuTypes.header">
+              <span>{{ sidebarMenu.title }}</span>
+            </ng-container>
+            <!-- end type header -->
+
+            <!-- type != header -->
+            <ng-container *ngIf="sidebarMenu.type !== sidebarMenuTypes.header">
+              <a href="#" (click)="toggle(sidebarMenu)">
+                <span class="{{ sidebarMenu.icon }}"></span>
+                <span> {{ sidebarMenu.title }}</span>
+
+                <ng-container *ngIf="sidebarMenu.badge">
+                  <span class="badge badge-pill" [ngClass]="sidebarMenu.badge.class">
+                    {{ sidebarMenu.badge.text }}
+                  </span>
+                </ng-container>
+              </a>
+            </ng-container>
+            <!-- end type != header -->
+
+            <!-- type simple -->
+            <ng-container *ngIf="sidebarMenu.type === sidebarMenuTypes.simple">
+              <a
+                [routerLink]="[sidebarMenu.link]"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLinkActive="active">
+                <span class="{{ sidebarMenu.icon }}"></span>
+                <span>{{ sidebarMenu.title }}</span>
+
+                <ng-container *ngIf="sidebarMenu.badge">
+                  <span class="badge badge-pill" [ngClass]="sidebarMenu.badge.class">
+                    {{ sidebarMenu.badge.text }}
+                  </span>
+                </ng-container>
+              </a>
+            </ng-container>
+            <!-- end type simple -->
+
+            <!-- type dropdown -->
+            <ng-container *ngIf="sidebarMenu.type === sidebarMenuTypes.dropdown">
+              <div class="sidebar-submenu" [@slide]="getState(sidebarMenu)">
+                <ul>
+                  <li *ngFor="let submenu of sidebarMenu.submenus">
+                    <a
+                      [routerLink]="submenu.link"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      routerLinkActive="active"
+                      href="#">
+                      {{ submenu.title }}
+
+                      <ng-container *ngIf="submenu.badge">
+                        <span class="badge badge-pill" [ngClass]="submenu.badge.class">
+                          {{ submenu.badge.text }}
+                        </span>
+                      </ng-container>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </ng-container>
+            <!-- end type dropdown -->
+          </li>
+        </ul>
+      </div>
+    </ng-scrollbar>
   </div>
-</section>
+</nav>

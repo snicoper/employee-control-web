@@ -6,8 +6,8 @@ import { AppConfig } from '@aw/core/config/_index';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ApiErrorInterceptor, ApiInterceptor, ApiResultInterceptor } from './interceptors/_index';
 import { GlobalErrorHandler } from './core/errors/_index';
+import { ApiErrorInterceptor, ApiInterceptor, ApiResultInterceptor } from './interceptors/_index';
 
 @NgModule({
   declarations: [AppComponent],

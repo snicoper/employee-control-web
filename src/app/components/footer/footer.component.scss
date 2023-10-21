@@ -1,5 +1,7 @@
-@import "variables-local";
-
 .footer {
-  padding: 10px;
+  padding: 1rem;
+
+  @media screen and (min-width: 768px) {
+    padding-left: 260px;
+  }
 }

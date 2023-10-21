@@ -1,9 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
-import { SidebarStates } from '@aw/components/sidebar/sidebar-states';
-import { SidebarService } from '@aw/components/sidebar/sidebar.service';
 import { AppEnvironments } from '@aw/core/config/_index';
 import { SiteUrls } from '@aw/core/urls/_index';
-import { AuthService, JwtService } from '@aw/services/_index';
+import { AuthService, JwtService, LayoutService } from '@aw/services/_index';
 
 @Component({
   selector: 'aw-navbar',
@@ -11,20 +9,19 @@ import { AuthService, JwtService } from '@aw/services/_index';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  private readonly sidebarService = inject(SidebarService);
   private readonly jwtService = inject(JwtService);
   private readonly authService = inject(AuthService);
+  private readonly layoutService = inject(LayoutService);
 
-  userName = this.jwtService.getName();
-  siteName = AppEnvironments.siteName;
-  siteUrls = SiteUrls;
-  sidebarStates = SidebarStates;
+  readonly userName = this.jwtService.getName();
+  readonly siteName = AppEnvironments.siteName;
+  readonly siteUrls = SiteUrls;
 
-  readonly sidebarState$ = computed(() => this.sidebarService.sidebarState$());
+  readonly sidebarState$ = computed(() => this.layoutService.sidebarState$());
   readonly authState$ = computed(() => this.authService.authValue$);
 
   toggleSidebarState(): void {
-    this.sidebarService.toggle();
+    this.layoutService.toggleSidebarState();
   }
 
   logOut(): void {
