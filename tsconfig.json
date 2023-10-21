@@ -23,6 +23,7 @@
     "paths": {
       "@aw/components/*": ["src/app/components/*"],
       "@aw/core/*": ["src/app/core/*"],
+      "@aw/directives/*": ["src/app/directives/*"],
       "@aw/guards/*": ["src/app/guards/*"],
       "@aw/interceptors/*": ["src/app/interceptors/*"],
       "@aw/models/*": ["src/app/models/*"],

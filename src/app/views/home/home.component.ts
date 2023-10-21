@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ThemeColors } from '@aw/core/types/_index';
+import { Roles } from '@aw/core/types/roles';
 import { JwtService, LayoutService, ThemeColorService } from '@aw/services/_index';
 
 @Component({
@@ -10,6 +11,8 @@ export class HomeComponent {
   readonly layoutService = inject(LayoutService);
   private readonly jwtService = inject(JwtService);
   private readonly themeColorService = inject(ThemeColorService);
+
+  readonly roles = Roles;
 
   getUserId(): string {
     return this.jwtService.getSid();
