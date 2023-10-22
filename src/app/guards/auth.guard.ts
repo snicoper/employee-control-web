@@ -38,6 +38,6 @@ export class AuthGuard {
 
   private redirectToLogin(redirectUrl: string): void {
     this.toastr.error('Requiere autorización para acceder a la página.');
-    this.router.navigate([SiteUrls.login], { queryParams: { returnUrl: redirectUrl } });
+    this.router.navigate([SiteUrls.auth.login], { queryParams: { returnUrl: redirectUrl } });
   }
 }

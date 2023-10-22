@@ -12,13 +12,13 @@ export const sidebarMenu: SidebarMenu[] = [
     submenus: [
       {
         title: 'Panel',
-        link: SiteUrls.dashboard,
+        link: SiteUrls.dashboard.dashboard,
         icon: 'fas fa-user-shield',
         active: false
       },
       {
         title: 'Tests',
-        link: SiteUrls.homeTests,
+        link: SiteUrls.tests.homeTests,
         active: false
       }
     ]
@@ -36,7 +36,7 @@ export const sidebarMenu: SidebarMenu[] = [
       },
       {
         title: 'Cerrar sesión',
-        link: SiteUrls.logout,
+        link: SiteUrls.auth.logout,
         active: false
       }
     ]

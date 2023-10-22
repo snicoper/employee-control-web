@@ -73,7 +73,7 @@ export class RecoveryPasswordChangeComponent {
           }
 
           this.toastrService.success('Contraseña restablecida con éxito');
-          this.router.navigateByUrl(SiteUrls.login);
+          this.router.navigateByUrl(SiteUrls.auth.login);
         },
         error: (error: HttpErrorResponse) => {
           this.badRequest = error.error;

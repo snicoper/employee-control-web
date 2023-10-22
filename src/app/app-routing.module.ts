@@ -13,8 +13,8 @@ const routes: Routes = [
     loadChildren: () => import('@aw/views/auth/auth.module').then((m) => m.AuthModule)
   },
   {
-    path: 'identity',
-    loadChildren: () => import('@aw/views/identity/identity.module').then((m) => m.IdentityModule)
+    path: 'accounts',
+    loadChildren: () => import('@aw/views/accounts/accounts.module').then((m) => m.AccountsModule)
   },
   {
     path: 'dashboard',

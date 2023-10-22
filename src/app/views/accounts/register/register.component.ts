@@ -49,7 +49,7 @@ export class RegisterComponent {
       .subscribe({
         next: () => {
           this.toastrService.success('La cuenta ha sido creada con éxito.');
-          this.route.navigateByUrl(SiteUrls.registerSuccess);
+          this.route.navigateByUrl(SiteUrls.accounts.registerSuccess);
         },
         error: (error: HttpErrorResponse) => {
           this.badRequest = error.error;

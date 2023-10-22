@@ -13,6 +13,6 @@ export class LogoutComponent {
 
   constructor() {
     this.jwtService.removeTokens();
-    this.router.navigateByUrl(SiteUrls.login);
+    this.router.navigateByUrl(SiteUrls.auth.login);
   }
 }

@@ -5,18 +5,24 @@ import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
 import { AwFormsModule } from '@aw/components/forms/aw-forms.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
-import { IdentityRoutingModule } from './identity-routing.module';
+import { AccountsRoutingModule } from './accounts-routing.module';
+import { RecoveryPasswordChangeComponent } from './recovery-password-change/recovery-password-change.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { RegisterSuccessComponent } from './register-success/register-success.component';
 import { RegisterValidateComponent } from './register-validate/register-validate.component';
 import { RegisterComponent } from './register/register.component';
-import { RecoveryPasswordChangeComponent } from './recovery-password-change/recovery-password-change.component';
 
 @NgModule({
-  declarations: [RegisterComponent, RegisterSuccessComponent, RegisterValidateComponent, RecoveryPasswordComponent, RecoveryPasswordChangeComponent],
+  declarations: [
+    RegisterComponent,
+    RegisterSuccessComponent,
+    RegisterValidateComponent,
+    RecoveryPasswordComponent,
+    RecoveryPasswordChangeComponent
+  ],
   imports: [
     CommonModule,
-    IdentityRoutingModule,
+    AccountsRoutingModule,
     ReactiveFormsModule,
     AwViewsModule,
     AwCardsModule,
@@ -24,4 +30,4 @@ import { RecoveryPasswordChangeComponent } from './recovery-password-change/reco
     AwButtonsModule
   ]
 })
-export class IdentityModule {}
+export class AccountsModule {}

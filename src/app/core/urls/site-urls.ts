@@ -6,24 +6,34 @@ export const SiteUrls = {
   home: '/',
 
   /** Auth. */
-  login: '/auth/login',
-  logout: '/auth/logout',
+  auth: {
+    login: '/auth/login',
+    logout: '/auth/logout'
+  },
 
-  /** identity. */
-  register: '/identity/register',
-  registerSuccess: '/identity/register-success',
-  registerValidate: '/identity/register-validate',
-  recoveryPassword: '/identity/recovery-password',
+  /** Accounts. */
+  accounts: {
+    register: '/accounts/register',
+    registerSuccess: '/accounts/register-success',
+    registerValidate: '/accounts/register-validate',
+    recoveryPassword: '/accounts/recovery-password'
+  },
 
   /** Dashboard. */
-  dashboard: '/dashboard',
+  dashboard: {
+    dashboard: '/dashboard'
+  },
 
   /** Tests. */
-  homeTests: '/tests',
+  tests: {
+    homeTests: '/tests'
+  },
 
   /** Errors. */
-  errorsForbidden: '/errors/403',
-  errorsNotFound: '/errors/404',
+  errors: {
+    errorsForbidden: '/errors/403',
+    errorsNotFound: '/errors/404'
+  },
 
   /**
    * Utiliza una de las propiedades de siteUrls para remplazar {algo} por valor en los args.

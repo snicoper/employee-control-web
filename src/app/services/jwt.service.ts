@@ -153,6 +153,6 @@ export class JwtService {
 
     this.authService.setAuthValue(false);
 
-    this.router.navigateByUrl(SiteUrls.login);
+    this.router.navigateByUrl(SiteUrls.auth.login);
   }
 }

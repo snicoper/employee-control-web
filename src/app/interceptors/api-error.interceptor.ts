@@ -51,7 +51,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   /** Manejar error Unauthorized. */
   private handleUnauthorized(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (!this.jwtService.existsTokens()) {
-      this.router.navigate([SiteUrls.login]);
+      this.router.navigate([SiteUrls.auth.login]);
 
       return next.handle(request);
     }
@@ -84,7 +84,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
   /** Manejar error forbidden.  */
   private handleForbidden(): void {
-    this.router.navigate([SiteUrls.errorsForbidden]);
+    this.router.navigate([SiteUrls.errors.errorsForbidden]);
   }
 
   /** Manejar error BadRequest. */
