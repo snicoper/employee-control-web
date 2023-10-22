@@ -47,7 +47,7 @@ export class LoginComponent {
     const loginRequest = this.form.value as LoginRequest;
 
     this.authApiService
-      .post<LoginRequest, LoginResponse>(loginRequest, ApiUrls.login)
+      .post<LoginRequest, LoginResponse>(loginRequest, ApiUrls.auth.login)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (result) => {

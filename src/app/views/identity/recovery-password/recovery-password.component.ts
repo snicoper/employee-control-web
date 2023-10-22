@@ -42,7 +42,7 @@ export class RecoveryPasswordComponent {
     const recoveryPasswordRequest = this.form.value as RecoveryPasswordRequest;
 
     this.identityApiService
-      .post<RecoveryPasswordRequest, ResultResponse>(recoveryPasswordRequest, ApiUrls.recoveryPassword)
+      .post<RecoveryPasswordRequest, ResultResponse>(recoveryPasswordRequest, ApiUrls.accounts.recoveryPassword)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: () => {

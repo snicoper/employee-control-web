@@ -61,7 +61,7 @@ export class RecoveryPasswordChangeComponent {
     this.identityApiService
       .post<RecoveryPasswordChangeRequest, ResultResponse>(
         this.recoveryPasswordChangeRequest,
-        ApiUrls.recoveryPasswordChange
+        ApiUrls.accounts.recoveryPasswordChange
       )
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

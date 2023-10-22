@@ -5,23 +5,31 @@ export const ApiUrls = {
   /** Admin. */
   admin: {
     /** Identity. */
-    getAdminIdentitiesPaginated: 'admin/identity/paginated'
+    identity: {
+      getAdminIdentitiesPaginated: 'admin/identity/paginated'
+    }
   },
 
   /** Auth. */
-  login: 'auth/login',
-  refreshToken: 'auth/refresh-token',
+  auth: {
+    login: 'auth/login',
+    refreshToken: 'auth/refresh-token'
+  },
 
-  // Identity.
-  registerIdentity: 'identity/register',
-  registerValidateEmail: 'identity/validate-email',
-  emailValidationForwarding: 'identity/email-validation-forwarding',
-  recoveryPassword: 'identity/recovery-password',
-  recoveryPasswordChange: 'identity/recovery-password-change',
+  /** Accounts. */
+  accounts: {
+    registerIdentity: 'accounts/register',
+    registerValidateEmail: 'accounts/validate-email',
+    emailValidationForwarding: 'accounts/email-validation-forwarding',
+    recoveryPassword: 'accounts/recovery-password',
+    recoveryPasswordChange: 'accounts/recovery-password-change'
+  },
 
   /** Localization. */
-  currentLocale: 'localization/current-locale',
-  supportedLocales: 'localization/supported-locales',
+  localization: {
+    currentLocale: 'localization/current-locale',
+    supportedLocales: 'localization/supported-locales'
+  },
 
   /**
    * Utiliza una de las propiedades de siteUrls para remplazar {algo} por valor en los args.

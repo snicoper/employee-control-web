@@ -27,7 +27,7 @@ export class HomeTestComponent implements OnInit {
 
   private eventListener(): void {
     this.adminIdentityApiService
-      .get<ApiResult<AdminIdentityPaginatedResponse>>(ApiUrls.admin.getAdminIdentitiesPaginated)
+      .get<ApiResult<AdminIdentityPaginatedResponse>>(ApiUrls.admin.identity.getAdminIdentitiesPaginated)
       .subscribe({
         next: (result: ApiResult<AdminIdentityPaginatedResponse>) => {
           this.employees = result;

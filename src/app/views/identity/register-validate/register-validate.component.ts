@@ -37,7 +37,10 @@ export class RegisterValidateComponent implements OnInit {
 
   private validateEmail(): void {
     this.identityApiService
-      .post<RegisterValidateRequest, ResultResponse>(this.registerValidateRequest, ApiUrls.registerValidateEmail)
+      .post<RegisterValidateRequest, ResultResponse>(
+        this.registerValidateRequest,
+        ApiUrls.accounts.registerValidateEmail
+      )
       .subscribe({
         next: (result: ResultResponse) => {
           if (!result.succeeded) {
