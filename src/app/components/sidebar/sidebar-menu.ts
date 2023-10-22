@@ -24,19 +24,19 @@ export const sidebarMenu: SidebarMenu[] = [
     ]
   },
   {
-    title: 'Usuario',
+    title: 'Administrar',
     icon: 'fas fa-user',
     active: false,
     type: SidebarMenuTypes.dropdown,
     submenus: [
       {
-        title: 'Perfil',
-        link: '/accounts/profile',
+        title: 'Empleados',
+        link: SiteUrls.employees.employeeList,
         active: false
       },
       {
-        title: 'Cerrar sesión',
-        link: SiteUrls.auth.logout,
+        title: 'Invitar empleado',
+        link: SiteUrls.employees.inviteEmployee,
         active: false
       }
     ]

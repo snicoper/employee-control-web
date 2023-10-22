@@ -19,6 +19,12 @@ export const SiteUrls = {
     recoveryPassword: '/accounts/recovery-password'
   },
 
+  /** Employees. */
+  employees: {
+    employeeList: '/employees',
+    inviteEmployee: '/employees/invite'
+  },
+
   /** Dashboard. */
   dashboard: {
     dashboard: '/dashboard'

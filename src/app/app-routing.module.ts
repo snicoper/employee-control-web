@@ -17,6 +17,12 @@ const routes: Routes = [
     loadChildren: () => import('@aw/views/accounts/accounts.module').then((m) => m.AccountsModule)
   },
   {
+    path: 'employees',
+    data: { roles: [Roles.humanResources] },
+    canActivate: [AuthGuard],
+    loadChildren: () => import('@aw/views/employees/employees.module').then((m) => m.EmployeesModule)
+  },
+  {
     path: 'dashboard',
     loadChildren: () => import('@aw/views/dashboard/dashboard.module').then((m) => m.DashboardModule)
   },
@@ -26,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'tests',
-    data: { title: 'tests', roles: [Roles.administrator] },
+    data: { roles: [Roles.administrator] },
     canActivate: [AuthGuard],
     loadChildren: () => import('@aw/views/tests/tests.module').then((m) => m.TestsModule)
   },

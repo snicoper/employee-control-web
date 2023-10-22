@@ -25,6 +25,12 @@ export const ApiUrls = {
     recoveryPasswordChange: 'accounts/recovery-password-change'
   },
 
+  /** Employees. */
+  employees: {
+    employeesPaginated: 'employees/paginated',
+    inviteEmployee: 'employees/invite'
+  },
+
   /** Localization. */
   localizations: {
     currentLocale: 'localizations/current-locale',
