@@ -4,9 +4,9 @@ import { replaceStringParams } from '../utils/_index';
 export const ApiUrls = {
   /** Admin. */
   admin: {
-    /** Identity. */
-    identity: {
-      getAdminIdentitiesPaginated: 'admin/identity/paginated'
+    /** Accounts. */
+    accounts: {
+      getAdminAccountsPaginated: 'admin/accounts/paginated'
     }
   },
 
@@ -26,9 +26,9 @@ export const ApiUrls = {
   },
 
   /** Localization. */
-  localization: {
-    currentLocale: 'localization/current-locale',
-    supportedLocales: 'localization/supported-locales'
+  localizations: {
+    currentLocale: 'localizations/current-locale',
+    supportedLocales: 'localizations/supported-locales'
   },
 
   /**
