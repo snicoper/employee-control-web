@@ -2,17 +2,17 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ApiResult } from '@aw/core/api-result/api-result';
 import { logDebug, logError, logInfo, logWarning } from '@aw/core/errors/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
-import { AdminIdentityPaginatedResponse } from '@aw/models/api/_index';
-import { AdminIdentityApiService } from '@aw/services/api/_index';
+import { AdminAccountsPaginatedResponse } from '@aw/models/api/admin/admin-accounts-paginated-response.model';
+import { AdminAccountsApiService } from '@aw/services/api/_index';
 
 @Component({
   selector: 'aw-home-test',
   templateUrl: './home-test.component.html'
 })
 export class HomeTestComponent implements OnInit {
-  private readonly adminIdentityApiService = inject(AdminIdentityApiService);
+  private readonly adminAccountsApiService = inject(AdminAccountsApiService);
 
-  employees: ApiResult<AdminIdentityPaginatedResponse> = new ApiResult<AdminIdentityPaginatedResponse>();
+  accounts: ApiResult<AdminAccountsPaginatedResponse> = new ApiResult<AdminAccountsPaginatedResponse>();
 
   ngOnInit(): void {
     this.eventListener();
@@ -26,11 +26,11 @@ export class HomeTestComponent implements OnInit {
   }
 
   private eventListener(): void {
-    this.adminIdentityApiService
-      .get<ApiResult<AdminIdentityPaginatedResponse>>(ApiUrls.admin.accounts.getAdminAccountsPaginated)
+    this.adminAccountsApiService
+      .getPaginated(this.accounts, ApiUrls.admin.accounts.getAdminAccountsPaginated)
       .subscribe({
-        next: (result: ApiResult<AdminIdentityPaginatedResponse>) => {
-          this.employees = result;
+        next: (result: ApiResult<AdminAccountsPaginatedResponse>) => {
+          this.accounts = result;
         }
       });
   }

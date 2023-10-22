@@ -2,4 +2,4 @@ import { Injectable } from '@angular/core';
 import { BaseApiService } from './base-api.service';
 
 @Injectable({ providedIn: 'root' })
-export class AdminIdentityApiService extends BaseApiService {}
+export class AdminAccountsApiService extends BaseApiService {}
