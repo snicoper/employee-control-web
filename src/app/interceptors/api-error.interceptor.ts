@@ -71,7 +71,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
             headers: request.headers.set('Authorization', `Bearer ${result.accessToken}`)
           });
 
-          logDebug('Se a renovado el token.');
+          logDebug('Se a renovado el token con éxito.');
 
           return next.handle(request);
         }),
@@ -92,7 +92,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     const errors = errorResponse.error.errors as BadResponseErrors;
 
     if (Object.hasOwn(errors, ValidationErrors.notificationErrors)) {
-      toastForNotificationErrors(errors[ValidationErrors.notificationErrors], this.toastrService);
+      toastForNotificationErrors(errors[ValidationErrors.notificationErrors]);
     }
   }
 

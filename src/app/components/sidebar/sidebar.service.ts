@@ -4,11 +4,10 @@ import { SidebarMenu } from './sidebar-menu-types.model';
 
 @Injectable({ providedIn: 'root' })
 export class SidebarService {
-  private readonly sidebarMenus = sidebarMenu;
-  private toggled = false;
+  private readonly sidebarMenu = sidebarMenu;
 
   activeMenu(title: string): void {
-    this.sidebarMenus.forEach((sidebarMenu: SidebarMenu) => {
+    this.sidebarMenu.forEach((sidebarMenu: SidebarMenu) => {
       if (sidebarMenu.title === title) {
         sidebarMenu.active = !sidebarMenu.active;
       } else {
@@ -17,19 +16,7 @@ export class SidebarService {
     });
   }
 
-  toggle(): void {
-    this.toggled = !this.toggled;
-  }
-
-  getSidebarState(): boolean {
-    return this.toggled;
-  }
-
-  setSidebarState(state: boolean): void {
-    this.toggled = state;
-  }
-
   getMenuList(): SidebarMenu[] {
-    return this.sidebarMenus;
+    return this.sidebarMenu;
   }
 }

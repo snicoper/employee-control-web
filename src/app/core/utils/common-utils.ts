@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 /**
@@ -47,9 +48,10 @@ export const replaceStringParams = (url: string, args: Record<string, string>): 
  * Muestra una lista de errores con toastr.
  *
  * @param errors Errores a mostrar con toastr.
- * @param toastrService Servicio para mostrar los errores.
  */
-export const toastForNotificationErrors = (errors: string[], toastrService: ToastrService): void => {
+export const toastForNotificationErrors = (errors: string[]): void => {
+  const toastrService = inject(ToastrService);
+
   errors.forEach((error: string) => {
     toastrService.error(error);
   });
