@@ -26,6 +26,10 @@ export class HomeComponent {
     return this.jwtService.getRoles();
   }
 
+  getCompanyId(): string {
+    return this.jwtService.getCompanyId();
+  }
+
   handleLogOut(): void {
     this.jwtService.removeTokens();
   }

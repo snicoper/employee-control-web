@@ -134,6 +134,16 @@ export class JwtService {
     return this.tokenDecode[key] as string;
   }
 
+  getCompanyId(): string {
+    const key = 'companyId';
+
+    if (!this.accessToken || !(key in this.tokenDecode)) {
+      return '';
+    }
+
+    return this.tokenDecode[key] as string;
+  }
+
   removeTokens(): void {
     this.localStorageService.remove(LocalStorageKeys.refreshToken);
     this.localStorageService.remove(LocalStorageKeys.accessToken);
