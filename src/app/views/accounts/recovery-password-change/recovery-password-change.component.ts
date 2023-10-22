@@ -7,7 +7,7 @@ import { ApiUrls } from '@aw/core/urls/_index';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { BadResponse } from '@aw/models/api/_index';
 import { ResultResponse } from '@aw/models/api/result-response.model';
-import { IdentityApiService } from '@aw/services/api/identity-api.service';
+import { AccountsApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { RecoveryPasswordChangeRequest } from './recovery-password-change-request.model';
@@ -21,7 +21,7 @@ export class RecoveryPasswordChangeComponent {
   private readonly fb = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly identityApiService = inject(IdentityApiService);
+  private readonly accountsApiService = inject(AccountsApiService);
   private readonly toastrService = inject(ToastrService);
 
   form: FormGroup = this.fb.group({});
@@ -58,7 +58,7 @@ export class RecoveryPasswordChangeComponent {
     this.recoveryPasswordChangeRequest.password = this.form.get('password')?.value;
     this.recoveryPasswordChangeRequest.confirmPassword = this.form.get('confirmPassword')?.value;
 
-    this.identityApiService
+    this.accountsApiService
       .post<RecoveryPasswordChangeRequest, ResultResponse>(
         this.recoveryPasswordChangeRequest,
         ApiUrls.accounts.recoveryPasswordChange

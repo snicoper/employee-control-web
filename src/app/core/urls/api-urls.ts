@@ -18,7 +18,7 @@ export const ApiUrls = {
 
   /** Accounts. */
   accounts: {
-    registerIdentity: 'accounts/register',
+    registerAccount: 'accounts/register',
     registerValidateEmail: 'accounts/validate-email',
     emailValidationForwarding: 'accounts/email-validation-forwarding',
     recoveryPassword: 'accounts/recovery-password',

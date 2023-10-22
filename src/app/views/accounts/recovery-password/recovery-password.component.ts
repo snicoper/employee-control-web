@@ -5,7 +5,7 @@ import { FormInputTypes } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { BadResponse } from '@aw/models/api/_index';
 import { ResultResponse } from '@aw/models/api/result-response.model';
-import { IdentityApiService } from '@aw/services/api/_index';
+import { AccountsApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
 import { RecoveryPasswordRequest } from './recovery-password-request.model';
 
@@ -16,7 +16,7 @@ import { RecoveryPasswordRequest } from './recovery-password-request.model';
 })
 export class RecoveryPasswordComponent {
   private readonly fb = inject(FormBuilder);
-  private readonly identityApiService = inject(IdentityApiService);
+  private readonly accountsApiService = inject(AccountsApiService);
 
   form: FormGroup = this.fb.group({});
   badRequest: BadResponse | undefined;
@@ -41,7 +41,7 @@ export class RecoveryPasswordComponent {
     this.loading = true;
     const recoveryPasswordRequest = this.form.value as RecoveryPasswordRequest;
 
-    this.identityApiService
+    this.accountsApiService
       .post<RecoveryPasswordRequest, ResultResponse>(recoveryPasswordRequest, ApiUrls.accounts.recoveryPassword)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

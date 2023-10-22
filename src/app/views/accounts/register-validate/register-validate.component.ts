@@ -5,7 +5,7 @@ import { logError } from '@aw/core/errors/log-messages';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { ResultResponse } from '@aw/models/api/result-response.model';
-import { IdentityApiService } from '@aw/services/api/_index';
+import { AccountsApiService } from '@aw/services/api/_index';
 import { RegisterValidateRequest } from './register-validate-request.model';
 
 @Component({
@@ -14,7 +14,7 @@ import { RegisterValidateRequest } from './register-validate-request.model';
 })
 export class RegisterValidateComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
-  private readonly identityApiService = inject(IdentityApiService);
+  private readonly accountsApiService = inject(AccountsApiService);
 
   errorMessages: string[] = [];
   siteUrls = SiteUrls;
@@ -36,7 +36,7 @@ export class RegisterValidateComponent implements OnInit {
   }
 
   private validateEmail(): void {
-    this.identityApiService
+    this.accountsApiService
       .post<RegisterValidateRequest, ResultResponse>(
         this.registerValidateRequest,
         ApiUrls.accounts.registerValidateEmail
