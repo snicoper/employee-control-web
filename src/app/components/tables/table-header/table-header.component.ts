@@ -15,14 +15,9 @@ export class TableHeaderComponent<T> {
 
   @Output() clickOrdering = new EventEmitter<void>();
 
-  orderings = OrderTypes;
+  orderTypes = OrderTypes;
 
-  // eslint-disable-next-line
-  onClickFilter(header: TableHeaderField): void {
-    /** */
-  }
-
-  onClickOrder(header: TableHeaderField): void {
+  handleClickOrder(header: TableHeaderField): void {
     this.removeOrderItemIfExists(header);
 
     switch (header.orderType) {

@@ -10,9 +10,9 @@ export class TableHeaderConfig {
     return this;
   }
 
-  /** Añadir una lista de header. */
+  /** Añadir lista de headers. */
   addHeaders(fields: TableHeaderField[]): this {
-    fields.forEach((field) => this.headers.push(field));
+    fields.forEach((field) => this.addHeader(field));
 
     return this;
   }

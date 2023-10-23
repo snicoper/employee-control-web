@@ -1,5 +1,4 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
 import { ApiResult } from '@aw/core/api-result/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
@@ -14,7 +13,6 @@ import { employeeListTableHeaders } from './employee-list-table-headers';
 })
 export class EmployeeListComponent implements OnInit {
   private readonly employeesApiService = inject(EmployeesApiService);
-  private readonly router = inject(Router);
 
   apiResult = new ApiResult<EmployeeListResponse>();
   tableHeaderConfig = new TableHeaderConfig();

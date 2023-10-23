@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-start">
     <!-- text header -->
     <ng-container *ngIf="header.sortable">
-      <span (click)="onClickOrder(header)" class="cursor-pointer">
+      <span (click)="handleClickOrder(header)" class="cursor-pointer">
         {{ header.text }}
       </span>
     </ng-container>
@@ -16,20 +16,20 @@
 
     <!-- sortable -->
     <ng-container *ngIf="header.sortable">
-      <div (click)="onClickOrder(header)" class="cursor-pointer ml-auto">
+      <div (click)="handleClickOrder(header)" class="cursor-pointer ml-auto">
         <!-- sort order -->
-        <ng-container *ngIf="header.orderType !== orderings.none">
+        <ng-container *ngIf="header.orderType !== orderTypes.none">
           <span class="badge mr-2 opacity3">
             {{ getOrderPrecedence(header) }}
           </span>
 
           <span
-            [ngClass]="{ 'fa-rotate-180': header.orderType === orderings.ascending }"
+            [ngClass]="{ 'fa-rotate-180': header.orderType === orderTypes.ascending }"
             class="fas fa-angle-down arrow opacity3">
           </span>
         </ng-container>
 
-        <ng-container *ngIf="header.orderType === orderings.none">
+        <ng-container *ngIf="header.orderType === orderTypes.none">
           <span class="ml-auto opacity3">
             &nbsp;<span class="icon fas fa-arrows-alt-v"></span>
           </span>

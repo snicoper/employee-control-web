@@ -1,5 +1,20 @@
 <aw-view-base>
   <aw-card>
+    <!-- toolbar -->
+    <div class="d-flex justify-content-end mb-2">
+      <div>
+        <a class="btn btn-sm btn-outline-success"> <span class="fas fa-user-plus"></span> Nuevo </a>
+      </div>
+
+      <div class="ml-auto">
+        <button class="btn btn-sm btn-outline-primary">
+          <span class="fas fa-filter"></span>
+        </button>
+      </div>
+    </div>
+    <!-- end toolbar -->
+
+    <!-- table -->
     <aw-table [apiResult]="apiResult" [loading]="loading">
       <thead awThead>
         <tr
@@ -17,12 +32,15 @@
         </tr>
       </tbody>
     </aw-table>
+    <!-- end table -->
 
+    <!-- pagination -->
     <aw-pagination
       *ngIf="apiResult"
       [apiResult]="apiResult"
       (changePage)="handleReloadData()"
       (changePageListNumber)="handleReloadData()">
     </aw-pagination>
+    <!-- end pagination -->
   </aw-card>
 </aw-view-base>

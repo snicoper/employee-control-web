@@ -1,4 +1,7 @@
 <div [ngClass]="{ 'table-responsive': tableResponsive }">
+  <div>
+    <input type="search" class="form-control">
+  </div>
   <table [ngClass]="tableCss" class="table">
     <ng-content select="[awThead]"></ng-content>
 
