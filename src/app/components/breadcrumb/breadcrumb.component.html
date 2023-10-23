@@ -1,0 +1,17 @@
+<nav *ngIf="breadcrumb.hasItems()" class="nav-breadcrumb" aria-label="breadcrumb">
+  <ol class="breadcrumb shadow-sm">
+    <li *ngFor="let bread of breadcrumb.getItems()" [ngClass]="{ active: bread.active }" class="breadcrumb-item small">
+      <a *ngIf="bread.active" [routerLink]="bread.link">
+        <span *ngIf="bread.icon" class="icon is-small">
+          <span [ngClass]="bread.icon" aria-hidden="true"></span>
+        </span>
+        {{ bread.text }}
+      </a>
+
+      <span *ngIf="!bread.active" class="text-muted">
+        <span [ngClass]="bread.icon" aria-hidden="true"></span>
+        {{ bread.text }}
+      </span>
+    </li>
+  </ol>
+</nav>
