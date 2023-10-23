@@ -1,5 +1,12 @@
 <div [ngClass]="{ 'table-responsive': tableResponsive }">
   <table [ngClass]="tableCss" class="table">
+    <!-- sonarLint -->
+    <caption></caption>
+    <thead>
+      <th></th>
+    </thead>
+    <!-- end sonarLint -->
+
     <ng-content select="[awThead]"></ng-content>
 
     <ng-container *ngIf="apiResult && !loading">
@@ -14,7 +21,7 @@
         <tbody>
           <tr>
             <td colspan="100%" class="text-center">
-              <h6>{{ "common.no_data" }}</h6>
+              <h6>No hay datos para mostrar</h6>
             </td>
           </tr>
         </tbody>

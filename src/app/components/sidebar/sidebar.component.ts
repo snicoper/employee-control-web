@@ -1,7 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, computed, inject } from '@angular/core';
-import { JwtService, LayoutService } from '@aw/services/_index';
-import { CompanyEmployeeStore } from './../../services/storage/company-employee.store';
+import { CurrentCompanyEmployeeService, JwtService, LayoutService } from '@aw/services/_index';
 import { SidebarMenu, SidebarMenuTypes } from './sidebar-menu-types.model';
 import { SidebarService } from './sidebar.service';
 
@@ -21,7 +20,7 @@ export class SidebarComponent {
   private readonly jwtService = inject(JwtService);
   private readonly layoutService = inject(LayoutService);
   private readonly sidebarService = inject(SidebarService);
-  private readonly companyEmployeeStore = inject(CompanyEmployeeStore);
+  private readonly currentCompanyEmployeeService = inject(CurrentCompanyEmployeeService);
 
   readonly sidebarState$ = computed(() => this.layoutService.sidebarState$());
 
@@ -37,7 +36,7 @@ export class SidebarComponent {
   }
 
   get companyName(): string {
-    return this.companyEmployeeStore.getValue()?.name as string;
+    return this.currentCompanyEmployeeService.getValue()?.name as string;
   }
 
   toggle(currentMenu: SidebarMenu): void {

@@ -5,10 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormInputTypes } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { BadResponse } from '@aw/models/api/_index';
-import { JwtService } from '@aw/services/_index';
+import { CurrentCompanyEmployeeService, JwtService } from '@aw/services/_index';
 import { AuthApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
-import { CompanyEmployeeStore } from './../../../services/storage/company-employee.store';
 import { LoginRequest } from './login-request.model';
 import { LoginResponse } from './login-response.model';
 
@@ -23,7 +22,7 @@ export class LoginComponent {
   private readonly jwtService = inject(JwtService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-  private readonly companyEmployeeStore = inject(CompanyEmployeeStore);
+  private readonly currentCompanyEmployeeService = inject(CurrentCompanyEmployeeService);
 
   form: FormGroup = this.fb.group({});
   badRequest: BadResponse | undefined;
@@ -56,7 +55,7 @@ export class LoginComponent {
           this.jwtService.setTokens(result.accessToken, result.refreshToken);
 
           if (this.jwtService.getToken()) {
-            this.companyEmployeeStore.refresh();
+            this.currentCompanyEmployeeService.refresh();
             const returnUrl = (this.route.snapshot.params['returnUrl'] as string) || '/';
             this.router.navigateByUrl(returnUrl);
           }
