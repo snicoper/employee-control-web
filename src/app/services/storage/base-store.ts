@@ -1,4 +1,4 @@
-export interface StoreBase<TEntity> {
+export interface BaseStore<TEntity> {
   /** Refrescar lista de TEntity. */
   refresh(): void;
 

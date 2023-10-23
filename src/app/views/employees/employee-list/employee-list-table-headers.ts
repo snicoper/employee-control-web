@@ -19,5 +19,17 @@ export const employeeListTableHeaders: TableHeaderField[] = [
     text: 'Correo electrónico',
     sortable: true,
     orderType: OrderTypes.none
+  },
+  {
+    field: 'active',
+    text: 'Activa',
+    sortable: true,
+    orderType: OrderTypes.none
+  },
+  {
+    field: 'emailConfirmed',
+    text: 'Cuenta aceptada',
+    sortable: true,
+    orderType: OrderTypes.none
   }
 ];

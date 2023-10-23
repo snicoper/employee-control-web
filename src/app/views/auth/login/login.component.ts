@@ -8,6 +8,7 @@ import { BadResponse } from '@aw/models/api/_index';
 import { JwtService } from '@aw/services/_index';
 import { AuthApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
+import { CompanyEmployeeStore } from './../../../services/storage/company-employee.store';
 import { LoginRequest } from './login-request.model';
 import { LoginResponse } from './login-response.model';
 
@@ -22,6 +23,7 @@ export class LoginComponent {
   private readonly jwtService = inject(JwtService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly companyEmployeeStore = inject(CompanyEmployeeStore);
 
   form: FormGroup = this.fb.group({});
   badRequest: BadResponse | undefined;
@@ -54,6 +56,7 @@ export class LoginComponent {
           this.jwtService.setTokens(result.accessToken, result.refreshToken);
 
           if (this.jwtService.getToken()) {
+            this.companyEmployeeStore.refresh();
             const returnUrl = (this.route.snapshot.params['returnUrl'] as string) || '/';
             this.router.navigateByUrl(returnUrl);
           }

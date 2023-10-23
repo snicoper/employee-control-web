@@ -3,4 +3,6 @@ export interface EmployeeListResponse {
   firstName: string;
   lastName: string;
   email: string;
+  active: boolean;
+  emailConfirmed: boolean;
 }

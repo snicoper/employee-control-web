@@ -25,6 +25,11 @@ export const ApiUrls = {
     recoveryPasswordChange: 'accounts/recovery-password-change'
   },
 
+  /** Companies. */
+  companies: {
+    getCompanyByCurrentUser: 'companies/current-user'
+  },
+
   /** Employees. */
   employees: {
     getEmployeesPaginated: 'employees/paginated',

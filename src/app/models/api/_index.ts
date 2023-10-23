@@ -5,4 +5,5 @@ export { BadResponse } from './common/bad-response';
 export { BadResponseErrors } from './common/bad-response-errors';
 export { BaseAuditable } from './common/base-auditable.model';
 export { BaseModel } from './common/base-model.model';
+export { CompanyResponse } from './company-response.model';
 export { LocalesSupportedResponse } from './locales-supported-response.model';

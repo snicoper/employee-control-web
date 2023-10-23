@@ -1,4 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppEnvironments } from '@aw/core/config/_index';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { AuthService, JwtService, LayoutService } from '@aw/services/_index';
@@ -12,6 +13,7 @@ export class NavbarComponent {
   private readonly jwtService = inject(JwtService);
   private readonly authService = inject(AuthService);
   private readonly layoutService = inject(LayoutService);
+  private readonly router = inject(Router);
 
   readonly userName = this.jwtService.getName();
   readonly siteName = AppEnvironments.siteName;
@@ -25,6 +27,6 @@ export class NavbarComponent {
   }
 
   logOut(): void {
-    this.jwtService.removeTokens();
+    this.router.navigateByUrl(SiteUrls.auth.login);
   }
 }

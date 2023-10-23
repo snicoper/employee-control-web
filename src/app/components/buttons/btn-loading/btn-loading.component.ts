@@ -10,6 +10,7 @@ export class BtnLoadingComponent {
   @Input() btnClass = 'btn btn-primary';
   @Input() btnType = BtnType.submit;
   @Input() btnText = '';
+  @Input() btnIcon = '';
   @Input() spinnerClass = 'spinner-border-sm';
   @Input() spinnerSize = 22;
   @Input() spinnerText = 'spinner-border-sm';

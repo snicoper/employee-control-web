@@ -25,6 +25,7 @@ $hover-color: #ffffff;
   }
 
   .sidebar-profile .user-info,
+  .sidebar-profile .company-name,
   .sidebar-header > a,
   .sidebar-menu ul li a,
   .sidebar-menu ul li:hover > a,
@@ -99,12 +100,18 @@ $hover-color: #ffffff;
         }
       }
 
-      .user-info {
+      .user-info,
+      .company-name {
         float: left;
+        font-size: 0.9rem;
 
         > span {
           display: block;
         }
+      }
+
+      .company-name {
+        color: $primary;
       }
     }
 

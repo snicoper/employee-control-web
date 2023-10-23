@@ -7,6 +7,7 @@ import { AwFormsModule } from '@aw/components/forms/aw-forms.module';
 import { AwPaginationModule } from '@aw/components/pagination/aw-pagination.module';
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
+import { PipesModule } from '@aw/pipes/pipes.module';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeesRoutingModule } from './employees-routing.module';
 import { InviteEmployeeComponent } from './invite-employee/invite-employee.component';
@@ -22,7 +23,8 @@ import { InviteEmployeeComponent } from './invite-employee/invite-employee.compo
     AwFormsModule,
     AwButtonsModule,
     AwTablesModule,
-    AwPaginationModule
+    AwPaginationModule,
+    PipesModule
   ]
 })
 export class EmployeesModule {}

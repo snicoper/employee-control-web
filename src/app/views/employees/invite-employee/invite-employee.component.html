@@ -1,6 +1,8 @@
 <aw-view-base cssContent="container">
   <aw-card>
     <h1>Invitar empleado</h1>
+
+    <!-- from-->
     <form (ngSubmit)="handleSubmit()" [formGroup]="form">
       <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
 
@@ -44,7 +46,18 @@
       </div>
       <!-- end email -->
 
-      <aw-btn-loading [loading]="loading" btnClass="btn btn-primary mt-2" btnText="Invitar"></aw-btn-loading>
+      <!-- buttons-->
+      <aw-btn-loading
+        [loading]="loading"
+        btnClass="btn btn-success mt-2"
+        btnText="Invitar"
+        btnIcon="fas fa-user-plus"></aw-btn-loading>
+
+      <button [routerLink]="siteUrls.employees.employeeList" class="btn btn-primary mt-2 ms-2" type="button">
+        <span class="fa-solid fa-chevron-left"></span> Volver
+      </button>
+      <!-- end buttons-->
     </form>
+    <!-- end from-->
   </aw-card>
 </aw-view-base>

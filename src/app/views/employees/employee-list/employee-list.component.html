@@ -1,16 +1,14 @@
 <aw-view-base>
   <aw-card>
-    <!-- toolbar -->
-    <div class="d-flex justify-content-end mb-2">
-      <div>
-        <a class="btn btn-sm btn-outline-success"> <span class="fas fa-user-plus"></span> Nuevo </a>
-      </div>
+    <h1>Lista de empleados</h1>
+    <hr />
 
-      <div class="ml-auto">
-        <button class="btn btn-sm btn-outline-primary">
-          <span class="fas fa-filter"></span>
-        </button>
-      </div>
+    <!-- toolbar -->
+    <div class="d-flex mb-2">
+      <a [routerLink]="siteUrls.employees.inviteEmployee" class="btn btn-sm btn-outline-success me-auto">
+        <span class="fas fa-user-plus"></span> Nuevo
+      </a>
+      <aw-table-input-search></aw-table-input-search>
     </div>
     <!-- end toolbar -->
 
@@ -25,10 +23,12 @@
       </thead>
 
       <tbody awTbody *ngIf="apiResult">
-        <tr *ngFor="let employee of apiResult.items">
+        <tr *ngFor="let employee of apiResult.items" (click)="handleSelectItem(employee)" class="cursor-pointer">
           <td>{{ employee.firstName }}</td>
           <td>{{ employee.lastName }}</td>
           <td>{{ employee.email }}</td>
+          <td [innerHTML]="employee.active | boolToIcon"></td>
+          <td [innerHTML]="employee.emailConfirmed | boolToIcon"></td>
         </tr>
       </tbody>
     </aw-table>

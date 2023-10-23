@@ -3,7 +3,8 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormInputTypes } from '@aw/core/types/_index';
-import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
+import { ApiUrls } from '@aw/core/urls/_index';
+import { SiteUrls } from '@aw/core/urls/site-urls';
 import { BadResponse } from '@aw/models/api/_index';
 import { ResultResponse } from '@aw/models/api/result-response.model';
 import { EmployeesApiService } from '@aw/services/api/_index';
@@ -28,6 +29,7 @@ export class InviteEmployeeComponent {
   formInputTypes = FormInputTypes;
   submitted = false;
   loading = false;
+  siteUrls = SiteUrls;
 
   constructor() {
     this.buildForm();
