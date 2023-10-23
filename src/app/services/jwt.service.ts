@@ -134,14 +134,14 @@ export class JwtService {
     return this.tokenDecode[key] as string;
   }
 
-  getCompanyId(): string {
+  getCompanyId(): number {
     const key = 'companyId';
 
     if (!this.accessToken || !(key in this.tokenDecode)) {
-      return '';
+      return NaN;
     }
 
-    return this.tokenDecode[key] as string;
+    return this.tokenDecode[key] as number;
   }
 
   removeTokens(): void {

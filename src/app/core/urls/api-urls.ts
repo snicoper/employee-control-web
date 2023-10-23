@@ -27,7 +27,7 @@ export const ApiUrls = {
 
   /** Employees. */
   employees: {
-    employeesPaginated: 'employees/paginated',
+    getEmployeesPaginated: 'employees/paginated',
     inviteEmployee: 'employees/invite'
   },
 

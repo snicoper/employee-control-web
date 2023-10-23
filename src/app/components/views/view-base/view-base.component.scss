@@ -4,11 +4,11 @@
   height: 100vh;
 
   .page-content {
-    margin-top: $navbar-margin-top;
     display: inline-block;
-    width: 100%;
-    transition: padding-left 0.3s ease;
     height: 100vh;
+    margin-top: $navbar-margin-top;
+    transition: padding-left 0.3s ease;
+    width: 100%;
 
     @media screen and (min-width: 768px) {
       padding-left: 260px;
