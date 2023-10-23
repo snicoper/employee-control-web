@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
 import { AwFormsModule } from '@aw/components/forms/aw-forms.module';
+import { AwPaginationModule } from '@aw/components/pagination/aw-pagination.module';
+import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeesRoutingModule } from './employees-routing.module';
@@ -18,7 +20,9 @@ import { InviteEmployeeComponent } from './invite-employee/invite-employee.compo
     AwViewsModule,
     AwCardsModule,
     AwFormsModule,
-    AwButtonsModule
+    AwButtonsModule,
+    AwTablesModule,
+    AwPaginationModule
   ]
 })
 export class EmployeesModule {}

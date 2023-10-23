@@ -1,52 +1,50 @@
 <aw-view-base cssContent="container">
-  <div class="form-invite-employee">
-    <aw-card>
-      <h1>Invitar empleado</h1>
-      <form (ngSubmit)="handleSubmit()" [formGroup]="form">
-        <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
+  <aw-card>
+    <h1>Invitar empleado</h1>
+    <form (ngSubmit)="handleSubmit()" [formGroup]="form">
+      <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
 
-        <!-- firstName -->
-        <div class="mb-2">
-          <aw-form-input
-            [badRequest]="badRequest"
-            [form]="form"
-            [submitted]="submitted"
-            fieldName="firstName"
-            formControlName="firstName"
-            label="Nombre">
-          </aw-form-input>
-        </div>
-        <!-- end firstName -->
+      <!-- firstName -->
+      <div class="mb-2">
+        <aw-form-input
+          [badRequest]="badRequest"
+          [form]="form"
+          [submitted]="submitted"
+          fieldName="firstName"
+          formControlName="firstName"
+          label="Nombre">
+        </aw-form-input>
+      </div>
+      <!-- end firstName -->
 
-        <!-- lastName -->
-        <div class="mb-2">
-          <aw-form-input
-            [badRequest]="badRequest"
-            [form]="form"
-            [submitted]="submitted"
-            fieldName="lastName"
-            formControlName="lastName"
-            label="Apellidos">
-          </aw-form-input>
-        </div>
-        <!-- end lastName -->
+      <!-- lastName -->
+      <div class="mb-2">
+        <aw-form-input
+          [badRequest]="badRequest"
+          [form]="form"
+          [submitted]="submitted"
+          fieldName="lastName"
+          formControlName="lastName"
+          label="Apellidos">
+        </aw-form-input>
+      </div>
+      <!-- end lastName -->
 
-        <!-- email -->
-        <div class="mb-2">
-          <aw-form-input
-            [badRequest]="badRequest"
-            [form]="form"
-            [submitted]="submitted"
-            [inputType]="formInputTypes.email"
-            fieldName="email"
-            formControlName="email"
-            label="Email">
-          </aw-form-input>
-        </div>
-        <!-- end email -->
+      <!-- email -->
+      <div class="mb-2">
+        <aw-form-input
+          [badRequest]="badRequest"
+          [form]="form"
+          [submitted]="submitted"
+          [inputType]="formInputTypes.email"
+          fieldName="email"
+          formControlName="email"
+          label="Email">
+        </aw-form-input>
+      </div>
+      <!-- end email -->
 
-        <aw-btn-loading [loading]="loading" btnClass="btn btn-primary mt-2" btnText="Invitar"></aw-btn-loading>
-      </form>
-    </aw-card>
-  </div>
+      <aw-btn-loading [loading]="loading" btnClass="btn btn-primary mt-2" btnText="Invitar"></aw-btn-loading>
+    </form>
+  </aw-card>
 </aw-view-base>

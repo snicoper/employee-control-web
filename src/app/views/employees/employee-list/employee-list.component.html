@@ -1,3 +1,28 @@
 <aw-view-base>
-  <p>employee-list works!</p>
+  <aw-card>
+    <aw-table [apiResult]="apiResult" [loading]="loading">
+      <thead awThead>
+        <tr
+          awTableHeader
+          [tableHeaderConfig]="tableHeaderConfig"
+          [apiResult]="apiResult"
+          (clickOrdering)="handleReloadData()"></tr>
+      </thead>
+
+      <tbody awTbody *ngIf="apiResult">
+        <tr *ngFor="let employee of apiResult.items">
+          <td>{{ employee.firstName }}</td>
+          <td>{{ employee.lastName }}</td>
+          <td>{{ employee.email }}</td>
+        </tr>
+      </tbody>
+    </aw-table>
+
+    <aw-pagination
+      *ngIf="apiResult"
+      [apiResult]="apiResult"
+      (changePage)="handleReloadData()"
+      (changePageListNumber)="handleReloadData()">
+    </aw-pagination>
+  </aw-card>
 </aw-view-base>

@@ -26,7 +26,6 @@ export class InviteEmployeeComponent {
   form: FormGroup = this.fb.group({});
   badRequest: BadResponse | undefined;
   formInputTypes = FormInputTypes;
-  siteUrls = SiteUrls;
   submitted = false;
   loading = false;
 
