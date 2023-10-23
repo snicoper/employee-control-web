@@ -32,8 +32,8 @@ export class EmployeeListComponent implements OnInit {
   }
 
   handleSelectItem(employee: EmployeeListResponse): void {
-    const url = SiteUrls.replace(SiteUrls.employees.employeeList, { id: employee.id.toString() });
-    this.router.navigate([url]);
+    const url = SiteUrls.replace(SiteUrls.employees.employeeDetails, { id: employee.id });
+    this.router.navigateByUrl(url);
   }
 
   private configureTableHeaders(): void {

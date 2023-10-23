@@ -16,7 +16,6 @@ export abstract class BaseApiService {
    * @returns ApiResult<TModel>.
    */
   getPaginated<TModel>(apiResult: ApiResult<TModel>, urlPart = ''): Observable<ApiResult<TModel>> {
-    urlPart = urlPart.length > 0 ? `/${urlPart}` : '';
     const url = `${this.baseUrl}${urlPart}?${this.prepareQueryParams(apiResult)}`;
 
     return this.http.get<ApiResult<TModel>>(url);
@@ -28,7 +27,6 @@ export abstract class BaseApiService {
    * @param urlPart Parte de la url base a concatenar.
    */
   get<TEntity>(urlPart = ''): Observable<TEntity> {
-    urlPart = urlPart.length > 0 ? `/${urlPart}` : '';
     const url = `${this.baseUrl}${urlPart}`;
 
     return this.http.get<TEntity>(url);
@@ -42,7 +40,6 @@ export abstract class BaseApiService {
    * @returns TResult creado.
    */
   post<TEntity, TResult>(entity: TEntity, urlPart = ''): Observable<TResult> {
-    urlPart = urlPart.length > 0 ? `/${urlPart}` : '';
     const url = `${this.baseUrl}${urlPart}`;
 
     return this.http.post<TResult>(url, entity);

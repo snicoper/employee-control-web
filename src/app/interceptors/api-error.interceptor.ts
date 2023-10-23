@@ -84,7 +84,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
   /** Manejar error forbidden.  */
   private handleForbidden(): void {
-    this.router.navigate([SiteUrls.errors.errorsForbidden]);
+    this.router.navigateByUrl(SiteUrls.errors.errorsForbidden);
   }
 
   /** Manejar error BadRequest. */

@@ -11,9 +11,10 @@ import { PipesModule } from '@aw/pipes/pipes.module';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeesRoutingModule } from './employees-routing.module';
 import { InviteEmployeeComponent } from './invite-employee/invite-employee.component';
+import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 
 @NgModule({
-  declarations: [EmployeeListComponent, InviteEmployeeComponent],
+  declarations: [EmployeeListComponent, InviteEmployeeComponent, EmployeeDetailsComponent],
   imports: [
     CommonModule,
     EmployeesRoutingModule,

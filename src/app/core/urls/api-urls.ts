@@ -6,40 +6,41 @@ export const ApiUrls = {
   admin: {
     /** Accounts. */
     accounts: {
-      getAdminAccountsPaginated: 'admin/accounts/paginated'
+      getAdminAccountsPaginated: '/admin/accounts/paginated'
     }
   },
 
   /** Auth. */
   auth: {
-    login: 'auth/login',
-    refreshToken: 'auth/refresh-token'
+    login: '/auth/login',
+    refreshToken: '/auth/refresh-token'
   },
 
   /** Accounts. */
   accounts: {
-    registerAccount: 'accounts/register',
-    registerValidateEmail: 'accounts/validate-email',
-    emailValidationForwarding: 'accounts/email-validation-forwarding',
-    recoveryPassword: 'accounts/recovery-password',
-    recoveryPasswordChange: 'accounts/recovery-password-change'
+    registerAccount: '/accounts/register',
+    registerValidateEmail: '/accounts/validate-email',
+    emailValidationForwarding: '/accounts/email-validation-forwarding',
+    recoveryPassword: '/accounts/recovery-password',
+    recoveryPasswordChange: '/accounts/recovery-password-change'
   },
 
   /** Companies. */
   companies: {
-    getCompanyByCurrentUser: 'companies/current-user'
+    getCompanyByCurrentUser: '/companies/current-user'
   },
 
   /** Employees. */
   employees: {
-    getEmployeesPaginated: 'employees/paginated',
-    inviteEmployee: 'employees/invite'
+    getEmployeesPaginated: '/employees/paginated',
+    getEmployeeById: '/employees/{id}',
+    inviteEmployee: '/employees/invite'
   },
 
   /** Localization. */
   localizations: {
-    currentLocale: 'localizations/current-locale',
-    supportedLocales: 'localizations/supported-locales'
+    currentLocale: '/localizations/current-locale',
+    supportedLocales: '/localizations/supported-locales'
   },
 
   /**
