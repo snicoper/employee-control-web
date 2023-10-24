@@ -22,25 +22,28 @@
           (clickOrdering)="handleReloadData()"></tr>
       </thead>
 
-      <tbody awTbody *ngIf="apiResult">
-        <tr *ngFor="let employee of apiResult.items" (click)="handleSelectItem(employee)" class="cursor-pointer">
-          <td>{{ employee.firstName }}</td>
-          <td>{{ employee.lastName }}</td>
-          <td>{{ employee.email }}</td>
-          <td [innerHTML]="employee.active | boolToIcon"></td>
-          <td [innerHTML]="employee.emailConfirmed | boolToIcon"></td>
-        </tr>
-      </tbody>
+      <ng-container *ngIf="apiResult">
+        <tbody awTbody>
+          <tr *ngFor="let employee of apiResult.items" (click)="handleSelectItem(employee)" class="cursor-pointer">
+            <td>{{ employee.firstName }}</td>
+            <td>{{ employee.lastName }}</td>
+            <td>{{ employee.email }}</td>
+            <td [innerHTML]="employee.active | boolToIcon"></td>
+            <td [innerHTML]="employee.emailConfirmed | boolToIcon"></td>
+          </tr>
+        </tbody>
+      </ng-container>
     </aw-table>
     <!-- end table -->
 
     <!-- pagination -->
-    <aw-pagination
-      *ngIf="apiResult"
-      [apiResult]="apiResult"
-      (changePage)="handleReloadData()"
-      (changePageListNumber)="handleReloadData()">
-    </aw-pagination>
+    <ng-container *ngIf="apiResult">
+      <aw-pagination
+        [apiResult]="apiResult"
+        (changePage)="handleReloadData()"
+        (changePageListNumber)="handleReloadData()">
+      </aw-pagination>
+    </ng-container>
     <!-- end pagination -->
   </aw-card>
 </aw-view-base>

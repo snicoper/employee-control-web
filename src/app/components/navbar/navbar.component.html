@@ -3,6 +3,7 @@
     <span (click)="toggleSidebarState()" [ngClass]="{ 'text-muted': sidebarState$() }" class="fa-solid fa-bars"></span>
 
     <a [routerLink]="[siteUrls.home]" class="navbar-brand cursor-pointer">{{ siteName }}</a>
+
     <button
       aria-controls="navbarSupportedContent"
       aria-expanded="false"
@@ -13,6 +14,7 @@
       type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
