@@ -1,6 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import { logError } from '@aw/core/errors/log-messages';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { CurrentCompanyEmployeeResponse } from '@aw/models/api/_index';
 import { CompaniesApiService } from './api/_index';
@@ -19,9 +17,6 @@ export class CurrentCompanyEmployeeService {
     this.companiesApiService.get<CurrentCompanyEmployeeResponse>(ApiUrls.companies.getCompanyByCurrentUser).subscribe({
       next: (result: CurrentCompanyEmployeeResponse) => {
         this.currentCompanyEmployeeResponse$.set(result);
-      },
-      error: (error: HttpErrorResponse) => {
-        logError(error.error);
       }
     });
   }

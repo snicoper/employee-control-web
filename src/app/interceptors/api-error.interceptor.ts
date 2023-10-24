@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { logDebug, logError, logWarning } from '@aw/core/errors/_index';
+import { logDebug, logWarning } from '@aw/core/errors/_index';
 import { ValidationErrors } from '@aw/core/types/_index';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { toastForNotificationErrors } from '@aw/core/utils/_index';
@@ -28,8 +28,6 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        logError(error.message);
-
         switch (error.status) {
           case HttpStatusCode.Unauthorized:
             return this.handleUnauthorized(request, next);
@@ -92,7 +90,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     const errors = errorResponse.error.errors as BadResponseErrors;
 
     if (Object.hasOwn(errors, ValidationErrors.notificationErrors)) {
-      toastForNotificationErrors(errors[ValidationErrors.notificationErrors]);
+      toastForNotificationErrors(errors[ValidationErrors.notificationErrors], this.toastrService);
     }
   }
 

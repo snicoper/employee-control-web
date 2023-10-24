@@ -1,7 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { logError } from '@aw/core/errors/log-messages';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { ResultResponse } from '@aw/models/api/result-response.model';
@@ -46,9 +44,6 @@ export class RegisterValidateComponent implements OnInit {
           if (!result.succeeded) {
             this.errorMessages = result.errors;
           }
-        },
-        error: (error: HttpErrorResponse) => {
-          logError(error.message);
         }
       });
   }

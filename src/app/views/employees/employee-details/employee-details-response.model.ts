@@ -5,4 +5,5 @@ export interface EmployeeDetailsResponse {
   email: string;
   active: boolean;
   emailConfirmed: boolean;
+  userRoles: string[];
 }

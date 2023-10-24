@@ -1,6 +1,6 @@
 <aw-view-base>
   <aw-card>
-    <h3>Detalles empleado {{ employee?.email }}</h3>
+    <h3>Detalles empleado- {{ employee?.firstName }} {{ employee?.lastName }}</h3>
     <hr />
 
     <table class="table table-striped">
@@ -25,6 +25,51 @@
           <tr>
             <td>Email</td>
             <td>{{ employee.email }}</td>
+          </tr>
+          <tr>
+            <td>Cuenta activa</td>
+            <td>
+              <span class="d-flex">
+                <span>
+                  <span [innerHTML]="employee.active | boolToIcon"></span>
+                </span>
+                <span class="ms-auto">
+                  <ng-container *ngIf="employee.active">
+                    <button (click)="handleDeactivateEmployee()" class="btn btn-sm btn-outline-danger ms-4">
+                      Desactivar cuenta
+                    </button>
+                  </ng-container>
+
+                  <ng-container *ngIf="!employee.active">
+                    <button (click)="handleActivateEmployee()" class="btn btn-sm btn-outline-success ms-4">
+                      Activar cuenta
+                    </button>
+                  </ng-container>
+                </span>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>Invitación aceptada</td>
+            <td>
+              <span [innerHTML]="employee.emailConfirmed | boolToIcon"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Roles</td>
+            <td>
+              <span class="d-flex">
+                <span>
+                  <span class="badge rounded-pill bg-success ms-1" *ngFor="let role of employee.userRoles">
+                    {{ roleToText(role) }}
+                  </span>
+                </span>
+
+                <span class="ms-auto">
+                  <button class="ms-auto btn btn-outline-primary btn-sm">Editar</button>
+                </span>
+              </span>
+            </td>
           </tr>
         </tbody>
       </ng-container>

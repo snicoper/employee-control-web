@@ -6,7 +6,7 @@
     <!-- toolbar -->
     <div class="d-flex mb-2">
       <a [routerLink]="siteUrls.employees.inviteEmployee" class="btn btn-sm btn-outline-success me-auto">
-        <span class="fas fa-user-plus"></span> Nuevo
+        <span class="fas fa-user-plus"></span> Invitar empleado
       </a>
 
       <aw-table-input-search
@@ -46,11 +46,5 @@
       (changePageListNumber)="handleReloadData()">
     </aw-pagination>
     <!-- end pagination -->
-  </aw-card>
-
-  <aw-card>
-    <pre>
-      {{ apiResult | json }}
-    </pre>
   </aw-card>
 </aw-view-base>

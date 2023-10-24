@@ -6,7 +6,6 @@ import { FormInputTypes } from '@aw/core/types/_index';
 import { ApiUrls } from '@aw/core/urls/_index';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { BadResponse } from '@aw/models/api/_index';
-import { ResultResponse } from '@aw/models/api/result-response.model';
 import { EmployeesApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
@@ -49,16 +48,13 @@ export class InviteEmployeeComponent {
     inviteEmployeeRequest.companyId = this.jwtService.getCompanyId();
 
     this.employeesApiService
-      .post<InviteEmployeeRequest, ResultResponse>(inviteEmployeeRequest, ApiUrls.employees.inviteEmployee)
+      .post<InviteEmployeeRequest, string>(inviteEmployeeRequest, ApiUrls.employees.inviteEmployee)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ResultResponse) => {
-          if (result.succeeded) {
-            this.toastrService.success('Invitación enviada con éxito.');
-            this.router.navigateByUrl(SiteUrls.employees.employeeList);
-
-            return;
-          }
+        next: (result: string) => {
+          const url = SiteUrls.replace(SiteUrls.employees.employeeDetails, { id: result });
+          this.toastrService.success('Invitación enviada con éxito.');
+          this.router.navigateByUrl(url);
         },
         error: (error: HttpErrorResponse) => {
           this.badRequest = error.error as BadResponse;
