@@ -8,7 +8,11 @@
       <a [routerLink]="siteUrls.employees.inviteEmployee" class="btn btn-sm btn-outline-success me-auto">
         <span class="fas fa-user-plus"></span> Nuevo
       </a>
-      <aw-table-input-search></aw-table-input-search>
+
+      <aw-table-input-search
+        [tableHeaderConfig]="tableHeaderConfig"
+        [apiResult]="apiResult"
+        (clickFiltering)="handleFilterChange($event)"></aw-table-input-search>
     </div>
     <!-- end toolbar -->
 
@@ -22,28 +26,31 @@
           (clickOrdering)="handleReloadData()"></tr>
       </thead>
 
-      <ng-container *ngIf="apiResult">
-        <tbody awTbody>
-          <tr *ngFor="let employee of apiResult.items" (click)="handleSelectItem(employee)" class="cursor-pointer">
-            <td>{{ employee.firstName }}</td>
-            <td>{{ employee.lastName }}</td>
-            <td>{{ employee.email }}</td>
-            <td [innerHTML]="employee.active | boolToIcon"></td>
-            <td [innerHTML]="employee.emailConfirmed | boolToIcon"></td>
-          </tr>
-        </tbody>
-      </ng-container>
+      <tbody awTbody *ngIf="apiResult">
+        <tr *ngFor="let employee of apiResult.items" (click)="handleSelectItem(employee)" class="cursor-pointer">
+          <td>{{ employee.firstName }}</td>
+          <td>{{ employee.lastName }}</td>
+          <td>{{ employee.email }}</td>
+          <td [innerHTML]="employee.active | boolToIcon"></td>
+          <td [innerHTML]="employee.emailConfirmed | boolToIcon"></td>
+        </tr>
+      </tbody>
     </aw-table>
     <!-- end table -->
 
     <!-- pagination -->
-    <ng-container *ngIf="apiResult">
-      <aw-pagination
-        [apiResult]="apiResult"
-        (changePage)="handleReloadData()"
-        (changePageListNumber)="handleReloadData()">
-      </aw-pagination>
-    </ng-container>
+    <aw-pagination
+      *ngIf="apiResult"
+      [apiResult]="apiResult"
+      (changePage)="handleReloadData()"
+      (changePageListNumber)="handleReloadData()">
+    </aw-pagination>
     <!-- end pagination -->
+  </aw-card>
+
+  <aw-card>
+    <pre>
+      {{ apiResult | json }}
+    </pre>
   </aw-card>
 </aw-view-base>

@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
-import { ApiResult } from '@aw/core/api-result/_index';
+import { ApiResult } from '@aw/core/api-result/api-result';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { EmployeesApiService } from '@aw/services/api/_index';
@@ -29,6 +29,11 @@ export class EmployeeListComponent implements OnInit {
 
   handleReloadData(): void {
     this.loadEmployees();
+  }
+
+  handleFilterChange(event: ApiResult<EmployeeListResponse>): void {
+    this.apiResult = event;
+    this.handleReloadData();
   }
 
   handleSelectItem(employee: EmployeeListResponse): void {

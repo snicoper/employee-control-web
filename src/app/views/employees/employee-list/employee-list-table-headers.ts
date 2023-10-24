@@ -6,19 +6,22 @@ export const employeeListTableHeaders: TableHeaderField[] = [
     field: 'firstName',
     text: 'Nombre',
     sortable: true,
-    orderType: OrderTypes.none
+    orderType: OrderTypes.none,
+    filterable: true
   },
   {
     field: 'lastName',
     text: 'Apellidos',
     sortable: true,
-    orderType: OrderTypes.none
+    orderType: OrderTypes.none,
+    filterable: true
   },
   {
     field: 'email',
     text: 'Correo electrónico',
     sortable: true,
-    orderType: OrderTypes.none
+    orderType: OrderTypes.none,
+    filterable: true
   },
   {
     field: 'active',

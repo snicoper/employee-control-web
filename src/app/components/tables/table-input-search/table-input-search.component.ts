@@ -1,7 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ApiResult, LogicalOperators, RelationalOperators } from '@aw/core/api-result/_index';
+import { TableHeaderField } from '../table-header/table-header-field.interface';
+import { TableHeaderConfig } from '../table-header/table-header.config';
 
 @Component({
   selector: 'aw-table-input-search',
   templateUrl: './table-input-search.component.html'
 })
-export class TableInputSearchComponent {}
+export class TableInputSearchComponent<T> {
+  @Input({ required: true }) tableHeaderConfig = new TableHeaderConfig();
+  @Input({ required: true }) apiResult = new ApiResult<T>();
+
+  @Output() clickFiltering = new EventEmitter<ApiResult<T>>();
+
+  term = '';
+
+  handleInputChange(event: Event): void {
+    this.apiResult = ApiResult.clone(this.apiResult);
+    this.apiResult.cleanFilters();
+    this.term = String(event);
+
+    this.tableHeaderConfig.headers.forEach((element: TableHeaderField) => {
+      if (element.filterable) {
+        const logicalOperator = this.apiResult.filters.length === 0 ? LogicalOperators.none : LogicalOperators.or;
+        this.apiResult.addFilter(element.field, RelationalOperators.contains, this.term, logicalOperator);
+      }
+    });
+
+    this.clickFiltering.emit(this.apiResult);
+  }
+}
