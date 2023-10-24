@@ -9,6 +9,7 @@ import { AwSpinnerModule } from '@aw/components/spinner/aw-spinner.module';
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { PipesModule } from '@aw/pipes/pipes.module';
+import { AwBreadcrumbModule } from './../../components/breadcrumb/aw-breadcrumb.module';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeesRoutingModule } from './employees-routing.module';
@@ -27,6 +28,7 @@ import { InviteEmployeeComponent } from './invite-employee/invite-employee.compo
     AwTablesModule,
     AwPaginationModule,
     AwSpinnerModule,
+    AwBreadcrumbModule,
     PipesModule
   ]
 })

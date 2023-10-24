@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { ResultResponse } from '@aw/models/api/result-response.model';
@@ -18,6 +19,7 @@ export class EmployeeDetailsComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly toastrService = inject(ToastrService);
 
+  breadcrumb = new BreadcrumbCollection();
   employee: EmployeeDetailsResponse | undefined = undefined;
   siteUrls = SiteUrls;
   loading = false;
@@ -30,6 +32,7 @@ export class EmployeeDetailsComponent {
 
     this.employeeId = employeeId ?? '';
 
+    this.setBreadcrumb();
     this.loadEmployee();
   }
 
@@ -51,6 +54,12 @@ export class EmployeeDetailsComponent {
         this.loadEmployee();
       }
     });
+  }
+
+  private setBreadcrumb(): void {
+    this.breadcrumb
+      .add('Empleados', SiteUrls.employees.employeeList)
+      .add('Detalles', SiteUrls.employees.employeeDetails, '', false);
   }
 
   private loadEmployee(): void {

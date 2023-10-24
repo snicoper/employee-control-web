@@ -4,10 +4,10 @@ export class BreadcrumbItem {
   icon: string;
   active: boolean;
 
-  constructor(text: string, link: string, icon: string, activate?: boolean) {
+  constructor(text: string, link: string, icon = '', activate = true) {
     this.text = text;
     this.link = link;
     this.icon = icon;
-    this.active = activate !== false;
+    this.active = activate;
   }
 }

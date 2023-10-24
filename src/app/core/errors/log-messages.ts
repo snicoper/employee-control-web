@@ -2,6 +2,11 @@ import { AppEnvironments } from '../config/_index';
 
 /* eslint-disable  no-console */
 
+interface LogSettings {
+  key: string;
+  color: string;
+}
+
 const logSettings = {
   error: { key: 'ERROR', color: '#cc0066' },
   warning: { key: 'WARNING', color: '#cc7a00' },
@@ -9,7 +14,7 @@ const logSettings = {
   debug: { key: 'DEBUG', color: '#009933' }
 };
 
-const displayLogMessage = (message: string, settings: { key: string; color: string }): void => {
+const displayLogMessage = (message: string, settings: LogSettings): void => {
   if (AppEnvironments.isDebug) {
     const background = `background: ${settings.color}; color: white`;
     const formatMessage = `%c ${settings.key}: ${message} `;
