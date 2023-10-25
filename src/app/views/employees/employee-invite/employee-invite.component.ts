@@ -10,13 +10,13 @@ import { EmployeesApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { JwtService } from './../../../services/jwt.service';
-import { InviteEmployeeRequest } from './invite-employee-request.model';
+import { InviteEmployeeRequest } from './employee-invite-request.model';
 
 @Component({
-  selector: 'aw-invite-employee',
-  templateUrl: './invite-employee.component.html'
+  selector: 'aw-employee-invite',
+  templateUrl: './employee-invite.component.html'
 })
-export class InviteEmployeeComponent {
+export class EmployeeInviteComponent {
   private readonly fb = inject(FormBuilder);
   private readonly employeesApiService = inject(EmployeesApiService);
   private readonly jwtService = inject(JwtService);

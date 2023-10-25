@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
+import { EmployeeInviteComponent } from './employee-invite/employee-invite.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeViewComponent } from './employee-view/employee-view.component';
-import { InviteEmployeeComponent } from './invite-employee/invite-employee.component';
 
 const routes: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
   },
   {
     path: 'invite',
-    component: InviteEmployeeComponent,
+    component: EmployeeInviteComponent,
     data: { title: 'Invitar a empleado' }
   }
 ];

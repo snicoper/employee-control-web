@@ -36,7 +36,7 @@ export const sidebarMenu: SidebarMenu[] = [
       },
       {
         title: 'Invitar empleado',
-        link: SiteUrls.employees.inviteEmployee,
+        link: SiteUrls.employees.employeeInvite,
         active: false
       }
     ]

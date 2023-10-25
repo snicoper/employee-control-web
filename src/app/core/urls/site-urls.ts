@@ -24,7 +24,7 @@ export const SiteUrls = {
     employeeList: '/employees',
     employeeDetails: '/employees/details/{id}',
     employeeEdit: '/employees/edit/{id}',
-    inviteEmployee: '/employees/invite'
+    employeeInvite: '/employees/invite'
   },
 
   /** Dashboard. */
