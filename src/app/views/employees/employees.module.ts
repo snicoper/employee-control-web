@@ -10,13 +10,15 @@ import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { PipesModule } from '@aw/pipes/pipes.module';
 import { AwBreadcrumbModule } from './../../components/breadcrumb/aw-breadcrumb.module';
-import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { EmployeeDetailsComponent } from './employee-view/employee-details/employee-details.component';
+import { EmployeeSelectedService } from './employee-view/employee-selected.service';
+import { EmployeeViewComponent } from './employee-view/employee-view.component';
 import { EmployeesRoutingModule } from './employees-routing.module';
 import { InviteEmployeeComponent } from './invite-employee/invite-employee.component';
 
 @NgModule({
-  declarations: [EmployeeListComponent, InviteEmployeeComponent, EmployeeDetailsComponent],
+  declarations: [EmployeeListComponent, InviteEmployeeComponent, EmployeeViewComponent, EmployeeDetailsComponent],
   imports: [
     CommonModule,
     EmployeesRoutingModule,
@@ -30,6 +32,7 @@ import { InviteEmployeeComponent } from './invite-employee/invite-employee.compo
     AwSpinnerModule,
     AwBreadcrumbModule,
     PipesModule
-  ]
+  ],
+  providers: [EmployeeSelectedService]
 })
 export class EmployeesModule {}

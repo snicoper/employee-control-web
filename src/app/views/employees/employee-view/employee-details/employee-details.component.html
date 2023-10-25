@@ -1,0 +1,102 @@
+<aw-card>
+  <table class="table table-striped">
+    <!-- sonarLint -->
+    <caption></caption>
+    <thead>
+      <th></th>
+    </thead>
+    <!-- end sonarLint -->
+
+    <!-- data employee-->
+    <ng-container *ngIf="employee() && !loading()">
+      <tbody>
+        <tr>
+          <td>Nombre</td>
+          <td>{{ employee()?.firstName }}</td>
+        </tr>
+        <tr>
+          <td>Apellidos</td>
+          <td>{{ employee()?.lastName }}</td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>{{ employee()?.email }}</td>
+        </tr>
+        <tr>
+          <td>Cuenta activa</td>
+          <td>
+            <span class="d-flex">
+              <span>
+                <span [innerHTML]="employee()?.active | boolToIcon"></span>
+              </span>
+              <span class="ms-auto">
+                <ng-container *ngIf="employee()?.active">
+                  <button (click)="handleDeactivateEmployee()" class="btn btn-sm btn-outline-danger ms-4">
+                    Desactivar cuenta
+                  </button>
+                </ng-container>
+
+                <ng-container *ngIf="!employee()?.active">
+                  <button (click)="handleActivateEmployee()" class="btn btn-sm btn-outline-success ms-4">
+                    Activar cuenta
+                  </button>
+                </ng-container>
+              </span>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>Invitación aceptada</td>
+          <td>
+            <span [innerHTML]="employee()?.emailConfirmed | boolToIcon"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Roles</td>
+          <td>
+            <span class="d-flex">
+              <span>
+                <span class="badge rounded-pill bg-success ms-1" *ngFor="let role of employee()?.userRoles">
+                  {{ roleToText(role) }}
+                </span>
+              </span>
+
+              <span class="ms-auto">
+                <button class="ms-auto btn btn-outline-primary btn-sm">Editar</button>
+              </span>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </ng-container>
+    <!-- end data employee-->
+
+    <!-- no data -->
+    <ng-container *ngIf="!employee() && !loading()">
+      <tbody>
+        <tr>
+          <td colspan="100%" class="text-center">
+            <h6>Error al cargar datos de empleado.</h6>
+          </td>
+        </tr>
+      </tbody>
+    </ng-container>
+    <!-- end no data -->
+
+    <!-- loading spinner -->
+    <ng-container *ngIf="loading()">
+      <tbody>
+        <tr>
+          <td colspan="100%" class="text-center">
+            <aw-spinner [loading]="loading()" [size]="100"></aw-spinner>
+          </td>
+        </tr>
+      </tbody>
+    </ng-container>
+    <!-- end loading spinner -->
+  </table>
+
+  <button [routerLink]="siteUrls.employees.employeeList" class="btn btn-primary">
+    <span class="fa-solid fa-chevron-left"></span> Volver
+  </button>
+</aw-card>
