@@ -1,4 +1,4 @@
-import { Component, Input, computed, inject } from '@angular/core';
+import { Component, Input, OnInit, computed, inject } from '@angular/core';
 import { roleToText } from '@aw/core/types/roles';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { ResultResponse } from '@aw/models/api/result-response.model';
@@ -10,7 +10,7 @@ import { EmployeeSelectedService } from '../employee-selected.service';
   selector: 'aw-employee-details',
   templateUrl: './employee-details.component.html'
 })
-export class EmployeeDetailsComponent {
+export class EmployeeDetailsComponent implements OnInit {
   @Input({ required: true }) employeeId = '';
 
   private readonly employeesApiService = inject(EmployeesApiService);
@@ -22,6 +22,11 @@ export class EmployeeDetailsComponent {
 
   readonly roleToText = roleToText;
   readonly siteUrls = SiteUrls;
+  urlEdit: string = '';
+
+  ngOnInit(): void {
+    this.urlEdit = this.siteUrls.replace(SiteUrls.employees.employeeEdit, { id: this.employeeId });
+  }
 
   handleDeactivateEmployee(): void {
     const data = { employeeId: this.employee()?.id };

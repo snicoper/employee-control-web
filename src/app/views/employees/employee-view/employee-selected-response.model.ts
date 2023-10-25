@@ -1,4 +1,4 @@
-export interface EmployeeDetailsResponse {
+export interface EmployeeSelectedResponse {
   id: string;
   firstName: string;
   lastName: string;
