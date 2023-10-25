@@ -7,6 +7,12 @@
   <div class="mt-2"></div>
 
   <aw-card>
+    <form (ngSubmit)="handleSubmit()" [formGroup]="form">
+      {{ employee | json }}
+    </form>
+  </aw-card>
+
+  <aw-card>
     <h5>Formulario aquí</h5>
   </aw-card>
 </aw-view-base>

@@ -5,3 +5,4 @@ export { BadRequest } from './common/bad-request';
 export { BadRequestErrors } from './common/bad-request-errors';
 export { CurrentCompanyEmployeeResponse } from './current-company-employee-response.model';
 export { LocalesSupportedResponse } from './locales-supported-response.model';
+export { Employee } from './user.model';

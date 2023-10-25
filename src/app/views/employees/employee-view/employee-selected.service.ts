@@ -1,12 +1,12 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
+import { Employee } from '@aw/models/api/user.model';
 import { EmployeesApiService } from '@aw/services/api/employees-api.service';
 import { finalize } from 'rxjs';
-import { EmployeeSelectedResponse } from './employee-selected-response.model';
 
 @Injectable()
 export class EmployeeSelectedService {
-  private readonly employeeSelected$ = signal<EmployeeSelectedResponse | undefined>(undefined);
+  private readonly employeeSelected$ = signal<Employee | undefined>(undefined);
   private readonly loading$ = signal(false);
 
   private readonly employeesApiService = inject(EmployeesApiService);
@@ -19,10 +19,10 @@ export class EmployeeSelectedService {
     const url = SiteUrls.replace(ApiUrls.employees.getEmployeeById, { id: employeeId });
 
     this.employeesApiService
-      .get<EmployeeSelectedResponse>(url)
+      .get<Employee>(url)
       .pipe(finalize(() => this.loading$.set(false)))
       .subscribe({
-        next: (result: EmployeeSelectedResponse) => {
+        next: (result: Employee) => {
           this.employeeSelected$.set(result);
         }
       });
