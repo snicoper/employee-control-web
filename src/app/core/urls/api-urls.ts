@@ -36,7 +36,8 @@ export const ApiUrls = {
     getEmployeeById: '/employees/{id}',
     inviteEmployee: '/employees/invite',
     deactivateEmployee: '/employees/deactivate',
-    activateEmployee: '/employees/activate'
+    activateEmployee: '/employees/activate',
+    updateEmployee: '/employees'
   },
 
   /** Localization. */

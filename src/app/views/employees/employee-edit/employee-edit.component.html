@@ -1,18 +1,84 @@
 <aw-view-base>
   <aw-card>
-    <h3>Editar empleado</h3>
+    <h3>Editar datos de empleado</h3>
     <aw-breadcrumb [breadcrumb]="breadcrumb"></aw-breadcrumb>
   </aw-card>
 
   <div class="mt-2"></div>
 
   <aw-card>
-    <form (ngSubmit)="handleSubmit()" [formGroup]="form">
-      {{ employee | json }}
-    </form>
-  </aw-card>
+    <!-- form -->
+    <ng-container *ngIf="employee">
+      <form (ngSubmit)="handleSubmit()" [formGroup]="form">
+        <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
 
-  <aw-card>
-    <h5>Formulario aquí</h5>
+        <!-- firstName -->
+        <div class="mb-2">
+          <aw-form-input
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            fieldName="firstName"
+            formControlName="firstName"
+            label="Nombre"></aw-form-input>
+        </div>
+        <!-- end firstName -->
+
+        <!-- lastName -->
+        <div class="mb-2">
+          <aw-form-input
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            fieldName="lastName"
+            formControlName="lastName"
+            label="Apellidos"></aw-form-input>
+        </div>
+        <!-- end lastName -->
+
+        <!-- email -->
+        <div class="mb-2">
+          <aw-form-input
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            [inputType]="formTypes.email"
+            fieldName="email"
+            formControlName="email"
+            label="Correo electrónico"></aw-form-input>
+        </div>
+        <!-- end email -->
+
+        <!-- phoneNumber -->
+        <div class="mb-2">
+          <aw-form-input
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            fieldName="phoneNumber"
+            formControlName="phoneNumber"
+            label="Teléfono"></aw-form-input>
+        </div>
+        <!-- end phoneNumber -->
+
+        <button [routerLink]="urlEmployeeDetails" class="btn btn-primary mt-2" type="button">
+          <span class="fa-solid fa-chevron-left"></span> Volver
+        </button>
+
+        <aw-btn-loading
+          [loading]="loadingForm"
+          btnClass="btn btn-success mt-2 ms-2"
+          btnIcon="fa-regular fa-floppy-disk"
+          spinnerLoadingText="Guardando"
+          btnText="Guardar"></aw-btn-loading>
+      </form>
+    </ng-container>
+    <!-- form -->
+
+    <!-- spinner -->
+    <ng-container *ngIf="loadingEmployee">
+      <aw-spinner [loading]="loadingEmployee" [size]="100"></aw-spinner>
+    </ng-container>
+    <!-- end spinner -->
   </aw-card>
 </aw-view-base>

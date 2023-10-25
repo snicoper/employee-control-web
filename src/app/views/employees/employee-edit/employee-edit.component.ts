@@ -1,12 +1,14 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { FormInputTypes } from '@aw/core/types/_index';
+import { SiteUrls } from '@aw/core/urls/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
-import { SiteUrls } from '@aw/core/urls/site-urls';
 import { BadRequest, Employee } from '@aw/models/api/_index';
 import { EmployeesApiService } from '@aw/services/api/_index';
+import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 
 @Component({
@@ -15,24 +17,29 @@ import { finalize } from 'rxjs';
 })
 export class EmployeeEditComponent {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
   private readonly employeesApiService = inject(EmployeesApiService);
+  private readonly toastrService = inject(ToastrService);
 
+  readonly siteUrls = SiteUrls;
+  readonly urlEmployeeDetails: string;
   readonly breadcrumb = new BreadcrumbCollection();
   readonly employeeId: string;
 
   form: FormGroup = this.fb.group({});
   badRequest: BadRequest | undefined;
   formTypes = FormInputTypes;
-  loading = false;
+  loadingEmployee = false;
+  loadingForm = false;
   submitted = false;
   employee: Employee | undefined;
 
   constructor() {
     this.employeeId = this.route.snapshot.paramMap.get('id') ?? '';
+    this.urlEmployeeDetails = SiteUrls.replace(SiteUrls.employees.employeeDetails, { id: this.employeeId });
     this.loadEmployee();
     this.setBreadcrumb();
-    this.buildForm();
   }
 
   handleSubmit(): void {
@@ -42,34 +49,53 @@ export class EmployeeEditComponent {
       return;
     }
 
-    this.loading = true;
+    this.loadingForm = true;
 
     const employee = this.form.value as Employee;
+    employee.id = this.employeeId;
 
-    this.employeesApiService.post<Employee, undefined>(employee);
+    this.employeesApiService
+      .put<Employee, undefined>(employee, ApiUrls.employees.updateEmployee)
+      .pipe(finalize(() => (this.loadingForm = false)))
+      .subscribe({
+        next: () => {
+          const url = SiteUrls.replace(SiteUrls.employees.employeeDetails, { id: this.employeeId });
+          this.toastrService.success('Datos de empleado actualizados con éxito');
+          this.router.navigateByUrl(url);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error;
+        }
+      });
   }
 
   private setBreadcrumb(): void {
     this.breadcrumb
       .add('Empleados', SiteUrls.employees.employeeList)
+      .add('Detalles', this.urlEmployeeDetails)
       .add('Editar', SiteUrls.employees.employeeEdit, '', false);
   }
 
   private buildForm(): void {
     this.form = this.fb.group({
-      firstName: ['', [Validators.required]]
+      firstName: [this.employee?.firstName, [Validators.required]],
+      lastName: [this.employee?.lastName, [Validators.required]],
+      email: [this.employee?.email, [Validators.email, Validators.required]],
+      phoneNumber: [this.employee?.phoneNumber]
     });
   }
 
   private loadEmployee(): void {
-    this.loading = true;
+    this.loadingEmployee = true;
     const url = ApiUrls.replace(ApiUrls.employees.getEmployeeById, { id: this.employeeId });
+
     this.employeesApiService
       .get<Employee>(url)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(finalize(() => (this.loadingEmployee = false)))
       .subscribe({
         next: (result: Employee) => {
           this.employee = result;
+          this.buildForm();
         }
       });
   }

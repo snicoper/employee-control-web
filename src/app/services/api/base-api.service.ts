@@ -45,6 +45,19 @@ export abstract class BaseApiService {
     return this.http.post<TResult>(url, entity);
   }
 
+  /**
+   * Actualiza un item de TEntity.
+   *
+   * @param entity Tipo entidad.
+   * @param urlPart Parte de la url base a concatenar.
+   * @returns TResult creado.
+   */
+  put<TEntity, TResult>(entity: TEntity, urlPart = ''): Observable<TResult> {
+    const url = `${this.baseUrl}${urlPart}`;
+
+    return this.http.put<TResult>(url, entity);
+  }
+
   protected prepareQueryParams<TModel>(apiResult: ApiResult<TModel>): string {
     apiResult = apiResult ?? new ApiResult<TModel>();
 

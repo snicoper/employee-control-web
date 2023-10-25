@@ -31,11 +31,16 @@ export class ApiErrorInterceptor implements HttpInterceptor {
         switch (error.status) {
           case HttpStatusCode.Unauthorized:
             return this.handleUnauthorized(request, next);
+          case HttpStatusCode.NotFound:
+            this.handleNotFound();
+            break;
           case HttpStatusCode.Forbidden:
             this.handleForbidden();
             break;
           case HttpStatusCode.BadRequest:
             this.handleBadRequest(error);
+            break;
+          case HttpStatusCode.NoContent:
             break;
           default:
             this.handleUnknownError();
@@ -78,6 +83,10 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     }
 
     return next.handle(request);
+  }
+
+  private handleNotFound(): void {
+    this.router.navigateByUrl(SiteUrls.errors.errorsNotFound);
   }
 
   /** Manejar error forbidden.  */
