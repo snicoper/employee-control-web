@@ -12,7 +12,7 @@ import { logDebug, logWarning } from '@aw/core/errors/_index';
 import { ValidationErrors } from '@aw/core/types/_index';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { toastForNotificationErrors } from '@aw/core/utils/_index';
-import { BadResponseErrors, RefreshTokenResponse } from '@aw/models/api/_index';
+import { BadRequestErrors, RefreshTokenResponse } from '@aw/models/api/_index';
 import { JwtService } from '@aw/services/jwt.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, finalize, throwError } from 'rxjs';
@@ -87,7 +87,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
   /** Manejar error BadRequest. */
   private handleBadRequest(errorResponse: HttpErrorResponse): void {
-    const errors = errorResponse.error.errors as BadResponseErrors;
+    const errors = errorResponse.error.errors as BadRequestErrors;
 
     if (Object.hasOwn(errors, ValidationErrors.notificationErrors)) {
       toastForNotificationErrors(errors[ValidationErrors.notificationErrors], this.toastrService);

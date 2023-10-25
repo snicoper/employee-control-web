@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { FormInputTypes } from '@aw/core/types/_index';
 import { ApiUrls } from '@aw/core/urls/_index';
 import { SiteUrls } from '@aw/core/urls/site-urls';
-import { BadResponse } from '@aw/models/api/_index';
+import { BadRequest } from '@aw/models/api/_index';
 import { EmployeesApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
@@ -24,7 +24,7 @@ export class InviteEmployeeComponent {
   private readonly router = inject(Router);
 
   form: FormGroup = this.fb.group({});
-  badRequest: BadResponse | undefined;
+  badRequest: BadRequest | undefined;
   formInputTypes = FormInputTypes;
   submitted = false;
   loading = false;
@@ -57,7 +57,7 @@ export class InviteEmployeeComponent {
           this.router.navigateByUrl(url);
         },
         error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error as BadResponse;
+          this.badRequest = error.error as BadRequest;
         }
       });
   }

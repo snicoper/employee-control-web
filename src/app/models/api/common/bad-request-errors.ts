@@ -1,4 +1,4 @@
 /** Errores de BadRequest. */
-export interface BadResponseErrors {
+export interface BadRequestErrors {
   [key: string]: string[];
 }

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormInputTypes } from '@aw/core/types/form-input-types';
 import { ApiUrls } from '@aw/core/urls/_index';
 import { SiteUrls } from '@aw/core/urls/site-urls';
-import { BadResponse } from '@aw/models/api/_index';
+import { BadRequest } from '@aw/models/api/_index';
 import { ResultResponse } from '@aw/models/api/result-response.model';
 import { AccountsApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
@@ -25,7 +25,7 @@ export class RecoveryPasswordChangeComponent {
   private readonly toastrService = inject(ToastrService);
 
   form: FormGroup = this.fb.group({});
-  badRequest: BadResponse | undefined;
+  badRequest: BadRequest | undefined;
   formInputTypes = FormInputTypes;
   siteUrls = SiteUrls;
   submitted = false;

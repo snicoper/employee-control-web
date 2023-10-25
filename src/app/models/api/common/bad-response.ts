@@ -1,8 +1,8 @@
-import { BadResponseErrors } from './bad-response-errors';
+import { BadRequestErrors } from './bad-request-errors';
 
 /** Respuesta de error de la API. */
-export interface BadResponse {
-  errors: BadResponseErrors;
+export interface BadRequest {
+  errors: BadRequestErrors;
   type: string;
   title: string;
   status: number;

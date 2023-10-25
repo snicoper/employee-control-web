@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormInputTypes } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
-import { BadResponse } from '@aw/models/api/_index';
+import { BadRequest } from '@aw/models/api/_index';
 import { ResultResponse } from '@aw/models/api/result-response.model';
 import { AccountsApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
@@ -19,7 +19,7 @@ export class RecoveryPasswordComponent {
   private readonly accountsApiService = inject(AccountsApiService);
 
   form: FormGroup = this.fb.group({});
-  badRequest: BadResponse | undefined;
+  badRequest: BadRequest | undefined;
   formInputTypes = FormInputTypes;
   siteUrls = SiteUrls;
   submitted = false;

@@ -1,7 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormInputTypes } from '@aw/core/types/_index';
-import { BadResponse } from '@aw/models/api/_index';
+import { BadRequest } from '@aw/models/api/_index';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 /* eslint-disable  @typescript-eslint/no-unused-vars */
@@ -19,7 +19,7 @@ import { BadResponse } from '@aw/models/api/_index';
   ]
 })
 export class FormInputComponent implements ControlValueAccessor {
-  @Input({ required: true }) badRequest: BadResponse | undefined;
+  @Input({ required: true }) badRequest: BadRequest | undefined;
   @Input({ required: true }) form: FormGroup | undefined;
   @Input({ required: true }) submitted = false;
   @Input({ required: true }) fieldName = '';

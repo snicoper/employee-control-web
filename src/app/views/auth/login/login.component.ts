@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormInputTypes } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
-import { BadResponse } from '@aw/models/api/_index';
+import { BadRequest } from '@aw/models/api/_index';
 import { CurrentCompanyEmployeeService, JwtService } from '@aw/services/_index';
 import { AuthApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
@@ -25,7 +25,7 @@ export class LoginComponent {
   private readonly currentCompanyEmployeeService = inject(CurrentCompanyEmployeeService);
 
   form: FormGroup = this.fb.group({});
-  badRequest: BadResponse | undefined;
+  badRequest: BadRequest | undefined;
   submitted = false;
   invalidLogin = false;
   formTypes = FormInputTypes;
@@ -61,7 +61,7 @@ export class LoginComponent {
           }
         },
         error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error as BadResponse;
+          this.badRequest = error.error as BadRequest;
 
           if (error.status === HttpStatusCode.Unauthorized) {
             this.invalidLogin = true;
