@@ -7,6 +7,7 @@ import { FormInputTypes } from '@aw/core/types/_index';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { BadRequest, Employee } from '@aw/models/api/_index';
+import { ResultResponse } from '@aw/models/api/result-response.model';
 import { EmployeesApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
@@ -55,12 +56,18 @@ export class EmployeeEditComponent {
     employee.id = this.employeeId;
 
     this.employeesApiService
-      .put<Employee, undefined>(employee, ApiUrls.employees.updateEmployee)
+      .put<Employee, ResultResponse>(employee, ApiUrls.employees.updateEmployee)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
-        next: () => {
+        next: (result: ResultResponse) => {
+          if (!result.succeeded) {
+            this.toastrService.error('Ha courrido un error al actualizar el empleado.');
+
+            return;
+          }
+
           const url = SiteUrls.replace(SiteUrls.employees.employeeDetails, { id: this.employeeId });
-          this.toastrService.success('Datos de empleado actualizados con éxito');
+          this.toastrService.success('Datos de empleado actualizados con éxito.');
           this.router.navigateByUrl(url);
         },
         error: (error: HttpErrorResponse) => {
