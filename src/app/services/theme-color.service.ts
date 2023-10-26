@@ -26,6 +26,11 @@ export class ThemeColorService {
     return this.theme$();
   }
 
+  toggle(): void {
+    const theme = this.theme$() === ThemeColors.dark ? ThemeColors.light : ThemeColors.dark;
+    this.setTheme(theme);
+  }
+
   setTheme(theme: ThemeColors): void {
     if (!this.colorStorage || theme !== this.theme$()) {
       this.localStorageService.set(LocalStorageKeys.theme, theme);

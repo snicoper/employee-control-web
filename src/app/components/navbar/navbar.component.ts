@@ -2,7 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppEnvironments } from '@aw/core/config/_index';
 import { SiteUrls } from '@aw/core/urls/_index';
-import { AuthService, JwtService, LayoutService } from '@aw/services/_index';
+import { AuthService, JwtService, LayoutService, ThemeColorService } from '@aw/services/_index';
 
 @Component({
   selector: 'aw-navbar',
@@ -14,6 +14,7 @@ export class NavbarComponent {
   private readonly authService = inject(AuthService);
   private readonly layoutService = inject(LayoutService);
   private readonly router = inject(Router);
+  private readonly themeColorService = inject(ThemeColorService);
 
   readonly userName = this.jwtService.getName();
   readonly siteName = AppEnvironments.siteName;
@@ -24,6 +25,10 @@ export class NavbarComponent {
 
   toggleSidebarState(): void {
     this.layoutService.toggleSidebarState();
+  }
+
+  handleChangeTheme(): void {
+    this.themeColorService.toggle();
   }
 
   logOut(): void {
