@@ -8,6 +8,7 @@ import { AwPaginationModule } from '@aw/components/pagination/aw-pagination.modu
 import { AwSpinnerModule } from '@aw/components/spinner/aw-spinner.module';
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
+import { DirectivesModule } from '@aw/directives/directives.module';
 import { PipesModule } from '@aw/pipes/pipes.module';
 import { AwBreadcrumbModule } from './../../components/breadcrumb/aw-breadcrumb.module';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
@@ -38,7 +39,8 @@ import { EmployeesRoutingModule } from './employees-routing.module';
     AwPaginationModule,
     AwSpinnerModule,
     AwBreadcrumbModule,
-    PipesModule
+    PipesModule,
+    DirectivesModule
   ],
   providers: [EmployeeSelectedService]
 })

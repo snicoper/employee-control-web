@@ -65,8 +65,22 @@
                 </span>
               </span>
 
-              <span class="ms-auto">
-                <button class="ms-auto btn btn-outline-primary btn-sm">Editar</button>
+              <span [awRequiredRole]="roles.enterpriseAdministrator" class="ms-auto">
+                <ng-container *ngIf="isHumanResources() && !isEnterpriseAdministrator()">
+                  <aw-btn-loading
+                    (click)="handleRemoveRoleRrhh()"
+                    [loading]="loadingUpdateRole"
+                    [btnText]="btnTextDeleteRole()"
+                    btnClass="ms-auto btn btn-outline-danger btn-sm"></aw-btn-loading>
+                </ng-container>
+
+                <ng-container *ngIf="!isHumanResources() && !isEnterpriseAdministrator()">
+                  <aw-btn-loading
+                    (click)="handleAddRoleRrhh()"
+                    [loading]="loadingUpdateRole"
+                    [btnText]="btnTextAddRole()"
+                    btnClass="ms-auto btn btn-outline-warning btn-sm"></aw-btn-loading>
+                </ng-container>
               </span>
             </span>
           </td>

@@ -37,7 +37,9 @@ export const ApiUrls = {
     inviteEmployee: '/employees/invite',
     deactivateEmployee: '/employees/deactivate',
     activateEmployee: '/employees/activate',
-    updateEmployee: '/employees'
+    updateEmployee: '/employees',
+    addRoleHumanResources: '/employees/{id}/add-role-rrhh',
+    removeRoleHumanResources: '/employees/{id}/remove-role-rrhh'
   },
 
   /** Localization. */

@@ -5,14 +5,18 @@
 
     <!-- toolbar -->
     <div class="d-flex mb-2">
-      <a [routerLink]="siteUrls.employees.employeeInvite" class="btn btn-sm btn-outline-success me-auto">
-        <span class="fas fa-user-plus"></span> Invitar empleado
-      </a>
+      <span class="me-auto">
+        <a [routerLink]="siteUrls.employees.employeeInvite" class="btn btn-sm btn-outline-success">
+          <span class="fas fa-user-plus"></span> Invitar empleado
+        </a>
+      </span>
 
-      <aw-table-input-search
-        [tableHeaderConfig]="tableHeaderConfig"
-        [apiResult]="apiResult"
-        (clickFiltering)="handleFilterChange($event)"></aw-table-input-search>
+      <span>
+        <aw-table-input-search
+          [tableHeaderConfig]="tableHeaderConfig"
+          [apiResult]="apiResult"
+          (clickFiltering)="handleFilterChange($event)"></aw-table-input-search>
+      </span>
     </div>
     <!-- end toolbar -->
 
