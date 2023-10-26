@@ -19,7 +19,7 @@ export type SidebarMenu = {
     class: string;
   };
 
-  submenus: Array<{
+  submenus?: Array<{
     title: string;
     link: string;
     active: boolean;

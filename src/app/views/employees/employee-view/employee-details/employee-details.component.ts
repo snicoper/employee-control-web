@@ -1,23 +1,24 @@
-import { Component, Input, OnInit, computed, inject } from '@angular/core';
+import { Component, Input, computed, inject } from '@angular/core';
 import { Roles, roleToText } from '@aw/core/types/roles';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { ResultResponse } from '@aw/models/api/result-response.model';
 import { EmployeesApiService } from '@aw/services/api/employees-api.service';
+import { JwtService } from '@aw/services/jwt.service';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { EmployeeSelectedService } from '../employee-selected.service';
-import { UpdateRoleRequest } from './update-role-request.model';
 
 @Component({
   selector: 'aw-employee-details',
   templateUrl: './employee-details.component.html'
 })
-export class EmployeeDetailsComponent implements OnInit {
+export class EmployeeDetailsComponent {
   @Input({ required: true }) employeeId = '';
 
   private readonly employeesApiService = inject(EmployeesApiService);
   private readonly toastrService = inject(ToastrService);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
+  private readonly jwtService = inject(JwtService);
 
   readonly employee = computed(() => this.employeeSelectedService.employeeSelected());
   readonly loading = computed(() => this.employeeSelectedService.loading());
@@ -26,39 +27,50 @@ export class EmployeeDetailsComponent implements OnInit {
   readonly siteUrls = SiteUrls;
   readonly roles = Roles;
   loadingUpdateRole = false;
-  urlEdit: string = '';
+  loadingUpdateActive = false;
 
-  ngOnInit(): void {
-    this.urlEdit = this.siteUrls.replace(SiteUrls.employees.employeeEdit, { id: this.employeeId });
-  }
-
-  btnTextDeleteRole(): string {
+  /** Texto botón eliminar role. */
+  get btnTextDeleteRole(): string {
     return `Eliminar ${roleToText(Roles.humanResources)}`;
   }
 
-  btnTextAddRole(): string {
+  /** Texto botón añadir role. */
+  get btnTextAddRole(): string {
     return `Establecer ${roleToText(Roles.humanResources)}`;
   }
 
-  isHumanResources(): boolean {
+  /** Empleado seleccionado es humanResources. */
+  get isHumanResources(): boolean {
     const index = this.employee()?.userRoles.findIndex((role) => role === Roles.humanResources);
 
     return index !== undefined && index >= 0;
   }
 
-  isEnterpriseAdministrator(): boolean {
+  /** Empleado seleccionado es enterpriseAdministrator. */
+  get isEnterpriseAdministrator(): boolean {
     const index = this.employee()?.userRoles.findIndex((role) => role === Roles.enterpriseAdministrator);
 
     return index !== undefined && index >= 0;
   }
 
+  /** Comprueba si el usuario actual es igual al empleado seleccionado. */
+  get canUpdateStates(): boolean {
+    return this.jwtService.getSid() !== this.employee()?.id;
+  }
+
+  /** Url para editar empleado. */
+  get urlToEdit(): string {
+    return this.siteUrls.replace(SiteUrls.employees.employeeEdit, { id: this.employeeId });
+  }
+
+  /** Eliminar Role RRHH al empleado. */
   handleRemoveRoleRrhh(): void {
     this.loadingUpdateRole = true;
-    const url = ApiUrls.replace(ApiUrls.employees.removeRoleHumanResources, { id: this.employeeId });
-    const updateRoleRequest = { employeeId: this.employeeId };
+    const data = { employeeId: this.employeeId };
+    const url = this.generateApiUrl(ApiUrls.employees.removeRoleHumanResources);
 
     this.employeesApiService
-      .post<UpdateRoleRequest, ResultResponse>(updateRoleRequest, url)
+      .put<typeof data, ResultResponse>(data, url)
       .pipe(finalize(() => (this.loadingUpdateRole = false)))
       .subscribe({
         next: (result: ResultResponse) => {
@@ -70,13 +82,14 @@ export class EmployeeDetailsComponent implements OnInit {
       });
   }
 
+  /** Añadir role RRHH al empleado. */
   handleAddRoleRrhh(): void {
     this.loadingUpdateRole = true;
-    const url = ApiUrls.replace(ApiUrls.employees.addRoleHumanResources, { id: this.employeeId });
-    const updateRoleRequest = { employeeId: this.employeeId };
+    const data = { employeeId: this.employeeId };
+    const url = this.generateApiUrl(ApiUrls.employees.addRoleHumanResources);
 
     this.employeesApiService
-      .post<UpdateRoleRequest, ResultResponse>(updateRoleRequest, url)
+      .put<typeof data, ResultResponse>(data, url)
       .pipe(finalize(() => (this.loadingUpdateRole = false)))
       .subscribe({
         next: (result: ResultResponse) => {
@@ -88,23 +101,42 @@ export class EmployeeDetailsComponent implements OnInit {
       });
   }
 
+  /** Establecer estado Active a false del empleado. */
   handleDeactivateEmployee(): void {
-    const data = { employeeId: this.employee()?.id };
-    this.employeesApiService.post<typeof data, ResultResponse>(data, ApiUrls.employees.deactivateEmployee).subscribe({
-      next: () => {
-        this.toastrService.success('Usuario desactivado con éxito');
-        this.employeeSelectedService.loadEmployeeById(this.employeeId);
-      }
-    });
+    this.loadingUpdateActive = true;
+    const data = { employeeId: this.employeeId };
+    const url = this.generateApiUrl(ApiUrls.employees.deactivateEmployee);
+
+    this.employeesApiService
+      .put<typeof data, ResultResponse>(data, url)
+      .pipe(finalize(() => (this.loadingUpdateActive = false)))
+      .subscribe({
+        next: () => {
+          this.toastrService.success('Usuario desactivado con éxito');
+          this.employeeSelectedService.loadEmployeeById(this.employeeId);
+        }
+      });
   }
 
+  /** Establecer estado Active a true del empleado. */
   handleActivateEmployee(): void {
-    const data = { employeeId: this.employee()?.id };
-    this.employeesApiService.post<typeof data, ResultResponse>(data, ApiUrls.employees.activateEmployee).subscribe({
-      next: () => {
-        this.toastrService.success('Usuario activado con éxito');
-        this.employeeSelectedService.loadEmployeeById(this.employeeId);
-      }
-    });
+    this.loadingUpdateActive = true;
+    const data = { employeeId: this.employeeId };
+    const url = this.generateApiUrl(ApiUrls.employees.activateEmployee);
+
+    this.employeesApiService
+      .put<typeof data, ResultResponse>(data, url)
+      .pipe(finalize(() => (this.loadingUpdateActive = false)))
+      .subscribe({
+        next: () => {
+          this.toastrService.success('Usuario activado con éxito');
+          this.employeeSelectedService.loadEmployeeById(this.employeeId);
+        }
+      });
+  }
+
+  /** Wrapper para generar URLs ,de edición de estados. */
+  private generateApiUrl(partialUrl: string): string {
+    return ApiUrls.replace(partialUrl, { id: this.employeeId });
   }
 }

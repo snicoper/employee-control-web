@@ -33,19 +33,28 @@
               <span>
                 <span [innerHTML]="employee()?.active | boolToIcon"></span>
               </span>
-              <span class="ms-auto">
-                <ng-container *ngIf="employee()?.active">
-                  <button (click)="handleDeactivateEmployee()" class="btn btn-sm btn-outline-danger ms-4">
-                    Desactivar cuenta
-                  </button>
-                </ng-container>
 
-                <ng-container *ngIf="!employee()?.active">
-                  <button (click)="handleActivateEmployee()" class="btn btn-sm btn-outline-success ms-4">
-                    Activar cuenta
-                  </button>
-                </ng-container>
-              </span>
+              <!-- activar o desactivar cuenta -->
+              <ng-container *ngIf="canUpdateStates">
+                <span class="ms-auto">
+                  <ng-container *ngIf="employee()?.active">
+                    <aw-btn-loading
+                      (click)="handleDeactivateEmployee()"
+                      [loading]="loadingUpdateActive"
+                      btnText="Desactivar cuenta"
+                      btnClass="btn btn-sm btn-outline-danger ms-4"></aw-btn-loading>
+                  </ng-container>
+
+                  <ng-container *ngIf="!employee()?.active">
+                    <aw-btn-loading
+                      (click)="handleActivateEmployee()"
+                      [loading]="loadingUpdateActive"
+                      btnText="Activar cuenta"
+                      btnClass="btn btn-sm btn-outline-success ms-4"></aw-btn-loading>
+                  </ng-container>
+                </span>
+              </ng-container>
+              <!-- end activar o desactivar cuenta -->
             </span>
           </td>
         </tr>
@@ -65,23 +74,25 @@
                 </span>
               </span>
 
+              <!-- add or remove role rrhh -->
               <span [awRequiredRole]="roles.enterpriseAdministrator" class="ms-auto">
-                <ng-container *ngIf="isHumanResources() && !isEnterpriseAdministrator()">
+                <ng-container *ngIf="isHumanResources && !isEnterpriseAdministrator">
                   <aw-btn-loading
                     (click)="handleRemoveRoleRrhh()"
                     [loading]="loadingUpdateRole"
-                    [btnText]="btnTextDeleteRole()"
+                    [btnText]="btnTextDeleteRole"
                     btnClass="ms-auto btn btn-outline-danger btn-sm"></aw-btn-loading>
                 </ng-container>
 
-                <ng-container *ngIf="!isHumanResources() && !isEnterpriseAdministrator()">
+                <ng-container *ngIf="!isHumanResources && !isEnterpriseAdministrator">
                   <aw-btn-loading
                     (click)="handleAddRoleRrhh()"
                     [loading]="loadingUpdateRole"
-                    [btnText]="btnTextAddRole()"
+                    [btnText]="btnTextAddRole"
                     btnClass="ms-auto btn btn-outline-warning btn-sm"></aw-btn-loading>
                 </ng-container>
               </span>
+              <!-- end add or remove role rrhh -->
             </span>
           </td>
         </tr>
@@ -117,5 +128,10 @@
   <button [routerLink]="siteUrls.employees.employeeList" class="btn btn-primary">
     <span class="fa-solid fa-chevron-left"></span> Volver
   </button>
-  <button [routerLink]="urlEdit" class="btn btn-success ms-2"><span class="fa-solid fa-pencil"></span> Editar</button>
+
+  <ng-container *ngIf="canUpdateStates">
+    <button [routerLink]="urlToEdit" class="btn btn-success ms-2">
+      <span class="fa-solid fa-pencil"></span> Editar
+    </button>
+  </ng-container>
 </aw-card>

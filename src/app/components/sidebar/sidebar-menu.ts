@@ -24,8 +24,8 @@ export const sidebarMenu: SidebarMenu[] = [
     ]
   },
   {
-    title: 'Administrar',
-    icon: 'fas fa-user',
+    title: 'Empresa',
+    icon: 'fa-regular fa-building',
     active: false,
     type: SidebarMenuTypes.dropdown,
     submenus: [
@@ -33,12 +33,14 @@ export const sidebarMenu: SidebarMenu[] = [
         title: 'Empleados',
         link: SiteUrls.employees.employeeList,
         active: false
-      },
-      {
-        title: 'Invitar empleado',
-        link: SiteUrls.employees.employeeInvite,
-        active: false
       }
     ]
+  },
+  {
+    title: 'Desconectar',
+    icon: 'fa-solid fa-right-from-bracket',
+    active: false,
+    type: SidebarMenuTypes.simple,
+    link: SiteUrls.auth.logout
   }
 ];

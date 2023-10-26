@@ -28,8 +28,9 @@
             </ng-container>
             <!-- end type header -->
 
-            <!-- type != header -->
-            <ng-container *ngIf="sidebarMenu.type !== sidebarMenuTypes.header">
+            <!-- type != header && type != simple -->
+            <ng-container
+              *ngIf="sidebarMenu.type !== sidebarMenuTypes.header && sidebarMenu.type !== sidebarMenuTypes.simple">
               <a (click)="toggle(sidebarMenu)" class="cursor-pointer">
                 <span class="{{ sidebarMenu.icon }}"></span>
                 <span> {{ sidebarMenu.title }}</span>
@@ -41,7 +42,7 @@
                 </ng-container>
               </a>
             </ng-container>
-            <!-- end type != header -->
+            <!-- end type != header && type != simple -->
 
             <!-- type simple -->
             <ng-container *ngIf="sidebarMenu.type === sidebarMenuTypes.simple">
@@ -50,7 +51,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 routerLinkActive="active">
                 <span class="{{ sidebarMenu.icon }}"></span>
-                <span>{{ sidebarMenu.title }}</span>
+                <span>&nbsp;{{ sidebarMenu.title }}</span>
 
                 <ng-container *ngIf="sidebarMenu.badge">
                   <span class="badge badge-pill" [ngClass]="sidebarMenu.badge.class">

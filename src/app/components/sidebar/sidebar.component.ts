@@ -41,15 +41,7 @@ export class SidebarComponent {
 
   toggle(currentMenu: SidebarMenu): void {
     if (currentMenu.type === this.sidebarMenuTypes.dropdown) {
-      this.sidebarMenus.forEach((sidebarMenu: SidebarMenu) => {
-        if (sidebarMenu === currentMenu) {
-          currentMenu.active = !currentMenu.active;
-        } else {
-          sidebarMenu.active = false;
-        }
-
-        this.sidebarService.activeMenu(currentMenu.title);
-      });
+      this.sidebarService.activeMenu(currentMenu.title);
     }
   }
 

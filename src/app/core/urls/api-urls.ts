@@ -35,8 +35,8 @@ export const ApiUrls = {
     getEmployeesPaginated: '/employees/paginated',
     getEmployeeById: '/employees/{id}',
     inviteEmployee: '/employees/invite',
-    deactivateEmployee: '/employees/deactivate',
-    activateEmployee: '/employees/activate',
+    deactivateEmployee: '/employees/{id}/deactivate',
+    activateEmployee: '/employees/{id}/activate',
     updateEmployee: '/employees',
     addRoleHumanResources: '/employees/{id}/add-role-rrhh',
     removeRoleHumanResources: '/employees/{id}/remove-role-rrhh'

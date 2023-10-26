@@ -1,3 +1,4 @@
+/** Roles del sitio. */
 export enum Roles {
   administrator = 'Administrator',
   staff = 'Staff',
@@ -7,6 +8,7 @@ export enum Roles {
   anonymous = 'anonymous'
 }
 
+/** Obtener un Role a texto mas legible. */
 export const roleToText = (role: string | Roles): string => {
   switch (role) {
     case Roles.administrator:
