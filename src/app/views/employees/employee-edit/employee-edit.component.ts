@@ -6,8 +6,8 @@ import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-colle
 import { FormInputTypes } from '@aw/core/types/_index';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
-import { BadRequest, Employee } from '@aw/models/api/_index';
-import { ResultResponse } from '@aw/models/api/result-response.model';
+import { BadRequest, ResultResponse } from '@aw/models/_index';
+import { User } from '@aw/models/entities/_index';
 import { EmployeesApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
@@ -34,7 +34,7 @@ export class EmployeeEditComponent {
   loadingEmployee = false;
   loadingForm = false;
   submitted = false;
-  employee: Employee | undefined;
+  employee: User | undefined;
 
   constructor() {
     this.employeeId = this.route.snapshot.paramMap.get('id') ?? '';
@@ -52,11 +52,11 @@ export class EmployeeEditComponent {
 
     this.loadingForm = true;
 
-    const employee = this.form.value as Employee;
+    const employee = this.form.value as User;
     employee.id = this.employeeId;
 
     this.employeesApiService
-      .put<Employee, ResultResponse>(employee, ApiUrls.employees.updateEmployee)
+      .put<User, ResultResponse>(employee, ApiUrls.employees.updateEmployee)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
         next: (result: ResultResponse) => {
@@ -98,10 +98,10 @@ export class EmployeeEditComponent {
     const url = ApiUrls.replace(ApiUrls.employees.getEmployeeById, { id: this.employeeId });
 
     this.employeesApiService
-      .get<Employee>(url)
+      .get<User>(url)
       .pipe(finalize(() => (this.loadingEmployee = false)))
       .subscribe({
-        next: (result: Employee) => {
+        next: (result: User) => {
           this.employee = result;
           this.buildForm();
         }

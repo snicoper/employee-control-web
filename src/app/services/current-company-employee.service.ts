@@ -1,6 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { ApiUrls } from '@aw/core/urls/api-urls';
-import { CurrentCompanyEmployeeResponse } from '@aw/models/api/_index';
+import { CurrentCompanyEmployeeResponse } from '@aw/models/_index';
 import { CompaniesApiService } from './api/_index';
 
 @Injectable({ providedIn: 'root' })

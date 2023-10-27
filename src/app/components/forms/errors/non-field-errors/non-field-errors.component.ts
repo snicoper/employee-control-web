@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ValidationErrors } from '@aw/core/types/_index';
-import { BadRequest } from '@aw/models/api/_index';
+import { BadRequest } from '@aw/models/_index';
 
 @Component({
   selector: 'aw-non-field-errors',

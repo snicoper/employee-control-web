@@ -1,7 +1,7 @@
 import { Component, Input, computed, inject } from '@angular/core';
 import { Roles, roleToHumanReadable } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
-import { ResultResponse } from '@aw/models/api/_index';
+import { ResultResponse } from '@aw/models/_index';
 import { JwtService } from '@aw/services/_index';
 import { EmployeesApiService } from '@aw/services/api/_index';
 import { DateTime } from 'luxon';

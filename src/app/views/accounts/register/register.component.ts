@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { FormInputTypes } from '@aw/core/types/form-input-types';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
-import { BadRequest } from '@aw/models/api/_index';
+import { BadRequest } from '@aw/models/_index';
 import { AccountsApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiResult } from '@aw/core/api-result/api-result';
 import { logDebug, logError, logInfo, logWarning } from '@aw/core/errors/_index';
-import { AdminAccountsPaginatedResponse } from '@aw/models/api/admin/admin-accounts-paginated-response.model';
+import { AdminAccountsPaginatedResponse } from '@aw/models/_index';
 
 @Component({
   selector: 'aw-home-test',
