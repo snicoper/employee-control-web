@@ -30,6 +30,11 @@ export const ApiUrls = {
     getCompanyByCurrentUser: '/companies/current-user'
   },
 
+  /** CompanyTasks. */
+  companyTasks: {
+    getCompanyTasksPaginatedByCompanyId: '/tasks/company/{companyId}/paginated'
+  },
+
   /** Employees. */
   employees: {
     getEmployeesPaginated: '/employees/paginated',

@@ -43,6 +43,7 @@ export class FormDatepickerComponent {
   constructor() {
     this.id = Math.random().toString();
 
+    // Locale BsDatepicker.
     const localeNgxBootstrap = DateTimeUtils.mapLocaleToNgxBootstrap(this.localizationService.getLocaleValue());
     this.bsLocaleService.use(localeNgxBootstrap);
 

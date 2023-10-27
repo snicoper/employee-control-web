@@ -23,6 +23,12 @@ const routes: Routes = [
     loadChildren: () => import('@aw/views/employees/employees.module').then((m) => m.EmployeesModule)
   },
   {
+    path: 'tasks',
+    data: { roles: [Roles.humanResources] },
+    canActivate: [AuthGuard],
+    loadChildren: () => import('@aw/views/company-tasks/company-tasks.module').then((m) => m.CompanyTasksModule)
+  },
+  {
     path: 'dashboard',
     loadChildren: () => import('@aw/views/dashboard/dashboard.module').then((m) => m.DashboardModule)
   },

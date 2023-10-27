@@ -33,6 +33,11 @@ export const sidebarMenu: SidebarMenu[] = [
         title: 'Empleados',
         link: SiteUrls.employees.employeeList,
         active: false
+      },
+      {
+        title: 'Tareas',
+        link: SiteUrls.companyTasks.companyTasksList,
+        active: false
       }
     ]
   },
