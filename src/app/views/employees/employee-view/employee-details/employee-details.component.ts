@@ -1,9 +1,10 @@
 import { Component, Input, computed, inject } from '@angular/core';
-import { Roles, roleToText } from '@aw/core/types/roles';
+import { Roles, roleToHumanReadable } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
-import { ResultResponse } from '@aw/models/api/result-response.model';
-import { EmployeesApiService } from '@aw/services/api/employees-api.service';
-import { JwtService } from '@aw/services/jwt.service';
+import { ResultResponse } from '@aw/models/api/_index';
+import { JwtService } from '@aw/services/_index';
+import { EmployeesApiService } from '@aw/services/api/_index';
+import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { EmployeeSelectedService } from '../employee-selected.service';
@@ -23,20 +24,21 @@ export class EmployeeDetailsComponent {
   readonly employee = computed(() => this.employeeSelectedService.employeeSelected());
   readonly loading = computed(() => this.employeeSelectedService.loading());
 
-  readonly roleToText = roleToText;
+  readonly roleToHumanReadable = roleToHumanReadable;
   readonly siteUrls = SiteUrls;
   readonly roles = Roles;
+  readonly datetime = DateTime;
   loadingUpdateRole = false;
   loadingUpdateActive = false;
 
   /** Texto botón eliminar role. */
   get btnTextDeleteRole(): string {
-    return `Eliminar ${roleToText(Roles.humanResources)}`;
+    return `Eliminar ${roleToHumanReadable(Roles.humanResources)}`;
   }
 
   /** Texto botón añadir role. */
   get btnTextAddRole(): string {
-    return `Establecer ${roleToText(Roles.humanResources)}`;
+    return `Establecer ${roleToHumanReadable(Roles.humanResources)}`;
   }
 
   /** Empleado seleccionado es humanResources. */

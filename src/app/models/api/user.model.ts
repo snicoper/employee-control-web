@@ -3,8 +3,9 @@ export interface Employee {
   companyId: number;
   firstName: string;
   lastName: string;
-  phoneNumber: string;
+  phoneNumber?: string;
   email: string;
+  entryDate?: Date;
   active: boolean;
   emailConfirmed: boolean;
   userRoles: string[];

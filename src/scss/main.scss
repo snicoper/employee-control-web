@@ -1,4 +1,6 @@
 ﻿@import "variables-local";
+
+// Variables bootstrap.
 @import "variables-bs";
 @import "variables-bs-dark";
 
@@ -19,9 +21,6 @@
 
 // ngx-toastr.
 @import "ngx-toastr/toastr";
-
-// ng-select.
-@import "@ng-select/ng-select/scss/default.theme";
 
 // Mixins.
 @import "mixins/main";

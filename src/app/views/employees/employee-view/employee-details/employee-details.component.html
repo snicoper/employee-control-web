@@ -23,6 +23,10 @@
           <td>{{ employee()?.email }}</td>
         </tr>
         <tr>
+          <td>Fecha de ingreso</td>
+          <td>{{ employee()?.entryDate | datetime: datetime.DATE_SHORT }}</td>
+        </tr>
+        <tr>
           <td>Teléfono</td>
           <td>{{ employee()?.phoneNumber }}</td>
         </tr>
@@ -70,7 +74,7 @@
             <span class="d-flex">
               <span>
                 <span class="badge rounded-pill bg-success ms-1" *ngFor="let role of employee()?.userRoles">
-                  {{ roleToText(role) }}
+                  {{ roleToHumanReadable(role) }}
                 </span>
               </span>
 

@@ -9,7 +9,7 @@ export enum Roles {
 }
 
 /** Obtener un Role a texto mas legible. */
-export const roleToText = (role: string | Roles): string => {
+export const roleToHumanReadable = (role: string | Roles): string => {
   switch (role) {
     case Roles.administrator:
       return 'Administrador Web';

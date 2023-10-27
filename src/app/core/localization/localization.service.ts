@@ -1,9 +1,7 @@
-import { Injectable, effect, inject, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { LocalStorageKeys } from '@aw/core/types/local-storage-keys';
 import { LocalStorageService } from '@aw/services/_index';
-import * as dayjs from 'dayjs';
-import 'dayjs/locale/en';
-import 'dayjs/locale/es';
+import { DateTime, Settings } from 'luxon';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { deLocale } from 'ngx-bootstrap/locale';
 import { DateTimeUtils } from './datetime-utils';
@@ -13,41 +11,45 @@ import { LocalesSupported } from './locales-supported';
 export class LocalizationService {
   private readonly localStorageService = inject(LocalStorageService);
 
-  private readonly locale$ = signal<LocalesSupported>(DateTimeUtils.defaultLocale);
+  private readonly locale$ = signal(DateTimeUtils.defaultLocale);
+  private readonly timezone$ = signal(DateTimeUtils.defaultTimezone);
 
-  initialize(locale?: LocalesSupported): void {
+  initialize(locale?: LocalesSupported, timezone?: string): void {
     // Precedencia: localStorage -> parámetro -> defaultLocale.
     locale =
       (this.localStorageService.get(LocalStorageKeys.locale) as LocalesSupported) ??
       locale ??
-      DateTimeUtils.defaultLocale;
+      DateTime.now().resolvedLocaleOptions().locale;
 
-    // La inicialización no contiene los datos de locales supported en el Store por lo que
-    // No comprobará la validación.
+    timezone = this.localStorageService.get(LocalStorageKeys.timezone) ?? timezone ?? DateTimeUtils.defaultTimezone;
+
+    // La inicialización no contiene los datos de locales supported en el Service por lo que
+    // no comprobará la validación.
     this.setLocale(locale);
-    this.eventListener();
+    this.setTimezone(timezone);
   }
 
   getLocaleValue(): LocalesSupported {
     return this.locale$();
   }
 
-  setLocale(locale: LocalesSupported): void {
-    this.locale$.set(locale);
+  getTimezoneValue(): string {
+    return this.timezone$();
   }
 
-  private eventListener(): void {
-    effect(() => {
-      // Establecer locale en dayJs.
-      let locale = DateTimeUtils.mapLocaleToDayJs(this.locale$());
-      dayjs.locale(locale);
+  setLocale(locale: LocalesSupported): void {
+    this.locale$.set(locale);
+    Settings.defaultLocale = this.locale$();
+    this.localStorageService.set(LocalStorageKeys.locale, this.locale$());
 
-      // Establecer locale en ngx-bootstrap.
-      locale = DateTimeUtils.mapLocaleToNgxBootstrap(this.locale$());
-      defineLocale(locale, deLocale);
+    // Establecer locale en ngx-bootstrap.
+    const localeNgxBootstrap = DateTimeUtils.mapLocaleToNgxBootstrap(this.locale$());
+    defineLocale(localeNgxBootstrap, deLocale);
+  }
 
-      // Guardar en localStorage el locale.
-      this.localStorageService.set(LocalStorageKeys.locale, this.locale$());
-    });
+  setTimezone(timezone: string): void {
+    this.timezone$.set(timezone);
+    Settings.defaultZone = timezone;
+    this.localStorageService.set(LocalStorageKeys.timezone, timezone);
   }
 }
