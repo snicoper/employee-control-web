@@ -24,8 +24,6 @@ export class EmployeeViewComponent {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb
-      .add('Empleados', SiteUrls.employees.employeeList)
-      .add('Detalles', SiteUrls.employees.employeeDetails, '', false);
+    this.breadcrumb.add('Empleados', SiteUrls.employees.list).add('Detalles', SiteUrls.employees.details, '', false);
   }
 }

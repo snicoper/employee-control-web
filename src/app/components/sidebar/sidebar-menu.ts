@@ -31,12 +31,12 @@ export const sidebarMenu: SidebarMenu[] = [
     submenus: [
       {
         title: 'Empleados',
-        link: SiteUrls.employees.employeeList,
+        link: SiteUrls.employees.list,
         active: false
       },
       {
         title: 'Tareas',
-        link: SiteUrls.companyTasks.companyTaskList,
+        link: SiteUrls.companyTasks.list,
         active: false
       }
     ]

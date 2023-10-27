@@ -62,7 +62,7 @@ export class EmployeeDetailsComponent {
 
   /** Url para editar empleado. */
   get urlToEdit(): string {
-    return this.siteUrls.replace(SiteUrls.employees.employeeEdit, { id: this.employeeId });
+    return this.siteUrls.replace(SiteUrls.employees.edit, { id: this.employeeId });
   }
 
   /** Eliminar Role RRHH al empleado. */

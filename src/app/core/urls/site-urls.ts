@@ -20,16 +20,17 @@ export const SiteUrls = {
   },
 
   companyTasks: {
-    companyTaskList: '/tasks',
-    companyTaskDetails: '/tasks/details/{id}'
+    list: '/tasks',
+    details: '/tasks/details/{id}',
+    create: '/tasks/create'
   },
 
   /** Employees. */
   employees: {
-    employeeList: '/employees',
-    employeeDetails: '/employees/details/{id}',
-    employeeEdit: '/employees/edit/{id}',
-    employeeInvite: '/employees/invite'
+    list: '/employees',
+    details: '/employees/details/{id}',
+    edit: '/employees/edit/{id}',
+    invite: '/employees/invite'
   },
 
   /** Dashboard. */
@@ -44,8 +45,8 @@ export const SiteUrls = {
 
   /** Errors. */
   errors: {
-    errorsForbidden: '/errors/403',
-    errorsNotFound: '/errors/404'
+    forbidden: '/errors/403',
+    notFound: '/errors/404'
   },
 
   /**

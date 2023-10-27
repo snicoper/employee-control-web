@@ -52,7 +52,7 @@ export class EmployeeInviteComponent {
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (result: string) => {
-          const url = SiteUrls.replace(SiteUrls.employees.employeeDetails, { id: result });
+          const url = SiteUrls.replace(SiteUrls.employees.details, { id: result });
           this.toastrService.success('Invitación enviada con éxito.');
           this.router.navigateByUrl(url);
         },

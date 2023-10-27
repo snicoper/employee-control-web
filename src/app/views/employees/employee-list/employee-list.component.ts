@@ -37,7 +37,7 @@ export class EmployeeListComponent {
   }
 
   handleSelectItem(employee: EmployeeListResponse): void {
-    const url = SiteUrls.replace(SiteUrls.employees.employeeDetails, { id: employee.id });
+    const url = SiteUrls.replace(SiteUrls.employees.details, { id: employee.id });
     this.router.navigateByUrl(url);
   }
 

@@ -39,7 +39,7 @@ export class CompanyTaskListComponent {
   }
 
   handleSelectItem(companyTask: CompanyTaskListResponse): void {
-    const url = SiteUrls.replace(SiteUrls.companyTasks.companyTaskDetails, { id: companyTask.id.toString() });
+    const url = SiteUrls.replace(SiteUrls.companyTasks.details, { id: companyTask.id.toString() });
     this.router.navigateByUrl(url);
   }
 

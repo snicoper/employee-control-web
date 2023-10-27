@@ -38,7 +38,7 @@ export class EmployeeEditComponent {
 
   constructor() {
     this.employeeId = this.route.snapshot.paramMap.get('id') ?? '';
-    this.urlEmployeeDetails = SiteUrls.replace(SiteUrls.employees.employeeDetails, { id: this.employeeId });
+    this.urlEmployeeDetails = SiteUrls.replace(SiteUrls.employees.details, { id: this.employeeId });
     this.loadEmployee();
     this.setBreadcrumb();
   }
@@ -66,7 +66,7 @@ export class EmployeeEditComponent {
             return;
           }
 
-          const url = SiteUrls.replace(SiteUrls.employees.employeeDetails, { id: this.employeeId });
+          const url = SiteUrls.replace(SiteUrls.employees.details, { id: this.employeeId });
           this.toastrService.success('Datos de empleado actualizados con éxito.');
           this.router.navigateByUrl(url);
         },
@@ -78,9 +78,9 @@ export class EmployeeEditComponent {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Empleados', SiteUrls.employees.employeeList)
+      .add('Empleados', SiteUrls.employees.list)
       .add('Detalles', this.urlEmployeeDetails)
-      .add('Editar', SiteUrls.employees.employeeEdit, '', false);
+      .add('Editar', SiteUrls.employees.edit, '', false);
   }
 
   private buildForm(): void {

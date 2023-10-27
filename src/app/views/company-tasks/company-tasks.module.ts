@@ -7,9 +7,11 @@ import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { PipesModule } from '@aw/pipes/pipes.module';
 import { CompanyTaskListComponent } from './company-task-list/company-task-list.component';
 import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
+import { CompanyTaskDetailsComponent } from './company-task-details/company-task-details.component';
+import { CompanyTaskCreateComponent } from './company-task-create/company-task-create.component';
 
 @NgModule({
-  declarations: [CompanyTaskListComponent],
+  declarations: [CompanyTaskListComponent, CompanyTaskDetailsComponent, CompanyTaskCreateComponent],
   imports: [
     CommonModule,
     CompanyTaskRoutingModule,
