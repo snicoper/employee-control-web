@@ -1,3 +1,51 @@
 <aw-view-base>
-  <p>company-tasks-list works!</p>
+  <aw-card>
+    <h1>Lista de tareas</h1>
+    <hr />
+
+    <!-- toolbar -->
+    <div class="d-flex mb-2">
+      <span class="me-auto">
+        <a [routerLink]="siteUrls.employees.employeeInvite" class="btn btn-sm btn-outline-success">
+          <span class="fas fa-user-plus"></span> Crear tarea
+        </a>
+      </span>
+
+      <span>
+        <aw-table-input-search
+          [tableHeaderConfig]="tableHeaderConfig"
+          [apiResult]="apiResult"
+          (clickFiltering)="handleFilterChange($event)"></aw-table-input-search>
+      </span>
+    </div>
+    <!-- end toolbar -->
+
+    <!-- table -->
+    <aw-table [apiResult]="apiResult" [loading]="loading">
+      <thead awThead>
+        <tr
+          awTableHeader
+          [tableHeaderConfig]="tableHeaderConfig"
+          [apiResult]="apiResult"
+          (clickOrdering)="handleReloadData()"></tr>
+      </thead>
+
+      <tbody awTbody *ngIf="apiResult">
+        <tr *ngFor="let task of apiResult.items" (click)="handleSelectItem(task)" class="cursor-pointer">
+          <td>{{ task.name }}</td>
+          <td>{{ task.created | date }}</td>
+        </tr>
+      </tbody>
+    </aw-table>
+    <!-- end table -->
+
+    <!-- pagination -->
+    <aw-pagination
+      *ngIf="apiResult"
+      [apiResult]="apiResult"
+      (changePage)="handleReloadData()"
+      (changePageListNumber)="handleReloadData()">
+    </aw-pagination>
+    <!-- end pagination -->
+  </aw-card>
 </aw-view-base>

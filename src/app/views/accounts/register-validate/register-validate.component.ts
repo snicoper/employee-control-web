@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
-import { ResultResponse } from '@aw/models/api/result-response.model';
+import { ResultResponse } from '@aw/models/_index';
 import { AccountsApiService } from '@aw/services/api/_index';
 import { RegisterValidateRequest } from './register-validate-request.model';
 

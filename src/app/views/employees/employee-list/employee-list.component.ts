@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
 import { ApiResult } from '@aw/core/api-result/api-result';
@@ -13,7 +13,7 @@ import { employeeListTableHeaders } from './employee-list-table-headers';
   selector: 'aw-employee-list',
   templateUrl: './employee-list.component.html'
 })
-export class EmployeeListComponent implements OnInit {
+export class EmployeeListComponent {
   private readonly employeesApiService = inject(EmployeesApiService);
   private readonly router = inject(Router);
 
@@ -22,7 +22,7 @@ export class EmployeeListComponent implements OnInit {
   loading = false;
   siteUrls = SiteUrls;
 
-  ngOnInit(): void {
+  constructor() {
     this.configureTableHeaders();
     this.loadEmployees();
   }

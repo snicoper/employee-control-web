@@ -36,7 +36,7 @@ export const sidebarMenu: SidebarMenu[] = [
       },
       {
         title: 'Tareas',
-        link: SiteUrls.companyTasks.companyTasksList,
+        link: SiteUrls.companyTasks.companyTaskList,
         active: false
       }
     ]

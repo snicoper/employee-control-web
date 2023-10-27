@@ -20,7 +20,8 @@ export const SiteUrls = {
   },
 
   companyTasks: {
-    companyTasksList: '/tasks'
+    companyTaskList: '/tasks',
+    companyTaskDetails: '/tasks/details/{id}'
   },
 
   /** Employees. */
