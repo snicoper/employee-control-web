@@ -1,3 +1,36 @@
-<aw-view-base>
-  <p>company-task-create works!</p>
+<aw-view-base cssContent="container">
+  <aw-card>
+    <h1>Crear tarea</h1>
+
+    <!-- form -->
+    <form (ngSubmit)="handleSubmit()" [formGroup]="form">
+      <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
+
+      <!-- name -->
+      <div class="mb-2">
+        <aw-form-input
+          [badRequest]="badRequest"
+          [form]="form"
+          [submitted]="submitted"
+          fieldName="name"
+          formControlName="name"
+          label="Nombre">
+        </aw-form-input>
+      </div>
+      <!-- end name -->
+
+      <!-- buttons-->
+      <aw-btn-loading
+        [loading]="loading"
+        btnClass="btn btn-success mt-2"
+        btnText="Crear"
+        btnIcon="fa-solid fa-list-check"></aw-btn-loading>
+
+      <button [routerLink]="siteUrls.companyTasks.list" class="btn btn-primary mt-2 ms-2" type="button">
+        <span class="fa-solid fa-chevron-left"></span> Volver
+      </button>
+      <!-- end buttons-->
+    </form>
+    <!-- end form -->
+  </aw-card>
 </aw-view-base>
