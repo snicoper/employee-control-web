@@ -1,49 +1,73 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, Input, forwardRef, inject } from '@angular/core';
 import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DateTimeUtils } from '@aw/core/localization/_index';
+import { LocalizationService } from '@aw/core/localization/localization.service';
+import { FormInputTypes } from '@aw/core/types/_index';
 import { BadRequest } from '@aw/models/api/_index';
+import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 /* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({
-  selector: 'aw-form-checkbox',
-  templateUrl: './form-checkbox.component.html',
+  selector: 'aw-form-datepicker',
+  templateUrl: './form-datepicker.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FormCheckboxComponent),
+      useExisting: forwardRef(() => FormDatepickerComponent),
       multi: true
     }
   ]
 })
-export class FormCheckboxComponent {
+export class FormDatepickerComponent {
+  private readonly bsLocaleService = inject(BsLocaleService);
+  private readonly localizationService = inject(LocalizationService);
+
   @Input({ required: true }) badRequest: BadRequest | undefined;
   @Input({ required: true }) form: FormGroup | undefined;
   @Input({ required: true }) submitted = false;
   @Input({ required: true }) fieldName = '';
+  @Input() bsConfig: Partial<BsDatepickerConfig>;
   @Input() id: string;
+  @Input() inputType = FormInputTypes.text;
   @Input() label = '';
   @Input() extraCss = '';
   @Input() placeholder = '';
 
-  value = '';
+  value?: Date;
+  bsValue?: Date = new Date();
   isDisabled = false;
 
   constructor() {
     this.id = Math.random().toString();
+
+    const localeNgxBootstrap = DateTimeUtils.mapLocaleToNgxBootstrap(this.localizationService.getLocaleValue());
+    this.bsLocaleService.use(localeNgxBootstrap);
+
+    // Default BsDatepickerConfig.
+    this.bsConfig = Object.assign(
+      {},
+      {
+        containerClass: 'theme-default',
+        showWeekNumbers: false,
+        dateInputFormat: 'LL',
+        adaptivePosition: true
+      }
+    );
   }
 
   onChange = (_: any): void => {};
 
   onTouch = (): void => {};
 
-  writeValue(value: any): void {
+  writeValue(value: Date): void {
     if (value !== undefined && value !== this.value) {
-      this.value = value || null;
+      this.value = value || undefined;
       this.onChange(this.value);
     } else {
-      this.value = '';
+      this.value = undefined;
     }
   }
 
@@ -59,7 +83,7 @@ export class FormCheckboxComponent {
     this.isDisabled = isDisabled;
   }
 
-  onChangeValue(value: any): void {
+  onChangeValue(value: Date): void {
     this.onChange(value);
   }
 

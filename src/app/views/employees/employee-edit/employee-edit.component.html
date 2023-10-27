@@ -61,6 +61,18 @@
         </div>
         <!-- end phoneNumber -->
 
+        <!-- entryDate -->
+        <div class="mb-2">
+          <aw-form-datepicker
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            fieldName="entryDate"
+            formControlName="entryDate"
+            label="Fecha de ingreso"></aw-form-datepicker>
+        </div>
+        <!-- end entryDate -->
+
         <button [routerLink]="urlEmployeeDetails" class="btn btn-primary mt-2" type="button">
           <span class="fa-solid fa-chevron-left"></span> Volver
         </button>

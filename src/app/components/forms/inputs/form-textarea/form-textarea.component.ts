@@ -18,19 +18,17 @@ import { BadRequest } from '@aw/models/api/_index';
   ]
 })
 export class FormTextareaComponent implements ControlValueAccessor {
-  /** Inputs. */
   @Input({ required: true }) badRequest: BadRequest | undefined;
   @Input({ required: true }) form: FormGroup | undefined;
   @Input({ required: true }) submitted = false;
   @Input({ required: true }) fieldName = '';
-  @Input() id = '';
+  @Input() id: string;
   @Input() label = '';
   @Input() extraCss = '';
   @Input() placeholder = '';
   @Input() rows = 3;
   @Input() cols = 0;
 
-  /** Properties. */
   value = '';
   isDisabled = false;
 
@@ -43,7 +41,7 @@ export class FormTextareaComponent implements ControlValueAccessor {
   onTouch = (): void => {};
 
   writeValue(value: any): void {
-    if (value !== undefined) {
+    if (value !== undefined && value !== this.value) {
       this.value = value || '';
       this.onChange(this.value);
     } else {

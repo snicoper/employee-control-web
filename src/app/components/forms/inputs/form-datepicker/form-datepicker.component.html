@@ -1,0 +1,29 @@
+<div class="form-group">
+  <ng-container *ngIf="label">
+    <label [for]="id" class="text-primary">
+      {{ label }}
+    </label>
+  </ng-container>
+
+  <input
+    (ngModelChange)="onChangeValue($event)"
+    [(ngModel)]="value"
+    [isDisabled]="isDisabled"
+    [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
+    [placeholder]="placeholder"
+    [type]="inputType"
+    [bsConfig]="bsConfig"
+    datePickerLuxonModifier
+    bsDatepicker
+    class="form-control" />
+
+  <ng-container *ngIf="form">
+    <aw-field-error
+      [badRequest]="badRequest"
+      [fieldName]="fieldName"
+      [fieldText]="label"
+      [form]="form"
+      [submitted]="submitted">
+    </aw-field-error>
+  </ng-container>
+</div>

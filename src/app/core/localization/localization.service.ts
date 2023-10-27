@@ -2,8 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { LocalStorageKeys } from '@aw/core/types/local-storage-keys';
 import { LocalStorageService } from '@aw/services/_index';
 import { DateTime, Settings } from 'luxon';
-import { defineLocale } from 'ngx-bootstrap/chronos';
-import { deLocale } from 'ngx-bootstrap/locale';
+import { defineLocale, esLocale } from 'ngx-bootstrap/chronos';
 import { DateTimeUtils } from './datetime-utils';
 import { LocalesSupported } from './locales-supported';
 
@@ -43,8 +42,7 @@ export class LocalizationService {
     this.localStorageService.set(LocalStorageKeys.locale, this.locale$());
 
     // Establecer locale en ngx-bootstrap.
-    const localeNgxBootstrap = DateTimeUtils.mapLocaleToNgxBootstrap(this.locale$());
-    defineLocale(localeNgxBootstrap, deLocale);
+    defineLocale(LocalesSupported.es, esLocale);
   }
 
   setTimezone(timezone: string): void {

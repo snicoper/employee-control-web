@@ -88,7 +88,8 @@ export class EmployeeEditComponent {
       firstName: [this.employee?.firstName, [Validators.required]],
       lastName: [this.employee?.lastName, [Validators.required]],
       email: [this.employee?.email, [Validators.email, Validators.required]],
-      phoneNumber: [this.employee?.phoneNumber]
+      phoneNumber: [this.employee?.phoneNumber],
+      entryDate: [this.employee?.entryDate]
     });
   }
 

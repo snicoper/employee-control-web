@@ -8,11 +8,11 @@ export abstract class DateTimeUtils {
    * Mapea una cultura soportada por un locale de ngx-bootstrap.
    *
    * @see https://valor-software.com/ngx-bootstrap/#/components/datepicker?tab=overview#locales
-   * @param culture Una valor de LocalesSupported.
+   * @param locale Una valor de LocalesSupported.
    * @returns Valor de locale en base a LocalesSupported.
    */
-  static mapLocaleToNgxBootstrap(culture: LocalesSupported): string {
-    switch (culture) {
+  static mapLocaleToNgxBootstrap(locale: LocalesSupported): string {
+    switch (locale) {
       case LocalesSupported.es:
       case LocalesSupported.esES:
         return LocalesSupported.es;

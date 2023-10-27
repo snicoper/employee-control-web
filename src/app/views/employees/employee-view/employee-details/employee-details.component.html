@@ -23,10 +23,6 @@
           <td>{{ employee()?.email }}</td>
         </tr>
         <tr>
-          <td>Fecha de ingreso</td>
-          <td>{{ employee()?.entryDate | datetime: datetime.DATE_SHORT }}</td>
-        </tr>
-        <tr>
           <td>Teléfono</td>
           <td>{{ employee()?.phoneNumber }}</td>
         </tr>
@@ -67,6 +63,10 @@
           <td>
             <span [innerHTML]="employee()?.emailConfirmed | boolToIcon"></span>
           </td>
+        </tr>
+        <tr>
+          <td>Fecha de ingreso</td>
+          <td>{{ employee()?.entryDate | datetime: datetime.DATE_SHORT }}</td>
         </tr>
         <tr>
           <td>Roles</td>

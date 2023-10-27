@@ -23,7 +23,7 @@ export class FormFloatingComponent {
   @Input({ required: true }) form: FormGroup | undefined;
   @Input({ required: true }) submitted = false;
   @Input({ required: true }) fieldName = '';
-  @Input() id = '';
+  @Input() id: string;
   @Input() inputType = FormInputTypes.text;
   @Input() label = '';
   @Input() extraCss = '';
@@ -41,7 +41,7 @@ export class FormFloatingComponent {
   onTouch = (): void => {};
 
   writeValue(value: any): void {
-    if (value !== undefined) {
+    if (value !== undefined && value !== this.value) {
       this.value = value || '';
       this.onChange(this.value);
     } else {
