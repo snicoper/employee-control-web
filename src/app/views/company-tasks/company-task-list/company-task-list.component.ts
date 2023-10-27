@@ -7,14 +7,14 @@ import { SiteUrls } from '@aw/core/urls/site-urls';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
 import { CurrentCompanyEmployeeService } from './../../../services/current-company-employee.service';
-import { companyTasksListTableHeader } from './company-task-list-table-headers';
-import { CompanyTaskListResponse } from './company-tasks-list-response.model';
+import { CompanyTaskListResponse } from './company-task-list-response.model';
+import { companyTaskListTableHeader } from './company-task-list-table-headers';
 
 @Component({
   selector: 'aw-company-tasks-list',
-  templateUrl: './company-tasks-list.component.html'
+  templateUrl: './company-task-list.component.html'
 })
-export class CompanyTasksListComponent {
+export class CompanyTaskListComponent {
   private readonly companyTaskApiService = inject(CompanyTaskApiService);
   private readonly router = inject(Router);
   private readonly currentCompanyEmployeeService = inject(CurrentCompanyEmployeeService);
@@ -44,7 +44,7 @@ export class CompanyTasksListComponent {
   }
 
   private configureTableHeaders(): void {
-    this.tableHeaderConfig.addHeaders(companyTasksListTableHeader);
+    this.tableHeaderConfig.addHeaders(companyTaskListTableHeader);
   }
 
   private loadCompanyTasks(): void {

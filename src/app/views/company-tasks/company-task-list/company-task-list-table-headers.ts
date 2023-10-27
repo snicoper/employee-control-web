@@ -1,7 +1,7 @@
 import { TableHeaderField } from '@aw/components/tables/table-header/table-header-field.interface';
 import { OrderTypes } from '@aw/core/api-result/_index';
 
-export const companyTasksListTableHeader: TableHeaderField[] = [
+export const companyTaskListTableHeader: TableHeaderField[] = [
   {
     field: 'name',
     text: 'Nombre',

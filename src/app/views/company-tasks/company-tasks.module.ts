@@ -5,11 +5,11 @@ import { AwPaginationModule } from '@aw/components/pagination/aw-pagination.modu
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { PipesModule } from '@aw/pipes/pipes.module';
-import { CompanyTasksListComponent } from './company-tasks-list/company-tasks-list.component';
+import { CompanyTaskListComponent } from './company-task-list/company-task-list.component';
 import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
 
 @NgModule({
-  declarations: [CompanyTasksListComponent],
+  declarations: [CompanyTaskListComponent],
   imports: [
     CommonModule,
     CompanyTaskRoutingModule,

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CompanyTasksListComponent } from './company-tasks-list/company-tasks-list.component';
+import { CompanyTaskListComponent } from './company-task-list/company-task-list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CompanyTasksListComponent,
+    component: CompanyTaskListComponent,
     data: { title: 'Lista de tareas' }
   }
 ];
