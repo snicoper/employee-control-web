@@ -15,5 +15,12 @@ export const companyTasksListTableHeader: TableHeaderField[] = [
     sortable: true,
     orderType: OrderTypes.none,
     filterable: false
+  },
+  {
+    field: 'active',
+    text: 'Activa',
+    sortable: true,
+    orderType: OrderTypes.none,
+    filterable: false
   }
 ];
