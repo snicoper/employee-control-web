@@ -2,7 +2,7 @@ import { Company } from './company.model';
 
 export interface User {
   id: string;
-  companyId: number;
+  companyId: string;
   firstName: string;
   lastName: string;
   active: boolean;

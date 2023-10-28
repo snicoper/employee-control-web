@@ -1,4 +1,4 @@
 export interface CompanyTaskCreateRequest {
-  companyId: number;
+  companyId: string;
   name: string;
 }

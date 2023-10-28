@@ -1,6 +1,6 @@
 export interface EmployeeSelectedResponse {
   id: string;
-  companyId: number;
+  companyId: string;
   firstName: string;
   lastName: string;
   active: boolean;

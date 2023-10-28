@@ -26,7 +26,7 @@ export class HomeComponent {
     return this.jwtService.getRoles();
   }
 
-  getCompanyId(): number {
+  getCompanyId(): string {
     return this.jwtService.getCompanyId();
   }
 

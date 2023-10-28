@@ -2,5 +2,5 @@ export interface InviteEmployeeRequest {
   firstName: string;
   lastName: string;
   email: string;
-  companyId: number;
+  companyId: string;
 }

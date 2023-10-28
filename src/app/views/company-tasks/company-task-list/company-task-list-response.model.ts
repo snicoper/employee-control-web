@@ -1,7 +1,7 @@
 export interface CompanyTaskListResponse {
-  id: number;
+  id: string;
   name: string;
   active: boolean;
-  companyId: number;
+  companyId: string;
   created: Date;
 }

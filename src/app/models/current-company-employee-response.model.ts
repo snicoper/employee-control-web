@@ -1,4 +1,4 @@
 export interface CurrentCompanyEmployeeResponse {
-  id: number;
+  id: string;
   name: string;
 }
