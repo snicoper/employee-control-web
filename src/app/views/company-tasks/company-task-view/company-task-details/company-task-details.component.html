@@ -12,7 +12,9 @@
       <tbody>
         <tr>
           <td>Nombre</td>
-          <td>{{ companyTask()?.name }}</td>
+          <td>
+            {{ companyTask()?.name }}
+          </td>
         </tr>
         <tr>
           <td>Fecha de creación</td>
@@ -47,4 +49,10 @@
     </ng-container>
     <!-- end data company task -->
   </table>
+
+  <button [routerLink]="siteUrls.companyTasks.list" class="btn btn-primary">
+    <span class="fa-solid fa-chevron-left"></span> Volver
+  </button>
+
+  <button [routerLink]="urlToEdit" class="btn btn-success ms-2"><span class="fa-solid fa-pencil"></span> Editar</button>
 </aw-card>

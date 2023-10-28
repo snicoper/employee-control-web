@@ -1,0 +1,53 @@
+<aw-view-base cssContent="container">
+  <aw-card>
+    <h3>Editar tarea</h3>
+    <aw-breadcrumb [breadcrumb]="breadcrumb"></aw-breadcrumb>
+  </aw-card>
+
+  <div class="mt-2"></div>
+
+  <aw-card>
+    <!-- form -->
+    <ng-container *ngIf="companyTask">
+      <form (ngSubmit)="handleSubmit()" [formGroup]="form">
+        <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
+
+        <!-- name -->
+        <div class="mb-2">
+          <aw-form-input
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            fieldName="name"
+            formControlName="name"
+            label="Nombre"></aw-form-input>
+        </div>
+        <!-- end name -->
+
+        <!-- active -->
+        <div class="mb-2">
+          <aw-form-checkbox
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            fieldName="active"
+            formControlName="active"
+            label="Activo"></aw-form-checkbox>
+        </div>
+        <!-- end active -->
+
+        <button [routerLink]="urlCompanyTaskDetails" class="btn btn-primary mt-2" type="button">
+          <span class="fa-solid fa-chevron-left"></span> Volver
+        </button>
+
+        <aw-btn-loading
+          [loading]="loadingForm"
+          btnClass="btn btn-success mt-2 ms-2"
+          btnIcon="fa-regular fa-floppy-disk"
+          spinnerLoadingText="Guardando"
+          btnText="Guardar"></aw-btn-loading>
+      </form>
+    </ng-container>
+    <!-- end form -->
+  </aw-card>
+</aw-view-base>

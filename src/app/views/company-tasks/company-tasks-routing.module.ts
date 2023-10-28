@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompanyTaskCreateComponent } from './company-task-create/company-task-create.component';
+import { CompanyTaskEditComponent } from './company-task-edit/company-task-edit.component';
 import { CompanyTaskListComponent } from './company-task-list/company-task-list.component';
 import { CompanyTaskViewComponent } from './company-task-view/company-task-view.component';
 
@@ -16,9 +17,14 @@ const routes: Routes = [
     data: { title: 'Crear nueva tareas' }
   },
   {
-    path: 'details/:id',
+    path: ':id/details',
     component: CompanyTaskViewComponent,
     data: { title: 'Detalles de tarea' }
+  },
+  {
+    path: ':id/edit',
+    component: CompanyTaskEditComponent,
+    data: { title: 'Editar tarea' }
   }
 ];
 

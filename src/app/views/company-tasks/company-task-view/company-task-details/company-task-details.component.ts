@@ -1,4 +1,5 @@
 import { Component, Input, computed, inject } from '@angular/core';
+import { SiteUrls } from '@aw/core/urls/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { DateTime } from 'luxon';
@@ -22,6 +23,11 @@ export class CompanyTaskDetailsComponent {
   readonly dateShort = DateTime.DATE_SHORT;
 
   loadingStateTask = false;
+  siteUrls = SiteUrls;
+
+  get urlToEdit(): string {
+    return SiteUrls.replace(SiteUrls.companyTasks.edit, { id: this.companyTaskId });
+  }
 
   handleActivateTask(): void {
     this.loadingStateTask = true;

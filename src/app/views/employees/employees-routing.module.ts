@@ -12,19 +12,19 @@ const routes: Routes = [
     data: { title: 'Lista de empleados' }
   },
   {
-    path: 'details/:id',
+    path: 'invite',
+    component: EmployeeInviteComponent,
+    data: { title: 'Invitar a empleado' }
+  },
+  {
+    path: ':id/details',
     component: EmployeeViewComponent,
     data: { title: 'Detalles de empleado' }
   },
   {
-    path: 'edit/:id',
+    path: ':id/edit',
     component: EmployeeEditComponent,
     data: { title: 'Editar empleado' }
-  },
-  {
-    path: 'invite',
-    component: EmployeeInviteComponent,
-    data: { title: 'Invitar a empleado' }
   }
 ];
 

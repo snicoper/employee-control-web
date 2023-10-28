@@ -36,7 +36,8 @@ export const ApiUrls = {
     createCompanyTask: '/tasks',
     getCompanyTasksById: '/tasks/{id}',
     activateCompanyTask: '/tasks/{id}/activate',
-    deactivateCompanyTask: '/tasks/{id}/deactivate'
+    deactivateCompanyTask: '/tasks/{id}/deactivate',
+    updateCompanyTask: '/tasks/{id}'
   },
 
   /** Employees. */

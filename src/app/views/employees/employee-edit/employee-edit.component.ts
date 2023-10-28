@@ -37,7 +37,7 @@ export class EmployeeEditComponent {
   employee: User | undefined;
 
   constructor() {
-    this.employeeId = this.route.snapshot.paramMap.get('id') ?? '';
+    this.employeeId = this.route.snapshot.paramMap.get('id') as string;
     this.urlEmployeeDetails = SiteUrls.replace(SiteUrls.employees.details, { id: this.employeeId });
     this.loadEmployee();
     this.setBreadcrumb();
