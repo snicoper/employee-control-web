@@ -33,7 +33,8 @@ export const ApiUrls = {
   /** CompanyTasks. */
   companyTasks: {
     getCompanyTasksPaginatedByCompanyId: '/tasks/company/{companyId}/paginated',
-    createCompanyTask: '/tasks'
+    createCompanyTask: '/tasks',
+    getCompanyTasksById: '/tasks/{id}'
   },
 
   /** Employees. */
