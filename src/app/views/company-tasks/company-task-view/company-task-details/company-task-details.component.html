@@ -13,7 +13,10 @@
         <tr>
           <td>Nombre</td>
           <td>
-            {{ companyTask()?.name }}
+            <aw-badge
+              [background]="companyTask()?.background"
+              [color]="companyTask()?.color"
+              [name]="companyTask()?.name"></aw-badge>
           </td>
         </tr>
         <tr>

@@ -5,9 +5,9 @@ import { Component, Input } from '@angular/core';
   templateUrl: './badge.component.html'
 })
 export class BadgeComponent {
-  @Input({ required: true }) background = '';
-  @Input({ required: true }) color = '';
-  @Input({ required: true }) name = '';
+  @Input({ required: true }) background: string | undefined;
+  @Input({ required: true }) color: string | undefined;
+  @Input({ required: true }) name: string | undefined;
   @Input() pill = false;
   @Input() extraCss = '';
 }

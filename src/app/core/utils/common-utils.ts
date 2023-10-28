@@ -44,6 +44,17 @@ export const replaceStringParams = (url: string, args: Record<string, string>): 
 };
 
 /**
+ * Obtener un color hexadecimal aleatorio.
+ *
+ * @returns Color hexadecimal.
+ */
+export const getRandomColorHexadecimal = (): string => {
+  const color = Math.floor(Math.random() * 16777215).toString(16);
+
+  return `#${color}`;
+};
+
+/**
  * Muestra una lista de errores con toastr.
  *
  * @param errors Errores a mostrar con toastr.

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormInputTypes } from '@aw/core/types/form-input-types';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
+import { getRandomColorHexadecimal } from '@aw/core/utils/common-utils';
 import { BadRequest } from '@aw/models/bad-request';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { JwtService } from '@aw/services/jwt.service';
@@ -64,8 +65,8 @@ export class CompanyTaskCreateComponent {
   private buildForm(): void {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
-      background: ['#000000', [Validators.required]],
-      color: ['#ffffff', [Validators.required]]
+      background: [getRandomColorHexadecimal(), [Validators.required]],
+      color: [getRandomColorHexadecimal(), [Validators.required]]
     });
   }
 }
