@@ -1,6 +1,4 @@
-import { Company } from './company.model';
-
-export interface User {
+export interface EmployeeSelectedResponse {
   id: string;
   companyId: number;
   firstName: string;
@@ -10,5 +8,4 @@ export interface User {
   email: string;
   entryDate?: Date;
   emailConfirmed: boolean;
-  company?: Company;
 }

@@ -8,7 +8,7 @@
     <!-- end sonarLint -->
 
     <!-- data employee-->
-    <ng-container *ngIf="employee() && !loading()">
+    <ng-container *ngIf="employee() && !loadingEmployee()">
       <tbody>
         <tr>
           <td>Nombre</td>
@@ -73,9 +73,14 @@
           <td>
             <span class="d-flex">
               <span>
-                <span class="badge rounded-pill bg-success ms-1" *ngFor="let role of employee()?.userRoles">
-                  {{ roleToHumanReadable(role) }}
-                </span>
+                <ng-container *ngIf="!loadingEmployeeRoles()">
+                  <span class="badge rounded-pill bg-success ms-1" *ngFor="let role of employeeRoles()">
+                    {{ roleToHumanReadable(role.name) }}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="loadingEmployeeRoles()">
+                  <aw-spinner [loading]="loadingEmployeeRoles()"></aw-spinner>
+                </ng-container>
               </span>
 
               <!-- add or remove role rrhh -->
@@ -105,7 +110,7 @@
     <!-- end data employee-->
 
     <!-- no data -->
-    <ng-container *ngIf="!employee() && !loading()">
+    <ng-container *ngIf="!employee() && !loadingEmployee()">
       <tbody>
         <tr>
           <td colspan="100%" class="text-center">
@@ -117,11 +122,11 @@
     <!-- end no data -->
 
     <!-- loading spinner -->
-    <ng-container *ngIf="loading()">
+    <ng-container *ngIf="loadingEmployee()">
       <tbody>
         <tr>
           <td colspan="100%" class="text-center">
-            <aw-spinner [loading]="loading()" [size]="100"></aw-spinner>
+            <aw-spinner [loading]="loadingEmployee()" [size]="100"></aw-spinner>
           </td>
         </tr>
       </tbody>

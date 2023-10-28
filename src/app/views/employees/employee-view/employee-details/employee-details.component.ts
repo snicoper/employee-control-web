@@ -22,12 +22,15 @@ export class EmployeeDetailsComponent {
   private readonly jwtService = inject(JwtService);
 
   readonly employee = computed(() => this.employeeSelectedService.employeeSelected());
-  readonly loading = computed(() => this.employeeSelectedService.loading());
+  readonly employeeRoles = computed(() => this.employeeSelectedService.employeeSelectedRoles());
+  readonly loadingEmployee = computed(() => this.employeeSelectedService.loadingEmployee());
+  readonly loadingEmployeeRoles = computed(() => this.employeeSelectedService.loadingEmployeeRoles());
 
   readonly roleToHumanReadable = roleToHumanReadable;
   readonly siteUrls = SiteUrls;
   readonly roles = Roles;
   readonly datetime = DateTime;
+
   loadingUpdateRole = false;
   loadingUpdateActive = false;
 
@@ -43,14 +46,14 @@ export class EmployeeDetailsComponent {
 
   /** Empleado seleccionado es humanResources. */
   get isHumanResources(): boolean {
-    const index = this.employee()?.userRoles.findIndex((role) => role === Roles.humanResources);
+    const index = this.employeeRoles()?.findIndex((role) => role.name === Roles.humanResources);
 
     return index !== undefined && index >= 0;
   }
 
   /** Empleado seleccionado es enterpriseAdministrator. */
   get isEnterpriseAdministrator(): boolean {
-    const index = this.employee()?.userRoles.findIndex((role) => role === Roles.enterpriseAdministrator);
+    const index = this.employeeRoles()?.findIndex((role) => role.name === Roles.enterpriseAdministrator);
 
     return index !== undefined && index >= 0;
   }
