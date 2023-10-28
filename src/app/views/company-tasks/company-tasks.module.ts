@@ -11,11 +11,13 @@ import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { PipesModule } from '@aw/pipes/pipes.module';
 import { CompanyTaskCreateComponent } from './company-task-create/company-task-create.component';
 import { CompanyTaskListComponent } from './company-task-list/company-task-list.component';
+import { CompanyTaskSelectedService } from './company-task-view/company-task-selected.service';
 import { CompanyTaskViewComponent } from './company-task-view/company-task-view.component';
 import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
+import { CompanyTaskDetailsComponent } from './company-task-view/company-task-details/company-task-details.component';
 
 @NgModule({
-  declarations: [CompanyTaskListComponent, CompanyTaskViewComponent, CompanyTaskCreateComponent],
+  declarations: [CompanyTaskListComponent, CompanyTaskViewComponent, CompanyTaskCreateComponent, CompanyTaskDetailsComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -28,6 +30,7 @@ import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
     AwButtonsModule,
     AwBreadcrumbModule,
     PipesModule
-  ]
+  ],
+  providers: [CompanyTaskSelectedService]
 })
 export class CompanyTasksModule {}

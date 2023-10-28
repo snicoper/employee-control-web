@@ -1,14 +1,14 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { UserRole } from '@aw/models/entities/user-role.model';
+import { User } from '@aw/models/entities/user.model';
 import { EmployeesApiService } from '@aw/services/api/employees-api.service';
 import { finalize } from 'rxjs';
-import { EmployeeSelectedResponse } from './employee-selected-response.model';
 
 @Injectable()
 export class EmployeeSelectedService {
-  private readonly employeeSelected$ = signal<EmployeeSelectedResponse | undefined>(undefined);
-  private readonly employeeSelectedRoles$ = signal<UserRole[] | undefined>(undefined);
+  private readonly employeeSelected$ = signal<User | null>(null);
+  private readonly employeeSelectedRoles$ = signal<UserRole[]>([]);
   private readonly loadingEmployee$ = signal(false);
   private readonly loadingEmployeeRoles$ = signal(false);
 
@@ -19,7 +19,7 @@ export class EmployeeSelectedService {
   readonly loadingEmployee = computed(() => this.loadingEmployee$());
   readonly loadingEmployeeRoles = computed(() => this.loadingEmployeeRoles$());
 
-  loadEmployeeById(employeeId: string): void {
+  loadData(employeeId: string): void {
     this.loadingEmployee$.set(true);
     this.loadingEmployeeRoles$.set(true);
 
@@ -27,10 +27,10 @@ export class EmployeeSelectedService {
     const urlEmployeeRoles = `${urlEmployee}/roles`;
 
     this.employeesApiService
-      .get<EmployeeSelectedResponse>(urlEmployee)
+      .get<User>(urlEmployee)
       .pipe(finalize(() => this.loadingEmployee$.set(false)))
       .subscribe({
-        next: (result: EmployeeSelectedResponse) => {
+        next: (result: User) => {
           this.employeeSelected$.set(result);
         }
       });

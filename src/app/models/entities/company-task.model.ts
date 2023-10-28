@@ -5,5 +5,6 @@ export interface CompanyTask {
   companyId: string;
   name: string;
   active: boolean;
+  created: Date;
   company?: Company;
 }

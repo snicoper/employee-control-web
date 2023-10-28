@@ -29,7 +29,7 @@ export class EmployeeDetailsComponent {
   readonly roleToHumanReadable = roleToHumanReadable;
   readonly siteUrls = SiteUrls;
   readonly roles = Roles;
-  readonly datetime = DateTime;
+  readonly dateShort = DateTime.DATE_SHORT;
 
   loadingUpdateRole = false;
   loadingUpdateActive = false;
@@ -81,7 +81,7 @@ export class EmployeeDetailsComponent {
         next: (result: ResultResponse) => {
           if (result.succeeded) {
             this.toastrService.success('Rol establecido con éxito.');
-            this.employeeSelectedService.loadEmployeeById(this.employeeId);
+            this.employeeSelectedService.loadData(this.employeeId);
           }
         }
       });
@@ -100,7 +100,7 @@ export class EmployeeDetailsComponent {
         next: (result: ResultResponse) => {
           if (result.succeeded) {
             this.toastrService.success('Rol eliminado con éxito.');
-            this.employeeSelectedService.loadEmployeeById(this.employeeId);
+            this.employeeSelectedService.loadData(this.employeeId);
           }
         }
       });
@@ -118,7 +118,7 @@ export class EmployeeDetailsComponent {
       .subscribe({
         next: () => {
           this.toastrService.success('Usuario desactivado con éxito');
-          this.employeeSelectedService.loadEmployeeById(this.employeeId);
+          this.employeeSelectedService.loadData(this.employeeId);
         }
       });
   }
@@ -135,7 +135,7 @@ export class EmployeeDetailsComponent {
       .subscribe({
         next: () => {
           this.toastrService.success('Usuario activado con éxito');
-          this.employeeSelectedService.loadEmployeeById(this.employeeId);
+          this.employeeSelectedService.loadData(this.employeeId);
         }
       });
   }

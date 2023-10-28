@@ -33,7 +33,7 @@
       <tbody awTbody *ngIf="apiResult">
         <tr *ngFor="let task of apiResult.items" (click)="handleSelectItem(task)" class="cursor-pointer">
           <td>{{ task.name }}</td>
-          <td>{{ task.created | datetime }}</td>
+          <td>{{ task.created | datetime: dateShort }}</td>
           <td [innerHTML]="task.active | boolToIcon"></td>
         </tr>
       </tbody>
