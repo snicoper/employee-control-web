@@ -46,10 +46,7 @@
 
             <!-- type simple -->
             <ng-container *ngIf="sidebarMenu.type === sidebarMenuTypes.simple">
-              <a
-                [routerLink]="[sidebarMenu.link]"
-                [routerLinkActiveOptions]="{ exact: true }"
-                routerLinkActive="active">
+              <a [routerLink]="[sidebarMenu.link]" routerLinkActive="active">
                 <span class="{{ sidebarMenu.icon }}"></span>
                 <span>&nbsp;{{ sidebarMenu.title }}</span>
 
@@ -67,11 +64,7 @@
               <div class="sidebar-submenu" [@slide]="getState(sidebarMenu)">
                 <ul>
                   <li *ngFor="let submenu of sidebarMenu.submenus" [awRequiredRole]="submenu.requiredRole">
-                    <a
-                      [routerLink]="submenu.link"
-                      [routerLinkActiveOptions]="{ exact: true }"
-                      routerLinkActive="active"
-                      href="#">
+                    <a [routerLink]="submenu.link" routerLinkActive="active" href="#">
                       <ng-container *ngIf="submenu.icon">
                         <span [ngClass]="submenu.icon"></span>
                       </ng-container>
