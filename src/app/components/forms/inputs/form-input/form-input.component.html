@@ -1,6 +1,6 @@
 <div class="form-group">
   <ng-container *ngIf="label">
-    <label [for]="id" class="text-primary">
+    <label [for]="id" class="form-label">
       {{ label }}
     </label>
   </ng-container>
@@ -14,7 +14,7 @@
     [placeholder]="placeholder"
     [type]="inputType"
     [value]="value"
-    class="form-control"/>
+    class="form-control" />
 
   <ng-container *ngIf="form">
     <aw-field-error

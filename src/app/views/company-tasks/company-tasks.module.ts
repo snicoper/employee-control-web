@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AwBreadcrumbModule } from '@aw/components/breadcrumb/aw-breadcrumb.module';
 import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
+import { AwColorsModule } from '@aw/components/colors/aw-colors.module';
 import { AwFormsModule } from '@aw/components/forms/aw-forms.module';
 import { AwPaginationModule } from '@aw/components/pagination/aw-pagination.module';
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
@@ -37,6 +38,7 @@ import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
     AwPaginationModule,
     AwButtonsModule,
     AwBreadcrumbModule,
+    AwColorsModule,
     PipesModule
   ],
   providers: [CompanyTaskSelectedService]

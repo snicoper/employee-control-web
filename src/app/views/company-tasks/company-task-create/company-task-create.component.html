@@ -6,6 +6,15 @@
     <form (ngSubmit)="handleSubmit()" [formGroup]="form">
       <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
 
+      <ng-container *ngIf="form.get('name')?.value">
+        <div class="my-3">
+          <aw-badge
+            [background]="form.get('background')?.value"
+            [color]="form.get('color')?.value"
+            [name]="form.get('name')?.value"></aw-badge>
+        </div>
+      </ng-container>
+
       <!-- name -->
       <div class="mb-2">
         <aw-form-input
@@ -18,6 +27,34 @@
         </aw-form-input>
       </div>
       <!-- end name -->
+
+      <div class="d-flex">
+        <!-- background -->
+        <div class="mb-2">
+          <aw-form-color
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            fieldName="background"
+            formControlName="background"
+            label="Color de fondo">
+          </aw-form-color>
+        </div>
+        <!-- end background -->
+
+        <!-- color -->
+        <div class="mb-2 ms-5">
+          <aw-form-color
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            fieldName="color"
+            formControlName="color"
+            label="Color de texto">
+          </aw-form-color>
+        </div>
+        <!-- end color -->
+      </div>
 
       <!-- buttons-->
       <aw-btn-loading

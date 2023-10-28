@@ -47,11 +47,11 @@ export class CompanyTaskCreateComponent {
     companyTaskCreateRequest.companyId = this.jwtService.getCompanyId();
 
     this.companyTaskApiService
-      .post<CompanyTaskCreateRequest, number>(companyTaskCreateRequest, ApiUrls.companyTasks.createCompanyTask)
+      .post<CompanyTaskCreateRequest, string>(companyTaskCreateRequest, ApiUrls.companyTasks.createCompanyTask)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: number) => {
-          const url = SiteUrls.replace(SiteUrls.companyTasks.details, { id: result.toString() });
+        next: (result: string) => {
+          const url = SiteUrls.replace(SiteUrls.companyTasks.details, { id: result });
           this.toastrService.success('Tarea creada con éxito.');
           this.router.navigateByUrl(url);
         },
@@ -63,7 +63,9 @@ export class CompanyTaskCreateComponent {
 
   private buildForm(): void {
     this.form = this.fb.group({
-      name: ['', [Validators.required]]
+      name: ['', [Validators.required]],
+      background: ['#000000', [Validators.required]],
+      color: ['#ffffff', [Validators.required]]
     });
   }
 }

@@ -10,7 +10,7 @@
     type="checkbox" />
 
   <ng-container *ngIf="label">
-    <label [for]="id" [ngClass]="{ 'text-danger': isInvalid(), 'text-primary': !isInvalid() }" class="form-check-label">
+    <label [for]="id" [ngClass]="{ 'text-danger': isInvalid(), 'form-label': !isInvalid() }" class="form-check-label">
       {{ label }}
     </label>
   </ng-container>

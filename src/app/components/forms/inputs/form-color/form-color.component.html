@@ -8,14 +8,12 @@
   <input
     (ngModelChange)="onChangeValue($event)"
     [(ngModel)]="value"
-    [isDisabled]="isDisabled"
+    [disabled]="isDisabled"
+    [id]="id"
     [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
-    [placeholder]="placeholder"
-    [type]="inputType"
-    [bsConfig]="bsConfig"
-    datePickerLuxonModifier
-    bsDatepicker
-    class="form-control" />
+    [value]="value"
+    type="color"
+    class="form-control form-control-color" />
 
   <ng-container *ngIf="form">
     <aw-field-error

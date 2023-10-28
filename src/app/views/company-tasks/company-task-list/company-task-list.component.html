@@ -32,9 +32,17 @@
 
       <tbody awTbody *ngIf="apiResult">
         <tr *ngFor="let task of apiResult.items" (click)="handleSelectItem(task)" class="cursor-pointer">
-          <td>{{ task.name }}</td>
+          <td>
+            <aw-badge [background]="task.background" [color]="task.color" [name]="task.name"></aw-badge>
+          </td>
           <td>{{ task.created | datetime: dateShort }}</td>
           <td [innerHTML]="task.active | boolToIcon"></td>
+          <td>
+            <aw-dot [color]="task.background"></aw-dot>
+          </td>
+          <td>
+            <aw-dot [color]="task.color"></aw-dot>
+          </td>
         </tr>
       </tbody>
     </aw-table>

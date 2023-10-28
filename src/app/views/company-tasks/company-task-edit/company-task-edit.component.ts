@@ -76,6 +76,8 @@ export class CompanyTaskEditComponent {
   private buildForm(): void {
     this.form = this.fb.group({
       name: [this.companyTask?.name, [Validators.required]],
+      background: [this.companyTask?.background, [Validators.required]],
+      color: [this.companyTask?.color, [Validators.required]],
       active: [this.companyTask?.active]
     });
   }

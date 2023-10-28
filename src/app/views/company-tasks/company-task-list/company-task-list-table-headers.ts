@@ -22,5 +22,19 @@ export const companyTaskListTableHeader: TableHeaderField[] = [
     sortable: true,
     orderType: OrderTypes.none,
     filterable: false
+  },
+  {
+    field: 'background',
+    text: 'Fondo',
+    sortable: false,
+    orderType: OrderTypes.none,
+    filterable: false
+  },
+  {
+    field: 'color',
+    text: 'Texto',
+    sortable: false,
+    orderType: OrderTypes.none,
+    filterable: false
   }
 ];
