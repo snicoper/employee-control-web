@@ -7,4 +7,10 @@
   <div class="mt-4">
     <aw-timezone-selector></aw-timezone-selector>
   </div>
+
+  <div class="mt-4">
+    <aw-dual-list-box
+      (saveChanges)="handleSaveChanges($event)"
+      [dualListBoxItems]="dualListBoxItems"></aw-dual-list-box>
+  </div>
 </aw-view-base>
