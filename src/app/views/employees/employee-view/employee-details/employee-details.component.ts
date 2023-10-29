@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, OnDestroy, computed, inject } from '@angular/core';
 import { Roles, roleToHumanReadable } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { ResultResponse } from '@aw/models/_index';
@@ -13,7 +13,7 @@ import { EmployeeSelectedService } from '../employee-selected.service';
   selector: 'aw-employee-details',
   templateUrl: './employee-details.component.html'
 })
-export class EmployeeDetailsComponent {
+export class EmployeeDetailsComponent implements OnDestroy {
   private readonly employeesApiService = inject(EmployeesApiService);
   private readonly toastrService = inject(ToastrService);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
@@ -63,7 +63,12 @@ export class EmployeeDetailsComponent {
 
   /** Url para editar empleado. */
   get urlToEdit(): string {
-    return this.siteUrls.replace(SiteUrls.employees.edit, { id: this.employeeSelected()?.id ?? '' });
+    return this.siteUrls.replace(SiteUrls.employees.edit, { id: this.employeeSelected()?.id as string });
+  }
+
+  /** Limpiar el empleado seleccionado. */
+  ngOnDestroy(): void {
+    this.employeeSelectedService.cleanData();
   }
 
   /** Eliminar Role RRHH al empleado. */
@@ -79,7 +84,7 @@ export class EmployeeDetailsComponent {
         next: (result: ResultResponse) => {
           if (result.succeeded) {
             this.toastrService.success('Rol establecido con éxito.');
-            this.employeeSelectedService.loadData(this.employeeSelected()?.id ?? '');
+            this.employeeSelectedService.loadData(this.employeeSelected()?.id as string);
           }
         }
       });
@@ -98,7 +103,7 @@ export class EmployeeDetailsComponent {
         next: (result: ResultResponse) => {
           if (result.succeeded) {
             this.toastrService.success('Rol eliminado con éxito.');
-            this.employeeSelectedService.loadData(this.employeeSelected()?.id ?? '');
+            this.employeeSelectedService.loadData(this.employeeSelected()?.id as string);
           }
         }
       });
@@ -116,7 +121,7 @@ export class EmployeeDetailsComponent {
       .subscribe({
         next: () => {
           this.toastrService.success('Usuario desactivado con éxito');
-          this.employeeSelectedService.loadData(this.employeeSelected()?.id ?? '');
+          this.employeeSelectedService.loadData(this.employeeSelected()?.id as string);
         }
       });
   }
@@ -136,10 +141,6 @@ export class EmployeeDetailsComponent {
           this.employeeSelectedService.loadData(this.employeeSelected()?.id ?? '');
         }
       });
-  }
-
-  handleCleanEmployeeSelected(): void {
-    this.employeeSelectedService.cleanData();
   }
 
   /** Wrapper para generar URLs ,de edición de estados. */

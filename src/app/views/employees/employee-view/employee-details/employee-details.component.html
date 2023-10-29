@@ -134,12 +134,12 @@
     <!-- end loading spinner -->
   </table>
 
-  <button (click)="handleCleanEmployeeSelected()" [routerLink]="siteUrls.employees.list" class="btn btn-primary">
+  <button [routerLink]="siteUrls.employees.list" class="btn btn-primary">
     <span class="fa-solid fa-chevron-left"></span> Volver
   </button>
 
   <ng-container *ngIf="canUpdateStates">
-    <button (click)="handleCleanEmployeeSelected()" [routerLink]="urlToEdit" class="btn btn-success ms-2">
+    <button [routerLink]="urlToEdit" class="btn btn-success ms-2">
       <span class="fa-solid fa-pencil"></span> Editar
     </button>
   </ng-container>

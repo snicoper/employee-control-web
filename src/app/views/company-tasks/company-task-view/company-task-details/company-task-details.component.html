@@ -53,11 +53,9 @@
     <!-- end data company task -->
   </table>
 
-  <button (click)="handleCleanCompanyTaskSelected()" [routerLink]="siteUrls.companyTasks.list" class="btn btn-primary">
+  <button [routerLink]="siteUrls.companyTasks.list" class="btn btn-primary">
     <span class="fa-solid fa-chevron-left"></span> Volver
   </button>
 
-  <button (click)="handleCleanCompanyTaskSelected()" [routerLink]="urlToEdit" class="btn btn-success ms-2">
-    <span class="fa-solid fa-pencil"></span> Editar
-  </button>
+  <button [routerLink]="urlToEdit" class="btn btn-success ms-2"><span class="fa-solid fa-pencil"></span> Editar</button>
 </aw-card>

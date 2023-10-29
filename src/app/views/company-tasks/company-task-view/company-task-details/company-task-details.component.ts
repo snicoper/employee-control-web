@@ -1,4 +1,4 @@
-import { Component, Input, computed, inject } from '@angular/core';
+import { Component, Input, OnDestroy, computed, inject } from '@angular/core';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
@@ -11,7 +11,7 @@ import { CompanyTaskSelectedService } from '../company-task-selected.service';
   selector: 'aw-company-task-details',
   templateUrl: './company-task-details.component.html'
 })
-export class CompanyTaskDetailsComponent {
+export class CompanyTaskDetailsComponent implements OnDestroy {
   @Input({ required: true }) companyTaskId = '';
 
   private readonly toastrService = inject(ToastrService);
@@ -27,6 +27,10 @@ export class CompanyTaskDetailsComponent {
 
   get urlToEdit(): string {
     return SiteUrls.replace(SiteUrls.companyTasks.edit, { id: this.companyTaskId });
+  }
+
+  ngOnDestroy(): void {
+    this.companyTaskSelectedService.cleanData();
   }
 
   handleActivateTask(): void {
@@ -59,9 +63,5 @@ export class CompanyTaskDetailsComponent {
           this.companyTaskSelectedService.loadData(this.companyTaskId);
         }
       });
-  }
-
-  handleCleanCompanyTaskSelected(): void {
-    this.companyTaskSelectedService.cleanData();
   }
 }
