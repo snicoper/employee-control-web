@@ -19,8 +19,8 @@ export class EmployeeDetailsComponent {
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
   private readonly jwtService = inject(JwtService);
 
-  readonly employee = computed(() => this.employeeSelectedService.employeeSelected());
-  readonly employeeRoles = computed(() => this.employeeSelectedService.employeeSelectedRoles());
+  readonly employeeSelected = computed(() => this.employeeSelectedService.employeeSelected());
+  readonly employeeSelectedRoles = computed(() => this.employeeSelectedService.employeeSelectedRoles());
   readonly loadingEmployee = computed(() => this.employeeSelectedService.loadingEmployee());
   readonly loadingEmployeeRoles = computed(() => this.employeeSelectedService.loadingEmployeeRoles());
 
@@ -44,32 +44,32 @@ export class EmployeeDetailsComponent {
 
   /** Empleado seleccionado es humanResources. */
   get isHumanResources(): boolean {
-    const index = this.employeeRoles()?.findIndex((role) => role.name === Roles.humanResources);
+    const index = this.employeeSelectedRoles()?.findIndex((role) => role.name === Roles.humanResources);
 
     return index !== undefined && index >= 0;
   }
 
   /** Empleado seleccionado es enterpriseAdministrator. */
   get isEnterpriseAdministrator(): boolean {
-    const index = this.employeeRoles()?.findIndex((role) => role.name === Roles.enterpriseAdministrator);
+    const index = this.employeeSelectedRoles()?.findIndex((role) => role.name === Roles.enterpriseAdministrator);
 
     return index !== undefined && index >= 0;
   }
 
   /** Comprueba si el usuario actual es igual al empleado seleccionado. */
   get canUpdateStates(): boolean {
-    return this.jwtService.getSid() !== this.employee()?.id;
+    return this.jwtService.getSid() !== this.employeeSelected()?.id;
   }
 
   /** Url para editar empleado. */
   get urlToEdit(): string {
-    return this.siteUrls.replace(SiteUrls.employees.edit, { id: this.employee()?.id ?? '' });
+    return this.siteUrls.replace(SiteUrls.employees.edit, { id: this.employeeSelected()?.id ?? '' });
   }
 
   /** Eliminar Role RRHH al empleado. */
   handleRemoveRoleRrhh(): void {
     this.loadingUpdateRole = true;
-    const data = { employeeId: this.employee()?.id };
+    const data = { employeeId: this.employeeSelected()?.id };
     const url = this.generateApiUrl(ApiUrls.employees.removeRoleHumanResources);
 
     this.employeesApiService
@@ -79,7 +79,7 @@ export class EmployeeDetailsComponent {
         next: (result: ResultResponse) => {
           if (result.succeeded) {
             this.toastrService.success('Rol establecido con éxito.');
-            this.employeeSelectedService.loadData(this.employee()?.id ?? '');
+            this.employeeSelectedService.loadData(this.employeeSelected()?.id ?? '');
           }
         }
       });
@@ -88,7 +88,7 @@ export class EmployeeDetailsComponent {
   /** Añadir role RRHH al empleado. */
   handleAddRoleRrhh(): void {
     this.loadingUpdateRole = true;
-    const data = { employeeId: this.employee()?.id };
+    const data = { employeeId: this.employeeSelected()?.id };
     const url = this.generateApiUrl(ApiUrls.employees.addRoleHumanResources);
 
     this.employeesApiService
@@ -98,7 +98,7 @@ export class EmployeeDetailsComponent {
         next: (result: ResultResponse) => {
           if (result.succeeded) {
             this.toastrService.success('Rol eliminado con éxito.');
-            this.employeeSelectedService.loadData(this.employee()?.id ?? '');
+            this.employeeSelectedService.loadData(this.employeeSelected()?.id ?? '');
           }
         }
       });
@@ -107,7 +107,7 @@ export class EmployeeDetailsComponent {
   /** Establecer estado Active a false del empleado. */
   handleDeactivateEmployee(): void {
     this.loadingUpdateActive = true;
-    const data = { employeeId: this.employee()?.id };
+    const data = { employeeId: this.employeeSelected()?.id };
     const url = this.generateApiUrl(ApiUrls.employees.deactivateEmployee);
 
     this.employeesApiService
@@ -116,7 +116,7 @@ export class EmployeeDetailsComponent {
       .subscribe({
         next: () => {
           this.toastrService.success('Usuario desactivado con éxito');
-          this.employeeSelectedService.loadData(this.employee()?.id ?? '');
+          this.employeeSelectedService.loadData(this.employeeSelected()?.id ?? '');
         }
       });
   }
@@ -124,7 +124,7 @@ export class EmployeeDetailsComponent {
   /** Establecer estado Active a true del empleado. */
   handleActivateEmployee(): void {
     this.loadingUpdateActive = true;
-    const data = { employeeId: this.employee()?.id };
+    const data = { employeeId: this.employeeSelected()?.id };
     const url = this.generateApiUrl(ApiUrls.employees.activateEmployee);
 
     this.employeesApiService
@@ -133,13 +133,13 @@ export class EmployeeDetailsComponent {
       .subscribe({
         next: () => {
           this.toastrService.success('Usuario activado con éxito');
-          this.employeeSelectedService.loadData(this.employee()?.id ?? '');
+          this.employeeSelectedService.loadData(this.employeeSelected()?.id ?? '');
         }
       });
   }
 
   /** Wrapper para generar URLs ,de edición de estados. */
   private generateApiUrl(partialUrl: string): string {
-    return ApiUrls.replace(partialUrl, { id: this.employee()?.id ?? '' });
+    return ApiUrls.replace(partialUrl, { id: this.employeeSelected()?.id ?? '' });
   }
 }

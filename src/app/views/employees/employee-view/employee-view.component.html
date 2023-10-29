@@ -1,25 +1,25 @@
 <aw-view-base>
   <aw-card>
-    <h3>Empleado - {{ employee()?.firstName }} {{ employee()?.lastName }}</h3>
+    <h3>Empleado - {{ employeeSelected()?.firstName }} {{ employeeSelected()?.lastName }}</h3>
     <aw-breadcrumb [breadcrumb]="breadcrumb"></aw-breadcrumb>
   </aw-card>
 
   <div class="mt-2"></div>
 
   <!-- employee details -->
-  <ng-container *ngIf="employee()">
+  <ng-container *ngIf="employeeSelected()">
     <aw-employee-details></aw-employee-details>
   </ng-container>
   <!-- end employee details -->
 
   <!-- tabs -->
-  <ng-container *ngIf="employee()">
+  <ng-container *ngIf="employeeSelected()">
     <div class="mt-3">
       <aw-card>
         <div>
           <tabset>
             <tab heading="Tareas" #tabTasks="tab">
-              <aw-employee-tasks></aw-employee-tasks>
+              <aw-employee-tasks *ngIf="tabTasks.active"></aw-employee-tasks>
             </tab>
             <tab heading="Basic Title 1" #tabB="tab"> </tab>
             <tab heading="Basic Title 2" #tabC="tab">Basic content 2</tab>

@@ -12,7 +12,7 @@ export class EmployeeViewComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
 
-  readonly employee = computed(() => this.employeeSelectedService.employeeSelected());
+  readonly employeeSelected = computed(() => this.employeeSelectedService.employeeSelected());
 
   readonly breadcrumb = new BreadcrumbCollection();
   readonly employeeId: string;
