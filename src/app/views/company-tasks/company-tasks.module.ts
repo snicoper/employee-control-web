@@ -10,6 +10,7 @@ import { AwPaginationModule } from '@aw/components/pagination/aw-pagination.modu
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { PipesModule } from '@aw/pipes/pipes.module';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CompanyTaskCreateComponent } from './company-task-create/company-task-create.component';
 import { CompanyTaskEditComponent } from './company-task-edit/company-task-edit.component';
 import { CompanyTaskListComponent } from './company-task-list/company-task-list.component';
@@ -17,6 +18,7 @@ import { CompanyTaskDetailsComponent } from './company-task-view/company-task-de
 import { CompanyTaskSelectedService } from './company-task-view/company-task-selected.service';
 import { CompanyTaskViewComponent } from './company-task-view/company-task-view.component';
 import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
+import { CompanyTaskUsersComponent } from './company-task-view/company-task-users/company-task-users.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +26,14 @@ import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
     CompanyTaskViewComponent,
     CompanyTaskCreateComponent,
     CompanyTaskDetailsComponent,
-    CompanyTaskEditComponent
+    CompanyTaskEditComponent,
+    CompanyTaskUsersComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    TabsModule.forRoot(),
     CompanyTaskRoutingModule,
     AwFormsModule,
     AwViewsModule,

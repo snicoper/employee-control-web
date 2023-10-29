@@ -1,0 +1,44 @@
+<div class="d-flex my-3">
+  <h5 class="m-auto">Usuarios en la tarea - {{ companyTaskSelected()?.name }}</h5>
+</div>
+
+<!-- filter -->
+<div class="d-flex mb-2">
+  <span class="me-auto">&nbsp;</span>
+  <span>
+    <aw-table-input-search
+      [tableHeaderConfig]="tableHeaderConfig"
+      [apiResult]="apiResult"
+      (clickFiltering)="handleFilterChange($event)"></aw-table-input-search>
+  </span>
+</div>
+<!-- end filter -->
+
+<!-- table -->
+<aw-table [apiResult]="apiResult" [loading]="loading">
+  <thead awThead>
+    <tr
+      awTableHeader
+      [tableHeaderConfig]="tableHeaderConfig"
+      [apiResult]="apiResult"
+      (clickOrdering)="handleReloadData()"></tr>
+  </thead>
+
+  <tbody awTbody *ngIf="apiResult">
+    <tr *ngFor="let user of apiResult.items">
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user.email }}</td>
+    </tr>
+  </tbody>
+</aw-table>
+<!-- end table -->
+
+<!-- pagination -->
+<aw-pagination
+  *ngIf="apiResult"
+  [apiResult]="apiResult"
+  (changePage)="handleReloadData()"
+  (changePageListNumber)="handleReloadData()">
+</aw-pagination>
+<!-- end pagination -->

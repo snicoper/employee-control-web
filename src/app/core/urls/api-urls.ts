@@ -33,6 +33,7 @@ export const ApiUrls = {
   /** CompanyTasks. */
   companyTasks: {
     getCompanyTasksPaginatedByCompanyId: '/tasks/company/{companyId}/paginated',
+    getUsersByCompanyTaskIdPaginated: '/tasks/{id}/employees/paginated',
     createCompanyTask: '/tasks',
     getCompanyTasksById: '/tasks/{id}',
     activateCompanyTask: '/tasks/{id}/activate',
@@ -63,7 +64,7 @@ export const ApiUrls = {
    * Utiliza una de las propiedades de siteUrls para remplazar {algo} por valor en los args.
    *
    * @param url Una de las propiedades.
-   * @param args Remplaza el {key} por el value de.
+   * @param args Remplaza el {key} por el value.
    */
   replace: (url: string, args: Record<string, string>): string => replaceStringParams(url, args)
 };
