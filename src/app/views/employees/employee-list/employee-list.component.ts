@@ -31,7 +31,7 @@ export class EmployeeListComponent {
     this.loadEmployees();
   }
 
-  handleFilterChange(event: ApiResult<EmployeeListResponse>): void {
+  handleClickClean(event: ApiResult<EmployeeListResponse>): void {
     this.apiResult = event;
     this.handleReloadData();
   }

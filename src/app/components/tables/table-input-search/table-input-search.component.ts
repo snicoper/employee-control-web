@@ -11,7 +11,7 @@ export class TableInputSearchComponent<T> {
   @Input({ required: true }) tableHeaderConfig = new TableHeaderConfig();
   @Input({ required: true }) apiResult = new ApiResult<T>();
 
-  @Output() clickFiltering = new EventEmitter<ApiResult<T>>();
+  @Output() clickClean = new EventEmitter<ApiResult<T>>();
 
   term = '';
 
@@ -27,6 +27,6 @@ export class TableInputSearchComponent<T> {
       }
     });
 
-    this.clickFiltering.emit(this.apiResult);
+    this.clickClean.emit(this.apiResult);
   }
 }

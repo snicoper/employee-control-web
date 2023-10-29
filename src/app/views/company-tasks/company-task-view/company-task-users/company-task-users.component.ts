@@ -34,7 +34,7 @@ export class CompanyTaskUsersComponent implements OnInit {
     this.loadCompanyTaskUsers();
   }
 
-  handleFilterChange(event: ApiResult<CompanyTaskUserResponse>): void {
+  handleClickClean(event: ApiResult<CompanyTaskUserResponse>): void {
     this.apiResult = event;
     this.handleReloadData();
   }

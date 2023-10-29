@@ -35,7 +35,7 @@ export class CompanyTaskListComponent {
     this.loadCompanyTasks();
   }
 
-  handleFilterChange(event: ApiResult<CompanyTask>): void {
+  handleClickClean(event: ApiResult<CompanyTask>): void {
     this.apiResult = event;
     this.handleReloadData();
   }
