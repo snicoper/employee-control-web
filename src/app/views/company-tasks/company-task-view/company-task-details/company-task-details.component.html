@@ -8,28 +8,28 @@
     <!-- end sonarLint -->
 
     <!-- data company task -->
-    <ng-container *ngIf="companyTask() && !companyTaskLoading()">
+    <ng-container *ngIf="companyTaskSelected() && !companyTaskLoading()">
       <tbody>
         <tr>
           <td>Nombre</td>
           <td>
             <aw-badge
-              [background]="companyTask()?.background"
-              [color]="companyTask()?.color"
-              [name]="companyTask()?.name"></aw-badge>
+              [background]="companyTaskSelected()?.background"
+              [color]="companyTaskSelected()?.color"
+              [name]="companyTaskSelected()?.name"></aw-badge>
           </td>
         </tr>
         <tr>
           <td>Fecha de creación</td>
-          <td>{{ companyTask()?.created | datetime: dateShort }}</td>
+          <td>{{ companyTaskSelected()?.created | datetime: dateShort }}</td>
         </tr>
         <tr>
           <td>Activa</td>
           <td>
             <span class="d-flex">
-              <span [innerHTML]="companyTask()?.active | boolToIcon"></span>
+              <span [innerHTML]="companyTaskSelected()?.active | boolToIcon"></span>
               <span class="ms-auto">
-                <ng-container *ngIf="companyTask()?.active">
+                <ng-container *ngIf="companyTaskSelected()?.active">
                   <aw-btn-loading
                     (click)="handleDeactivateTask()"
                     [loading]="loadingStateTask"
@@ -37,7 +37,7 @@
                     btnText="Desactivar"></aw-btn-loading>
                 </ng-container>
 
-                <ng-container *ngIf="!companyTask()?.active">
+                <ng-container *ngIf="!companyTaskSelected()?.active">
                   <aw-btn-loading
                     (click)="handleActivateTask()"
                     [loading]="loadingStateTask"
@@ -53,9 +53,11 @@
     <!-- end data company task -->
   </table>
 
-  <button [routerLink]="siteUrls.companyTasks.list" class="btn btn-primary">
+  <button (click)="handleCleanCompanyTaskSelected()" [routerLink]="siteUrls.companyTasks.list" class="btn btn-primary">
     <span class="fa-solid fa-chevron-left"></span> Volver
   </button>
 
-  <button [routerLink]="urlToEdit" class="btn btn-success ms-2"><span class="fa-solid fa-pencil"></span> Editar</button>
+  <button (click)="handleCleanCompanyTaskSelected()" [routerLink]="urlToEdit" class="btn btn-success ms-2">
+    <span class="fa-solid fa-pencil"></span> Editar
+  </button>
 </aw-card>

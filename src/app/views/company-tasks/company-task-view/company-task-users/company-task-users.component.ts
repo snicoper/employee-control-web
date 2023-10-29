@@ -6,7 +6,7 @@ import { SiteUrls } from '@aw/core/urls/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
-import { CompanyTaskSelectedService } from './../company-task-selected.service';
+import { CompanyTaskSelectedService } from '../company-task-selected.service';
 import { CompanyTaskUserResponse } from './company-task-users-response.model';
 import { companyTaskUsersTableHeaders } from './company-task-users-table-headers';
 

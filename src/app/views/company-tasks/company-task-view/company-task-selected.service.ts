@@ -4,6 +4,7 @@ import { CompanyTask } from '@aw/models/entities/company-task.model';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
 
+/** Tarea seleccionada desde la lista (company-task-list). */
 @Injectable()
 export class CompanyTaskSelectedService {
   private readonly companyTaskApiService = inject(CompanyTaskApiService);
@@ -13,6 +14,10 @@ export class CompanyTaskSelectedService {
 
   readonly companyTaskSelected = computed(() => this.companyTaskSelected$());
   readonly companyTaskLoading = computed(() => this.companyTaskLoading$());
+
+  cleanData(): void {
+    this.companyTaskSelected$.set(null);
+  }
 
   loadData(companyTaskId: string): void {
     this.companyTaskLoading$.set(true);

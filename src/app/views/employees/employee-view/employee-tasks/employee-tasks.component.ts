@@ -6,7 +6,7 @@ import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { CompanyTask } from '@aw/models/entities/company-task.model';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
-import { EmployeeSelectedService } from './../employee-selected.service';
+import { EmployeeSelectedService } from '../employee-selected.service';
 import { employeeTasksTableHeaders } from './employee-tasks-table-headers';
 
 @Component({

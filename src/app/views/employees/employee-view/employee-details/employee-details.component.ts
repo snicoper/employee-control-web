@@ -7,7 +7,7 @@ import { EmployeesApiService } from '@aw/services/api/_index';
 import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { EmployeeSelectedService } from './../employee-selected.service';
+import { EmployeeSelectedService } from '../employee-selected.service';
 
 @Component({
   selector: 'aw-employee-details',
@@ -136,6 +136,10 @@ export class EmployeeDetailsComponent {
           this.employeeSelectedService.loadData(this.employeeSelected()?.id ?? '');
         }
       });
+  }
+
+  handleCleanEmployeeSelected(): void {
+    this.employeeSelectedService.cleanData();
   }
 
   /** Wrapper para generar URLs ,de edición de estados. */

@@ -5,6 +5,7 @@ import { User } from '@aw/models/entities/user.model';
 import { EmployeesApiService } from '@aw/services/api/employees-api.service';
 import { finalize } from 'rxjs';
 
+/** Empleado seleccionado desde la lista (employee-list). */
 @Injectable()
 export class EmployeeSelectedService {
   private readonly employeeSelected$ = signal<User | null>(null);
@@ -18,6 +19,11 @@ export class EmployeeSelectedService {
   readonly employeeSelectedRoles = computed(() => this.employeeSelectedRoles$());
   readonly loadingEmployee = computed(() => this.loadingEmployee$());
   readonly loadingEmployeeRoles = computed(() => this.loadingEmployeeRoles$());
+
+  cleanData(): void {
+    this.employeeSelected$.set(null);
+    this.employeeSelectedRoles$.set([]);
+  }
 
   loadData(employeeId: string): void {
     this.loadingEmployee$.set(true);

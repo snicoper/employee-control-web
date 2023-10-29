@@ -16,9 +16,9 @@ import { CompanyTaskEditComponent } from './company-task-edit/company-task-edit.
 import { CompanyTaskListComponent } from './company-task-list/company-task-list.component';
 import { CompanyTaskDetailsComponent } from './company-task-view/company-task-details/company-task-details.component';
 import { CompanyTaskSelectedService } from './company-task-view/company-task-selected.service';
+import { CompanyTaskUsersComponent } from './company-task-view/company-task-users/company-task-users.component';
 import { CompanyTaskViewComponent } from './company-task-view/company-task-view.component';
 import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
-import { CompanyTaskUsersComponent } from './company-task-view/company-task-users/company-task-users.component';
 
 @NgModule({
   declarations: [

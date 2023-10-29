@@ -19,8 +19,8 @@ export class EmployeeViewComponent {
 
   constructor() {
     this.employeeId = this.route.snapshot.paramMap.get('id') ?? '';
-    this.setBreadcrumb();
     this.employeeSelectedService.loadData(this.employeeId);
+    this.setBreadcrumb();
   }
 
   private setBreadcrumb(): void {

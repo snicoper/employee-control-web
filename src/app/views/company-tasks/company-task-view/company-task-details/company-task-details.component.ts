@@ -5,7 +5,7 @@ import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { CompanyTaskSelectedService } from './../company-task-selected.service';
+import { CompanyTaskSelectedService } from '../company-task-selected.service';
 
 @Component({
   selector: 'aw-company-task-details',
@@ -18,7 +18,7 @@ export class CompanyTaskDetailsComponent {
   private readonly companyTaskSelectedService = inject(CompanyTaskSelectedService);
   private readonly companyTaskApiService = inject(CompanyTaskApiService);
 
-  readonly companyTask = computed(() => this.companyTaskSelectedService.companyTaskSelected());
+  readonly companyTaskSelected = computed(() => this.companyTaskSelectedService.companyTaskSelected());
   readonly companyTaskLoading = computed(() => this.companyTaskSelectedService.companyTaskLoading());
   readonly dateShort = DateTime.DATE_SHORT;
 
@@ -59,5 +59,9 @@ export class CompanyTaskDetailsComponent {
           this.companyTaskSelectedService.loadData(this.companyTaskId);
         }
       });
+  }
+
+  handleCleanCompanyTaskSelected(): void {
+    this.companyTaskSelectedService.cleanData();
   }
 }
