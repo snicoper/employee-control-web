@@ -32,13 +32,14 @@ export const ApiUrls = {
 
   /** CompanyTasks. */
   companyTasks: {
-    getCompanyTasksPaginatedByCompanyId: '/tasks/company/{companyId}/paginated',
+    getCompanyTasksByCompanyIdPaginated: '/tasks/companies/{companyId}/paginated',
     getUsersByCompanyTaskIdPaginated: '/tasks/{id}/employees/paginated',
-    createCompanyTask: '/tasks',
+    getCompanyTasksByEmployeeIdPaginated: '/tasks/employees/{employeeId}/paginated',
     getCompanyTasksById: '/tasks/{id}',
+    createCompanyTask: '/tasks',
+    updateCompanyTask: '/tasks/{id}',
     activateCompanyTask: '/tasks/{id}/activate',
-    deactivateCompanyTask: '/tasks/{id}/deactivate',
-    updateCompanyTask: '/tasks/{id}'
+    deactivateCompanyTask: '/tasks/{id}/deactivate'
   },
 
   /** Employees. */

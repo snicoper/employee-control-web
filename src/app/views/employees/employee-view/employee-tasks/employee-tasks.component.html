@@ -1,5 +1,5 @@
 <div class="d-flex my-3">
-  <h5 class="m-auto">Usuarios en la tarea - {{ companyTaskSelected()?.name }}</h5>
+  <h5 class="m-auto">Tareas de {{ employeeSelected()?.firstName }} {{ employeeSelected()?.lastName }}</h5>
 </div>
 
 <!-- filter -->
@@ -25,10 +25,17 @@
   </thead>
 
   <tbody awTbody *ngIf="apiResult">
-    <tr *ngFor="let user of apiResult.items" (click)="handleSelectItem(user)" class="cursor-pointer">
-      <td>{{ user.firstName }}</td>
-      <td>{{ user.lastName }}</td>
-      <td>{{ user.email }}</td>
+    <tr *ngFor="let task of apiResult.items" (click)="handleSelectItem(task)" class="cursor-pointer">
+      <td>
+        <aw-badge [background]="task.background" [color]="task.color" [name]="task.name"></aw-badge>
+      </td>
+      <td [innerHTML]="task.active | boolToIcon"></td>
+      <td>
+        <aw-dot [color]="task.background"></aw-dot>
+      </td>
+      <td>
+        <aw-dot [color]="task.color"></aw-dot>
+      </td>
     </tr>
   </tbody>
 </aw-table>

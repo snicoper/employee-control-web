@@ -1,30 +1,28 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
 import { ApiResult } from '@aw/core/api-result/api-result';
-import { ApiUrls } from '@aw/core/urls/api-urls';
-import { SiteUrls } from '@aw/core/urls/site-urls';
+import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { CompanyTask } from '@aw/models/entities/company-task.model';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
-import { DateTime } from 'luxon';
 import { finalize } from 'rxjs';
-import { CurrentCompanyEmployeeService } from './../../../services/current-company-employee.service';
-import { companyTaskListTableHeader } from './company-task-list-table-headers';
+import { EmployeeSelectedService } from './../employee-selected.service';
+import { employeeTasksTableHeaders } from './employee-tasks-table-headers';
 
 @Component({
-  selector: 'aw-company-tasks-list',
-  templateUrl: './company-task-list.component.html'
+  selector: 'aw-employee-tasks',
+  templateUrl: './employee-tasks.component.html'
 })
-export class CompanyTaskListComponent {
+export class EmployeeTasksComponent {
   private readonly companyTaskApiService = inject(CompanyTaskApiService);
+  private readonly employeeSelectedService = inject(EmployeeSelectedService);
   private readonly router = inject(Router);
-  private readonly currentCompanyEmployeeService = inject(CurrentCompanyEmployeeService);
+
+  readonly employeeSelected = computed(() => this.employeeSelectedService.employeeSelected());
 
   apiResult = new ApiResult<CompanyTask>();
   tableHeaderConfig = new TableHeaderConfig();
   loading = false;
-  siteUrls = SiteUrls;
-  dateShort = DateTime.DATE_SHORT;
 
   constructor() {
     this.configureTableHeaders();
@@ -41,18 +39,19 @@ export class CompanyTaskListComponent {
   }
 
   handleSelectItem(companyTask: CompanyTask): void {
-    const url = SiteUrls.replace(SiteUrls.companyTasks.details, { id: companyTask.id.toString() });
+    const url = SiteUrls.replace(SiteUrls.companyTasks.details, { id: companyTask.id });
     this.router.navigateByUrl(url);
   }
 
   private configureTableHeaders(): void {
-    this.tableHeaderConfig.addHeaders(companyTaskListTableHeader);
+    this.tableHeaderConfig.addHeaders(employeeTasksTableHeaders);
   }
 
   private loadCompanyTasks(): void {
     this.loading = true;
-    const url = ApiUrls.replace(ApiUrls.companyTasks.getCompanyTasksByCompanyIdPaginated, {
-      companyId: this.currentCompanyEmployeeService.getValue()?.id.toString() ?? ''
+
+    const url = ApiUrls.replace(ApiUrls.companyTasks.getCompanyTasksByEmployeeIdPaginated, {
+      employeeId: this.employeeSelected()?.id ?? ''
     });
 
     this.companyTaskApiService

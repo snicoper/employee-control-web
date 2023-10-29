@@ -1,4 +1,4 @@
-import { Component, Input, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Roles, roleToHumanReadable } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { ResultResponse } from '@aw/models/_index';
@@ -7,15 +7,13 @@ import { EmployeesApiService } from '@aw/services/api/_index';
 import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { EmployeeSelectedService } from '../employee-selected.service';
+import { EmployeeSelectedService } from './../employee-selected.service';
 
 @Component({
   selector: 'aw-employee-details',
   templateUrl: './employee-details.component.html'
 })
 export class EmployeeDetailsComponent {
-  @Input({ required: true }) employeeId = '';
-
   private readonly employeesApiService = inject(EmployeesApiService);
   private readonly toastrService = inject(ToastrService);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
@@ -65,13 +63,13 @@ export class EmployeeDetailsComponent {
 
   /** Url para editar empleado. */
   get urlToEdit(): string {
-    return this.siteUrls.replace(SiteUrls.employees.edit, { id: this.employeeId });
+    return this.siteUrls.replace(SiteUrls.employees.edit, { id: this.employee()?.id ?? '' });
   }
 
   /** Eliminar Role RRHH al empleado. */
   handleRemoveRoleRrhh(): void {
     this.loadingUpdateRole = true;
-    const data = { employeeId: this.employeeId };
+    const data = { employeeId: this.employee()?.id };
     const url = this.generateApiUrl(ApiUrls.employees.removeRoleHumanResources);
 
     this.employeesApiService
@@ -81,7 +79,7 @@ export class EmployeeDetailsComponent {
         next: (result: ResultResponse) => {
           if (result.succeeded) {
             this.toastrService.success('Rol establecido con éxito.');
-            this.employeeSelectedService.loadData(this.employeeId);
+            this.employeeSelectedService.loadData(this.employee()?.id ?? '');
           }
         }
       });
@@ -90,7 +88,7 @@ export class EmployeeDetailsComponent {
   /** Añadir role RRHH al empleado. */
   handleAddRoleRrhh(): void {
     this.loadingUpdateRole = true;
-    const data = { employeeId: this.employeeId };
+    const data = { employeeId: this.employee()?.id };
     const url = this.generateApiUrl(ApiUrls.employees.addRoleHumanResources);
 
     this.employeesApiService
@@ -100,7 +98,7 @@ export class EmployeeDetailsComponent {
         next: (result: ResultResponse) => {
           if (result.succeeded) {
             this.toastrService.success('Rol eliminado con éxito.');
-            this.employeeSelectedService.loadData(this.employeeId);
+            this.employeeSelectedService.loadData(this.employee()?.id ?? '');
           }
         }
       });
@@ -109,7 +107,7 @@ export class EmployeeDetailsComponent {
   /** Establecer estado Active a false del empleado. */
   handleDeactivateEmployee(): void {
     this.loadingUpdateActive = true;
-    const data = { employeeId: this.employeeId };
+    const data = { employeeId: this.employee()?.id };
     const url = this.generateApiUrl(ApiUrls.employees.deactivateEmployee);
 
     this.employeesApiService
@@ -118,7 +116,7 @@ export class EmployeeDetailsComponent {
       .subscribe({
         next: () => {
           this.toastrService.success('Usuario desactivado con éxito');
-          this.employeeSelectedService.loadData(this.employeeId);
+          this.employeeSelectedService.loadData(this.employee()?.id ?? '');
         }
       });
   }
@@ -126,7 +124,7 @@ export class EmployeeDetailsComponent {
   /** Establecer estado Active a true del empleado. */
   handleActivateEmployee(): void {
     this.loadingUpdateActive = true;
-    const data = { employeeId: this.employeeId };
+    const data = { employeeId: this.employee()?.id };
     const url = this.generateApiUrl(ApiUrls.employees.activateEmployee);
 
     this.employeesApiService
@@ -135,13 +133,13 @@ export class EmployeeDetailsComponent {
       .subscribe({
         next: () => {
           this.toastrService.success('Usuario activado con éxito');
-          this.employeeSelectedService.loadData(this.employeeId);
+          this.employeeSelectedService.loadData(this.employee()?.id ?? '');
         }
       });
   }
 
   /** Wrapper para generar URLs ,de edición de estados. */
   private generateApiUrl(partialUrl: string): string {
-    return ApiUrls.replace(partialUrl, { id: this.employeeId });
+    return ApiUrls.replace(partialUrl, { id: this.employee()?.id ?? '' });
   }
 }
