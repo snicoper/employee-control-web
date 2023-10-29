@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { CompanyTaskSelectedService } from './company-task-selected.service';
+import { EmployeeLoadComponent } from './employee-load-component.model';
 
 @Component({
   selector: 'aw-company-task-view',
@@ -17,10 +18,21 @@ export class CompanyTaskViewComponent {
   readonly breadcrumb = new BreadcrumbCollection();
   readonly companyTaskId: string;
 
+  /** Tab tabUsers, ver que componente mostrar. */
+  employeeComponent = EmployeeLoadComponent.employees;
+  employeeLoadComponent = EmployeeLoadComponent;
+
   constructor() {
     this.companyTaskId = this.route.snapshot.paramMap.get('id') as string;
     this.setBreadcrumb();
     this.companyTaskSelectedService.loadData(this.companyTaskId);
+  }
+
+  handleChangeComponent(): void {
+    this.employeeComponent =
+      this.employeeComponent === EmployeeLoadComponent.addUsers
+        ? EmployeeLoadComponent.employees
+        : EmployeeLoadComponent.addUsers;
   }
 
   private setBreadcrumb(): void {

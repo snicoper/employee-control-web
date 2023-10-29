@@ -2,9 +2,12 @@
   <h5 class="m-auto">Usuarios en la tarea - {{ companyTaskSelected()?.name }}</h5>
 </div>
 
-<!-- filter -->
+<!-- toolbar -->
 <div class="d-flex mb-2">
-  <span class="me-auto">&nbsp;</span>
+  <span class="me-auto">
+    <button (click)="handleChangeComponent()" class="btn btn-sm btn-outline-success">Añadir empleados</button>
+  </span>
+
   <span>
     <aw-table-input-search
       [tableHeaderConfig]="tableHeaderConfig"
@@ -12,7 +15,7 @@
       (clickClean)="handleClickClean($event)"></aw-table-input-search>
   </span>
 </div>
-<!-- end filter -->
+<!-- end toolbar -->
 
 <!-- table -->
 <aw-table [apiResult]="apiResult" [loading]="loading">

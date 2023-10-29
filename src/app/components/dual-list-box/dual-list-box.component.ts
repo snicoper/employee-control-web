@@ -16,13 +16,13 @@ export class DualListBoxComponent implements OnInit {
   /** Box left. */
   boxLeftId = Math.random().toString();
   dualListBoxItemsLeft: DualListBoxItem[] = [];
-  itemsLeftSelected: number[] = [];
+  itemsLeftSelected: string[] | number[] = [];
   termLeftValue = '';
 
   /** Box right. */
   boxRightId = Math.random().toString();
   dualListBoxItemsRight: DualListBoxItem[] = [];
-  itemsRightSelected: number[] = [];
+  itemsRightSelected: string[] | number[] = [];
   termRightValue = '';
 
   ngOnInit(): void {

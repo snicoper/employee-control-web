@@ -5,6 +5,7 @@ import { AwBreadcrumbModule } from '@aw/components/breadcrumb/aw-breadcrumb.modu
 import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
 import { AwColorsModule } from '@aw/components/colors/aw-colors.module';
+import { AwDualListBoxModule } from '@aw/components/dual-list-box/aw-dual-list-box.module';
 import { AwFormsModule } from '@aw/components/forms/aw-forms.module';
 import { AwPaginationModule } from '@aw/components/pagination/aw-pagination.module';
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
@@ -19,6 +20,7 @@ import { CompanyTaskSelectedService } from './company-task-view/company-task-sel
 import { CompanyTaskUsersComponent } from './company-task-view/company-task-users/company-task-users.component';
 import { CompanyTaskViewComponent } from './company-task-view/company-task-view.component';
 import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
+import { CompanyTaskAddUsersComponent } from './company-task-view/company-task-add-users/company-task-add-users.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
     CompanyTaskCreateComponent,
     CompanyTaskDetailsComponent,
     CompanyTaskEditComponent,
-    CompanyTaskUsersComponent
+    CompanyTaskUsersComponent,
+    CompanyTaskAddUsersComponent
   ],
   imports: [
     CommonModule,
@@ -43,6 +46,7 @@ import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
     AwButtonsModule,
     AwBreadcrumbModule,
     AwColorsModule,
+    AwDualListBoxModule,
     PipesModule
   ],
   providers: [CompanyTaskSelectedService]

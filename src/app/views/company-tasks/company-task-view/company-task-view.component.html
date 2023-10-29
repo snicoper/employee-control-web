@@ -14,7 +14,15 @@
         <div>
           <tabset>
             <tab heading="Empleados" #tabUsers="tab">
-              <aw-company-task-users *ngIf="tabUsers.active"></aw-company-task-users>
+              <aw-company-task-users
+                (changeComponent)="handleChangeComponent()"
+                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.employees">
+              </aw-company-task-users>
+
+              <aw-company-task-add-users
+                (changeComponent)="handleChangeComponent()"
+                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.addUsers">
+              </aw-company-task-add-users>
             </tab>
             <tab heading="Basic Title 1" #tabB="tab">
               <aw-company-task-users *ngIf="tabB.active"></aw-company-task-users>
