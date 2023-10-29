@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 import { logDebug, logWarning } from '@aw/core/errors/_index';
 import { ValidationErrors } from '@aw/core/types/_index';
 import { SiteUrls } from '@aw/core/urls/_index';
-import { toastForNotificationErrors } from '@aw/core/utils/_index';
 import { BadRequestErrors, RefreshTokenResponse } from '@aw/models/_index';
 import { JwtService } from '@aw/services/jwt.service';
 import { ToastrService } from 'ngx-toastr';
@@ -32,7 +31,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
           case HttpStatusCode.Unauthorized:
             return this.handleUnauthorized(request, next);
           case HttpStatusCode.NotFound:
-            this.handleNotFound();
+            this.handleNotFound(error);
             break;
           case HttpStatusCode.Forbidden:
             this.handleForbidden();
@@ -92,11 +91,12 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     return next.handle(request);
   }
 
-  private handleNotFound(): void {
-    this.router.navigateByUrl(SiteUrls.errors.notFound);
+  /** Manejar error NotFound. */
+  private handleNotFound(error: HttpErrorResponse): void {
+    logWarning(error.error);
   }
 
-  /** Manejar error forbidden.  */
+  /** Manejar error Forbidden.  */
   private handleForbidden(): void {
     this.router.navigateByUrl(SiteUrls.errors.forbidden);
   }
@@ -106,7 +106,9 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     const errors = errorResponse.error.errors as BadRequestErrors;
 
     if (Object.hasOwn(errors, ValidationErrors.notificationErrors)) {
-      toastForNotificationErrors(errors[ValidationErrors.notificationErrors], this.toastrService);
+      errors[ValidationErrors.notificationErrors].forEach((error: string) => {
+        this.toastrService.error(error);
+      });
     }
   }
 

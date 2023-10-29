@@ -1,5 +1,3 @@
-import { ToastrService } from 'ngx-toastr';
-
 /**
  * Crea un Guid.
  *
@@ -52,17 +50,6 @@ export const getRandomColorHexadecimal = (): string => {
   const color = Math.floor(Math.random() * 16777215).toString(16);
 
   return `#${color}`;
-};
-
-/**
- * Muestra una lista de errores con toastr.
- *
- * @param errors Errores a mostrar con toastr.
- */
-export const toastForNotificationErrors = (errors: string[], toastrService: ToastrService): void => {
-  errors.forEach((error: string) => {
-    toastrService.error(error);
-  });
 };
 
 /**

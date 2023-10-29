@@ -20,7 +20,7 @@ export const ApiUrls = {
   accounts: {
     registerAccount: '/accounts/register',
     registerValidateEmail: '/accounts/validate-email',
-    emailValidationForwarding: '/accounts/email-validation-forwarding',
+    emailValidationForwarding: '/accounts/resend-email-validation',
     recoveryPassword: '/accounts/recovery-password',
     recoveryPasswordChange: '/accounts/recovery-password-change'
   },

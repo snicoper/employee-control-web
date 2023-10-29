@@ -58,6 +58,17 @@ export abstract class BaseApiService {
     return this.http.put<TResult>(url, entity);
   }
 
+  /**
+   * Eliminar un wn elemento.
+   *
+   * @param urlPart Parte de la url base a concatenar.
+   */
+  delete(urlPart = ''): Observable<undefined> {
+    const url = `${this.baseUrl}${urlPart}`;
+
+    return this.delete(url);
+  }
+
   protected prepareQueryParams<TModel>(apiResult: ApiResult<TModel>): string {
     apiResult = apiResult ?? new ApiResult<TModel>();
 
