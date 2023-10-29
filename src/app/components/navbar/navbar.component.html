@@ -47,7 +47,13 @@
         </li>
       </ul>
       <div>
-        <span (click)="handleChangeTheme()" class="fa-solid fa-circle-half-stroke me-2 cursor-pointer"></span>
+        <span
+          (click)="handleChangeTheme()"
+          [ngClass]="{
+            'fa-solid fa-moon': theme() === themeColors.light,
+            'fa-regular fa-sun': theme() === themeColors.dark
+          }"
+          class="me-2 cursor-pointer"></span>
         <ng-container *ngIf="authState$()">{{ userName }}</ng-container>
       </div>
     </div>

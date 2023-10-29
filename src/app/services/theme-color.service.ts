@@ -1,11 +1,14 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { LocalStorageKeys, ThemeColors } from '@aw/core/types/_index';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeColorService {
-  private readonly theme$ = signal(ThemeColors.auto);
   private readonly localStorageService = inject(LocalStorageService);
+
+  private readonly theme$ = signal(ThemeColors.auto);
+
+  readonly theme = computed(() => this.theme$());
 
   private colorStorage = ThemeColors.auto;
 

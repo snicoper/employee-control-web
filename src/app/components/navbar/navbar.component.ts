@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppEnvironments } from '@aw/core/config/_index';
+import { ThemeColors } from '@aw/core/types/_index';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { AuthService, JwtService, LayoutService, ThemeColorService } from '@aw/services/_index';
 
@@ -22,6 +23,9 @@ export class NavbarComponent {
 
   readonly sidebarState$ = computed(() => this.layoutService.sidebarState$());
   readonly authState$ = computed(() => this.authService.authValue$);
+  readonly theme = computed(() => this.themeColorService.theme());
+
+  themeColors = ThemeColors;
 
   toggleSidebarState(): void {
     this.layoutService.toggleSidebarState();
