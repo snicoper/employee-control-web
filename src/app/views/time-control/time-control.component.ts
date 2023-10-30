@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
   selector: 'aw-time-control',
   templateUrl: './time-control.component.html'
 })
-export class TimeControlComponent {}
+export class TimeControlComponent {
+  constructor() {}
+}
