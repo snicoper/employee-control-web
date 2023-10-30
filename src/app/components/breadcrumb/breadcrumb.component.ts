@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { SidebarService } from '../sidebar/sidebar.service';
 import { BreadcrumbCollection } from './breadcrumb-collection';
 
 @Component({
@@ -8,6 +7,4 @@ import { BreadcrumbCollection } from './breadcrumb-collection';
 })
 export class BreadcrumbComponent {
   @Input() breadcrumb = new BreadcrumbCollection();
-
-  constructor(private sidebarService: SidebarService) {}
 }

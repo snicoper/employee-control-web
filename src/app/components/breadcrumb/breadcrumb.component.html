@@ -7,8 +7,8 @@
         class="breadcrumb-item small">
         <ng-container *ngIf="bread.active">
           <a [routerLink]="bread.link">
-            <span *ngIf="bread.icon" class="icon is-small">
-              <span [ngClass]="bread.icon" aria-hidden="true"></span>
+            <span *ngIf="bread.icon">
+              <span [ngClass]="bread.icon"></span>
             </span>
             {{ bread.text }}
           </a>
@@ -16,7 +16,7 @@
 
         <ng-container *ngIf="!bread.active">
           <span class="text-muted">
-            <span [ngClass]="bread.icon" aria-hidden="true"></span>
+            <span [ngClass]="bread.icon" aria-current="page"></span>
             {{ bread.text }}
           </span>
         </ng-container>
