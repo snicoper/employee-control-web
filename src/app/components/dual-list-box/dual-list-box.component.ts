@@ -9,6 +9,7 @@ import { DualListBoxResponse } from './dual-list-box-response.model';
 })
 export class DualListBoxComponent implements OnInit {
   @Input({ required: true }) dualListBoxItems: DualListBoxItem[] = [];
+  @Input() loading = false;
   @Input() size = 10;
 
   @Output() saveChanges = new EventEmitter<DualListBoxResponse>();

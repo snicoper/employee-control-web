@@ -56,7 +56,7 @@ export class CompanyTaskUsersComponent implements OnInit {
 
   private loadCompanyTaskUsers(): void {
     this.loading = true;
-    const url = ApiUrls.replace(ApiUrls.companyTasks.getUsersByCompanyTaskIdPaginated, {
+    const url = ApiUrls.replace(ApiUrls.companyTasks.getEmployeesByCompanyTaskIdPaginated, {
       id: this.companyTaskSelectedService.companyTaskSelected()?.id ?? ''
     });
 

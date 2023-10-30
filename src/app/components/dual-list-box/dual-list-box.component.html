@@ -1,59 +1,69 @@
 <div class="dual-list-box">
-  <div class="d-flex">
-    <!-- left box -->
-    <div class="flex-fill box-left me-3">
-      <input
-        [(ngModel)]="termLeftValue"
-        (input)="handleFilterLeftBox()"
-        type="search"
-        class="form-control mb-2"
-        placeholder="Filtrar..." />
+  <ng-container *ngIf="!loading">
+    <div class="d-flex">
+      <!-- left box -->
+      <div class="flex-fill box-left me-3">
+        <input
+          [(ngModel)]="termLeftValue"
+          (input)="handleFilterLeftBox()"
+          type="search"
+          class="form-control mb-2"
+          placeholder="Filtrar..." />
 
-      <select
-        [(ngModel)]="itemsLeftSelected"
-        [id]="boxLeftId"
-        [size]="size"
-        class="form-select"
-        multiple
-        aria-label="Items unselected">
-        <option *ngFor="let item of dualListBoxItemsLeft" [ngValue]="item.key">{{ item.name }}</option>
-      </select>
+        <select
+          [(ngModel)]="itemsLeftSelected"
+          [id]="boxLeftId"
+          [size]="size"
+          class="form-select"
+          multiple
+          aria-label="Items unselected">
+          <option *ngFor="let item of dualListBoxItemsLeft" [ngValue]="item.key">{{ item.name }}</option>
+        </select>
 
-      <button (click)="handleLeftBtnClick()" class="w-100 btn btn-outline-primary mt-1">
-        <span class="fa-solid fa-arrow-right-long"></span>
+        <button (click)="handleLeftBtnClick()" class="w-100 btn btn-outline-primary mt-1">
+          <span class="fa-solid fa-arrow-right-long"></span>
+        </button>
+      </div>
+      <!-- end left box -->
+
+      <!-- right box -->
+      <div class="flex-fill box-right">
+        <input
+          [(ngModel)]="termRightValue"
+          (input)="handleFilterRightBox()"
+          type="search"
+          class="form-control mb-2"
+          placeholder="Filtrar..." />
+
+        <select
+          [(ngModel)]="itemsRightSelected"
+          [id]="boxRightId"
+          [size]="size"
+          class="form-select"
+          multiple
+          aria-label="Items selected">
+          <option *ngFor="let item of dualListBoxItemsRight" [ngValue]="item.key">{{ item.name }}</option>
+        </select>
+
+        <button (click)="handleRightBtnClick()" class="w-100 btn btn-outline-primary mt-1">
+          <span class="fa-solid fa-arrow-left-long"></span>
+        </button>
+      </div>
+      <!-- end right box -->
+    </div>
+
+    <div class="d-flex mt-3">
+      <button (click)="handleSaveChanges()" class="btn btn-outline-success m-auto">
+        <span class="fa-solid fa-floppy-disk"></span> Guardar cambios
       </button>
     </div>
-    <!-- end left box -->
+  </ng-container>
 
-    <!-- right box -->
-    <div class="flex-fill box-right">
-      <input
-        [(ngModel)]="termRightValue"
-        (input)="handleFilterRightBox()"
-        type="search"
-        class="form-control mb-2"
-        placeholder="Filtrar..." />
-
-      <select
-        [(ngModel)]="itemsRightSelected"
-        [id]="boxRightId"
-        [size]="size"
-        class="form-select"
-        multiple
-        aria-label="Items selected">
-        <option *ngFor="let item of dualListBoxItemsRight" [ngValue]="item.key">{{ item.name }}</option>
-      </select>
-
-      <button (click)="handleRightBtnClick()" class="w-100 btn btn-outline-primary mt-1">
-        <span class="fa-solid fa-arrow-left-long"></span>
-      </button>
+  <ng-container *ngIf="loading">
+    <div class="d-flex">
+      <div class="m-auto">
+        <aw-spinner [loading]="loading" [size]="100"></aw-spinner>
+      </div>
     </div>
-    <!-- end right box -->
-  </div>
-
-  <div class="d-flex mt-3">
-    <button (click)="handleSaveChanges()" class="btn btn-outline-success m-auto">
-      <span class="fa-solid fa-floppy-disk"></span> Guardar cambios
-    </button>
-  </div>
+  </ng-container>
 </div>
