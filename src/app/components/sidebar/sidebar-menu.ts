@@ -42,6 +42,19 @@ export const sidebarMenu: SidebarMenu[] = [
     ]
   },
   {
+    title: 'Empleado',
+    icon: 'fa-regular fa-building',
+    active: false,
+    type: SidebarMenuTypes.dropdown,
+    submenus: [
+      {
+        title: 'Control de tiempo',
+        link: SiteUrls.timeControl.home,
+        active: false
+      }
+    ]
+  },
+  {
     title: 'Desconectar',
     icon: 'fa-solid fa-right-from-bracket',
     active: false,

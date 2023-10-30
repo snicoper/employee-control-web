@@ -44,6 +44,10 @@ export const SiteUrls = {
     homeTests: '/tests'
   },
 
+  timeControl: {
+    home: '/time-control'
+  },
+
   /** Errors. */
   errors: {
     forbidden: '/errors/403',

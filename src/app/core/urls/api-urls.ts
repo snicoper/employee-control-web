@@ -63,6 +63,8 @@ export const ApiUrls = {
     supportedLocales: '/localizations/supported-locales'
   },
 
+  timeControl: {},
+
   /**
    * Utiliza una de las propiedades de siteUrls para remplazar {algo} por valor en los args.
    *
