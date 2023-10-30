@@ -3,15 +3,15 @@ import { LocalStorageKeys } from '@aw/core/types/local-storage-keys';
 import { LocalStorageService } from '@aw/services/_index';
 import { DateTime, Settings } from 'luxon';
 import { defineLocale, esLocale } from 'ngx-bootstrap/chronos';
-import { DateTimeUtils } from './datetime-utils';
 import { LocalesSupported } from './locales-supported';
+import { LocalizationUtils } from './localization-utils';
 
 @Injectable({ providedIn: 'root' })
 export class LocalizationService {
   private readonly localStorageService = inject(LocalStorageService);
 
-  private readonly locale$ = signal(DateTimeUtils.defaultLocale);
-  private readonly timezone$ = signal(DateTimeUtils.defaultTimezone);
+  private readonly locale$ = signal(LocalizationUtils.defaultLocale);
+  private readonly timezone$ = signal(LocalizationUtils.defaultTimezone);
 
   initialize(locale?: LocalesSupported, timezone?: string): void {
     // Precedencia: localStorage -> parámetro -> defaultLocale.
@@ -20,7 +20,7 @@ export class LocalizationService {
       locale ??
       DateTime.now().resolvedLocaleOptions().locale;
 
-    timezone = this.localStorageService.get(LocalStorageKeys.timezone) ?? timezone ?? DateTimeUtils.defaultTimezone;
+    timezone = this.localStorageService.get(LocalStorageKeys.timezone) ?? timezone ?? LocalizationUtils.defaultTimezone;
 
     // La inicialización no contiene los datos de locales supported en el Service por lo que
     // no comprobará la validación.

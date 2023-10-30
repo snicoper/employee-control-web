@@ -1,6 +1,6 @@
 import { LocalesSupported } from './locales-supported';
 
-export abstract class DateTimeUtils {
+export abstract class LocalizationUtils {
   static readonly defaultLocale = LocalesSupported.esES;
   static readonly defaultTimezone = 'Europe/Madrid';
 
@@ -21,7 +21,7 @@ export abstract class DateTimeUtils {
       case LocalesSupported.enUS:
         return LocalesSupported.en;
       default:
-        return DateTimeUtils.defaultLocale;
+        return LocalizationUtils.defaultLocale;
     }
   }
 }

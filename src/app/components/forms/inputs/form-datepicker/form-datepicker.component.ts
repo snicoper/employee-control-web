@@ -1,6 +1,6 @@
 import { Component, Input, forwardRef, inject } from '@angular/core';
 import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DateTimeUtils } from '@aw/core/localization/_index';
+import { LocalizationUtils } from '@aw/core/localization/_index';
 import { LocalizationService } from '@aw/core/localization/localization.service';
 import { FormInputTypes } from '@aw/core/types/_index';
 import { BadRequest } from '@aw/models/_index';
@@ -44,7 +44,7 @@ export class FormDatepickerComponent {
     this.id = Math.random().toString();
 
     // Locale BsDatepicker.
-    const localeNgxBootstrap = DateTimeUtils.mapLocaleToNgxBootstrap(this.localizationService.getLocaleValue());
+    const localeNgxBootstrap = LocalizationUtils.mapLocaleToNgxBootstrap(this.localizationService.getLocaleValue());
     this.bsLocaleService.use(localeNgxBootstrap);
 
     // Default BsDatepickerConfig.
