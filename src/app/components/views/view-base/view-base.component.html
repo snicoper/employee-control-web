@@ -19,15 +19,15 @@
     <!-- end navbar -->
 
     <!-- page content -->
-    <div [ngClass]="cssContent" class="pt-2 fade-in-fast">
+    <div [ngClass]="cssContent" class="main-content pt-2 fade-in-fast">
       <ng-content></ng-content>
     </div>
     <!-- end page content -->
-  </main>
 
-  <!-- footer -->
-  <ng-container *ngIf="footerState$()">
-    <aw-footer [cssContent]="cssContent"></aw-footer>
-  </ng-container>
-  <!-- end footer -->
+    <!-- footer -->
+    <ng-container *ngIf="footerState$()">
+      <aw-footer [cssContent]="cssContent"></aw-footer>
+    </ng-container>
+    <!-- end footer -->
+  </main>
 </div>

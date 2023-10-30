@@ -1,13 +1,9 @@
 <aw-view-base>
-  <aw-card>
-    <h3>Tarea - {{ companyTask()?.name }}</h3>
-    <aw-breadcrumb [breadcrumb]="breadcrumb"></aw-breadcrumb>
-  </aw-card>
-
-  <div class="mt-2"></div>
+  <aw-view-header [breadcrumb]="breadcrumb">Tarea - {{ companyTask()?.name }}</aw-view-header>
 
   <aw-company-task-details [companyTaskId]="companyTaskId"></aw-company-task-details>
 
+  <!-- tabs -->
   <ng-container *ngIf="companyTaskId && companyTask()">
     <div class="mt-3">
       <aw-card>
@@ -33,4 +29,5 @@
       </aw-card>
     </div>
   </ng-container>
+  <!-- end tabs -->
 </aw-view-base>

@@ -1,10 +1,7 @@
 <aw-view-base>
-  <aw-card>
-    <h3>Empleado - {{ employeeSelected()?.firstName }} {{ employeeSelected()?.lastName }}</h3>
-    <aw-breadcrumb [breadcrumb]="breadcrumb"></aw-breadcrumb>
-  </aw-card>
-
-  <div class="mt-2"></div>
+  <aw-view-header [breadcrumb]="breadcrumb">
+    Empleado - {{ employeeSelected()?.firstName }} {{ employeeSelected()?.lastName }}
+  </aw-view-header>
 
   <!-- employee details -->
   <ng-container *ngIf="employeeSelected()">

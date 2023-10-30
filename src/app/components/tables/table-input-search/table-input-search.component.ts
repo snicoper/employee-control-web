@@ -13,12 +13,19 @@ export class TableInputSearchComponent<T> {
 
   @Output() clickClean = new EventEmitter<ApiResult<T>>();
 
+  private originalPageNumber = 3;
+
   term = '';
 
   handleInputChange(event: Event): void {
     this.apiResult = ApiResult.clone(this.apiResult);
     this.apiResult.cleanFilters();
     this.term = String(event);
+
+    // Las búsquedas siempre lo hace desde la pagina 1.
+    if (this.term.length > 0) {
+      this.apiResult.pageNumber = 1;
+    }
 
     this.tableHeaderConfig.headers.forEach((element: TableHeaderField) => {
       if (element.filterable) {
