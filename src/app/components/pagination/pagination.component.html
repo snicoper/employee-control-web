@@ -1,129 +1,134 @@
-<ul class="pagination pagination-sm">
-  <!-- pagination list -->
-  <ng-container *ngIf="showPageList">
-    <li class="mr-2">
-      <select
-        (ngModelChange)="handleChangePageListNumber($event)"
-        [(ngModel)]="apiResult.pageSize"
-        class="custom-select custom-select-sm unfocus">
-        <ng-container *ngFor="let item of itemsPageList">
-          <option [ngClass]="{ active: item === apiResult.pageSize }" [ngValue]="item">
+<nav aria-label="Pagination">
+  <ul class="pagination">
+    <!-- pagination list -->
+    <ng-container *ngIf="showPageList">
+      <li class="me-2">
+        <select
+          (ngModelChange)="handleChangePageListNumber($event)"
+          [(ngModel)]="apiResult.pageSize"
+          class="form-select unfocus">
+          <ng-container *ngFor="let item of itemsPageList">
+            <option [ngClass]="{ active: item === apiResult.pageSize }" [ngValue]="item">
+              {{ item }}
+            </option>
+          </ng-container>
+        </select>
+      </li>
+    </ng-container>
+    <!-- end pagination list -->
+
+    <ng-container *ngIf="apiResult.totalPages > 1">
+      <!-- first page -->
+      <ng-container *ngIf="!apiResult.hasPreviousPage">
+        <li class="page-item disabled">
+          <a aria-label="Previous" class="page-link" href="#">
+            <span aria-hidden="true">
+              <span class="icon fas fa-angle-double-left text-muted"></span>
+            </span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="apiResult.hasPreviousPage">
+        <li [tooltip]="'common.first'" class="page-item">
+          <a (click)="handleChangePage(1)" aria-label="Previous" class="page-link cursor-pointer">
+            <span aria-hidden="true">
+              <span class="icon fas fa-angle-double-left"></span>
+            </span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+      </ng-container>
+      <!-- end first page -->
+
+      <!-- previous page -->
+      <ng-container *ngIf="!apiResult.hasPreviousPage">
+        <li class="page-item disabled me-2">
+          <a aria-label="Previous" class="page-link" href="#">
+            <span aria-hidden="true">
+              <span class="icon fas fa-angle-left text-muted"></span>
+            </span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="apiResult.hasPreviousPage">
+        <li [tooltip]="'common.previous'" class="page-item me-2">
+          <a
+            (click)="handleChangePage(apiResult.pageNumber - 1)"
+            aria-label="Previous"
+            class="page-link cursor-pointer">
+            <span aria-hidden="true">
+              <span class="icon fas fa-angle-left"></span>
+            </span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+      </ng-container>
+      <!-- end previous page -->
+
+      <!-- pages -->
+      <ng-container *ngIf="showPagesButtons">
+        <li *ngFor="let item of pageRange()" [ngClass]="{ active: item === apiResult.pageNumber }" class="page-item">
+          <a
+            (click)="handleChangePage(item)"
+            [ngClass]="{ 'cursor-pointer': item !== apiResult.pageNumber }"
+            class="page-link">
             {{ item }}
-          </option>
-        </ng-container>
-      </select>
-    </li>
-  </ng-container>
-  <!-- end pagination list -->
+          </a>
+        </li>
+      </ng-container>
+      <!-- end pages -->
 
-  <ng-container *ngIf="apiResult.totalPages > 1">
-    <!-- first page -->
-    <ng-container *ngIf="!apiResult.hasPreviousPage">
-      <li class="page-item disabled">
-        <a aria-label="Previous" class="page-link" href="#">
-          <span aria-hidden="true">
-            <span class="icon fas fa-angle-double-left text-muted"></span>
-          </span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-    </ng-container>
+      <!-- next page -->
+      <ng-container *ngIf="!apiResult.hasNextPage">
+        <li class="page-item disabled ms-2">
+          <a aria-label="Previous" class="page-link" href="#">
+            <span aria-hidden="true">
+              <span class="icon fas fa-angle-right text-muted"></span>
+            </span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+      </ng-container>
 
-    <ng-container *ngIf="apiResult.hasPreviousPage">
-      <li [tooltip]="'common.first'" class="page-item">
-        <a (click)="handleChangePage(1)" aria-label="Previous" class="page-link cursor-pointer">
-          <span aria-hidden="true">
-            <span class="icon fas fa-angle-double-left"></span>
-          </span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-    </ng-container>
-    <!-- end first page -->
+      <ng-container *ngIf="apiResult.hasNextPage">
+        <li [tooltip]="'common.next'" class="page-item ms-2">
+          <a (click)="handleChangePage(apiResult.pageNumber + 1)" aria-label="Next" class="page-link cursor-pointer">
+            <span aria-hidden="true">
+              <span class="icon fas fa-angle-right"></span>
+            </span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ng-container>
+      <!-- end next page -->
 
-    <!-- previous page -->
-    <ng-container *ngIf="!apiResult.hasPreviousPage">
-      <li class="page-item disabled mr-2">
-        <a aria-label="Previous" class="page-link" href="#">
-          <span aria-hidden="true">
-            <span class="icon fas fa-angle-left text-muted"></span>
-          </span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-    </ng-container>
+      <!-- last page -->
+      <ng-container *ngIf="!apiResult.hasNextPage">
+        <li class="page-item disabled">
+          <a aria-label="Next" class="page-link" href="#">
+            <span aria-hidden="true">
+              <span class="icon fas fa-angle-double-right text-muted"></span>
+            </span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ng-container>
 
-    <ng-container *ngIf="apiResult.hasPreviousPage">
-      <li [tooltip]="'common.previous'" class="page-item mr-2">
-        <a (click)="handleChangePage(apiResult.pageNumber - 1)" aria-label="Previous" class="page-link cursor-pointer">
-          <span aria-hidden="true">
-            <span class="icon fas fa-angle-left"></span>
-          </span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
+      <ng-container *ngIf="apiResult.hasNextPage">
+        <li [tooltip]="'common.last'" class="page-item">
+          <a (click)="handleChangePage(apiResult.totalPages)" aria-label="Next" class="page-link cursor-pointer">
+            <span aria-hidden="true">
+              <span class="icon fas fa-angle-double-right"></span>
+            </span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ng-container>
+      <!-- end last page -->
     </ng-container>
-    <!-- end previous page -->
-
-    <!-- pages -->
-    <ng-container *ngIf="showPagesButtons">
-      <li *ngFor="let item of pageRange()" [ngClass]="{ active: item === apiResult.pageNumber }" class="page-item">
-        <a
-          (click)="handleChangePage(item)"
-          [ngClass]="{ 'cursor-pointer': item !== apiResult.pageNumber }"
-          class="page-link">
-          {{ item }}
-        </a>
-      </li>
-    </ng-container>
-    <!-- end pages -->
-
-    <!-- next page -->
-    <ng-container *ngIf="!apiResult.hasNextPage">
-      <li class="page-item disabled ml-2">
-        <a aria-label="Previous" class="page-link" href="#">
-          <span aria-hidden="true">
-            <span class="icon fas fa-angle-right text-muted"></span>
-          </span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-    </ng-container>
-
-    <ng-container *ngIf="apiResult.hasNextPage">
-      <li [tooltip]="'common.next'" class="page-item ml-2">
-        <a (click)="handleChangePage(apiResult.pageNumber + 1)" aria-label="Next" class="page-link cursor-pointer">
-          <span aria-hidden="true">
-            <span class="icon fas fa-angle-right"></span>
-          </span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>
-    </ng-container>
-    <!-- end next page -->
-
-    <!-- last page -->
-    <ng-container *ngIf="!apiResult.hasNextPage">
-      <li class="page-item disabled">
-        <a aria-label="Next" class="page-link" href="#">
-          <span aria-hidden="true">
-            <span class="icon fas fa-angle-double-right text-muted"></span>
-          </span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>
-    </ng-container>
-
-    <ng-container *ngIf="apiResult.hasNextPage">
-      <li [tooltip]="'common.last'" class="page-item">
-        <a (click)="handleChangePage(apiResult.totalPages)" aria-label="Next" class="page-link cursor-pointer">
-          <span aria-hidden="true">
-            <span class="icon fas fa-angle-double-right"></span>
-          </span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>
-    </ng-container>
-    <!-- end last page -->
-  </ng-container>
-</ul>
+  </ul>
+</nav>

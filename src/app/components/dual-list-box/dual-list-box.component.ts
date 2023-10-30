@@ -68,6 +68,8 @@ export class DualListBoxComponent implements OnInit {
       this.dualListBoxItemsRight.push(item);
       this.sortItems(this.dualListBoxItemsRight);
     });
+
+    this.itemsLeftSelected = [];
   }
 
   /** Mover items seleccionados en la derecha a la izquierda. */
@@ -84,6 +86,8 @@ export class DualListBoxComponent implements OnInit {
       this.dualListBoxItemsLeft.push(item);
       this.sortItems(this.dualListBoxItemsLeft);
     });
+
+    this.itemsRightSelected = [];
   }
 
   /** Filtrar los items movidos de un lado a otro y viceversa. */

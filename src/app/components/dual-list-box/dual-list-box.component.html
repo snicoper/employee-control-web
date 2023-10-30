@@ -20,7 +20,14 @@
           <option *ngFor="let item of dualListBoxItemsLeft" [ngValue]="item.key">{{ item.name }}</option>
         </select>
 
-        <button (click)="handleLeftBtnClick()" class="w-100 btn btn-outline-primary mt-1">
+        <button
+          (click)="handleLeftBtnClick()"
+          [disabled]="!itemsLeftSelected.length"
+          [ngClass]="{
+            'btn-outline-primary': !itemsLeftSelected.length,
+            'btn-primary': itemsLeftSelected.length
+          }"
+          class="w-100 btn btn-outline-primary mt-1">
           <span class="fa-solid fa-arrow-right-long"></span>
         </button>
       </div>
@@ -45,7 +52,11 @@
           <option *ngFor="let item of dualListBoxItemsRight" [ngValue]="item.key">{{ item.name }}</option>
         </select>
 
-        <button (click)="handleRightBtnClick()" class="w-100 btn btn-outline-primary mt-1">
+        <button
+          (click)="handleRightBtnClick()"
+          [disabled]="!itemsRightSelected.length"
+          [ngClass]="{ 'btn-outline-primary': !itemsRightSelected.length, 'btn-primary': itemsRightSelected.length }"
+          class="w-100 btn btn-outline-primary mt-1">
           <span class="fa-solid fa-arrow-left-long"></span>
         </button>
       </div>
