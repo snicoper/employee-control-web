@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { FormInputTypes } from '@aw/core/types/form-input-types';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
@@ -24,6 +25,8 @@ export class CompanyTaskCreateComponent {
   private readonly toastrService = inject(ToastrService);
   private readonly router = inject(Router);
 
+  readonly breadcrumb = new BreadcrumbCollection();
+
   form: FormGroup = this.fb.group({});
   badRequest: BadRequest | undefined;
   formInputTypes = FormInputTypes;
@@ -32,6 +35,7 @@ export class CompanyTaskCreateComponent {
   siteUrls = SiteUrls;
 
   constructor() {
+    this.setBreadcrumb();
     this.buildForm();
   }
 
@@ -60,6 +64,12 @@ export class CompanyTaskCreateComponent {
           this.badRequest = error.error;
         }
       });
+  }
+
+  private setBreadcrumb(): void {
+    this.breadcrumb
+      .add('Tareas', SiteUrls.companyTasks.list)
+      .add('Crear tarea', SiteUrls.companyTasks.create, '', false);
   }
 
   private buildForm(): void {

@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
 import { ApiResult } from '@aw/core/api-result/api-result';
 import { ApiUrls } from '@aw/core/urls/api-urls';
@@ -17,6 +18,8 @@ export class EmployeeListComponent {
   private readonly employeesApiService = inject(EmployeesApiService);
   private readonly router = inject(Router);
 
+  readonly breadcrumb = new BreadcrumbCollection();
+
   apiResult = new ApiResult<EmployeeListResponse>();
   tableHeaderConfig = new TableHeaderConfig();
   loading = false;
@@ -24,6 +27,7 @@ export class EmployeeListComponent {
 
   constructor() {
     this.configureTableHeaders();
+    this.setBreadcrumb();
     this.loadEmployees();
   }
 
@@ -43,6 +47,10 @@ export class EmployeeListComponent {
 
   private configureTableHeaders(): void {
     this.tableHeaderConfig.addHeaders(employeeListTableHeaders);
+  }
+
+  private setBreadcrumb(): void {
+    this.breadcrumb.add('Empleados', SiteUrls.employees.list, '', false);
   }
 
   private loadEmployees(): void {

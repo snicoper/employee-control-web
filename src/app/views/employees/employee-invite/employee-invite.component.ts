@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { FormInputTypes } from '@aw/core/types/_index';
 import { ApiUrls } from '@aw/core/urls/_index';
 import { SiteUrls } from '@aw/core/urls/site-urls';
@@ -23,6 +24,8 @@ export class EmployeeInviteComponent {
   private readonly toastrService = inject(ToastrService);
   private readonly router = inject(Router);
 
+  readonly breadcrumb = new BreadcrumbCollection();
+
   form: FormGroup = this.fb.group({});
   badRequest: BadRequest | undefined;
   formInputTypes = FormInputTypes;
@@ -31,6 +34,7 @@ export class EmployeeInviteComponent {
   siteUrls = SiteUrls;
 
   constructor() {
+    this.setBreadcrumb();
     this.buildForm();
   }
 
@@ -60,6 +64,12 @@ export class EmployeeInviteComponent {
           this.badRequest = error.error as BadRequest;
         }
       });
+  }
+
+  private setBreadcrumb(): void {
+    this.breadcrumb
+      .add('Empleados', SiteUrls.employees.list)
+      .add('Invitar empleado', SiteUrls.employees.invite, '', false);
   }
 
   private buildForm(): void {

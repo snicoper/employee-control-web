@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
 import { ApiResult } from '@aw/core/api-result/api-result';
 import { ApiUrls } from '@aw/core/urls/api-urls';
@@ -20,6 +21,8 @@ export class CompanyTaskListComponent {
   private readonly router = inject(Router);
   private readonly currentCompanyEmployeeService = inject(CurrentCompanyEmployeeService);
 
+  readonly breadcrumb = new BreadcrumbCollection();
+
   apiResult = new ApiResult<CompanyTask>();
   tableHeaderConfig = new TableHeaderConfig();
   loading = false;
@@ -28,6 +31,7 @@ export class CompanyTaskListComponent {
 
   constructor() {
     this.configureTableHeaders();
+    this.setBreadcrumb();
     this.loadCompanyTasks();
   }
 
@@ -43,6 +47,10 @@ export class CompanyTaskListComponent {
   handleSelectItem(companyTask: CompanyTask): void {
     const url = SiteUrls.replace(SiteUrls.companyTasks.details, { id: companyTask.id.toString() });
     this.router.navigateByUrl(url);
+  }
+
+  private setBreadcrumb(): void {
+    this.breadcrumb.add('Tareas', SiteUrls.companyTasks.list, '', false);
   }
 
   private configureTableHeaders(): void {

@@ -1,7 +1,12 @@
 <aw-view-base cssContent="container">
   <aw-card>
-    <h1>Crear tarea</h1>
+    <h3>Crear tarea</h3>
+    <aw-breadcrumb [breadcrumb]="breadcrumb"></aw-breadcrumb>
+  </aw-card>
 
+  <div class="mt-2"></div>
+
+  <aw-card>
     <!-- form -->
     <form (ngSubmit)="handleSubmit()" [formGroup]="form">
       <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
