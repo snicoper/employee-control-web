@@ -1,5 +1,27 @@
 <aw-view-base>
   <aw-view-header>Control de tiempos</aw-view-header>
 
-  <aw-card> </aw-card>
+  <aw-card>
+    <div class="d-flex justify-content-center">
+      <div class="col-3">
+        <select [(ngModel)]="yearSelected" class="form-select" aria-label="Default select example">
+          <option *ngFor="let year of yearsSelector" [selected]="year.active" [ngValue]="year">
+            {{ year.value }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-3">
+        <select [(ngModel)]="monthSelected" class="form-select" aria-label="Default select example">
+          <option *ngFor="let month of monthsSelector" [selected]="month.active" [ngValue]="month">
+            {{ month.value }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </aw-card>
+
+  <aw-card>
+    {{ yearSelected | json }}
+  </aw-card>
 </aw-view-base>
