@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BtnType } from './btn-loading.type';
 
 @Component({
@@ -16,4 +16,10 @@ export class BtnLoadingComponent {
   @Input() spinnerText = 'spinner-border-sm';
   @Input() spinnerColor = 'text-white';
   @Input() spinnerLoadingText = '';
+
+  @Output() eventClick = new EventEmitter();
+
+  handleClick(): void {
+    this.eventClick.emit();
+  }
 }

@@ -63,7 +63,12 @@ export const ApiUrls = {
     supportedLocales: '/localizations/supported-locales'
   },
 
-  timeControl: {},
+  timeControl: {
+    getCurrentStateTimeControl: '/time-control/employees/{employeeId}/state',
+    getTimeControlRangeByEmployeeId: '/time-control/employees/{employeeId}/from/{from}/to{to}',
+    startTimeControl: '/time-control/start',
+    finishTimeControl: '/time-control/finish'
+  },
 
   /**
    * Utiliza una de las propiedades de siteUrls para remplazar {algo} por valor en los args.

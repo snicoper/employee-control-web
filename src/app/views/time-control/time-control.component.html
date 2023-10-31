@@ -2,6 +2,7 @@
   <aw-view-header>Control de tiempos</aw-view-header>
 
   <aw-card>
+    <!-- filters -->
     <div class="d-flex justify-content-center">
       <div class="col-3">
         <select [(ngModel)]="yearSelected" class="form-select" aria-label="Default select example">
@@ -19,9 +20,40 @@
         </select>
       </div>
     </div>
+    <!-- end filters -->
+
+    <!-- button state -->
+    <div class="d-flex justify-content-center mt-4">
+      <ng-container *ngIf="timeControlStarting">
+        <aw-btn-loading
+          (eventClick)="handleFinished()"
+          [loading]="loadingStatus"
+          btnIcon="fa-solid fa-flag-checkered"
+          btnText="Finalizar"
+          btnClass="btn btn-outline-warning"></aw-btn-loading>
+      </ng-container>
+
+      <ng-container *ngIf="!timeControlStarting">
+        <aw-btn-loading
+          (eventClick)="handleStart()"
+          [loading]="loadingStatus"
+          btnIcon="fa-solid fa-hourglass-start"
+          btnText="Iniciar"
+          btnClass="btn btn-success"></aw-btn-loading>
+      </ng-container>
+    </div>
+    <!-- end button state -->
   </aw-card>
 
+  <!-- times -->
   <aw-card>
-    {{ yearSelected | json }}
+    <div class="mt-3">
+      <ng-container *ngFor="let progressStacked of progressStackedCollection">
+        <span class="mb-2">
+          <aw-progress-stacked [progressStackedCollection]="progressStacked"></aw-progress-stacked>
+        </span>
+      </ng-container>
+    </div>
   </aw-card>
+  <!-- end times -->
 </aw-view-base>

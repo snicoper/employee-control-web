@@ -9,7 +9,7 @@ import { AwPaginationModule } from '@aw/components/pagination/aw-pagination.modu
 import { AwSpinnerModule } from '@aw/components/spinner/aw-spinner.module';
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
-import { DirectivesModule } from '@aw/directives/directives.module';
+import { AwDirectivesModule } from '@aw/directives/aw-directives.module';
 import { PipesModule } from '@aw/pipes/pipes.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AwBreadcrumbModule } from './../../components/breadcrumb/aw-breadcrumb.module';
@@ -46,7 +46,7 @@ import { EmployeesRoutingModule } from './employees-routing.module';
     AwBreadcrumbModule,
     AwColorsModule,
     PipesModule,
-    DirectivesModule
+    AwDirectivesModule
   ],
   providers: [EmployeeSelectedService]
 })
