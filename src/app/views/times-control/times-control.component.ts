@@ -5,17 +5,19 @@ import { HtmlItemSelector } from '@aw/core/models/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { ResultResponse } from '@aw/models/result-response.model';
 import { JwtService } from '@aw/services/_index';
+import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { TimeControlApiService } from './../../services/api/time-control-api.service';
-import { TimeControlStateResponse } from './time-control-state-response.model';
-import { setMonthsSelector, setYearsSelector } from './time-control.utils';
+import { TimesControlResponse } from './models/times-control-response';
+import { TimesControlStateResponse } from './models/times-control-state-response.model';
+import { setMonthsSelector, setYearsSelector } from './times-control.utils';
 
 @Component({
-  selector: 'aw-time-control',
-  templateUrl: './time-control.component.html'
+  selector: 'aw-times-control',
+  templateUrl: './times-control.component.html'
 })
-export class TimeControlComponent {
+export class TimesControlComponent {
   private readonly timeControlApiService = inject(TimeControlApiService);
   private readonly jwtService = inject(JwtService);
   private readonly toastrService = inject(ToastrService);
@@ -28,12 +30,15 @@ export class TimeControlComponent {
   monthsSelector: HtmlItemSelector[] = [];
   monthSelected: HtmlItemSelector | undefined;
 
+  timeControl: TimesControlResponse[] = [];
   timeControlStarting = false;
   loadingStatus = false;
+  loadingData = false;
 
   constructor() {
     this.eliminar();
     this.isOpenTime();
+    this.loadTimeControl();
   }
 
   handleStart(): void {
@@ -93,11 +98,31 @@ export class TimeControlComponent {
     });
 
     this.timeControlApiService
-      .get<TimeControlStateResponse>(url)
+      .get<TimesControlStateResponse>(url)
       .pipe(finalize(() => (this.loadingStatus = false)))
       .subscribe({
-        next: (result: TimeControlStateResponse) => {
+        next: (result: TimesControlStateResponse) => {
           this.timeControlStarting = result.isOpen;
+        }
+      });
+  }
+
+  private loadTimeControl(): void {
+    this.loadingData = true;
+    const startDate = DateTime.local(Number(this.yearSelected?.id), Number(this.monthSelected?.id));
+    const endDate = startDate.endOf('month');
+    const url = ApiUrls.replace(ApiUrls.timeControl.getTimeControlRangeByEmployeeId, {
+      employeeId: this.jwtService.getSid(),
+      from: startDate.toUTC().toString(),
+      to: endDate.toUTC().toString()
+    });
+
+    this.timeControlApiService
+      .get<TimesControlResponse[]>(url)
+      .pipe(finalize(() => (this.loadingData = false)))
+      .subscribe({
+        next: (result: TimesControlResponse[]) => {
+          this.timeControl = result;
         }
       });
   }

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TimeControlComponent } from './time-control.component';
+import { TimesControlComponent } from './times-control.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: TimeControlComponent,
+    component: TimesControlComponent,
     data: { title: 'Control de tiempos' }
   }
 ];
@@ -14,4 +14,4 @@ export const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TimeControlRoutingModule {}
+export class TimesControlRoutingModule {}

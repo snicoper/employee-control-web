@@ -64,10 +64,10 @@ export const ApiUrls = {
   },
 
   timeControl: {
-    getCurrentStateTimeControl: '/time-control/employees/{employeeId}/state',
-    getTimeControlRangeByEmployeeId: '/time-control/employees/{employeeId}/from/{from}/to{to}',
-    startTimeControl: '/time-control/start',
-    finishTimeControl: '/time-control/finish'
+    getCurrentStateTimeControl: '/times-control/employees/{employeeId}/state',
+    getTimeControlRangeByEmployeeId: '/times-control/employees/{employeeId}/from/{from}/to{to}',
+    startTimeControl: '/times-control/start',
+    finishTimeControl: '/times-control/finish'
   },
 
   /**

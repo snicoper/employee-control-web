@@ -32,7 +32,7 @@ const routes: Routes = [
     path: 'time-control',
     data: { roles: [Roles.employee] },
     canActivate: [AuthGuard],
-    loadChildren: () => import('@aw/views/time-control/time-control.module').then((m) => m.TimeControlModule)
+    loadChildren: () => import('@aw/views/times-control/times-control.module').then((m) => m.TimesControlModule)
   },
   {
     path: 'dashboard',

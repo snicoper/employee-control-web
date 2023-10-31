@@ -5,19 +5,19 @@ import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
 import { AwProgressModule } from '@aw/components/progress/aw-progress.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
-import { TimeControlRoutingModule } from './time-control-routing.module';
-import { TimeControlComponent } from './time-control.component';
+import { TimesControlRoutingModule } from './times-control-routing.module';
+import { TimesControlComponent } from './times-control.component';
 
 @NgModule({
-  declarations: [TimeControlComponent],
+  declarations: [TimesControlComponent],
   imports: [
     CommonModule,
     FormsModule,
-    TimeControlRoutingModule,
+    TimesControlRoutingModule,
     AwViewsModule,
     AwCardsModule,
     AwProgressModule,
     AwButtonsModule
   ]
 })
-export class TimeControlModule {}
+export class TimesControlModule {}
