@@ -5,7 +5,11 @@
     <!-- filters -->
     <div class="d-flex justify-content-center">
       <div class="col-3">
-        <select [(ngModel)]="yearSelected" class="form-select" aria-label="Default select example">
+        <select
+          [(ngModel)]="yearSelected"
+          (change)="handleChangeFilters()"
+          class="form-select"
+          aria-label="Default select example">
           <option *ngFor="let year of yearsSelector" [selected]="year.active" [ngValue]="year">
             {{ year.value }}
           </option>
@@ -13,7 +17,11 @@
       </div>
 
       <div class="col-3">
-        <select [(ngModel)]="monthSelected" class="form-select" aria-label="Default select example">
+        <select
+          [(ngModel)]="monthSelected"
+          (change)="handleChangeFilters()"
+          class="form-select"
+          aria-label="Default select example">
           <option *ngFor="let month of monthsSelector" [selected]="month.active" [ngValue]="month">
             {{ month.value }}
           </option>
@@ -24,19 +32,19 @@
 
     <!-- button state -->
     <div class="d-flex justify-content-center mt-4">
-      <ng-container *ngIf="timeControlStarting">
+      <ng-container *ngIf="timeState === timeStates.open">
         <aw-btn-loading
           (eventClick)="handleFinished()"
-          [loading]="loadingStatus"
+          [loading]="loadingTimeState"
           btnIcon="fa-solid fa-flag-checkered"
           btnText="Finalizar"
           btnClass="btn btn-outline-warning"></aw-btn-loading>
       </ng-container>
 
-      <ng-container *ngIf="!timeControlStarting">
+      <ng-container *ngIf="timeState === timeStates.close">
         <aw-btn-loading
           (eventClick)="handleStart()"
-          [loading]="loadingStatus"
+          [loading]="loadingTimeState"
           btnIcon="fa-solid fa-hourglass-start"
           btnText="Iniciar"
           btnClass="btn btn-success"></aw-btn-loading>
@@ -45,15 +53,19 @@
     <!-- end button state -->
   </aw-card>
 
+  <div class="mt-2"></div>
+
   <!-- times -->
   <aw-card>
-    <div class="mt-3">
-      <ng-container *ngFor="let progressStacked of progressStackedCollection">
-        <span class="mb-2">
-          <aw-progress-stacked [progressStackedCollection]="progressStacked"></aw-progress-stacked>
-        </span>
+    <ng-container *ngFor="let progressStacked of progressStackedCollection">
+      <ng-container *ngIf="!loadingData">
+        <aw-progress-stacked [progressStackedCollection]="progressStacked"></aw-progress-stacked>
       </ng-container>
-    </div>
+
+      <ng-container *ngIf="loadingData">
+        <aw-spinner [loading]="loadingData" [size]="100"></aw-spinner>
+      </ng-container>
+    </ng-container>
   </aw-card>
   <!-- end times -->
 </aw-view-base>

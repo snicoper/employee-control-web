@@ -30,4 +30,21 @@ export abstract class DatetimeUtils {
 
     return daysInterval;
   }
+
+  /**
+   * Formatear minutos a un string H:M.
+   *
+   * @param minutes Minutos totales a formatear.
+   * @returns Tiempo H:M
+   */
+  static formatMinutesToTime(minutes: number): string {
+    if (minutes > 60) {
+      const hours = Math.floor(minutes / 60);
+      const rest = Math.floor(minutes % 60);
+
+      return `${hours}h ${rest}m`;
+    }
+
+    return `${minutes}m`;
+  }
 }

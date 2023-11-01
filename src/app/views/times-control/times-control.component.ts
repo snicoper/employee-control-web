@@ -3,15 +3,15 @@ import { ProgressStackedCollection } from '@aw/components/progress/progress-stac
 import { logError } from '@aw/core/errors/log-messages';
 import { HtmlItemSelector } from '@aw/core/models/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
+import { TimeState } from '@aw/models/entities/types/time-state.model';
 import { ResultResponse } from '@aw/models/result-response.model';
 import { JwtService } from '@aw/services/_index';
 import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { TimeControlApiService } from './../../services/api/time-control-api.service';
-import { TimesControlResponse } from './models/times-control-response';
-import { TimesControlStateResponse } from './models/times-control-state-response.model';
-import { setMonthsSelector, setYearsSelector } from './times-control.utils';
+import { TimeControlGroupResponse, TimeStateResponse } from './times-control-response.model';
+import { composeTimesControl, setMonthsSelector, setYearsSelector } from './times-control.utils';
 
 @Component({
   selector: 'aw-times-control',
@@ -22,7 +22,7 @@ export class TimesControlComponent {
   private readonly jwtService = inject(JwtService);
   private readonly toastrService = inject(ToastrService);
 
-  readonly progressStackedCollection: ProgressStackedCollection[] = [];
+  progressStackedCollection: ProgressStackedCollection[] = [];
 
   /** Filters. */
   yearsSelector: HtmlItemSelector[] = [];
@@ -30,29 +30,35 @@ export class TimesControlComponent {
   monthsSelector: HtmlItemSelector[] = [];
   monthSelected: HtmlItemSelector | undefined;
 
-  timeControl: TimesControlResponse[] = [];
-  timeControlStarting = false;
-  loadingStatus = false;
+  timeStates = TimeState;
+  timeState = TimeState.close;
+  loadingTimeState = false;
   loadingData = false;
 
   constructor() {
-    this.eliminar();
-    this.isOpenTime();
-    this.loadTimeControl();
+    this.setDropdownsDefaultValues();
+    this.getTimeState();
+    this.loadTimesControl();
   }
 
+  handleChangeFilters(): void {
+    this.loadTimesControl();
+  }
+
+  /** Abrir tiempo de actividad. */
   handleStart(): void {
-    this.loadingStatus = true;
+    this.loadingTimeState = true;
     const data = { employeeId: this.jwtService.getSid() };
 
     this.timeControlApiService
       .post<typeof data, ResultResponse>(data, ApiUrls.timeControl.startTimeControl)
-      .pipe(finalize(() => (this.loadingStatus = false)))
+      .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
         next: (result: ResultResponse) => {
           if (result.succeeded) {
-            this.timeControlStarting = true;
+            this.timeState = TimeState.open;
             this.toastrService.success('Tiempo iniciado con éxito.');
+            this.loadTimesControl();
           } else {
             this.toastrService.error('Ha ocurrido un error al iniciar el tiempo.');
             logError(result.errors.join());
@@ -61,18 +67,20 @@ export class TimesControlComponent {
       });
   }
 
+  /** Cerrar tiempo de actividad. */
   handleFinished(): void {
-    this.loadingStatus = true;
+    this.loadingTimeState = true;
     const data = { employeeId: this.jwtService.getSid() };
 
     this.timeControlApiService
       .post<typeof data, ResultResponse>(data, ApiUrls.timeControl.finishTimeControl)
-      .pipe(finalize(() => (this.loadingStatus = false)))
+      .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
         next: (result: ResultResponse) => {
           if (result.succeeded) {
-            this.timeControlStarting = false;
+            this.timeState = TimeState.close;
             this.toastrService.success('Tiempo finalizado con éxito.');
+            this.loadTimesControl();
           } else {
             this.toastrService.error('Ha ocurrido un error al iniciar el tiempo.');
             logError(result.errors.join());
@@ -91,25 +99,27 @@ export class TimesControlComponent {
   }
 
   /** Comprobar si tiene algún tiempo abierto. */
-  private isOpenTime(): void {
-    this.loadingStatus = true;
+  private getTimeState(): void {
+    this.loadingTimeState = true;
     const url = ApiUrls.replace(ApiUrls.timeControl.getCurrentStateTimeControl, {
       employeeId: this.jwtService.getSid()
     });
 
     this.timeControlApiService
-      .get<TimesControlStateResponse>(url)
-      .pipe(finalize(() => (this.loadingStatus = false)))
+      .get<TimeStateResponse>(url)
+      .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
-        next: (result: TimesControlStateResponse) => {
-          this.timeControlStarting = result.isOpen;
+        next: (result: TimeStateResponse) => {
+          this.timeState = result.timeState;
         }
       });
   }
 
-  private loadTimeControl(): void {
+  /** Obtener lista de tiempos en el mes/año seleccionado. */
+  private loadTimesControl(): void {
     this.loadingData = true;
-    const startDate = DateTime.local(Number(this.yearSelected?.id), Number(this.monthSelected?.id));
+    this.progressStackedCollection = [];
+    const startDate = DateTime.local(Number(this.yearSelected?.id), Number(this.monthSelected?.id), 1);
     const endDate = startDate.endOf('month');
     const url = ApiUrls.replace(ApiUrls.timeControl.getTimeControlRangeByEmployeeId, {
       employeeId: this.jwtService.getSid(),
@@ -118,33 +128,14 @@ export class TimesControlComponent {
     });
 
     this.timeControlApiService
-      .get<TimesControlResponse[]>(url)
+      .get<TimeControlGroupResponse[]>(url)
       .pipe(finalize(() => (this.loadingData = false)))
       .subscribe({
-        next: (result: TimesControlResponse[]) => {
-          this.timeControl = result;
+        next: (result: TimeControlGroupResponse[]) => {
+          composeTimesControl(result).forEach((progressStacked) =>
+            this.progressStackedCollection.push(progressStacked)
+          );
         }
       });
-  }
-
-  private eliminar(): void {
-    this.setDropdownsDefaultValues();
-    const item = new ProgressStackedCollection()
-      .addItem(0, 0, 100, 10, '12/10123', 'Prueba de tooltip', 'bg-success')
-      .addItem(10, 0, 100, 10, '12/10123', '', 'bg-transparent')
-      .addItem(20, 0, 100, 20, '12/10123', 'Prueba de tooltip', 'bg-success');
-
-    item.addTitle('Lunes día xx/xx/xxxx');
-
-    this.progressStackedCollection.push(item);
-
-    const item2 = new ProgressStackedCollection()
-      .addItem(0, 0, 100, 10, '12/10123', 'Prueba de tooltip', 'bg-success')
-      .addItem(10, 0, 100, 20, '12/10123', '', 'bg-transparent')
-      .addItem(30, 0, 100, 30, '12/10123', 'Prueba de tooltip', 'bg-success');
-
-    item2.addTitle('Martes día xx/xx/xxxx');
-
-    this.progressStackedCollection.push(item2);
   }
 }

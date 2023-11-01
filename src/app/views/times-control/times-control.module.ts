@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
 import { AwProgressModule } from '@aw/components/progress/aw-progress.module';
+import { AwSpinnerModule } from '@aw/components/spinner/aw-spinner.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { TimesControlRoutingModule } from './times-control-routing.module';
 import { TimesControlComponent } from './times-control.component';
@@ -17,7 +18,8 @@ import { TimesControlComponent } from './times-control.component';
     AwViewsModule,
     AwCardsModule,
     AwProgressModule,
-    AwButtonsModule
+    AwButtonsModule,
+    AwSpinnerModule
   ]
 })
 export class TimesControlModule {}

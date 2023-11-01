@@ -1,6 +1,10 @@
+import { ProgressStackedCollection } from '@aw/components/progress/progress-stacked/progress-stacked-colection';
 import { HtmlItemSelector } from '@aw/core/models/_index';
 import { ucFirst } from '@aw/core/utils/common-utils';
+import { DatetimeUtils } from '@aw/core/utils/datetime-utils';
+import { ClosedBy } from '@aw/models/entities/types/_index';
 import { DateTime, Interval } from 'luxon';
+import { TimeControlGroupResponse, TimeResponse } from './times-control-response.model';
 
 /**
  * Obtener un array de HtmlItemSelector.
@@ -56,4 +60,77 @@ export const setMonthsSelector = (): HtmlItemSelector[] => {
   });
 
   return monthsSelector;
+};
+
+/** Componer rango de tiempos para su representación. */
+export const composeTimesControl = (timesControlGroup: TimeControlGroupResponse[]): ProgressStackedCollection[] => {
+  const progressStackedCollection: ProgressStackedCollection[] = [];
+
+  timesControlGroup.forEach((timeControlGroup: TimeControlGroupResponse) => {
+    const progressStacked = new ProgressStackedCollection();
+
+    let totalMinutesInGroup = 0;
+    let currentPercent = 0;
+    let lastTimeCalculate: DateTime;
+
+    // Obtener el primer tiempo y establecerlo en lastTimeCalculate.
+    if (timeControlGroup.times.length) {
+      lastTimeCalculate = DateTime.fromJSDate(new Date(timeControlGroup.times[0].start)).startOf('day');
+    }
+
+    timeControlGroup.times.forEach((time: TimeResponse) => {
+      totalMinutesInGroup += time.minutes;
+
+      // Calcular posición del día.
+      const currentDateTimeStart = DateTime.fromJSDate(new Date(time.start));
+      const currentDateTimeEnd = DateTime.fromJSDate(new Date(time.finish));
+      const minutesDiff = currentDateTimeStart.diff(lastTimeCalculate, ['minutes']);
+      const percentDiff = calculatePercent(minutesDiff.minutes);
+
+      // Insertar tiempo de inactividad.
+      progressStacked.addItem(currentPercent, 0, 100, percentDiff, '', '', 'bg-transparent');
+      currentPercent += percentDiff;
+
+      // Insertar tiempo de actividad.
+      const background = getCssClassByTimeState(time);
+      const timeDuration = DatetimeUtils.formatMinutesToTime(time.minutes);
+      let tooltip = `${currentDateTimeStart.toLocaleString(DateTime.TIME_SIMPLE)} - `;
+      tooltip += `${currentDateTimeEnd.toLocaleString(DateTime.TIME_SIMPLE)}`;
+
+      progressStacked.addItem(currentPercent, 0, 100, time.dayPercent, timeDuration, tooltip, background);
+      currentPercent += time.dayPercent;
+
+      lastTimeCalculate = DateTime.fromJSDate(new Date(time.finish));
+    });
+
+    const totalGroupTime = DatetimeUtils.formatMinutesToTime(totalMinutesInGroup);
+    progressStacked.title = DateTime.fromJSDate(new Date(timeControlGroup.dayTitle)).toLocaleString(
+      DateTime.DATE_MED_WITH_WEEKDAY
+    );
+    progressStacked.title += ` - ${totalGroupTime}`;
+
+    progressStackedCollection.push(progressStacked);
+  });
+
+  return progressStackedCollection;
+};
+
+/** Obtener el css dependiendo del estado del tiempo. */
+const getCssClassByTimeState = (time: TimeResponse): string => {
+  switch (time.closedBy) {
+    case ClosedBy.unclosed:
+      return 'bg-primary';
+    case ClosedBy.system:
+      return 'bg-danger';
+    default:
+      return 'bg-success';
+  }
+};
+
+/** Calcula el porcentaje sobre los minutos totales de un día. */
+const calculatePercent = (minutes: number): number => {
+  const minutesInDay = 60 * 24;
+  const percent = Math.floor((minutes / minutesInDay) * 100);
+
+  return percent;
 };
