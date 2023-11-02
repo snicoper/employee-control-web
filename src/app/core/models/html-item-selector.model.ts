@@ -1,5 +1,5 @@
 export interface HtmlItemSelector {
   id: string | number;
-  value: string | number;
-  active?: boolean;
+  value: string;
+  selected?: boolean;
 }

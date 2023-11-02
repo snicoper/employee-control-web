@@ -10,7 +10,7 @@
           (change)="handleChangeFilters()"
           class="form-select"
           aria-label="Default select example">
-          <option *ngFor="let year of yearsSelector" [selected]="year.active" [ngValue]="year">
+          <option *ngFor="let year of yearsSelector" [selected]="year.selected" [ngValue]="year">
             {{ year.value }}
           </option>
         </select>
@@ -22,7 +22,7 @@
           (change)="handleChangeFilters()"
           class="form-select"
           aria-label="Default select example">
-          <option *ngFor="let month of monthsSelector" [selected]="month.active" [ngValue]="month">
+          <option *ngFor="let month of monthsSelector" [selected]="month.selected" [ngValue]="month">
             {{ month.value }}
           </option>
         </select>

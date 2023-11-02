@@ -94,8 +94,8 @@ export class TimesControlComponent {
     this.yearsSelector = setYearsSelector();
     this.monthsSelector = setMonthsSelector();
 
-    this.yearSelected = this.yearsSelector.find((item) => item.active);
-    this.monthSelected = this.monthsSelector.find((item) => item.active);
+    this.yearSelected = this.yearsSelector.find((item) => item.selected);
+    this.monthSelected = this.monthsSelector.find((item) => item.selected);
   }
 
   /** Comprobar si tiene algún tiempo abierto. */

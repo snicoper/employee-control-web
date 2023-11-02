@@ -21,10 +21,10 @@ export const setYearsSelector = (): HtmlItemSelector[] => {
   const rangeYears = range(currentYear - 10, currentYear);
 
   rangeYears.forEach((year: number) => {
-    const item = { id: year, value: year, active: false } as HtmlItemSelector;
+    const item = { id: year, value: year.toString(), selected: false } as HtmlItemSelector;
 
     if (currentYear === year) {
-      item.active = true;
+      item.selected = true;
     }
 
     yearsSelector.push(item);
@@ -53,7 +53,7 @@ export const setMonthsSelector = (): HtmlItemSelector[] => {
     const item = { id: datetime?.month, value: monthFormat } as HtmlItemSelector;
 
     if (datetime?.month === currentMonth) {
-      item.active = true;
+      item.selected = true;
     }
 
     monthsSelector.push(item);

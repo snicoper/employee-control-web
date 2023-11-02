@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, computed, inject } from '@angular/core';
-import { DualListBoxItem } from '@aw/components/dual-list-box/dual-list-box-item.model';
 import { DualListBoxResponse } from '@aw/components/dual-list-box/dual-list-box-response.model';
+import { HtmlItemSelector } from '@aw/core/models/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { ResultResponse } from '@aw/models/result-response.model';
 import { ToastrService } from 'ngx-toastr';
@@ -22,7 +22,7 @@ export class CompanyTaskAddUsersComponent {
 
   readonly companyTaskSelected = computed(() => this.companyTaskSelectedService.companyTaskSelected());
 
-  dualListBoxItems: DualListBoxItem[] = [];
+  htmlItemSelector: HtmlItemSelector[] = [];
   loading = false;
 
   constructor() {
@@ -41,7 +41,7 @@ export class CompanyTaskAddUsersComponent {
     this.loading = true;
 
     const companyTaskId = this.companyTaskSelected()?.id as string;
-    const employeeIds = dualListBoxResponse.itemsToAdd.map((item) => item.key);
+    const employeeIds = dualListBoxResponse.itemsToAdd.map((item) => item.id);
     const data = { id: companyTaskId, employeeIds: employeeIds };
     const url = ApiUrls.replace(ApiUrls.companyTasks.assignEmployeesToTask, {
       id: companyTaskId
@@ -72,8 +72,8 @@ export class CompanyTaskAddUsersComponent {
       .subscribe({
         next: (result: CompanyTaskAddUserResponse[]) => {
           result.forEach((item: CompanyTaskAddUserResponse) => {
-            const newItem = { key: item.id, name: item.name, selected: false } as DualListBoxItem;
-            this.dualListBoxItems.push(newItem);
+            const newItem = { id: item.id, value: item.name, selected: false } as HtmlItemSelector;
+            this.htmlItemSelector.push(newItem);
           });
         }
       });

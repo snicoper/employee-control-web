@@ -1,6 +1,6 @@
-import { DualListBoxItem } from './dual-list-box-item.model';
+import { HtmlItemSelector } from '@aw/core/models/_index';
 
 export interface DualListBoxResponse {
-  itemsToAdd: DualListBoxItem[];
-  itemsToRemove: DualListBoxItem[];
+  itemsToAdd: HtmlItemSelector[];
+  itemsToRemove: HtmlItemSelector[];
 }

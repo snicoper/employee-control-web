@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DualListBoxItem } from './dual-list-box-item.model';
+import { HtmlItemSelector } from '@aw/core/models/_index';
 import { DualListBoxResponse } from './dual-list-box-response.model';
 
 @Component({
@@ -8,7 +8,7 @@ import { DualListBoxResponse } from './dual-list-box-response.model';
   styleUrls: ['./dual-list-box.component.scss']
 })
 export class DualListBoxComponent implements OnInit {
-  @Input({ required: true }) dualListBoxItems: DualListBoxItem[] = [];
+  @Input({ required: true }) htmlItemSelector: HtmlItemSelector[] = [];
   @Input() loading = false;
   @Input() size = 10;
 
@@ -16,57 +16,57 @@ export class DualListBoxComponent implements OnInit {
 
   /** Box left. */
   boxLeftId = Math.random().toString();
-  dualListBoxItemsLeft: DualListBoxItem[] = [];
+  htmlItemSelectorsLeft: HtmlItemSelector[] = [];
   itemsLeftSelected: string[] | number[] = [];
   termLeftValue = '';
 
   /** Box right. */
   boxRightId = Math.random().toString();
-  dualListBoxItemsRight: DualListBoxItem[] = [];
+  htmlItemSelectorsRight: HtmlItemSelector[] = [];
   itemsRightSelected: string[] | number[] = [];
   termRightValue = '';
 
   ngOnInit(): void {
-    // Separar grupos y eliminar referencias de dualListBoxItems.
-    this.dualListBoxItems.forEach((item) => {
+    // Separar grupos y eliminar referencias de htmlItemSelectors.
+    this.htmlItemSelector.forEach((item) => {
       if (!item.selected) {
-        this.dualListBoxItemsLeft.push(Object.assign({} as DualListBoxItem, item));
+        this.htmlItemSelectorsLeft.push(Object.assign({} as HtmlItemSelector, item));
       } else {
-        this.dualListBoxItemsRight.push(Object.assign({} as DualListBoxItem, item));
+        this.htmlItemSelectorsRight.push(Object.assign({} as HtmlItemSelector, item));
       }
     });
 
-    this.sortItems(this.dualListBoxItemsLeft);
-    this.sortItems(this.dualListBoxItemsRight);
+    this.sortItems(this.htmlItemSelectorsLeft);
+    this.sortItems(this.htmlItemSelectorsRight);
   }
 
   /** Filtros parte izquierdo. */
   handleFilterLeftBox(): void {
-    this.dualListBoxItemsLeft = this.dualListBoxItems.filter(
-      (item) => !item.selected && item.name.toLocaleLowerCase().includes(this.termLeftValue.toLocaleLowerCase())
+    this.htmlItemSelectorsLeft = this.htmlItemSelector.filter(
+      (item) => !item.selected && item.value.toLocaleLowerCase().includes(this.termLeftValue.toLocaleLowerCase())
     );
   }
 
   /** Filtros parte derecho. */
   handleFilterRightBox(): void {
-    this.dualListBoxItemsRight = this.dualListBoxItems.filter(
-      (item) => item.selected && item.name.toLocaleLowerCase().includes(this.termRightValue.toLocaleLowerCase())
+    this.htmlItemSelectorsRight = this.htmlItemSelector.filter(
+      (item) => item.selected && item.value.toLocaleLowerCase().includes(this.termRightValue.toLocaleLowerCase())
     );
   }
 
   /** Mover items seleccionados en la izquierda a la derecha. */
   handleLeftBtnClick(): void {
     this.itemsLeftSelected.forEach((key) => {
-      const index = this.dualListBoxItemsLeft.findIndex((dualBoxItem) => dualBoxItem.key === key);
-      const item = this.dualListBoxItemsLeft[index];
+      const index = this.htmlItemSelectorsLeft.findIndex((itemSelector) => itemSelector.id === key);
+      const item = this.htmlItemSelectorsLeft[index];
 
       if (index >= 0) {
-        this.dualListBoxItemsLeft.splice(index, 1);
+        this.htmlItemSelectorsLeft.splice(index, 1);
       }
 
       item.selected = true;
-      this.dualListBoxItemsRight.push(item);
-      this.sortItems(this.dualListBoxItemsRight);
+      this.htmlItemSelectorsRight.push(item);
+      this.sortItems(this.htmlItemSelectorsRight);
     });
 
     this.itemsLeftSelected = [];
@@ -75,16 +75,16 @@ export class DualListBoxComponent implements OnInit {
   /** Mover items seleccionados en la derecha a la izquierda. */
   handleRightBtnClick(): void {
     this.itemsRightSelected.forEach((key) => {
-      const index = this.dualListBoxItemsRight.findIndex((dualBoxItem) => dualBoxItem.key === key);
-      const item = this.dualListBoxItemsRight[index];
+      const index = this.htmlItemSelectorsRight.findIndex((itemSelector) => itemSelector.id === key);
+      const item = this.htmlItemSelectorsRight[index];
 
       if (index >= 0) {
-        this.dualListBoxItemsRight.splice(index, 1);
+        this.htmlItemSelectorsRight.splice(index, 1);
       }
 
       item.selected = false;
-      this.dualListBoxItemsLeft.push(item);
-      this.sortItems(this.dualListBoxItemsLeft);
+      this.htmlItemSelectorsLeft.push(item);
+      this.sortItems(this.htmlItemSelectorsLeft);
     });
 
     this.itemsRightSelected = [];
@@ -92,12 +92,12 @@ export class DualListBoxComponent implements OnInit {
 
   /** Filtrar los items movidos de un lado a otro y viceversa. */
   handleSaveChanges(): void {
-    const itemsToAdd: DualListBoxItem[] = [];
-    const itemsToRemove: DualListBoxItem[] = [];
+    const itemsToAdd: HtmlItemSelector[] = [];
+    const itemsToRemove: HtmlItemSelector[] = [];
 
-    this.dualListBoxItemsRight.forEach((itemRight) => {
-      const item = this.dualListBoxItems.find(
-        (itemList) => itemList.key === itemRight.key && itemList.selected !== itemRight.selected
+    this.htmlItemSelectorsRight.forEach((itemRight) => {
+      const item = this.htmlItemSelector.find(
+        (itemList) => itemList.id === itemRight.id && itemList.selected !== itemRight.selected
       );
 
       if (item) {
@@ -105,9 +105,9 @@ export class DualListBoxComponent implements OnInit {
       }
     });
 
-    this.dualListBoxItemsLeft.forEach((itemLeft) => {
-      const item = this.dualListBoxItems.find(
-        (itemList) => itemList.key === itemLeft.key && itemList.selected !== itemLeft.selected
+    this.htmlItemSelectorsLeft.forEach((itemLeft) => {
+      const item = this.htmlItemSelector.find(
+        (itemList) => itemList.id === itemLeft.id && itemList.selected !== itemLeft.selected
       );
 
       if (item) {
@@ -119,7 +119,7 @@ export class DualListBoxComponent implements OnInit {
   }
 
   /** Ordenar los items por el name. */
-  private sortItems(items: DualListBoxItem[]): void {
-    items.sort((left: DualListBoxItem, right: DualListBoxItem) => (left.name < right.name ? -1 : 1));
+  private sortItems(items: HtmlItemSelector[]): void {
+    items.sort((left: HtmlItemSelector, right: HtmlItemSelector) => (left.value < right.value ? -1 : 1));
   }
 }

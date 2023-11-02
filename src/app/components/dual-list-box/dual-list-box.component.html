@@ -17,7 +17,7 @@
           class="form-select"
           multiple
           aria-label="Items unselected">
-          <option *ngFor="let item of dualListBoxItemsLeft" [ngValue]="item.key">{{ item.name }}</option>
+          <option *ngFor="let item of htmlItemSelectorsLeft" [ngValue]="item.id">{{ item.value }}</option>
         </select>
 
         <button
@@ -49,7 +49,7 @@
           class="form-select"
           multiple
           aria-label="Items selected">
-          <option *ngFor="let item of dualListBoxItemsRight" [ngValue]="item.key">{{ item.name }}</option>
+          <option *ngFor="let item of htmlItemSelectorsRight" [ngValue]="item.id">{{ item.value }}</option>
         </select>
 
         <button
