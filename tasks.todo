@@ -1,6 +1,7 @@
 Project:
   ✔ Solucionar los filtros con los paginados. @done (10/30/2023, 7:13:19 PM)
   ✔ Solucionar el tema del footer. @done (10/30/2023, 7:22:58 PM)
-  ☐ Solucionar en los detalles de tarea, al asignar empleados cuando no hay (tema de ngx-bootstrap tabs)
-  ☐ Sidebar movile siempre se muestra
-  ☐ Sidebar recordar estado
+  ☐ Solucionar en los detalles de tarea, al asignar empleados cuando no hay (tema de ngx-bootstrap tabs),
+  ☐ Sidebar movile siempre se muestra.
+  ☐ Sidebar recordar estado.
+  ☐ Las confirmaciones expiran en 1 día, no hay manera de generar otra confirmación.
