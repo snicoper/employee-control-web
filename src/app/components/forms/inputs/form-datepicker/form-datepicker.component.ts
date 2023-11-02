@@ -48,15 +48,12 @@ export class FormDatepickerComponent {
     this.bsLocaleService.use(localeNgxBootstrap);
 
     // Default BsDatepickerConfig.
-    this.bsConfig = Object.assign(
-      {},
-      {
-        containerClass: 'theme-default',
-        showWeekNumbers: false,
-        dateInputFormat: 'LL',
-        adaptivePosition: true
-      }
-    );
+    this.bsConfig = {
+      containerClass: 'theme-default',
+      showWeekNumbers: false,
+      dateInputFormat: 'LL',
+      adaptivePosition: true
+    };
   }
 
   onChange = (_: any): void => {};

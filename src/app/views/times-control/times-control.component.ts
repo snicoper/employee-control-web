@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { TimeControlApiService } from './../../services/api/time-control-api.service';
 import { TimeControlGroupResponse, TimeStateResponse } from './times-control-response.model';
-import { composeTimeControlGroups, setMonthsSelector, setYearsSelector } from './times-control.utils';
+import { composeTimeControlGroups } from './times-control.utils';
 
 @Component({
   selector: 'aw-times-control',
@@ -30,18 +30,20 @@ export class TimesControlComponent {
   monthsSelector: HtmlItemSelector[] = [];
   monthSelected: HtmlItemSelector | undefined;
 
+  dateSelected = new Date();
+
   timeStates = TimeState;
   timeState = TimeState.close;
   loadingTimeState = false;
   loadingData = false;
 
   constructor() {
-    this.setDropdownsDefaultValues();
     this.getTimeState();
     this.loadTimesControl();
   }
 
-  handleChangeFilters(): void {
+  handleDateSelected(date: Date): void {
+    this.dateSelected = date;
     this.loadTimesControl();
   }
 
@@ -89,15 +91,6 @@ export class TimesControlComponent {
       });
   }
 
-  /** Establecer valores por defecto en los filtros (dropdowns) de año y mes. */
-  private setDropdownsDefaultValues(): void {
-    this.yearsSelector = setYearsSelector();
-    this.monthsSelector = setMonthsSelector();
-
-    this.yearSelected = this.yearsSelector.find((item) => item.selected);
-    this.monthSelected = this.monthsSelector.find((item) => item.selected);
-  }
-
   /** Comprobar si tiene algún tiempo abierto. */
   private getTimeState(): void {
     this.loadingTimeState = true;
@@ -119,8 +112,9 @@ export class TimesControlComponent {
   private loadTimesControl(): void {
     this.loadingData = true;
     this.progressStackedCollection = [];
-    const startDate = DateTime.local(Number(this.yearSelected?.id), Number(this.monthSelected?.id), 1);
-    const endDate = startDate.endOf('month');
+    const dateSelected = DateTime.fromJSDate(this.dateSelected);
+    const startDate = dateSelected.startOf('month');
+    const endDate = dateSelected.endOf('month');
     const url = ApiUrls.replace(ApiUrls.timeControl.getTimeControlRangeByEmployeeId, {
       employeeId: this.jwtService.getSid(),
       from: startDate.toUTC().toString(),

@@ -1,0 +1,9 @@
+<input
+  [(ngModel)]="dateSelected"
+  [bsConfig]="bsConfig"
+  (onShown)="handleOpenCalendar($event)"
+  (ngModelChange)="handleChange()"
+  bsDatepicker
+  autocomplete="off"
+  class="form-control"
+  name="date" />

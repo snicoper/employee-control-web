@@ -2,33 +2,9 @@
   <aw-view-header>Control de tiempos</aw-view-header>
 
   <aw-card>
-    <!-- filters -->
-    <div class="d-flex justify-content-center">
-      <div class="col-3">
-        <select
-          [(ngModel)]="yearSelected"
-          (change)="handleChangeFilters()"
-          class="form-select"
-          aria-label="Default select example">
-          <option *ngFor="let year of yearsSelector" [selected]="year.selected" [ngValue]="year">
-            {{ year.value }}
-          </option>
-        </select>
-      </div>
-
-      <div class="col-3">
-        <select
-          [(ngModel)]="monthSelected"
-          (change)="handleChangeFilters()"
-          class="form-select"
-          aria-label="Default select example">
-          <option *ngFor="let month of monthsSelector" [selected]="month.selected" [ngValue]="month">
-            {{ month.value }}
-          </option>
-        </select>
-      </div>
-    </div>
-    <!-- end filters -->
+    <aw-month-selector
+      (changeMonthSelected)="handleDateSelected($event)"
+      [dateSelected]="dateSelected"></aw-month-selector>
 
     <!-- button state -->
     <div class="d-flex justify-content-center mt-4">
