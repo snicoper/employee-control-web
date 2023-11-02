@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ProgressStackedCollection } from '@aw/components/progress/progress-stacked/progress-stacked-colection';
+import { ProgressStackedCollection } from '@aw/components/progress/progress-stacked/progress-stacked-collection';
 import { logError } from '@aw/core/errors/log-messages';
 import { HtmlItemSelector } from '@aw/core/models/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { TimeControlApiService } from './../../services/api/time-control-api.service';
 import { TimeControlGroupResponse, TimeStateResponse } from './times-control-response.model';
-import { composeTimesControl, setMonthsSelector, setYearsSelector } from './times-control.utils';
+import { composeTimeControlGroups, setMonthsSelector, setYearsSelector } from './times-control.utils';
 
 @Component({
   selector: 'aw-times-control',
@@ -132,7 +132,7 @@ export class TimesControlComponent {
       .pipe(finalize(() => (this.loadingData = false)))
       .subscribe({
         next: (result: TimeControlGroupResponse[]) => {
-          composeTimesControl(result).forEach((progressStacked) =>
+          composeTimeControlGroups(result).forEach((progressStacked) =>
             this.progressStackedCollection.push(progressStacked)
           );
         }

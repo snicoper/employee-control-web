@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ProgressStackedCollection } from './progress-stacked-colection';
+import { ProgressStackedCollection } from './progress-stacked-collection';
 
 @Component({
   selector: 'aw-progress-stacked',
