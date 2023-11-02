@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HtmlItemSelector } from '@aw/core/models/_index';
-import { DualListBoxResponse } from './dual-list-box-response.model';
+import { DualListBox } from './dual-list-box.model';
 
 @Component({
   selector: 'aw-dual-list-box',
@@ -12,7 +12,7 @@ export class DualListBoxComponent implements OnInit {
   @Input() loading = false;
   @Input() size = 10;
 
-  @Output() saveChanges = new EventEmitter<DualListBoxResponse>();
+  @Output() saveChanges = new EventEmitter<DualListBox>();
 
   /** Box left. */
   boxLeftId = Math.random().toString();

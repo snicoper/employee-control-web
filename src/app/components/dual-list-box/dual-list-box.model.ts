@@ -1,6 +1,6 @@
 import { HtmlItemSelector } from '@aw/core/models/_index';
 
-export interface DualListBoxResponse {
+export interface DualListBox {
   itemsToAdd: HtmlItemSelector[];
   itemsToRemove: HtmlItemSelector[];
 }

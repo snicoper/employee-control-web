@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, computed, inject } from '@angular/core';
-import { DualListBoxResponse } from '@aw/components/dual-list-box/dual-list-box-response.model';
+import { DualListBox } from '@aw/components/dual-list-box/dual-list-box.model';
 import { HtmlItemSelector } from '@aw/core/models/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { ResultResponse } from '@aw/models/result-response.model';
@@ -33,15 +33,15 @@ export class CompanyTaskAddUsersComponent {
     this.changeComponent.emit();
   }
 
-  handleSaveChanges(dualListBoxResponse: DualListBoxResponse): void {
-    if (!dualListBoxResponse.itemsToAdd.length) {
+  handleSaveChanges(dualListBox: DualListBox): void {
+    if (!dualListBox.itemsToAdd.length) {
       this.handleChangeComponent();
     }
 
     this.loading = true;
 
     const companyTaskId = this.companyTaskSelected()?.id as string;
-    const employeeIds = dualListBoxResponse.itemsToAdd.map((item) => item.id);
+    const employeeIds = dualListBox.itemsToAdd.map((item) => item.id);
     const data = { id: companyTaskId, employeeIds: employeeIds };
     const url = ApiUrls.replace(ApiUrls.companyTasks.assignEmployeesToTask, {
       id: companyTaskId
