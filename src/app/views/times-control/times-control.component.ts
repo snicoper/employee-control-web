@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ProgressStackedCollection } from '@aw/components/progress/progress-stacked/progress-stacked-collection';
 import { logError } from '@aw/core/errors/log-messages';
-import { HtmlItemSelector } from '@aw/core/models/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { TimeState } from '@aw/models/entities/types/time-state.model';
 import { ResultResponse } from '@aw/models/result-response.model';
@@ -10,8 +9,8 @@ import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { TimeControlApiService } from './../../services/api/time-control-api.service';
+import { composeTimeControlGroups } from './compose-time-control-group';
 import { TimeControlGroupResponse, TimeStateResponse } from './times-control-response.model';
-import { composeTimeControlGroups } from './times-control.utils';
 
 @Component({
   selector: 'aw-times-control',
@@ -23,15 +22,7 @@ export class TimesControlComponent {
   private readonly toastrService = inject(ToastrService);
 
   progressStackedCollection: ProgressStackedCollection[] = [];
-
-  /** Filters. */
-  yearsSelector: HtmlItemSelector[] = [];
-  yearSelected: HtmlItemSelector | undefined;
-  monthsSelector: HtmlItemSelector[] = [];
-  monthSelected: HtmlItemSelector | undefined;
-
   dateSelected = new Date();
-
   timeStates = TimeState;
   timeState = TimeState.close;
   loadingTimeState = false;
@@ -39,16 +30,16 @@ export class TimesControlComponent {
 
   constructor() {
     this.getTimeState();
-    this.loadTimesControl();
+    this.loadTimesControlRange();
   }
 
   handleDateSelected(date: Date): void {
     this.dateSelected = date;
-    this.loadTimesControl();
+    this.loadTimesControlRange();
   }
 
   /** Abrir tiempo de actividad. */
-  handleStart(): void {
+  handleTimeStart(): void {
     this.loadingTimeState = true;
     const data = { employeeId: this.jwtService.getSid() };
 
@@ -60,7 +51,7 @@ export class TimesControlComponent {
           if (result.succeeded) {
             this.timeState = TimeState.open;
             this.toastrService.success('Tiempo iniciado con éxito.');
-            this.loadTimesControl();
+            this.loadTimesControlRange();
           } else {
             this.toastrService.error('Ha ocurrido un error al iniciar el tiempo.');
             logError(result.errors.join());
@@ -70,7 +61,7 @@ export class TimesControlComponent {
   }
 
   /** Cerrar tiempo de actividad. */
-  handleFinished(): void {
+  handleTimeFinished(): void {
     this.loadingTimeState = true;
     const data = { employeeId: this.jwtService.getSid() };
 
@@ -82,7 +73,7 @@ export class TimesControlComponent {
           if (result.succeeded) {
             this.timeState = TimeState.close;
             this.toastrService.success('Tiempo finalizado con éxito.');
-            this.loadTimesControl();
+            this.loadTimesControlRange();
           } else {
             this.toastrService.error('Ha ocurrido un error al iniciar el tiempo.');
             logError(result.errors.join());
@@ -109,7 +100,7 @@ export class TimesControlComponent {
   }
 
   /** Obtener lista de tiempos en el mes/año seleccionado. */
-  private loadTimesControl(): void {
+  private loadTimesControlRange(): void {
     this.loadingData = true;
     this.progressStackedCollection = [];
     const dateSelected = DateTime.fromJSDate(this.dateSelected);

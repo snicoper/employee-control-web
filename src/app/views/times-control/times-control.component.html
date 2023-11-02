@@ -10,7 +10,7 @@
     <div class="d-flex justify-content-center mt-4">
       <ng-container *ngIf="timeState === timeStates.open">
         <aw-btn-loading
-          (eventClick)="handleFinished()"
+          (eventClick)="handleTimeFinished()"
           [loading]="loadingTimeState"
           btnIcon="fa-solid fa-flag-checkered"
           btnText="Finalizar"
@@ -19,7 +19,7 @@
 
       <ng-container *ngIf="timeState === timeStates.close">
         <aw-btn-loading
-          (eventClick)="handleStart()"
+          (eventClick)="handleTimeStart()"
           [loading]="loadingTimeState"
           btnIcon="fa-solid fa-hourglass-start"
           btnText="Iniciar"
