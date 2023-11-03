@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
-import { FormInputTypes } from '@aw/core/types/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { BadRequest } from '@aw/models/_index';
@@ -28,7 +27,6 @@ export class CompanyTaskEditComponent {
 
   form: FormGroup = this.fb.group({});
   badRequest: BadRequest | undefined;
-  formTypes = FormInputTypes;
   loadingCompanyTask = false;
   loadingForm = false;
   submitted = false;

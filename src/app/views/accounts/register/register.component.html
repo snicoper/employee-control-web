@@ -3,7 +3,7 @@
     <aw-card extraCss="p-4">
       <form (ngSubmit)="handleSubmit()" [formGroup]="form">
         <h1 class="h3 mb-3 fw-normal"><span class="fa-solid fa-user"></span> Nuevo registro</h1>
-        <hr />
+        <hr/>
 
         <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
 
@@ -38,8 +38,8 @@
           <aw-form-floating
             [badRequest]="badRequest"
             [form]="form"
-            [submitted]="submitted"
             [inputType]="formInputTypes.email"
+            [submitted]="submitted"
             fieldName="email"
             formControlName="email"
             label="Correo electrónico">
@@ -52,8 +52,8 @@
           <aw-form-floating
             [badRequest]="badRequest"
             [form]="form"
-            [submitted]="submitted"
             [inputType]="formInputTypes.password"
+            [submitted]="submitted"
             fieldName="password"
             formControlName="password"
             label="Contraseña">
@@ -66,8 +66,8 @@
           <aw-form-floating
             [badRequest]="badRequest"
             [form]="form"
-            [submitted]="submitted"
             [inputType]="formInputTypes.password"
+            [submitted]="submitted"
             fieldName="confirmPassword"
             formControlName="confirmPassword"
             label="Confirmar contraseña">

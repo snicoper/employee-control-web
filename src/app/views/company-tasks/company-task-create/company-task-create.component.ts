@@ -3,7 +3,6 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
-import { FormInputTypes } from '@aw/core/types/form-input-types';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { getRandomColorHexadecimal } from '@aw/core/utils/common-utils';
@@ -29,7 +28,6 @@ export class CompanyTaskCreateComponent {
 
   form: FormGroup = this.fb.group({});
   badRequest: BadRequest | undefined;
-  formInputTypes = FormInputTypes;
   submitted = false;
   loading = false;
   siteUrls = SiteUrls;

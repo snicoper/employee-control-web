@@ -15,11 +15,11 @@
       <aw-card>
         <div>
           <tabset>
-            <tab heading="Tareas" #tabTasks="tab">
+            <tab #tabTasks="tab" heading="Tareas">
               <aw-employee-tasks *ngIf="tabTasks.active"></aw-employee-tasks>
             </tab>
-            <tab heading="Basic Title 1" #tabB="tab">Basic content 1</tab>
-            <tab heading="Basic Title 2" #tabC="tab">Basic content 2</tab>
+            <tab #tabB="tab" heading="Basic Title 1">Basic content 1</tab>
+            <tab #tabC="tab" heading="Basic Title 2">Basic content 2</tab>
           </tabset>
         </div>
       </aw-card>

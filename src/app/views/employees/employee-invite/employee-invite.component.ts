@@ -7,10 +7,10 @@ import { FormInputTypes } from '@aw/core/types/_index';
 import { ApiUrls } from '@aw/core/urls/_index';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { BadRequest } from '@aw/models/_index';
+import { JwtService } from '@aw/services/_index';
 import { EmployeesApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { JwtService } from './../../../services/jwt.service';
 import { InviteEmployeeRequest } from './employee-invite-request.model';
 
 @Component({

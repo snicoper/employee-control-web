@@ -6,10 +6,10 @@ import { ApiResult } from '@aw/core/api-result/api-result';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { CompanyTask } from '@aw/models/entities/company-task.model';
+import { CurrentCompanyEmployeeService } from '@aw/services/_index';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { DateTime } from 'luxon';
 import { finalize } from 'rxjs';
-import { CurrentCompanyEmployeeService } from './../../../services/current-company-employee.service';
 import { companyTaskListTableHeader } from './company-task-list-table-headers';
 
 @Component({

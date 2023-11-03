@@ -6,10 +6,10 @@ import { CurrentTimeControlStateService } from '@aw/models/_index';
 import { TimeState } from '@aw/models/entities/types/time-state.model';
 import { ResultResponse } from '@aw/models/result-response.model';
 import { JwtService } from '@aw/services/_index';
+import { TimeControlApiService } from '@aw/services/api/_index';
 import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { TimeControlApiService } from './../../services/api/time-control-api.service';
 import { composeTimeControlGroups } from './compose-time-control-group';
 import { TimeControlGroupResponse } from './times-control-response.model';
 
@@ -24,14 +24,12 @@ export class TimesControlComponent {
   private readonly currentTimeControlStateService = inject(CurrentTimeControlStateService);
 
   readonly currentTimeControl = computed(() => this.currentTimeControlStateService.currentTimeControl());
-  readonly loadingCurrentTimeControl = computed(() => this.currentTimeControlStateService.loadingCurrentTimeControl());
 
   loadingTimeState = false;
   progressStackedCollection: ProgressStackedCollection[] = [];
   dateSelected = new Date();
   timeStates = TimeState;
   loadingData = false;
-  formatDatetime = DateTime.TIME_24_SIMPLE;
 
   constructor() {
     this.loadTimesControlRange();

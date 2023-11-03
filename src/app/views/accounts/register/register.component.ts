@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LocalizationService } from '@aw/core/localization/_index';
 import { FormInputTypes } from '@aw/core/types/form-input-types';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
@@ -9,7 +10,6 @@ import { BadRequest } from '@aw/models/_index';
 import { AccountsApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { LocalizationService } from './../../../core/localization/localization.service';
 import { RegisterRequest } from './register-request.model';
 
 @Component({

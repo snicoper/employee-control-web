@@ -3,10 +3,10 @@ import { DualListBox } from '@aw/components/dual-list-box/dual-list-box.model';
 import { HtmlItemSelector } from '@aw/core/models/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { ResultResponse } from '@aw/models/result-response.model';
+import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { CompanyTaskApiService } from './../../../../services/api/company-task-api.service';
-import { CompanyTaskSelectedService } from './../company-task-selected.service';
+import { CompanyTaskSelectedService } from '../company-task-selected.service';
 import { CompanyTaskAddUserResponse } from './company-task-add-user-response.model';
 
 @Component({

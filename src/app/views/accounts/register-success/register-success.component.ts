@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SiteUrls } from './../../../core/urls/site-urls';
+import { SiteUrls } from '@aw/core/urls/_index';
 
 @Component({
   selector: 'aw-register-success',
