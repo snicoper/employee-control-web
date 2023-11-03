@@ -72,6 +72,7 @@ export const formatSizeUnit = (value: number): string => {
 
 /**
  * Calcula el porcentaje de una cantidad total.
+ *
  * @param total Cantidad total.
  * @param value Cantidad a calcular sobre el total.
  * @returns El valor % calculada sobre el total.
