@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { LocalizationService, LocalizationUtils } from '@aw/core/features/localization/_index';
+import { LocalizationService, LocalizationUtils } from '@aw/core/features/localizations/_index';
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { CalendarCellViewModel } from 'ngx-bootstrap/datepicker/models';
 

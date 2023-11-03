@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LocalizationService } from '@aw/core/features/localization/_index';
+import { LocalizationService } from '@aw/core/features/localizations/_index';
 import { FormInputTypes } from '@aw/core/types/form-input-types';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
