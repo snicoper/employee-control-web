@@ -69,3 +69,15 @@ export const formatSizeUnit = (value: number): string => {
 
   return `${Math.round(value / Math.pow(1024, i))} ${sizes[i]}`;
 };
+
+/**
+ * Calcula el porcentaje de una cantidad total.
+ * @param total Cantidad total.
+ * @param value Cantidad a calcular sobre el total.
+ * @returns El valor % calculada sobre el total.
+ */
+export const calculatePercent = (total: number, value: number): number => {
+  const percent = (value / total) * 100;
+
+  return percent;
+};

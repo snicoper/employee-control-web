@@ -1,5 +1,5 @@
 import { ProgressStackedCollection } from '@aw/components/progress/progress-stacked/progress-stacked-collection';
-import { DatetimeUtils } from '@aw/core/utils/_index';
+import { DatetimeUtils, calculatePercent } from '@aw/core/utils/_index';
 import { ClosedBy } from '@aw/models/entities/types/_index';
 import { DateTime } from 'luxon';
 import { TimeControlGroupResponse, TimeResponse } from './times-control-response.model';
@@ -7,6 +7,7 @@ import { TimeControlGroupResponse, TimeResponse } from './times-control-response
 export class TimeControlGroup {
   private readonly timeControlGroups: TimeControlGroupResponse[];
   private readonly progressStackedCollections: ProgressStackedCollection[];
+  private readonly minutesInDay = 60 * 24;
 
   constructor(timeControlGroups: TimeControlGroupResponse[]) {
     this.timeControlGroups = timeControlGroups;
@@ -67,7 +68,7 @@ export class TimeControlGroup {
 
       // Calcular posición del día.
       const diffDateTime = dateTimeStart.diff(lastTimeCalculate, ['minutes']);
-      const diffPercent = this.calculatePercent(diffDateTime.minutes);
+      const diffPercent = calculatePercent(this.minutesInDay, diffDateTime.minutes);
 
       // Insertar tiempo de inactividad (progressStackedItem).
       progressStacked.addItem(currentPercent, 0, 100, diffPercent, '', '', 'bg-transparent');
@@ -112,18 +113,5 @@ export class TimeControlGroup {
       default:
         return 'bg-success';
     }
-  }
-
-  /**
-   * Calcula el porcentaje sobre los minutos totales de un día.
-   *
-   * @param minutes Minutos a calcular.
-   * @returns Un string formateado hh:mm.
-   */
-  private calculatePercent(minutes: number): number {
-    const minutesInDay = 60 * 24;
-    const percent = (minutes / minutesInDay) * 100;
-
-    return percent;
   }
 }
