@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
-import { ApiResult } from '@aw/core/api-result/api-result';
+import { ApiResult } from '@aw/core/features/api-result/api-result';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { CompanyTaskApiService } from '@aw/services/api/_index';

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ApiResult, LogicalOperators, RelationalOperators } from '@aw/core/api-result/_index';
+import { ApiResult, LogicalOperators, RelationalOperators } from '@aw/core/features/api-result/_index';
 import { TableHeaderField } from '../table-header/table-header-field.interface';
 import { TableHeaderConfig } from '../table-header/table-header.config';
 

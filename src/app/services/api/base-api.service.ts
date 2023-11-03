@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { ApiResult } from '@aw/core/api-result/_index';
 import { AppEnvironments } from '@aw/core/config/_index';
+import { ApiResult } from '@aw/core/features/api-result/_index';
 import { Observable } from 'rxjs';
 
 export abstract class BaseApiService {

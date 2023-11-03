@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
-import { ApiResult } from '@aw/core/api-result/api-result';
+import { ApiResult } from '@aw/core/features/api-result/api-result';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { CompanyTask } from '@aw/models/entities/company-task.model';
 import { CompanyTaskApiService } from '@aw/services/api/_index';

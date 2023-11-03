@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ApiResult } from '@aw/core/api-result/api-result';
 import { logDebug, logError, logInfo, logWarning } from '@aw/core/errors/_index';
+import { ApiResult } from '@aw/core/features/api-result/api-result';
 import { AdminAccountsPaginatedResponse } from '@aw/models/_index';
 
 @Component({

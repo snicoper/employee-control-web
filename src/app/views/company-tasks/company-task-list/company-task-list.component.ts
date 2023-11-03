@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
-import { ApiResult } from '@aw/core/api-result/api-result';
+import { ApiResult } from '@aw/core/features/api-result/api-result';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { CompanyTask } from '@aw/models/entities/company-task.model';

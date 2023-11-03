@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ApiResult } from '@aw/core/api-result/_index';
+import { ApiResult } from '@aw/core/features/api-result/_index';
 
 @Component({
   selector: 'aw-table',
