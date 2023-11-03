@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { ProgressStackedCollection } from '@aw/components/progress/progress-stacked/progress-stacked-collection';
 import { logError } from '@aw/core/errors/log-messages';
 import { ApiUrls } from '@aw/core/urls/api-urls';
@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { TimeControlApiService } from './../../services/api/time-control-api.service';
 import { composeTimeControlGroups } from './compose-time-control-group';
-import { CurrentTimeControlResponse, TimeControlGroupResponse } from './times-control-response.model';
+import { TimeControlGroupResponse } from './times-control-response.model';
 
 @Component({
   selector: 'aw-times-control',
@@ -23,16 +23,17 @@ export class TimesControlComponent {
   private readonly toastrService = inject(ToastrService);
   private readonly currentTimeControlStateService = inject(CurrentTimeControlStateService);
 
+  readonly currentTimeControl = computed(() => this.currentTimeControlStateService.currentTimeControl());
+  readonly loadingCurrentTimeControl = computed(() => this.currentTimeControlStateService.loadingCurrentTimeControl());
+
+  loadingTimeState = false;
   progressStackedCollection: ProgressStackedCollection[] = [];
   dateSelected = new Date();
   timeStates = TimeState;
-  currentTimeControl: CurrentTimeControlResponse | undefined;
-  loadingTimeState = false;
   loadingData = false;
   formatDatetime = DateTime.TIME_24_SIMPLE;
 
   constructor() {
-    this.getCurrentTimeControl();
     this.loadTimesControlRange();
   }
 
@@ -52,11 +53,9 @@ export class TimesControlComponent {
       .subscribe({
         next: (result: ResultResponse) => {
           if (result.succeeded && this.currentTimeControl !== undefined) {
-            this.currentTimeControl.timeState = TimeState.open;
-            this.currentTimeControlStateService.open();
-            this.currentTimeControl.start = new Date();
-            this.toastrService.success('Tiempo iniciado con éxito.');
+            this.currentTimeControlStateService.refresh();
             this.loadTimesControlRange();
+            this.toastrService.success('Tiempo iniciado con éxito.');
           } else {
             this.toastrService.error('Ha ocurrido un error al iniciar el tiempo.');
             logError(result.errors.join());
@@ -76,32 +75,13 @@ export class TimesControlComponent {
       .subscribe({
         next: (result: ResultResponse) => {
           if (result.succeeded && this.currentTimeControl !== undefined) {
-            this.currentTimeControl.timeState = TimeState.close;
-            this.currentTimeControlStateService.close();
-            this.toastrService.success('Tiempo finalizado con éxito.');
+            this.currentTimeControlStateService.refresh();
             this.loadTimesControlRange();
+            this.toastrService.success('Tiempo finalizado con éxito.');
           } else {
             this.toastrService.error('Ha ocurrido un error al iniciar el tiempo.');
             logError(result.errors.join());
           }
-        }
-      });
-  }
-
-  /** Comprobar si tiene algún tiempo abierto. */
-  private getCurrentTimeControl(): void {
-    this.loadingTimeState = true;
-    const url = ApiUrls.replace(ApiUrls.timeControl.getTimeStateOpenByEmployeeId, {
-      employeeId: this.jwtService.getSid()
-    });
-
-    this.timeControlApiService
-      .get<CurrentTimeControlResponse>(url)
-      .pipe(finalize(() => (this.loadingTimeState = false)))
-      .subscribe({
-        next: (result: CurrentTimeControlResponse) => {
-          this.currentTimeControl = result;
-          this.currentTimeControlStateService.set(result.timeState);
         }
       });
   }

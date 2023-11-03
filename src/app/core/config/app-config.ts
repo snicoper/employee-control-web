@@ -1,6 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { LocalizationService } from '@aw/core/localization/_index';
+import { CurrentTimeControlStateService } from '@aw/models/_index';
 import { CurrentCompanyEmployeeService, ThemeColorService } from '@aw/services/_index';
+import { AuthService } from './../../services/auth.service';
 
 /**
  * Configuración inicial de la aplicación.
@@ -10,10 +12,16 @@ export class AppConfig {
   private readonly themeColorService = inject(ThemeColorService);
   private readonly localizationService = inject(LocalizationService);
   private readonly currentCompanyEmployeeService = inject(CurrentCompanyEmployeeService);
+  private readonly currentTimeControlStateService = inject(CurrentTimeControlStateService);
+  private readonly authService = inject(AuthService);
 
   load(): Promise<boolean> {
     return new Promise((resolve) => {
-      this.currentCompanyEmployeeService.refresh();
+      if (this.authService.authValue$()) {
+        this.currentCompanyEmployeeService.refresh();
+        this.currentTimeControlStateService.refresh();
+      }
+
       this.themeColorService.initialize();
       this.localizationService.initialize();
 

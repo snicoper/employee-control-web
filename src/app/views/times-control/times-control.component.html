@@ -7,21 +7,21 @@
       [dateSelected]="dateSelected"></aw-month-selector>
 
     <div class="d-flex mt-4">
-      <ng-container *ngIf="currentTimeControl?.timeState === timeStates.open">
+      <ng-container *ngIf="currentTimeControl()?.timeState === timeStates.open">
         <aw-dot-success></aw-dot-success>
         <span>
-          Tiempo iniciado: <strong>{{ currentTimeControl?.start | datetimeFormat: "cccc t" }}</strong>
+          Tiempo iniciado: <strong>{{ currentTimeControl()?.start | datetimeFormat: "cccc t" }}</strong>
         </span>
       </ng-container>
 
-      <ng-container *ngIf="currentTimeControl?.timeState === timeStates.close">
+      <ng-container *ngIf="currentTimeControl()?.timeState === timeStates.close">
         <aw-dot-danger></aw-dot-danger>
         <span>El tiempo esta finalizado</span>
       </ng-container>
 
       <!-- button state -->
       <div class="ms-auto justify-content-center">
-        <ng-container *ngIf="currentTimeControl?.timeState === timeStates.open">
+        <ng-container *ngIf="currentTimeControl()?.timeState === timeStates.open">
           <aw-btn-loading
             (eventClick)="handleTimeFinished()"
             [loading]="loadingTimeState"
@@ -30,7 +30,7 @@
             btnClass="btn btn-outline-warning"></aw-btn-loading>
         </ng-container>
 
-        <ng-container *ngIf="currentTimeControl?.timeState === timeStates.close">
+        <ng-container *ngIf="currentTimeControl()?.timeState === timeStates.close">
           <aw-btn-loading
             (eventClick)="handleTimeStart()"
             [loading]="loadingTimeState"

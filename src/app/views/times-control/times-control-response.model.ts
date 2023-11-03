@@ -16,8 +16,3 @@ export interface TimeResponse {
   minutes: number;
   dayPercent: number;
 }
-
-export interface CurrentTimeControlResponse {
-  start: Date;
-  timeState: TimeState;
-}

@@ -26,7 +26,8 @@ export class SidebarComponent {
   private readonly currentTimeControlStateService = inject(CurrentTimeControlStateService);
 
   readonly sidebarState$ = computed(() => this.layoutService.sidebarState$());
-  readonly currentTimeControlState = computed(() => this.currentTimeControlStateService.currentState());
+  readonly currentTimeControl = computed(() => this.currentTimeControlStateService.currentTimeControl());
+  readonly loadingCurrentTimeControl = computed(() => this.currentTimeControlStateService.loadingCurrentTimeControl());
 
   readonly sidebarMenus: SidebarMenu[];
   readonly sidebarMenuTypes = SidebarMenuTypes;

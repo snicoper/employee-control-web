@@ -3,6 +3,7 @@ export { AdminAccountsPaginatedResponse } from './admin-accounts-paginated-respo
 export { BadRequest } from './bad-request';
 export { BadRequestErrors } from './bad-request-errors';
 export { CurrentCompanyEmployeeResponse } from './current-company-employee-response.model';
+export { CurrentTimeControlResponse } from './current-time-control-response.model';
 export { LocalesSupportedResponse } from './locales-supported-response.model';
 export { RefreshTokenRequest } from './refresh-token-request.model';
 export { RefreshTokenResponse } from './refresh-token-response.model';

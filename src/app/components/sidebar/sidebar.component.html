@@ -5,8 +5,8 @@
         <div class="user-pic">
           <img
             [ngClass]="{
-              'time-state-open': currentTimeControlState() === timeStates.open,
-              'time-state-close': currentTimeControlState() === timeStates.close
+              'time-state-open': currentTimeControl()?.timeState === timeStates.open,
+              'time-state-close': currentTimeControl()?.timeState === timeStates.close
             }"
             class="img-responsive img-rounded"
             src="assets/images/user.jpg"

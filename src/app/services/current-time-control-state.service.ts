@@ -1,25 +1,43 @@
-import { Injectable, computed, signal } from '@angular/core';
-import { TimeState } from './../models/entities/types/time-state.model';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { ApiUrls } from '@aw/core/urls/_index';
+import { CurrentTimeControlResponse } from '@aw/models/_index';
+import { finalize } from 'rxjs';
+import { TimeControlApiService } from './api/_index';
+import { JwtService } from './jwt.service';
 
 @Injectable({ providedIn: 'root' })
 export class CurrentTimeControlStateService {
-  private readonly currentState$ = signal(TimeState.close);
+  private readonly jwtService = inject(JwtService);
+  private readonly timeControlApiService = inject(TimeControlApiService);
 
-  readonly currentState = computed(() => this.currentState$());
+  private readonly currentTimeControl$ = signal<CurrentTimeControlResponse | null>(null);
+  private readonly loadingCurrentTimeControl$ = signal(false);
 
-  getCurrentStateValue(): TimeState {
-    return this.currentState$();
+  readonly currentTimeControl = computed(() => this.currentTimeControl$());
+  readonly loadingCurrentTimeControl = computed(() => this.loadingCurrentTimeControl$());
+
+  refresh(): void {
+    this.loadCurrentTimeControl();
   }
 
-  open(): void {
-    this.currentState$.set(TimeState.open);
+  getCurrentStateValue(): CurrentTimeControlResponse | null {
+    return this.currentTimeControl$();
   }
 
-  close(): void {
-    this.currentState$.set(TimeState.close);
-  }
+  private loadCurrentTimeControl(): void {
+    this.loadingCurrentTimeControl$.set(true);
 
-  set(timeState: TimeState): void {
-    this.currentState$.set(timeState);
+    const url = ApiUrls.replace(ApiUrls.timeControl.getTimeStateOpenByEmployeeId, {
+      employeeId: this.jwtService.getSid()
+    });
+
+    this.timeControlApiService
+      .get<CurrentTimeControlResponse>(url)
+      .pipe(finalize(() => this.loadingCurrentTimeControl$.set(false)))
+      .subscribe({
+        next: (result: CurrentTimeControlResponse) => {
+          this.currentTimeControl$.set(result);
+        }
+      });
   }
 }
