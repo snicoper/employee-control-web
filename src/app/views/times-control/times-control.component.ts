@@ -1,6 +1,8 @@
 import { Component, computed, inject } from '@angular/core';
 import { ProgressStackedCollection } from '@aw/components/progress/progress-stacked/progress-stacked-collection';
 import { logError } from '@aw/core/errors/log-messages';
+import { TimeControlGroupResponse } from '@aw/core/features/times-control/_index';
+import { TimeControlGroup } from '@aw/core/features/times-control/time-control-group';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { CurrentTimeControlStateService } from '@aw/models/_index';
 import { TimeState } from '@aw/models/entities/types/time-state.model';
@@ -10,8 +12,6 @@ import { TimeControlApiService } from '@aw/services/api/_index';
 import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { composeTimeControlGroups } from './compose-time-control-group';
-import { TimeControlGroupResponse } from './times-control-response.model';
 
 @Component({
   selector: 'aw-times-control',
@@ -103,9 +103,8 @@ export class TimesControlComponent {
       .pipe(finalize(() => (this.loadingData = false)))
       .subscribe({
         next: (result: TimeControlGroupResponse[]) => {
-          composeTimeControlGroups(result).forEach((progressStacked) =>
-            this.progressStackedCollection.push(progressStacked)
-          );
+          const timeControlGroup = new TimeControlGroup(result);
+          this.progressStackedCollection = timeControlGroup.compose();
         }
       });
   }

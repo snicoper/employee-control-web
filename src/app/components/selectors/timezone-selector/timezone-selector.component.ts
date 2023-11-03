@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { LocalizationService } from '@aw/core/localization/localization.service';
+import { LocalizationService } from '@aw/core/features/localization/_index';
 import * as moment from 'moment-timezone';
 
 @Component({

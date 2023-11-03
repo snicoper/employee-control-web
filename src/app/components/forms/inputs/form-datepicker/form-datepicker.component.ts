@@ -1,7 +1,6 @@
 import { Component, Input, forwardRef, inject } from '@angular/core';
 import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { LocalizationUtils } from '@aw/core/localization/_index';
-import { LocalizationService } from '@aw/core/localization/localization.service';
+import { LocalizationService, LocalizationUtils } from '@aw/core/features/localization/_index';
 import { FormInputTypes } from '@aw/core/types/_index';
 import { BadRequest } from '@aw/models/_index';
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';

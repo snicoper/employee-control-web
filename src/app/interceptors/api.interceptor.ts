@@ -1,6 +1,6 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { LocalizationService } from '@aw/core/localization/localization.service';
+import { LocalizationService } from '@aw/core/features/localization/_index';
 import { JwtService } from '@aw/services/_index';
 import { Observable } from 'rxjs';
 
