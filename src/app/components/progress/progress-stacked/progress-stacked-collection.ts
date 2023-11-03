@@ -1,6 +1,6 @@
 import { ProgressStackedItem } from './progress-stacked-item.model';
 export class ProgressStackedCollection {
-  progressStackedItem: ProgressStackedItem[] = [];
+  progressStackedItems: ProgressStackedItem[] = [];
   title: string = '';
 
   addItem(
@@ -12,8 +12,8 @@ export class ProgressStackedCollection {
     tooltip = '',
     background = 'bg-primary'
   ): this {
-    this.progressStackedItem.push({
-      id: this.progressStackedItem.length,
+    this.progressStackedItems.push({
+      id: this.progressStackedItems.length,
       valueNow: valueNow,
       valueMin: valueMin,
       valueMax: valueMax,

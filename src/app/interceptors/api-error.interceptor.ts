@@ -77,14 +77,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
           return next.handle(request);
         }),
-        catchError((error: HttpErrorResponse) => {
-          // Si llega aquí, es posible que tenga la cuenta desactivada o
-          // que el refresh token haya caducado.
-          // this.jwtService.removeTokens();
-          // this.router.navigateByUrl(SiteUrls.auth.login);
-
-          return throwError(() => error);
-        })
+        catchError((error: HttpErrorResponse) => throwError(() => error))
       );
     }
 
