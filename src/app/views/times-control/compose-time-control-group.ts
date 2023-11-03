@@ -15,11 +15,9 @@ export const composeTimeControlGroups = (
 ): ProgressStackedCollection[] => {
   const progressStackedCollections: ProgressStackedCollection[] = [];
 
-  timeControlGroups.forEach((timeControlGroup: TimeControlGroupResponse, index: number) => {
+  timeControlGroups.forEach((timeControlGroup: TimeControlGroupResponse) => {
     // Obtener el siguiente timeControlGroup para insertar tiempos superiores a 23:59:59.
-    const next = (index += 1);
-    const nextTimeControlGroup = typeof timeControlGroups[index] === 'undefined' ? null : timeControlGroups[next];
-    const progressStackedCollection = composeTimeControlGroup(timeControlGroup, nextTimeControlGroup);
+    const progressStackedCollection = composeTimeControlGroup(timeControlGroup);
 
     progressStackedCollections.push(progressStackedCollection);
   });
@@ -34,10 +32,7 @@ export const composeTimeControlGroups = (
  * @param nextTimeControlGroup Siguiente elemento timeControlGroup.
  * @returns ProgressStackedCollection.
  */
-const composeTimeControlGroup = (
-  timeControlGroup: TimeControlGroupResponse,
-  nextTimeControlGroup: TimeControlGroupResponse | null
-): ProgressStackedCollection => {
+const composeTimeControlGroup = (timeControlGroup: TimeControlGroupResponse): ProgressStackedCollection => {
   const progressStacked = new ProgressStackedCollection();
   let totalMinutesInGroup = 0;
   let currentPercent = 0;
@@ -51,40 +46,11 @@ const composeTimeControlGroup = (
   timeControlGroup.times.forEach((time: TimeResponse) => {
     totalMinutesInGroup += time.minutes;
 
-    // Calcular posición del día.
+    // Inicio y final del TimeResponse.
     const dateTimeStart = DateTime.fromJSDate(new Date(time.start));
     const dateTimeEnd = DateTime.fromJSDate(new Date(time.finish));
 
-    // TODO: Por hacer
-    // if (dateTimeStart.startOf('day').day < dateTimeEnd.startOf('day').day) {
-    //   const diffDateTime = dateTimeStart.diff(dateTimeEnd, ['minutes']);
-
-    //   const newTimeEnd = dateTimeEnd.set({
-    //     day: dateTimeStart.day,
-    //     month: dateTimeStart.month,
-    //     hour: 23,
-    //     minute: 59,
-    //     second: 59
-    //   });
-
-    //   const nextTimeStart = dateTimeEnd.set({
-    //     day: dateTimeEnd.day,
-    //     month: dateTimeEnd.month,
-    //     hour: 0,
-    //     minute: 0,
-    //     second: 0
-    //   });
-
-    //   const nextTimeEnd = nextTimeStart.plus(diffDateTime);
-
-    //   const newTime = { ...time };
-    //   newTime.start = nextTimeStart.toJSDate();
-    //   newTime.finish = nextTimeEnd.toJSDate();
-
-    //   nextTimeControlGroup?.times.unshift(newTime);
-    // }
-    // TODO: End Por hacer
-
+    // Calcular posición del día.
     const diffDateTime = dateTimeStart.diff(lastTimeCalculate, ['minutes']);
     const diffPercent = calculatePercent(diffDateTime.minutes);
 
@@ -99,6 +65,7 @@ const composeTimeControlGroup = (
     tooltip += `${dateTimeEnd.toLocaleString(DateTime.TIME_SIMPLE)} `;
     tooltip += `(${timeDuration})`;
 
+    // Añadir item al grupo.
     progressStacked.addItem(currentPercent, 0, 100, time.dayPercent, timeDuration, tooltip, background);
     currentPercent += time.dayPercent;
 
