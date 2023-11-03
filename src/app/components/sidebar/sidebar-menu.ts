@@ -43,7 +43,7 @@ export const sidebarMenu: SidebarMenu[] = [
   },
   {
     title: 'Empleado',
-    icon: 'fa-regular fa-building',
+    icon: 'fa-solid fa-user',
     active: false,
     type: SidebarMenuTypes.dropdown,
     submenus: [

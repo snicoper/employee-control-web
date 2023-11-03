@@ -9,6 +9,7 @@ import { BadRequest } from '@aw/models/_index';
 import { AccountsApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
+import { LocalizationService } from './../../../core/localization/localization.service';
 import { RegisterRequest } from './register-request.model';
 
 @Component({
@@ -21,6 +22,7 @@ export class RegisterComponent {
   private readonly accountsApiService = inject(AccountsApiService);
   private readonly route = inject(Router);
   private readonly toastrService = inject(ToastrService);
+  private readonly localizationService = inject(LocalizationService);
 
   form: FormGroup = this.fb.group({});
   badRequest: BadRequest | undefined;
@@ -42,6 +44,7 @@ export class RegisterComponent {
 
     this.loading = true;
     const registerRequest = this.form.value as RegisterRequest;
+    registerRequest.timezone = this.localizationService.getTimezoneValue();
 
     this.accountsApiService
       .post<RegisterRequest, string>(registerRequest, ApiUrls.accounts.registerAccount)

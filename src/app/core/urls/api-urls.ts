@@ -66,6 +66,7 @@ export const ApiUrls = {
   timeControl: {
     getCurrentStateTimeControl: '/times-control/employees/{employeeId}/time-state',
     getTimeControlRangeByEmployeeId: '/times-control/employees/{employeeId}/from/{from}/to/{to}',
+    getTimeStateOpenByEmployeeId: '/times-control/employees/{employeeId}/time-state-open',
     startTimeControl: '/times-control/start',
     finishTimeControl: '/times-control/finish'
   },

@@ -10,7 +10,7 @@ import { AwFormsModule } from '@aw/components/forms/aw-forms.module';
 import { AwPaginationModule } from '@aw/components/pagination/aw-pagination.module';
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
-import { PipesModule } from '@aw/pipes/pipes.module';
+import { AwPipesModule } from '@aw/pipes/pipes.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CompanyTaskCreateComponent } from './company-task-create/company-task-create.component';
 import { CompanyTaskEditComponent } from './company-task-edit/company-task-edit.component';
@@ -47,7 +47,7 @@ import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
     AwBreadcrumbModule,
     AwColorsModule,
     AwDualListBoxModule,
-    PipesModule
+    AwPipesModule
   ],
   providers: [CompanyTaskSelectedService]
 })

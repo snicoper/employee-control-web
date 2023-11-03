@@ -1,8 +1,8 @@
 import { LocalesSupported } from './locales-supported';
 
 export abstract class LocalizationUtils {
-  static readonly defaultLocale = LocalesSupported.esES;
-  static readonly defaultTimezone = 'Europe/Madrid';
+  static readonly defaultLocale = Intl.DateTimeFormat().resolvedOptions().locale as LocalesSupported;
+  static readonly defaultTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   /**
    * Mapea una cultura soportada por un locale de ngx-bootstrap.

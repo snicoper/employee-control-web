@@ -10,7 +10,7 @@ import { AwSpinnerModule } from '@aw/components/spinner/aw-spinner.module';
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { AwDirectivesModule } from '@aw/directives/aw-directives.module';
-import { PipesModule } from '@aw/pipes/pipes.module';
+import { AwPipesModule } from '@aw/pipes/pipes.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AwBreadcrumbModule } from './../../components/breadcrumb/aw-breadcrumb.module';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
@@ -45,7 +45,7 @@ import { EmployeesRoutingModule } from './employees-routing.module';
     AwSpinnerModule,
     AwBreadcrumbModule,
     AwColorsModule,
-    PipesModule,
+    AwPipesModule,
     AwDirectivesModule
   ],
   providers: [EmployeeSelectedService]

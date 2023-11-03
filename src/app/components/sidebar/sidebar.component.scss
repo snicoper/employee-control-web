@@ -1,6 +1,7 @@
 // https://github.com/azouaoui-med/angular-pro-sidebar
-@import "variables-local";
-@import "variables-bs";
+@import "bootstrap/scss/functions";
+@import "variables";
+@import "bootstrap/scss/variables";
 
 $bg-color: var(--#{$prefix}tertiary-bg);
 $text-color: var(--#{$prefix}emphasis-color);
@@ -87,6 +88,14 @@ $border-color: var(--#{$prefix}border-color);
         margin-right: 15px;
         overflow: hidden;
 
+        .time-state-open {
+          border: 5px solid $success;
+        }
+
+        .time-state-close {
+          border: 5px solid $danger;
+        }
+
         img {
           object-fit: cover;
           height: 100%;
@@ -106,6 +115,10 @@ $border-color: var(--#{$prefix}border-color);
 
       .company-name {
         font-weight: bold;
+      }
+
+      .time-state {
+        display: block;
       }
     }
 

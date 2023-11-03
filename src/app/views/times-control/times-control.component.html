@@ -6,27 +6,41 @@
       (changeMonthSelected)="handleDateSelected($event)"
       [dateSelected]="dateSelected"></aw-month-selector>
 
-    <!-- button state -->
-    <div class="d-flex justify-content-center mt-4">
-      <ng-container *ngIf="timeState === timeStates.open">
-        <aw-btn-loading
-          (eventClick)="handleTimeFinished()"
-          [loading]="loadingTimeState"
-          btnIcon="fa-solid fa-flag-checkered"
-          btnText="Finalizar"
-          btnClass="btn btn-outline-warning"></aw-btn-loading>
+    <div class="d-flex mt-4">
+      <ng-container *ngIf="currentTimeControl?.timeState === timeStates.open">
+        <aw-dot-success></aw-dot-success>
+        <span>
+          Tiempo iniciado: <strong>{{ currentTimeControl?.start | datetimeFormat: "cccc t" }}</strong>
+        </span>
       </ng-container>
 
-      <ng-container *ngIf="timeState === timeStates.close">
-        <aw-btn-loading
-          (eventClick)="handleTimeStart()"
-          [loading]="loadingTimeState"
-          btnIcon="fa-solid fa-hourglass-start"
-          btnText="Iniciar"
-          btnClass="btn btn-success"></aw-btn-loading>
+      <ng-container *ngIf="currentTimeControl?.timeState === timeStates.close">
+        <aw-dot-danger></aw-dot-danger>
+        <span>El tiempo esta finalizado</span>
       </ng-container>
+
+      <!-- button state -->
+      <div class="ms-auto justify-content-center">
+        <ng-container *ngIf="currentTimeControl?.timeState === timeStates.open">
+          <aw-btn-loading
+            (eventClick)="handleTimeFinished()"
+            [loading]="loadingTimeState"
+            btnIcon="fa-solid fa-flag-checkered"
+            btnText="Finalizar"
+            btnClass="btn btn-outline-warning"></aw-btn-loading>
+        </ng-container>
+
+        <ng-container *ngIf="currentTimeControl?.timeState === timeStates.close">
+          <aw-btn-loading
+            (eventClick)="handleTimeStart()"
+            [loading]="loadingTimeState"
+            btnIcon="fa-solid fa-hourglass-start"
+            btnText="Iniciar"
+            btnClass="btn btn-success"></aw-btn-loading>
+        </ng-container>
+      </div>
+      <!-- end button state -->
     </div>
-    <!-- end button state -->
   </aw-card>
 
   <div class="mt-2"></div>

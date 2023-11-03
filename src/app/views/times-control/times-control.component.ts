@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ProgressStackedCollection } from '@aw/components/progress/progress-stacked/progress-stacked-collection';
 import { logError } from '@aw/core/errors/log-messages';
 import { ApiUrls } from '@aw/core/urls/api-urls';
+import { CurrentTimeControlStateService } from '@aw/models/_index';
 import { TimeState } from '@aw/models/entities/types/time-state.model';
 import { ResultResponse } from '@aw/models/result-response.model';
 import { JwtService } from '@aw/services/_index';
@@ -10,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { TimeControlApiService } from './../../services/api/time-control-api.service';
 import { composeTimeControlGroups } from './compose-time-control-group';
-import { TimeControlGroupResponse, TimeStateResponse } from './times-control-response.model';
+import { CurrentTimeControlResponse, TimeControlGroupResponse } from './times-control-response.model';
 
 @Component({
   selector: 'aw-times-control',
@@ -20,16 +21,18 @@ export class TimesControlComponent {
   private readonly timeControlApiService = inject(TimeControlApiService);
   private readonly jwtService = inject(JwtService);
   private readonly toastrService = inject(ToastrService);
+  private readonly currentTimeControlStateService = inject(CurrentTimeControlStateService);
 
   progressStackedCollection: ProgressStackedCollection[] = [];
   dateSelected = new Date();
   timeStates = TimeState;
-  timeState = TimeState.close;
+  currentTimeControl: CurrentTimeControlResponse | undefined;
   loadingTimeState = false;
   loadingData = false;
+  formatDatetime = DateTime.TIME_24_SIMPLE;
 
   constructor() {
-    this.getTimeState();
+    this.getCurrentTimeControl();
     this.loadTimesControlRange();
   }
 
@@ -48,8 +51,10 @@ export class TimesControlComponent {
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
         next: (result: ResultResponse) => {
-          if (result.succeeded) {
-            this.timeState = TimeState.open;
+          if (result.succeeded && this.currentTimeControl !== undefined) {
+            this.currentTimeControl.timeState = TimeState.open;
+            this.currentTimeControlStateService.open();
+            this.currentTimeControl.start = new Date();
             this.toastrService.success('Tiempo iniciado con éxito.');
             this.loadTimesControlRange();
           } else {
@@ -70,8 +75,9 @@ export class TimesControlComponent {
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
         next: (result: ResultResponse) => {
-          if (result.succeeded) {
-            this.timeState = TimeState.close;
+          if (result.succeeded && this.currentTimeControl !== undefined) {
+            this.currentTimeControl.timeState = TimeState.close;
+            this.currentTimeControlStateService.close();
             this.toastrService.success('Tiempo finalizado con éxito.');
             this.loadTimesControlRange();
           } else {
@@ -83,18 +89,19 @@ export class TimesControlComponent {
   }
 
   /** Comprobar si tiene algún tiempo abierto. */
-  private getTimeState(): void {
+  private getCurrentTimeControl(): void {
     this.loadingTimeState = true;
-    const url = ApiUrls.replace(ApiUrls.timeControl.getCurrentStateTimeControl, {
+    const url = ApiUrls.replace(ApiUrls.timeControl.getTimeStateOpenByEmployeeId, {
       employeeId: this.jwtService.getSid()
     });
 
     this.timeControlApiService
-      .get<TimeStateResponse>(url)
+      .get<CurrentTimeControlResponse>(url)
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
-        next: (result: TimeStateResponse) => {
-          this.timeState = result.timeState;
+        next: (result: CurrentTimeControlResponse) => {
+          this.currentTimeControl = result;
+          this.currentTimeControlStateService.set(result.timeState);
         }
       });
   }
@@ -103,6 +110,7 @@ export class TimesControlComponent {
   private loadTimesControlRange(): void {
     this.loadingData = true;
     this.progressStackedCollection = [];
+
     const dateSelected = DateTime.fromJSDate(this.dateSelected);
     const startDate = dateSelected.startOf('month');
     const endDate = dateSelected.endOf('month');

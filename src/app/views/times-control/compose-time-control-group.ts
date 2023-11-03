@@ -15,8 +15,12 @@ export const composeTimeControlGroups = (
 ): ProgressStackedCollection[] => {
   const progressStackedCollections: ProgressStackedCollection[] = [];
 
-  timeControlGroups.forEach((timeControlGroup: TimeControlGroupResponse) => {
-    const progressStackedCollection = composeTimeControlGroup(timeControlGroup);
+  timeControlGroups.forEach((timeControlGroup: TimeControlGroupResponse, index: number) => {
+    // Obtener el siguiente timeControlGroup para insertar tiempos superiores a 23:59:59.
+    const next = (index += 1);
+    const nextTimeControlGroup = typeof timeControlGroups[index] === 'undefined' ? null : timeControlGroups[next];
+    const progressStackedCollection = composeTimeControlGroup(timeControlGroup, nextTimeControlGroup);
+
     progressStackedCollections.push(progressStackedCollection);
   });
 
@@ -25,10 +29,15 @@ export const composeTimeControlGroups = (
 
 /**
  * Componer un grupo (día) de TimeControl[].
+ *
  * @param timeControlGroup Un grupo (día) de TimeControl[].
+ * @param nextTimeControlGroup Siguiente elemento timeControlGroup.
  * @returns ProgressStackedCollection.
  */
-const composeTimeControlGroup = (timeControlGroup: TimeControlGroupResponse): ProgressStackedCollection => {
+const composeTimeControlGroup = (
+  timeControlGroup: TimeControlGroupResponse,
+  nextTimeControlGroup: TimeControlGroupResponse | null
+): ProgressStackedCollection => {
   const progressStacked = new ProgressStackedCollection();
   let totalMinutesInGroup = 0;
   let currentPercent = 0;
@@ -43,10 +52,41 @@ const composeTimeControlGroup = (timeControlGroup: TimeControlGroupResponse): Pr
     totalMinutesInGroup += time.minutes;
 
     // Calcular posición del día.
-    const currentDateTimeStart = DateTime.fromJSDate(new Date(time.start));
-    const currentDateTimeEnd = DateTime.fromJSDate(new Date(time.finish));
-    const diffMinutes = currentDateTimeStart.diff(lastTimeCalculate, ['minutes']);
-    const diffPercent = calculatePercent(diffMinutes.minutes);
+    const dateTimeStart = DateTime.fromJSDate(new Date(time.start));
+    const dateTimeEnd = DateTime.fromJSDate(new Date(time.finish));
+
+    // TODO: Por hacer
+    // if (dateTimeStart.startOf('day').day < dateTimeEnd.startOf('day').day) {
+    //   const diffDateTime = dateTimeStart.diff(dateTimeEnd, ['minutes']);
+
+    //   const newTimeEnd = dateTimeEnd.set({
+    //     day: dateTimeStart.day,
+    //     month: dateTimeStart.month,
+    //     hour: 23,
+    //     minute: 59,
+    //     second: 59
+    //   });
+
+    //   const nextTimeStart = dateTimeEnd.set({
+    //     day: dateTimeEnd.day,
+    //     month: dateTimeEnd.month,
+    //     hour: 0,
+    //     minute: 0,
+    //     second: 0
+    //   });
+
+    //   const nextTimeEnd = nextTimeStart.plus(diffDateTime);
+
+    //   const newTime = { ...time };
+    //   newTime.start = nextTimeStart.toJSDate();
+    //   newTime.finish = nextTimeEnd.toJSDate();
+
+    //   nextTimeControlGroup?.times.unshift(newTime);
+    // }
+    // TODO: End Por hacer
+
+    const diffDateTime = dateTimeStart.diff(lastTimeCalculate, ['minutes']);
+    const diffPercent = calculatePercent(diffDateTime.minutes);
 
     // Insertar tiempo de inactividad (progressStackedItem).
     progressStacked.addItem(currentPercent, 0, 100, diffPercent, '', '', 'bg-transparent');
@@ -55,8 +95,9 @@ const composeTimeControlGroup = (timeControlGroup: TimeControlGroupResponse): Pr
     // Insertar tiempo de actividad (progressStackedItem).
     const background = getCssClassByTimeState(time);
     const timeDuration = DatetimeUtils.formatMinutesToTime(time.minutes);
-    let tooltip = `${currentDateTimeStart.toLocaleString(DateTime.TIME_SIMPLE)} - `;
-    tooltip += `${currentDateTimeEnd.toLocaleString(DateTime.TIME_SIMPLE)}`;
+    let tooltip = `${dateTimeStart.toLocaleString(DateTime.TIME_SIMPLE)} - `;
+    tooltip += `${dateTimeEnd.toLocaleString(DateTime.TIME_SIMPLE)} `;
+    tooltip += `(${timeDuration})`;
 
     progressStacked.addItem(currentPercent, 0, 100, time.dayPercent, timeDuration, tooltip, background);
     currentPercent += time.dayPercent;
@@ -94,7 +135,7 @@ const getCssClassByTimeState = (time: TimeResponse): string => {
 /** Calcula el porcentaje sobre los minutos totales de un día. */
 const calculatePercent = (minutes: number): number => {
   const minutesInDay = 60 * 24;
-  const percent = Math.floor((minutes / minutesInDay) * 100);
+  const percent = (minutes / minutesInDay) * 100;
 
   return percent;
 };
