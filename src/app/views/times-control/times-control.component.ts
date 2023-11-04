@@ -25,8 +25,8 @@ export class TimesControlComponent {
 
   readonly currentTimeControl = computed(() => this.currentTimeControlStateService.currentTimeControl());
 
-  loadingTimeState = false;
   progressStackedCollection: ProgressStackedCollection[] = [];
+  loadingTimeState = false;
   dateSelected = new Date();
   timeStates = TimeState;
   loadingData = false;
@@ -103,7 +103,7 @@ export class TimesControlComponent {
       .pipe(finalize(() => (this.loadingData = false)))
       .subscribe({
         next: (result: TimeControlGroupResponse[]) => {
-          const timeControlGroup = new TimeControlGroup(result);
+          const timeControlGroup = new TimeControlGroup(result, this.dateSelected);
           this.progressStackedCollection = timeControlGroup.compose();
         }
       });
