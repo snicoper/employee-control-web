@@ -46,6 +46,8 @@ export class ProcessTimeControlGroups {
       const period = new PeriodDatetime(start, end);
 
       // Tiempo dentro del día actual.
+      // |----------------| Current day.
+      //     |--------| Time.
       if (
         period.start.day === this.groupStartDay.day &&
         period.end.day === this.groupStartDay.day &&
@@ -58,25 +60,35 @@ export class ProcessTimeControlGroups {
       }
 
       // Comprobar los tiempos anteriores a las 00:00:00.
+      //      |----------------| Current day.
+      // |--------| Time.
       if (period.start.day < this.groupStartDay.day) {
-        // Tiempos que al menos el inicio antes del inicio del día.
+        this.processUnderTime(time, period, day);
       }
 
       // Tiempos que al menos el final supera al día actual.
+      // |----------------| Current day.
+      //             |--------| Time.
       if (period.end.day > this.groupEndDay.day) {
         this.processOverTime(time, period, day);
       }
     });
   }
 
-  /** Caso en que el tiempo de inicio y final están dentro del día actual. */
+  /**
+   * Caso en que el tiempo de inicio y final están dentro del día actual.
+   * |----------------| Current day.
+   *    |--------| Time.
+   */
   private processTimeInRange(time: TimeResponse, period: PeriodDatetime, day: number): void {
-    const currentItem = this.currentTimeControlGroup(day);
+    const currentItemControl = this.currentTimeControlGroup(day);
 
-    if (!currentItem) {
+    if (!currentItemControl) {
       return;
     }
 
+    // |-------------------| Current day.
+    //    |----------| Time.
     const newTime = {
       id: time.id,
       start: period.start.toJSDate(),
@@ -87,30 +99,51 @@ export class ProcessTimeControlGroups {
       dayPercent: calculatePercent(this.minutesInDay, period.duration())
     } as TimeResponse;
 
-    currentItem.totalMinutes += period.duration();
-    currentItem.times.push(newTime);
+    currentItemControl.totalMinutes += period.duration();
+    currentItemControl.times.push(newTime);
   }
 
-  /** Tiempos que terminan pasadas las 23:59:59. */
+  /**
+   * Tiempos que terminan y/o empiezan pasadas las 23:59:59.
+   * |---------------| Current day.
+   *                    |--------| Time.
+   *            |--------| Time.
+   */
   private processOverTime(time: TimeResponse, period: PeriodDatetime, day: number): void {
     const nextTimeControl = this.nextTimeControlGroup(day);
     const currentItemControl = this.currentTimeControlGroup(day);
+    const prevTimeControl = this.prevTimeControlGroup(day);
 
-    if (!nextTimeControl) {
+    if (!nextTimeControl || !currentItemControl) {
       return;
     }
 
     // Comprobar si el inicio también supera el día actual.
-    if (period.start.day > this.groupEndDay.day) {
-      // Nothing.
+    // |---------------| Current day.
+    //                    |--------| Time.
+    if (period.start.day > this.groupEndDay.day && prevTimeControl) {
+      const newPrevTime = {
+        id: time.id,
+        start: period.start.toJSDate(),
+        finish: period.end.toJSDate(),
+        timeState: time.timeState,
+        closedBy: time.closedBy,
+        minutes: period.duration(),
+        dayPercent: calculatePercent(this.minutesInDay, period.duration())
+      } as TimeResponse;
+
+      prevTimeControl.totalMinutes += period.duration();
+      prevTimeControl.times.push(newPrevTime);
 
       return;
     }
 
     // Este caso solo puede haber uno por TimeControlGroupResponse.
     // El inicio comienza el día actual y el final el día siguiente.
+    // |---------------------| Current day.
+    //                   |--------| Time.
     const diffMidnight = period.start.endOf('day').diff(period.start, ['minutes']).minutes;
-    const duration = period.duration() - diffMidnight;
+    const duration = Math.abs(Math.round(period.duration() - diffMidnight));
 
     // Día siguiente desde las 00:00.00.
     const newOverTime = {
@@ -126,10 +159,6 @@ export class ProcessTimeControlGroups {
     nextTimeControl.totalMinutes += duration;
     nextTimeControl.times.unshift(newOverTime);
 
-    if (!currentItemControl) {
-      return;
-    }
-
     // Día actual hasta las 23:59:59.
     const newTime = {
       id: time.id,
@@ -143,6 +172,45 @@ export class ProcessTimeControlGroups {
 
     currentItemControl.totalMinutes -= diffMidnight;
     currentItemControl.times.push(newTime);
+  }
+
+  private processUnderTime(time: TimeResponse, period: PeriodDatetime, day: number): void {
+    const prevTimeControl = this.prevTimeControlGroup(day);
+    const currentItemControl = this.currentTimeControlGroup(day);
+
+    if (!prevTimeControl) {
+      return;
+    }
+
+    // Comprobar si el final también supera el día actual.
+    //               |---------------------| Current day.
+    // |---------| Time.
+    if (period.end.day > this.groupStartDay.day) {
+      // POR HACER.
+
+      return;
+    }
+
+    // Este caso solo puede haber uno por TimeControlGroupResponse.
+    // El inicio comienza el día anterior y el final termina el día actual.
+    //            |-----------------------| Current day.
+    //        |--------| Time.
+    const diffMidnight = period.start.endOf('day').diff(period.start, ['minutes']).minutes;
+    const duration = period.duration() - diffMidnight;
+
+    // Día siguiente desde las 00:00.00.
+    const newOverTime = {
+      id: time.id,
+      start: period.end.set({ hour: 0, minute: 0, second: 0 }).toJSDate(),
+      finish: period.end.startOf('day').plus({ minutes: duration }).toJSDate(),
+      timeState: time.timeState,
+      closedBy: time.closedBy,
+      minutes: duration,
+      dayPercent: calculatePercent(this.minutesInDay, duration)
+    } as TimeResponse;
+
+    prevTimeControl.totalMinutes += duration;
+    prevTimeControl.times.unshift(newOverTime);
   }
 
   /** Crear un TimeControlGroupResponse por cada día del mes actual.  */
