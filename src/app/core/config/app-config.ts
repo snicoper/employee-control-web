@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { CurrentTimeControlStateService } from '@aw/models/_index';
-import { CurrentCompanyEmployeeService, ThemeColorService } from '@aw/services/_index';
+import { AuthService, CurrentCompanyEmployeeService, ThemeColorService } from '@aw/services/_index';
 import { LocalizationService } from '../features/localizations/_index';
-import { AuthService } from './../../services/auth.service';
 
 /**
  * Configuración inicial de la aplicación.

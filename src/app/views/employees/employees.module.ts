@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AwBreadcrumbModule } from '@aw/components/breadcrumb/aw-breadcrumb.module';
 import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
 import { AwColorsModule } from '@aw/components/colors/aw-colors.module';
@@ -12,7 +13,6 @@ import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { AwDirectivesModule } from '@aw/directives/aw-directives.module';
 import { AwPipesModule } from '@aw/pipes/pipes.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { AwBreadcrumbModule } from './../../components/breadcrumb/aw-breadcrumb.module';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmployeeInviteComponent } from './employee-invite/employee-invite.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';

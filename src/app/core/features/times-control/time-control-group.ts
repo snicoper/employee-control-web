@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import { ProcessTimeControlGroups } from './process-time-control-groups';
 import { TimeControlGroupResponse, TimeResponse } from './times-control-response.model';
 
-export class TimeControlGroup {
+export class TimeControlProgressStacked {
   private readonly timeControlGroups: TimeControlGroupResponse[];
   private readonly progressStackedCollections: ProgressStackedCollection[];
   private readonly minutesInDay = 60 * 24;
@@ -17,6 +17,7 @@ export class TimeControlGroup {
     this.progressStackedCollections = [];
   }
 
+  /** Compone una lista de TimeControlGroupResponse[] a ProgressStackedCollection[]. */
   compose(): ProgressStackedCollection[] {
     this.composeTimeControlGroups(this.timeControlGroups).forEach((progressStacked) =>
       this.progressStackedCollections.push(progressStacked)

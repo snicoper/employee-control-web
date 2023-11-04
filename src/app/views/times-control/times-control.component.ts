@@ -2,7 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { ProgressStackedCollection } from '@aw/components/progress/progress-stacked/progress-stacked-collection';
 import { logError } from '@aw/core/errors/log-messages';
 import { TimeControlGroupResponse } from '@aw/core/features/times-control/_index';
-import { TimeControlGroup } from '@aw/core/features/times-control/time-control-group';
+import { TimeControlProgressStacked } from '@aw/core/features/times-control/time-control-group';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { DatetimeUtils } from '@aw/core/utils/datetime-utils';
 import { CurrentTimeControlStateService } from '@aw/models/_index';
@@ -105,8 +105,8 @@ export class TimesControlComponent {
       .pipe(finalize(() => (this.loadingData = false)))
       .subscribe({
         next: (result: TimeControlGroupResponse[]) => {
-          const timeControlGroup = new TimeControlGroup(result, this.dateSelected);
-          this.progressStackedCollection = timeControlGroup.compose();
+          const timeControlProgressStacked = new TimeControlProgressStacked(result, this.dateSelected);
+          this.progressStackedCollection = timeControlProgressStacked.compose();
 
           const timeTotal = result
             .filter((group) => group.totalMinutes > 0)

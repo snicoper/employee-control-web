@@ -25,6 +25,12 @@ export class ProcessTimeControlGroups {
     this.groupEndDay = DateTime.local();
   }
 
+  /**
+   * Comprueba todos los TimeResponse[] en base al timezone del usuario.
+   * Genera una nueva lista de TimeControlGroupResponse[].
+   *
+   * @returns TimeControlGroupResponse[].
+   */
   process(): TimeControlGroupResponse[] {
     this.createTimeControlGroupForCurrentMonth();
     this.timeControlGroups.forEach((timeControlGroup) => this.processTimeControlGroup(timeControlGroup));
@@ -32,6 +38,7 @@ export class ProcessTimeControlGroups {
     return this.timeControlGroupsResult;
   }
 
+  /** Procesa cada TimeControlGroupResponse. */
   private processTimeControlGroup(timeControlGroup: TimeControlGroupResponse): void {
     this.groupStartDay = DateTime.fromISO(timeControlGroup.dayTitle).startOf('day');
     this.groupEndDay = this.groupStartDay.endOf('day');
@@ -39,6 +46,7 @@ export class ProcessTimeControlGroups {
     this.processTimesInTimeControl(timeControlGroup.times, timeControlGroup.day);
   }
 
+  /** Procesa una lista de TimeResponse[]. */
   private processTimesInTimeControl(times: TimeResponse[], day: number): void {
     times.forEach((time) => {
       const start = DateTime.fromJSDate(new Date(time.start));
@@ -247,7 +255,7 @@ export class ProcessTimeControlGroups {
     currentItemControl.times.push(newTime);
   }
 
-  /** Crear un TimeControlGroupResponse por cada día del mes actual.  */
+  /** Crea un TimeControlGroupResponse por cada día del mes actual.  */
   private createTimeControlGroupForCurrentMonth(): void {
     const date = DateTime.fromJSDate(this.date);
     const dateStart = date.startOf('month');
@@ -265,7 +273,7 @@ export class ProcessTimeControlGroups {
     });
   }
 
-  /** Obtener el siguiente item (por day) al día pasado. */
+  /** Obtener el siguiente TimeControlGroupResponse (por day) al día pasado. */
   private nextTimeControlGroup(index: number): TimeControlGroupResponse | null {
     const next = index + 1;
     const item = this.timeControlGroupsResult.find((timeControl) => timeControl.day === next);
@@ -273,7 +281,7 @@ export class ProcessTimeControlGroups {
     return item ?? null;
   }
 
-  /** Obtener el anterior item (por day) al día pasado. */
+  /** Obtener el anterior TimeControlGroupResponse (por day) al día pasado. */
   private prevTimeControlGroup(index: number): TimeControlGroupResponse | null {
     const next = index - 1;
     const item = this.timeControlGroupsResult.find((timeControl) => timeControl.day === next);
@@ -281,7 +289,7 @@ export class ProcessTimeControlGroups {
     return item ?? null;
   }
 
-  /** Obtener el item actual. */
+  /** Obtener el item actual TimeControlGroupResponse. */
   private currentTimeControlGroup(index: number): TimeControlGroupResponse | null {
     const item = this.timeControlGroupsResult.find((timeControl) => timeControl.day === index);
 
