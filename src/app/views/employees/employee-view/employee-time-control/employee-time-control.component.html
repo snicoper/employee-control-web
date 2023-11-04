@@ -1,0 +1,21 @@
+<div class="d-flex my-3">
+  <h3 class="m-auto">Control de tiempos</h3>
+</div>
+
+<div class="my-4">
+  <aw-month-selector
+    (changeMonthSelected)="handleDateSelected($event)"
+    [dateSelected]="dateSelected"></aw-month-selector>
+</div>
+
+<div>
+  <div class="ms-auto small text-muted">Tiempo total: {{ timeTotalInMonth }}</div>
+</div>
+
+<!-- times -->
+<div>
+  <aw-time-control-progress
+    [progressStackedCollection]="progressStackedCollection"
+    [loading]="loadingTimeControls"></aw-time-control-progress>
+  <!-- end times -->
+</div>
