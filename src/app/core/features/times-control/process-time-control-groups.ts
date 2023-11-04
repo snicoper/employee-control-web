@@ -1,3 +1,4 @@
+import { PeriodDatetime } from '@aw/core/models/_index';
 import { calculatePercent } from '@aw/core/utils/common-utils';
 import { DatetimeUtils } from '@aw/core/utils/datetime-utils';
 import { DateTime } from 'luxon';
@@ -38,30 +39,87 @@ export class ProcessTimeControlGroups {
     this.processTimesInTimeControl(timeControlGroup.times, timeControlGroup.day);
   }
 
-  private processTimesInTimeControl(times: TimeResponse[], day: number): void {}
+  private processTimesInTimeControl(times: TimeResponse[], day: number): void {
+    times.forEach((time) => {
+      const start = DateTime.fromJSDate(new Date(time.start));
+      const end = DateTime.fromJSDate(new Date(time.finish));
+      const period = new PeriodDatetime(start, end);
 
-  /** Tiempos que empiezan antes de las 00:00:00. */
-  private processUnderTime(time: TimeResponse, dateEnd: DateTime, minutes: number, day: number): void {}
+      // Comprobar los tiempos anteriores a las 00:00:00.
+      if (period.start.day < this.groupStartDay.day) {
+        // Tiempos que al menos el inicio antes del inicio del día.
+      }
 
-  /** Tiempos que terminan pasadas las 23:59:59. */
-  private processOverTime(time: TimeResponse, dateEnd: DateTime, minutes: number, day: number): void {
-    const nextTimeControl = this.nextItem(day);
+      // Tiempos que al menos el final supera al día actual.
+      if (period.end.day > this.groupEndDay.day) {
+        this.processOverTime(time, period, day);
 
-    if (!nextTimeControl) {
+        return;
+      }
+
+      // Tiempo dentro del día actual.
+      if (
+        period.start.day === this.groupStartDay.day &&
+        period.end.day === this.groupStartDay.day &&
+        period.start.day === this.groupEndDay.day &&
+        period.end.day === this.groupEndDay.day
+      ) {
+        this.processTimeInRange(time, period, day);
+      }
+    });
+  }
+
+  private processTimeInRange(time: TimeResponse, period: PeriodDatetime, day: number): void {
+    const currentItem = this.currentTimeControlGroup(day);
+
+    if (!currentItem) {
       return;
     }
 
     const newTime = {
       id: time.id,
-      start: dateEnd.startOf('day').toJSDate(),
-      finish: dateEnd.startOf('day').plus({ minutes: minutes }).toJSDate(),
+      start: period.start.toJSDate(),
+      finish: period.end.toJSDate(),
       timeState: time.timeState,
       closedBy: time.closedBy,
-      minutes: minutes,
-      dayPercent: calculatePercent(this.minutesInDay, minutes)
+      minutes: period.duration(),
+      dayPercent: calculatePercent(this.minutesInDay, period.duration())
     } as TimeResponse;
 
-    nextTimeControl.totalMinutes += minutes;
+    currentItem.totalMinutes += period.duration();
+    currentItem.times.push(newTime);
+  }
+
+  /** Tiempos que terminan pasadas las 23:59:59. */
+  private processOverTime(time: TimeResponse, period: PeriodDatetime, day: number): void {
+    const nextTimeControl = this.nextTimeControlGroup(day);
+
+    if (!nextTimeControl) {
+      return;
+    }
+
+    // Comprobar si el inicio también supera el día actual.
+    if (period.start.day > this.groupEndDay.day) {
+      // Nothing.
+
+      return;
+    }
+
+    // Este caso solo puede haber uno por TimeControlGroupResponse.
+    const diffMidnight = period.start.endOf('day').diff(period.start, ['minutes']).minutes;
+    const duration = period.duration() - diffMidnight;
+
+    const newTime = {
+      id: time.id,
+      start: period.end.set({ hour: 0, minute: 0, second: 0 }).toJSDate(),
+      finish: period.end.startOf('day').plus({ minutes: duration }).toJSDate(),
+      timeState: time.timeState,
+      closedBy: time.closedBy,
+      minutes: duration,
+      dayPercent: calculatePercent(this.minutesInDay, duration)
+    } as TimeResponse;
+
+    nextTimeControl.totalMinutes += duration;
     nextTimeControl.times.unshift(newTime);
   }
 
@@ -91,7 +149,7 @@ export class ProcessTimeControlGroups {
   }
 
   /** Obtener el siguiente item (por day) al día pasado. */
-  private nextItem(index: number): TimeControlGroupResponse | null {
+  private nextTimeControlGroup(index: number): TimeControlGroupResponse | null {
     const next = index + 1;
     const item = this.timeControlGroupsResult.find((timeControl) => timeControl.day === next);
 
@@ -99,7 +157,7 @@ export class ProcessTimeControlGroups {
   }
 
   /** Obtener el anterior item (por day) al día pasado. */
-  private prevItem(index: number): TimeControlGroupResponse | null {
+  private prevTimeControlGroup(index: number): TimeControlGroupResponse | null {
     const next = index - 1;
     const item = this.timeControlGroupsResult.find((timeControl) => timeControl.day === next);
 
@@ -107,7 +165,7 @@ export class ProcessTimeControlGroups {
   }
 
   /** Obtener el item actual. */
-  private current(index: number): TimeControlGroupResponse | null {
+  private currentTimeControlGroup(index: number): TimeControlGroupResponse | null {
     const item = this.timeControlGroupsResult.find((timeControl) => timeControl.day === index);
 
     return item ?? null;
