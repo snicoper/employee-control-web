@@ -4,6 +4,7 @@ import { logError } from '@aw/core/errors/log-messages';
 import { TimeControlGroupResponse } from '@aw/core/features/times-control/_index';
 import { TimeControlGroup } from '@aw/core/features/times-control/time-control-group';
 import { ApiUrls } from '@aw/core/urls/api-urls';
+import { DatetimeUtils } from '@aw/core/utils/datetime-utils';
 import { CurrentTimeControlStateService } from '@aw/models/_index';
 import { TimeState } from '@aw/models/entities/types/time-state.model';
 import { ResultResponse } from '@aw/models/result-response.model';
@@ -30,6 +31,7 @@ export class TimesControlComponent {
   dateSelected = new Date();
   timeStates = TimeState;
   loadingData = false;
+  timeTotalInMonth = '';
 
   constructor() {
     this.loadTimesControlRange();
@@ -105,6 +107,12 @@ export class TimesControlComponent {
         next: (result: TimeControlGroupResponse[]) => {
           const timeControlGroup = new TimeControlGroup(result, this.dateSelected);
           this.progressStackedCollection = timeControlGroup.compose();
+
+          const timeTotal = result
+            .filter((group) => group.totalMinutes > 0)
+            .reduce((current, next) => current + next.totalMinutes, 0);
+
+          this.timeTotalInMonth = DatetimeUtils.formatMinutesToTime(timeTotal);
         }
       });
   }

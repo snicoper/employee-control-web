@@ -42,7 +42,7 @@ export class MonthSelectorComponent {
     container.setViewMode('month');
   }
 
-  handleChange(): void {
-    this.changeMonthSelected.emit(this.dateSelected);
+  handleChange(date: Date): void {
+    this.changeMonthSelected.emit(date);
   }
 }
