@@ -30,7 +30,7 @@ export class TimesControlComponent {
   loadingTimeState = false;
   dateSelected = new Date();
   timeStates = TimeState;
-  loadingData = false;
+  loadingTimeControls = false;
   timeTotalInMonth = '';
 
   constructor() {
@@ -88,7 +88,7 @@ export class TimesControlComponent {
 
   /** Obtener lista de tiempos en el mes/año seleccionado. */
   private loadTimesControlRange(): void {
-    this.loadingData = true;
+    this.loadingTimeControls = true;
     this.progressStackedCollection = [];
 
     const dateSelected = DateTime.fromJSDate(this.dateSelected);
@@ -102,7 +102,7 @@ export class TimesControlComponent {
 
     this.timeControlApiService
       .get<TimeControlGroupResponse[]>(url)
-      .pipe(finalize(() => (this.loadingData = false)))
+      .pipe(finalize(() => (this.loadingTimeControls = false)))
       .subscribe({
         next: (result: TimeControlGroupResponse[]) => {
           const timeControlProgressStacked = new TimeControlProgressStacked(result, this.dateSelected);

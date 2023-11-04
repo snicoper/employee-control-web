@@ -51,15 +51,9 @@
 
   <!-- times -->
   <aw-card>
-    <ng-container *ngFor="let progressStacked of progressStackedCollection">
-      <ng-container *ngIf="!loadingData">
-        <aw-progress-stacked [progressStackedCollection]="progressStacked"></aw-progress-stacked>
-      </ng-container>
-
-      <ng-container *ngIf="loadingData">
-        <aw-spinner [loading]="loadingData" [size]="100"></aw-spinner>
-      </ng-container>
-    </ng-container>
+    <aw-time-control-progress
+      [progressStackedCollection]="progressStackedCollection"
+      [loading]="loadingTimeControls"></aw-time-control-progress>
   </aw-card>
   <!-- end times -->
 </aw-view-base>
