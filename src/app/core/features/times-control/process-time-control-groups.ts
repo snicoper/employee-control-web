@@ -32,95 +32,19 @@ export class ProcessTimeControlGroups {
   }
 
   private processTimeControlGroup(timeControlGroup: TimeControlGroupResponse): void {
-    this.groupStartDay = DateTime.fromISO(timeControlGroup.dayTitle).startOf('day');
+    this.groupStartDay = DateTime.fromJSDate(new Date(timeControlGroup.dayTitle)).startOf('day');
     this.groupEndDay = this.groupStartDay.endOf('day');
 
     this.processTimesInTimeControl(timeControlGroup.times, timeControlGroup.day);
   }
 
-  private processTimesInTimeControl(times: TimeResponse[], day: number): void {
-    let totalMinutes = this.sumMinutesInGroupTimes(times);
-
-    times.forEach((time: TimeResponse) => {
-      const dateStart = DateTime.fromJSDate(new Date(time.start));
-      const dateEnd = DateTime.fromJSDate(new Date(time.finish));
-
-      // Calcular el under time.
-      if (dateStart.day < this.groupStartDay.day) {
-        const diff = this.groupStartDay.diff(dateStart, ['minutes']).minutes;
-        const minutes = Math.floor(Math.abs(diff));
-
-        // Ambos tiempos pueden estar fuera del día, o solo el final del time.
-        if (dateEnd.day < this.groupStartDay.day) {
-          // En caso de que ambos estén fuera del día.
-          const newDateStart = dateStart.minus({ minutes: minutes });
-          this.processUnderTime(time, newDateStart, minutes, day);
-
-          // ELiminar el elemento actual.
-          const index = times.findIndex((i) => i === time);
-          times.splice(index, 1);
-        } else {
-          // En caso de que solo el inicio este fuera del día.
-          totalMinutes -= minutes;
-          time.start = dateStart.startOf('day').toJSDate();
-          time.finish = dateStart.startOf('day').plus({ minutes: minutes }).toJSDate();
-          time.minutes -= minutes;
-          time.dayPercent = calculatePercent(this.minutesInDay, minutes);
-
-          this.processUnderTime(time, dateStart, minutes, day);
-        }
-      }
-
-      // Comprobar el over time.
-      if (dateEnd.day > this.groupEndDay.day) {
-        const diff = this.groupEndDay.diff(dateEnd, ['minutes']).minutes;
-        const minutes = Math.floor(Math.abs(diff));
-        totalMinutes += minutes;
-
-        // Actualizar datos del TimeResponse actual.
-        time.finish = dateStart.endOf('day').toJSDate();
-        time.minutes -= minutes;
-        time.dayPercent = calculatePercent(this.minutesInDay, time.minutes);
-
-        this.processOverTime(time, dateEnd, minutes, day);
-      }
-    });
-
-    const currentTimeControl = this.current(day);
-
-    if (!currentTimeControl) {
-      return;
-    }
-
-    // Día actual, re-calcular datos.
-    currentTimeControl.totalMinutes = totalMinutes;
-    currentTimeControl.times = times;
-  }
+  private processTimesInTimeControl(times: TimeResponse[], day: number): void {}
 
   /** Tiempos que empiezan antes de las 00:00:00. */
-  private processUnderTime(time: TimeResponse, dateStart: DateTime, timeDuration: number, day: number): void {
-    const prevTimeControl = this.prevItem(day);
-
-    if (!prevTimeControl) {
-      return;
-    }
-
-    const newTime = {
-      id: time.id,
-      start: dateStart.toJSDate(),
-      finish: dateStart.plus({ minutes: timeDuration }).toJSDate(),
-      timeState: time.timeState,
-      closedBy: time.closedBy,
-      minutes: timeDuration,
-      dayPercent: calculatePercent(this.minutesInDay, timeDuration)
-    } as TimeResponse;
-
-    prevTimeControl.totalMinutes += timeDuration;
-    prevTimeControl.times.push(newTime);
-  }
+  private processUnderTime(time: TimeResponse, dateEnd: DateTime, minutes: number, day: number): void {}
 
   /** Tiempos que terminan pasadas las 23:59:59. */
-  private processOverTime(time: TimeResponse, dateEnd: DateTime, timeDuration: number, day: number): void {
+  private processOverTime(time: TimeResponse, dateEnd: DateTime, minutes: number, day: number): void {
     const nextTimeControl = this.nextItem(day);
 
     if (!nextTimeControl) {
@@ -130,14 +54,14 @@ export class ProcessTimeControlGroups {
     const newTime = {
       id: time.id,
       start: dateEnd.startOf('day').toJSDate(),
-      finish: dateEnd.startOf('day').plus({ minutes: timeDuration }).toJSDate(),
+      finish: dateEnd.startOf('day').plus({ minutes: minutes }).toJSDate(),
       timeState: time.timeState,
       closedBy: time.closedBy,
-      minutes: timeDuration,
-      dayPercent: calculatePercent(this.minutesInDay, timeDuration)
+      minutes: minutes,
+      dayPercent: calculatePercent(this.minutesInDay, minutes)
     } as TimeResponse;
 
-    nextTimeControl.totalMinutes += timeDuration;
+    nextTimeControl.totalMinutes += minutes;
     nextTimeControl.times.unshift(newTime);
   }
 
