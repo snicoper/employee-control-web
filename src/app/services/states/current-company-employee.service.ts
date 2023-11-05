@@ -4,6 +4,7 @@ import { CurrentCompanyEmployeeResponse } from '@aw/models/_index';
 import { CompaniesApiService } from '../api/companies-api.service';
 import { JwtService } from '../jwt.service';
 
+/** Compañía actual del usuario. */
 @Injectable({ providedIn: 'root' })
 export class CurrentCompanyEmployeeService {
   private readonly companiesApiService = inject(CompaniesApiService);
