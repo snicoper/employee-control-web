@@ -56,7 +56,7 @@ export class EmployeeDetailsComponent implements OnDestroy {
 
   /** Empleado seleccionado es enterpriseAdministrator. */
   get isEnterpriseAdministrator(): boolean {
-    const index = this.employeeSelectedRoles()?.findIndex((role) => role.name === Roles.enterpriseAdministrator);
+    const index = this.employeeSelectedRoles()?.findIndex((role) => role.name === Roles.enterpriseAdmin);
 
     return index !== undefined && index >= 0;
   }

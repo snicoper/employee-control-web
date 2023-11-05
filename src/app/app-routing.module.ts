@@ -9,24 +9,12 @@ const routes: Routes = [
     loadChildren: () => import('@aw/views/home/home.module').then((m) => m.HomeModule)
   },
   {
-    path: 'auth',
-    loadChildren: () => import('@aw/views/auth/auth.module').then((m) => m.AuthModule)
-  },
-  {
     path: 'accounts',
     loadChildren: () => import('@aw/views/accounts/accounts.module').then((m) => m.AccountsModule)
   },
   {
-    path: 'employees',
-    data: { roles: [Roles.humanResources] },
-    canActivate: [AuthGuard],
-    loadChildren: () => import('@aw/views/employees/employees.module').then((m) => m.EmployeesModule)
-  },
-  {
-    path: 'tasks',
-    data: { roles: [Roles.humanResources] },
-    canActivate: [AuthGuard],
-    loadChildren: () => import('@aw/views/company-tasks/company-tasks.module').then((m) => m.CompanyTasksModule)
+    path: 'auth',
+    loadChildren: () => import('@aw/views/auth/auth.module').then((m) => m.AuthModule)
   },
   {
     path: 'company-settings',
@@ -36,14 +24,26 @@ const routes: Routes = [
       import('@aw/views/company-settings/company-settings.module').then((m) => m.CompanySettingsModule)
   },
   {
-    path: 'time-control',
-    data: { roles: [Roles.employee] },
+    path: 'tasks',
+    data: { roles: [Roles.humanResources] },
     canActivate: [AuthGuard],
-    loadChildren: () => import('@aw/views/times-control/times-control.module').then((m) => m.TimesControlModule)
+    loadChildren: () => import('@aw/views/company-tasks/company-tasks.module').then((m) => m.CompanyTasksModule)
   },
   {
     path: 'dashboard',
     loadChildren: () => import('@aw/views/dashboard/dashboard.module').then((m) => m.DashboardModule)
+  },
+  {
+    path: 'departments',
+    data: { roles: [Roles.humanResources] },
+    canActivate: [AuthGuard],
+    loadChildren: () => import('@aw/views/departments/departments.module').then((m) => m.DepartmentsModule)
+  },
+  {
+    path: 'employees',
+    data: { roles: [Roles.humanResources] },
+    canActivate: [AuthGuard],
+    loadChildren: () => import('@aw/views/employees/employees.module').then((m) => m.EmployeesModule)
   },
   {
     path: 'errors',
@@ -51,9 +51,15 @@ const routes: Routes = [
   },
   {
     path: 'tests',
-    data: { roles: [Roles.administrator] },
+    data: { roles: [Roles.siteAdmin] },
     canActivate: [AuthGuard],
     loadChildren: () => import('@aw/views/tests/tests.module').then((m) => m.TestsModule)
+  },
+  {
+    path: 'time-control',
+    data: { roles: [Roles.employee] },
+    canActivate: [AuthGuard],
+    loadChildren: () => import('@aw/views/times-control/times-control.module').then((m) => m.TimesControlModule)
   },
   {
     path: '**',

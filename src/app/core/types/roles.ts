@@ -1,8 +1,9 @@
 /** Roles del sitio. */
 export enum Roles {
-  administrator = 'Administrator',
-  staff = 'Staff',
-  enterpriseAdministrator = 'EnterpriseAdministrator',
+  siteAdmin = 'SiteAdmin',
+  siteStaff = 'SiteStaff',
+  enterpriseAdmin = 'EnterpriseAdmin',
+  enterpriseStaff = 'EnterpriseStaff',
   humanResources = 'HumanResources',
   employee = 'Employee',
   anonymous = 'anonymous'
@@ -11,12 +12,14 @@ export enum Roles {
 /** Obtener un Role a texto mas legible. */
 export const roleToHumanReadable = (role: string | Roles): string => {
   switch (role) {
-    case Roles.administrator:
+    case Roles.siteAdmin:
       return 'Administrador Web';
-    case Roles.staff:
-      return 'Staff';
-    case Roles.enterpriseAdministrator:
+    case Roles.siteStaff:
+      return 'Staff Web';
+    case Roles.enterpriseAdmin:
       return 'Administrador';
+    case Roles.enterpriseStaff:
+      return 'Staff';
     case Roles.humanResources:
       return 'RRHH';
     case Roles.employee:

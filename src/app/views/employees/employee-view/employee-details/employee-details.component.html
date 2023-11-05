@@ -84,7 +84,7 @@
               </span>
 
               <!-- add or remove role rrhh -->
-              <span [awRequiredRole]="roles.enterpriseAdministrator" class="ms-auto">
+              <span [awRequiredRole]="roles.enterpriseAdmin" class="ms-auto">
                 <ng-container *ngIf="isHumanResources && !isEnterpriseAdministrator">
                   <aw-btn-loading
                     (click)="handleRemoveRoleRrhh()"

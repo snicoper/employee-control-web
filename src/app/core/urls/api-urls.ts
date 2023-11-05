@@ -44,6 +44,10 @@ export const ApiUrls = {
     deactivateCompanyTask: '/tasks/{id}/deactivate'
   },
 
+  departments: {
+    createDepartment: '/departments'
+  },
+
   /** Employees. */
   employees: {
     getEmployeesPaginated: '/employees/paginated',
