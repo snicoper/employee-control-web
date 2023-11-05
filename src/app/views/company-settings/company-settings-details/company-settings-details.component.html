@@ -2,15 +2,24 @@
   <aw-view-header>Configuración - {{ companyName }}</aw-view-header>
 
   <aw-card>
-    <button class="mb-3 btn btn-sm btn-outline-success"><span class="fa-solid fa-pencil"></span> Editar</button>
+    <ng-container *ngIf="!loadingCompanySettings()">
+      <button class="mb-3 btn btn-sm btn-outline-success"><span class="fa-solid fa-pencil"></span> Editar</button>
 
-    <table class="table table-striped table-borderless">
-      <thead>
-        <tr>
-          <th>Zona horaria</th>
-          <td>{{ companySettings()?.timezone }}</td>
-        </tr>
-      </thead>
-    </table>
+      <table class="table table-striped table-borderless">
+        <thead>
+          <tr>
+            <th>
+              Zona horaria
+              <aw-tooltip-info content="Prueba de tooltip" cssClass="text-info"></aw-tooltip-info>
+            </th>
+            <td>({{ companySettings()?.timezone }}) {{ timezoneInfo?.currentTimeFormat }}</td>
+          </tr>
+        </thead>
+      </table>
+    </ng-container>
+
+    <ng-container *ngIf="loadingCompanySettings()">
+      <aw-spinner [loading]="loadingCompanySettings()" [size]="100"></aw-spinner>
+    </ng-container>
   </aw-card>
 </aw-view-base>
