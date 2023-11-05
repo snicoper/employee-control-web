@@ -8,6 +8,7 @@ import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { EmployeeSelectedService } from '../employee-selected.service';
+import { TimeState } from './../../../../models/entities/types/time-state.model';
 
 @Component({
   selector: 'aw-employee-details',
@@ -21,12 +22,19 @@ export class EmployeeDetailsComponent implements OnDestroy {
 
   readonly employeeSelected = computed(() => this.employeeSelectedService.employeeSelected());
   readonly employeeSelectedRoles = computed(() => this.employeeSelectedService.employeeSelectedRoles());
+
   readonly loadingEmployee = computed(() => this.employeeSelectedService.loadingEmployee());
   readonly loadingEmployeeRoles = computed(() => this.employeeSelectedService.loadingEmployeeRoles());
+
+  readonly employeeTimeControlState = computed(() => this.employeeSelectedService.employeeTimeControlState());
+  readonly loadingEmployeeTimeControlState = computed(() =>
+    this.employeeSelectedService.loadingEmployeeTimeControlState()
+  );
 
   readonly roleToHumanReadable = roleToHumanReadable;
   readonly siteUrls = SiteUrls;
   readonly roles = Roles;
+  readonly timeStates = TimeState;
   readonly dateShort = DateTime.DATE_SHORT;
 
   loadingUpdateRole = false;

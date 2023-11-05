@@ -57,6 +57,10 @@ export const ApiUrls = {
     removeRoleHumanResources: '/employees/{id}/remove-role-rrhh'
   },
 
+  identityRoles: {
+    getAllIdentityRoles: '/identity-roles'
+  },
+
   /** Localization. */
   localizations: {
     currentLocale: '/localizations/current-locale',

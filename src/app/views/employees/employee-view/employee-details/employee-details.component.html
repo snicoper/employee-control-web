@@ -105,6 +105,17 @@
             </span>
           </td>
         </tr>
+        <tr>
+          <td>Estado control de tiempos</td>
+          <td>
+            <ng-container *ngIf="employeeTimeControlState()?.timeState === timeStates.open">
+              <aw-dot-success></aw-dot-success> {{ employeeTimeControlState()?.start | datetime }}
+            </ng-container>
+            <ng-container *ngIf="employeeTimeControlState()?.timeState === timeStates.close">
+              <aw-dot-danger></aw-dot-danger>
+            </ng-container>
+          </td>
+        </tr>
       </tbody>
     </ng-container>
     <!-- end data employee-->

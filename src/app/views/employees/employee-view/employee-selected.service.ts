@@ -1,24 +1,39 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
+import { ApiUrls } from '@aw/core/urls/_index';
+import { CurrentTimeControlResponse } from '@aw/models/_index';
 import { UserRole } from '@aw/models/entities/user-role.model';
 import { User } from '@aw/models/entities/user.model';
 import { EmployeesApiService } from '@aw/services/api/employees-api.service';
+import { TimeControlApiService } from '@aw/services/api/time-control-api.service';
 import { finalize } from 'rxjs';
 
-/** Empleado seleccionado desde la lista (employee-list). */
+/**
+ * Empleado seleccionado desde la lista (employee-list).
+ *
+ * Contiene estados del usuario seleccionado, roles y estado actual en el
+ * control de tiempos.
+ */
 @Injectable()
 export class EmployeeSelectedService {
   private readonly employeeSelected$ = signal<User | null>(null);
   private readonly employeeSelectedRoles$ = signal<UserRole[]>([]);
+  private readonly employeeTimeControlState$ = signal<CurrentTimeControlResponse | null>(null);
+
   private readonly loadingEmployee$ = signal(false);
   private readonly loadingEmployeeRoles$ = signal(false);
+  private readonly loadingEmployeeTimeControlState$ = signal(false);
 
   private readonly employeesApiService = inject(EmployeesApiService);
+  private readonly timeControlApiService = inject(TimeControlApiService);
 
   readonly employeeSelected = computed(() => this.employeeSelected$());
   readonly employeeSelectedRoles = computed(() => this.employeeSelectedRoles$());
+
   readonly loadingEmployee = computed(() => this.loadingEmployee$());
   readonly loadingEmployeeRoles = computed(() => this.loadingEmployeeRoles$());
+
+  readonly employeeTimeControlState = computed(() => this.employeeTimeControlState$());
+  readonly loadingEmployeeTimeControlState = computed(() => this.loadingEmployeeTimeControlState$());
 
   cleanData(): void {
     this.employeeSelected$.set(null);
@@ -28,26 +43,31 @@ export class EmployeeSelectedService {
   loadData(employeeId: string): void {
     this.loadingEmployee$.set(true);
     this.loadingEmployeeRoles$.set(true);
+    this.loadingEmployeeTimeControlState$.set(true);
 
-    const urlEmployee = SiteUrls.replace(ApiUrls.employees.getEmployeeById, { id: employeeId });
+    const urlEmployee = ApiUrls.replace(ApiUrls.employees.getEmployeeById, { id: employeeId });
     const urlEmployeeRoles = `${urlEmployee}/roles`;
+    const urlTimeState = ApiUrls.replace(ApiUrls.timeControl.getTimeStateOpenByEmployeeId, { employeeId: employeeId });
+
+    this.timeControlApiService
+      .get<CurrentTimeControlResponse>(urlTimeState)
+      .pipe(finalize(() => this.loadingEmployeeTimeControlState$.set(false)))
+      .subscribe({
+        next: (result) => this.employeeTimeControlState$.set(result)
+      });
 
     this.employeesApiService
       .get<User>(urlEmployee)
       .pipe(finalize(() => this.loadingEmployee$.set(false)))
       .subscribe({
-        next: (result: User) => {
-          this.employeeSelected$.set(result);
-        }
+        next: (result: User) => this.employeeSelected$.set(result)
       });
 
     this.employeesApiService
       .get<UserRole[]>(urlEmployeeRoles)
       .pipe(finalize(() => this.loadingEmployeeRoles$.set(false)))
       .subscribe({
-        next: (result: UserRole[]) => {
-          this.employeeSelectedRoles$.set(result);
-        }
+        next: (result: UserRole[]) => this.employeeSelectedRoles$.set(result)
       });
   }
 }

@@ -5,6 +5,7 @@ import { finalize } from 'rxjs';
 import { TimeControlApiService } from './api/_index';
 import { JwtService } from './jwt.service';
 
+/** Estado del usuario activo. */
 @Injectable({ providedIn: 'root' })
 export class CurrentTimeControlStateService {
   private readonly jwtService = inject(JwtService);

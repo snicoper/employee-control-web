@@ -5,7 +5,6 @@ import { TimeControlProgressStacked } from '@aw/core/features/times-control/time
 import { ApiUrls } from '@aw/core/urls/_index';
 import { DatetimeUtils } from '@aw/core/utils/_index';
 import { CurrentTimeControlStateService } from '@aw/models/_index';
-import { TimeState } from '@aw/models/entities/types/_index';
 import { TimeControlApiService } from '@aw/services/api/_index';
 import { DateTime } from 'luxon';
 import { finalize } from 'rxjs';
@@ -20,12 +19,11 @@ export class EmployeeTimeControlComponent {
   private readonly currentTimeControlStateService = inject(CurrentTimeControlStateService);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
 
+  readonly employeeSelected = computed(() => this.employeeSelectedService.employeeSelected());
   readonly currentTimeControl = computed(() => this.currentTimeControlStateService.currentTimeControl());
 
   progressStackedCollection: ProgressStackedCollection[] = [];
-  loadingTimeState = false;
   dateSelected = new Date();
-  timeStates = TimeState;
   loadingTimeControls = false;
   timeTotalInMonth = '';
 
@@ -47,7 +45,7 @@ export class EmployeeTimeControlComponent {
     const startDate = dateSelected.startOf('month');
     const endDate = dateSelected.endOf('month');
     const url = ApiUrls.replace(ApiUrls.timeControl.getTimeControlRangeByEmployeeId, {
-      employeeId: this.employeeSelectedService.employeeSelected()?.id.toString() as string,
+      employeeId: this.employeeSelected()?.id.toString() as string,
       from: startDate.toUTC().toString(),
       to: endDate.toUTC().toString()
     });
