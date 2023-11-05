@@ -30,6 +30,12 @@ export const sidebarMenu: SidebarMenu[] = [
     type: SidebarMenuTypes.dropdown,
     submenus: [
       {
+        title: 'Configuración',
+        link: SiteUrls.companySettings.details,
+        active: false,
+        requiredRole: Roles.enterpriseAdministrator
+      },
+      {
         title: 'Empleados',
         link: SiteUrls.employees.list,
         active: false
@@ -38,12 +44,6 @@ export const sidebarMenu: SidebarMenu[] = [
         title: 'Tareas',
         link: SiteUrls.companyTasks.list,
         active: false
-      },
-      {
-        title: 'Configuración',
-        link: SiteUrls.companySettings.details,
-        active: false,
-        requiredRole: Roles.enterpriseAdministrator
       }
     ]
   },

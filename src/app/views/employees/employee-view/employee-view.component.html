@@ -7,7 +7,8 @@
     <ng-container *ngIf="employeeTimeControlState()?.timeState === timeStates.close">
       <aw-dot-danger></aw-dot-danger>
     </ng-container>
-    Empleado - {{ employeeSelected()?.firstName }} {{ employeeSelected()?.lastName }}
+
+    Empleado - <span class="fs-5">{{ employeeSelected()?.firstName }} {{ employeeSelected()?.lastName }}</span>
   </aw-view-header>
   <!-- end header -->
 

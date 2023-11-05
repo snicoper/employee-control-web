@@ -17,14 +17,11 @@ export class CompanySettingsDetailsComponent {
   readonly loadingCompanySettings = computed(() => this.currentCompanySettingsService.loadingCompanySettings());
 
   readonly breadcrumb = new BreadcrumbCollection();
-
-  companyName = '';
   nowWithTimezone = '';
   timezoneInfo: TimeZone | undefined;
   siteUrls = SiteUrls;
 
   constructor() {
-    this.companyName = this.currentCompanyEmployeeService.getValue()?.name as string;
     this.setBreadcrumb();
     this.getCurrentTimezoneInfo();
     this.setNowWithOriginalTimezone();
