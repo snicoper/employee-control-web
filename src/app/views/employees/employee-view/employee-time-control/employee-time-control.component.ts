@@ -4,8 +4,8 @@ import { TimeControlGroupResponse } from '@aw/core/features/times-control/_index
 import { TimeControlProgressStacked } from '@aw/core/features/times-control/time-control-group';
 import { ApiUrls } from '@aw/core/urls/_index';
 import { DatetimeUtils } from '@aw/core/utils/_index';
-import { CurrentTimeControlStateService } from '@aw/models/_index';
 import { TimeControlApiService } from '@aw/services/api/_index';
+import { CurrentTimeControlStateService } from '@aw/services/states/_index';
 import { DateTime } from 'luxon';
 import { finalize } from 'rxjs';
 import { EmployeeSelectedService } from '../employee-selected.service';

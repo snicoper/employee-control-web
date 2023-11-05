@@ -1,8 +1,8 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { CurrentCompanyEmployeeResponse } from '@aw/models/_index';
-import { CompaniesApiService } from './api/_index';
-import { JwtService } from './jwt.service';
+import { CompaniesApiService } from '../api/companies-api.service';
+import { JwtService } from '../jwt.service';
 
 @Injectable({ providedIn: 'root' })
 export class CurrentCompanyEmployeeService {

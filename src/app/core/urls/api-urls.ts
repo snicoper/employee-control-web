@@ -57,6 +57,10 @@ export const ApiUrls = {
     removeRoleHumanResources: '/employees/{id}/remove-role-rrhh'
   },
 
+  companySettings: {
+    getCompanySettingsByCompanyId: '/company-settings/companies/{companyId}'
+  },
+
   identityRoles: {
     getAllIdentityRoles: '/identity-roles'
   },

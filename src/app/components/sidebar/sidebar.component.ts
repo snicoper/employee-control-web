@@ -1,8 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, computed, inject } from '@angular/core';
-import { CurrentTimeControlStateService } from '@aw/models/_index';
 import { TimeState } from '@aw/models/entities/types/time-state.model';
-import { CurrentCompanyEmployeeService, JwtService, LayoutService } from '@aw/services/_index';
+import { JwtService, LayoutService } from '@aw/services/_index';
+import { CurrentCompanyEmployeeService, CurrentTimeControlStateService } from '@aw/services/states/_index';
 import { SidebarMenu, SidebarMenuTypes } from './sidebar-menu-types.model';
 import { SidebarService } from './sidebar.service';
 

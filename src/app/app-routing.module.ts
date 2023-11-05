@@ -29,6 +29,13 @@ const routes: Routes = [
     loadChildren: () => import('@aw/views/company-tasks/company-tasks.module').then((m) => m.CompanyTasksModule)
   },
   {
+    path: 'company-settings',
+    data: { roles: [Roles.humanResources] },
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('@aw/views/company-settings/company-settings.module').then((m) => m.CompanySettingsModule)
+  },
+  {
     path: 'time-control',
     data: { roles: [Roles.employee] },
     canActivate: [AuthGuard],

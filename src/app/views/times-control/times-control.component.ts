@@ -5,11 +5,11 @@ import { TimeControlGroupResponse } from '@aw/core/features/times-control/_index
 import { TimeControlProgressStacked } from '@aw/core/features/times-control/time-control-group';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { DatetimeUtils } from '@aw/core/utils/datetime-utils';
-import { CurrentTimeControlStateService } from '@aw/models/_index';
 import { TimeState } from '@aw/models/entities/types/time-state.model';
 import { ResultResponse } from '@aw/models/result-response.model';
 import { JwtService } from '@aw/services/_index';
 import { TimeControlApiService } from '@aw/services/api/_index';
+import { CurrentTimeControlStateService } from '@aw/services/states/_index';
 import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';

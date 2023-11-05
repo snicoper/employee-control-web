@@ -38,6 +38,11 @@ export const sidebarMenu: SidebarMenu[] = [
         title: 'Tareas',
         link: SiteUrls.companyTasks.list,
         active: false
+      },
+      {
+        title: 'Configuración',
+        link: SiteUrls.companySettings.companySettings,
+        active: false
       }
     ]
   },

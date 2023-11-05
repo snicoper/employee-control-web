@@ -2,8 +2,8 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { ApiUrls } from '@aw/core/urls/_index';
 import { CurrentTimeControlResponse } from '@aw/models/_index';
 import { finalize } from 'rxjs';
-import { TimeControlApiService } from './api/_index';
-import { JwtService } from './jwt.service';
+import { TimeControlApiService } from '../api/time-control-api.service';
+import { JwtService } from '../jwt.service';
 
 /** Estado del usuario activo. */
 @Injectable({ providedIn: 'root' })

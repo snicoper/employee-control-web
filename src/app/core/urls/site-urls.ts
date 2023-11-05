@@ -19,6 +19,10 @@ export const SiteUrls = {
     recoveryPassword: '/accounts/recovery-password'
   },
 
+  companySettings: {
+    companySettings: '/company-settings'
+  },
+
   companyTasks: {
     list: '/tasks',
     details: '/tasks/{id}/details',
