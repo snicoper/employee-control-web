@@ -23,7 +23,7 @@
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "allowedCommonJsDependencies": ["moment-timezone"],
+            "allowedCommonJsDependencies": [],
             "assets": [
               "src/favicon.ico",
               "src/assets",
