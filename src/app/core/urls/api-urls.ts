@@ -2,21 +2,17 @@ import { replaceStringParams } from '../utils/_index';
 
 /** URLs en la API. */
 export const ApiUrls = {
-  /** Admin. */
   admin: {
-    /** Accounts. */
     accounts: {
       getAdminAccountsPaginated: '/admin/accounts/paginated'
     }
   },
 
-  /** Auth. */
   auth: {
     login: '/auth/login',
     refreshToken: '/auth/refresh-token'
   },
 
-  /** Accounts. */
   accounts: {
     registerAccount: '/accounts/register',
     registerValidateEmail: '/accounts/validate-email',
@@ -25,12 +21,10 @@ export const ApiUrls = {
     recoveryPasswordChange: '/accounts/recovery-password-change'
   },
 
-  /** Companies. */
   companies: {
     getCompanyByCurrentUser: '/companies/current-user'
   },
 
-  /** CompanyTasks. */
   companyTasks: {
     getCompanyTasksByCompanyIdPaginated: '/tasks/companies/{companyId}/paginated',
     getEmployeesByCompanyTaskIdPaginated: '/tasks/{id}/employees/paginated',
@@ -48,7 +42,6 @@ export const ApiUrls = {
     createDepartment: '/departments'
   },
 
-  /** Employees. */
   employees: {
     getEmployeesPaginated: '/employees/paginated',
     getEmployeeById: '/employees/{id}',
@@ -70,7 +63,6 @@ export const ApiUrls = {
     getAllIdentityRoles: '/identity-roles'
   },
 
-  /** Localization. */
   localizations: {
     currentLocale: '/localizations/current-locale',
     supportedLocales: '/localizations/supported-locales'

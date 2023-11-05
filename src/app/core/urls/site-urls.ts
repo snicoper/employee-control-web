@@ -2,16 +2,13 @@ import { replaceStringParams } from '../utils/_index';
 
 /** URLs en la APP. */
 export const SiteUrls = {
-  /** Home. */
   home: '/',
 
-  /** Auth. */
   auth: {
     login: '/auth/login',
     logout: '/auth/logout'
   },
 
-  /** Accounts. */
   accounts: {
     register: '/accounts/register',
     registerSuccess: '/accounts/register-success',
@@ -31,7 +28,13 @@ export const SiteUrls = {
     edit: '/tasks/{id}/edit'
   },
 
-  /** Employees. */
+  departments: {
+    list: '/departments',
+    details: '/departments/details',
+    create: '/departments/create',
+    edit: '/departments/{id}/edit'
+  },
+
   employees: {
     list: '/employees',
     details: '/employees/{id}/details',
@@ -39,12 +42,10 @@ export const SiteUrls = {
     invite: '/employees/invite'
   },
 
-  /** Dashboard. */
   dashboard: {
     dashboard: '/dashboard'
   },
 
-  /** Tests. */
   tests: {
     homeTests: '/tests'
   },
@@ -53,7 +54,6 @@ export const SiteUrls = {
     home: '/time-control'
   },
 
-  /** Errors. */
   errors: {
     forbidden: '/errors/403',
     notFound: '/errors/404'
