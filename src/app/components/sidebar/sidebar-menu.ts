@@ -41,7 +41,7 @@ export const sidebarMenu: SidebarMenu[] = [
       },
       {
         title: 'Configuración',
-        link: SiteUrls.companySettings.companySettings,
+        link: SiteUrls.companySettings.companySettingsDetails,
         active: false
       }
     ]

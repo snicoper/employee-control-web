@@ -4,7 +4,7 @@ import { CompanySettingsDetailsComponent } from './company-settings-details/comp
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'details',
     component: CompanySettingsDetailsComponent,
     data: { title: 'Configuración de empresa' }
   }
