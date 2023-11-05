@@ -2,10 +2,10 @@ import { Component, computed, inject } from '@angular/core';
 import { CurrentCompanyEmployeeService, CurrentCompanySettingsService } from '@aw/services/states/_index';
 
 @Component({
-  selector: 'aw-company-settings',
-  templateUrl: './company-settings.component.html'
+  selector: 'aw-company-settings-details',
+  templateUrl: './company-settings-details.component.html'
 })
-export class CompanySettingsComponent {
+export class CompanySettingsDetailsComponent {
   private readonly currentCompanySettingsService = inject(CurrentCompanySettingsService);
   private readonly currentCompanyEmployeeService = inject(CurrentCompanyEmployeeService);
 

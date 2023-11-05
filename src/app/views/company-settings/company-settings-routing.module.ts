@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CompanySettingsComponent } from './company-settings.component';
+import { CompanySettingsDetailsComponent } from './company-settings-details/company-settings-details.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CompanySettingsComponent,
+    component: CompanySettingsDetailsComponent,
     data: { title: 'Configuración de empresa' }
   }
 ];
