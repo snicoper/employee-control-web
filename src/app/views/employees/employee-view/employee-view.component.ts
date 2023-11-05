@@ -2,6 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { SiteUrls } from '@aw/core/urls/_index';
+import { TimeState } from '@aw/models/entities/types/_index';
 import { EmployeeSelectedService } from './employee-selected.service';
 
 @Component({
@@ -13,9 +14,11 @@ export class EmployeeViewComponent {
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
 
   readonly employeeSelected = computed(() => this.employeeSelectedService.employeeSelected());
+  readonly employeeTimeControlState = computed(() => this.employeeSelectedService.employeeTimeControlState());
 
   readonly breadcrumb = new BreadcrumbCollection();
   readonly employeeId: string;
+  readonly timeStates = TimeState;
 
   constructor() {
     this.employeeId = this.route.snapshot.paramMap.get('id') ?? '';

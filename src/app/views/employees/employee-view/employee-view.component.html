@@ -1,7 +1,15 @@
 <aw-view-base>
+  <!-- header -->
   <aw-view-header [breadcrumb]="breadcrumb">
+    <ng-container *ngIf="employeeTimeControlState()?.timeState === timeStates.open">
+      <aw-dot-success></aw-dot-success>
+    </ng-container>
+    <ng-container *ngIf="employeeTimeControlState()?.timeState === timeStates.close">
+      <aw-dot-danger></aw-dot-danger>
+    </ng-container>
     Empleado - {{ employeeSelected()?.firstName }} {{ employeeSelected()?.lastName }}
   </aw-view-header>
+  <!-- end header -->
 
   <!-- employee details -->
   <ng-container *ngIf="employeeSelected()">

@@ -27,9 +27,6 @@ export class EmployeeDetailsComponent implements OnDestroy {
   readonly loadingEmployeeRoles = computed(() => this.employeeSelectedService.loadingEmployeeRoles());
 
   readonly employeeTimeControlState = computed(() => this.employeeSelectedService.employeeTimeControlState());
-  readonly loadingEmployeeTimeControlState = computed(() =>
-    this.employeeSelectedService.loadingEmployeeTimeControlState()
-  );
 
   readonly roleToHumanReadable = roleToHumanReadable;
   readonly siteUrls = SiteUrls;
