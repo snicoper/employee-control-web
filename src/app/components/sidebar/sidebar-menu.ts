@@ -41,8 +41,9 @@ export const sidebarMenu: SidebarMenu[] = [
       },
       {
         title: 'Configuración',
-        link: SiteUrls.companySettings.companySettingsDetails,
-        active: false
+        link: SiteUrls.companySettings.details,
+        active: false,
+        requiredRole: Roles.enterpriseAdministrator
       }
     ]
   },

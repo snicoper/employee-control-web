@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
+import { AwFormsModule } from '@aw/components/forms/aw-forms.module';
 import { AwSpinnerModule } from '@aw/components/spinner/aw-spinner.module';
 import { AwTooltipsModule } from '@aw/components/tooltips/aw-tooltips.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
@@ -10,6 +13,16 @@ import { CompanySettingsRoutingModule } from './company-settings-routing.module'
 
 @NgModule({
   declarations: [CompanySettingsDetailsComponent, CompanySettingsEditComponent],
-  imports: [CommonModule, CompanySettingsRoutingModule, AwViewsModule, AwCardsModule, AwSpinnerModule, AwTooltipsModule]
+  imports: [
+    CommonModule,
+    CompanySettingsRoutingModule,
+    ReactiveFormsModule,
+    AwViewsModule,
+    AwCardsModule,
+    AwSpinnerModule,
+    AwTooltipsModule,
+    AwFormsModule,
+    AwButtonsModule
+  ]
 })
 export class CompanySettingsModule {}

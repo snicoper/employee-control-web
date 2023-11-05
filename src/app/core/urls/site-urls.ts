@@ -20,7 +20,8 @@ export const SiteUrls = {
   },
 
   companySettings: {
-    companySettingsDetails: '/company-settings/details'
+    details: '/company-settings/details',
+    edit: '/company-settings/edit'
   },
 
   companyTasks: {

@@ -1,1 +1,47 @@
-<p>company-settings-edit works!</p>
+<aw-view-base>
+  <aw-view-header [breadcrumb]="breadcrumb">Editar Configuración</aw-view-header>
+
+  <aw-card>
+    <form (ngSubmit)="handleSubmit()" [formGroup]="form">
+      <!-- timezone -->
+      <div class="mb-2">
+        <aw-form-timezone
+          (ngModelChange)="handleChangeTimezone()"
+          [badRequest]="badRequest"
+          [form]="form"
+          [submitted]="submitted"
+          fieldName="timezone"
+          formControlName="timezone"
+          label="Zona horaria"></aw-form-timezone>
+
+        <!-- comparación de horas. -->
+        <ng-container *ngIf="nowWithOriginalTimezone">
+          <span class="text-muted small">
+            Hora actual seleccionada: <strong>{{ nowWithOriginalTimezone }}</strong>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="nowWithTimezoneSelected">
+          <span class="text-muted small">
+            - Nueva hora seleccionada: <strong>{{ nowWithTimezoneSelected }}</strong>
+          </span>
+        </ng-container>
+        <!-- end comparación de horas. -->
+      </div>
+      <!-- end timezone -->
+
+      <!-- buttons-->
+      <div class="mt-2">
+        <aw-btn-loading
+          [loading]="loadingForm"
+          btnClass="btn btn-success"
+          btnIcon="fa-solid fa-screwdriver-wrench"
+          btnText="Actualizar"></aw-btn-loading>
+
+        <button [routerLink]="siteUrls.companySettings.details" class="ms-2 btn btn-primary">
+          <span class="fa-solid fa-chevron-left"></span> Volver
+        </button>
+      </div>
+      <!-- end buttons-->
+    </form>
+  </aw-card>
+</aw-view-base>

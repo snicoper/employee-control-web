@@ -58,7 +58,8 @@ export const ApiUrls = {
   },
 
   companySettings: {
-    getCompanySettingsByCompanyId: '/company-settings/companies/{companyId}'
+    getCompanySettingsByCompanyId: '/company-settings/companies/{companyId}',
+    updateCompanySettings: '/company-settings'
   },
 
   identityRoles: {
