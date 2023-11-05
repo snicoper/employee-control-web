@@ -44,7 +44,6 @@ export class RegisterComponent {
 
     this.loading = true;
     const registerRequest = this.form.value as RegisterRequest;
-    registerRequest.timezone = this.localizationService.getTimezoneValue();
 
     this.accountsApiService
       .post<RegisterRequest, string>(registerRequest, ApiUrls.accounts.registerAccount)
@@ -67,7 +66,8 @@ export class RegisterComponent {
       email: ['', [Validators.email]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
-      companyName: ['', [Validators.required]]
+      companyName: ['', [Validators.required]],
+      timezone: [this.localizationService.getTimezoneValue(), [Validators.required]]
     });
   }
 }

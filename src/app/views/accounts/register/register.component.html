@@ -3,7 +3,7 @@
     <aw-card extraCss="p-4">
       <form (ngSubmit)="handleSubmit()" [formGroup]="form">
         <h1 class="h3 mb-3 fw-normal"><span class="fa-solid fa-user"></span> Nuevo registro</h1>
-        <hr/>
+        <hr />
 
         <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
 
@@ -87,6 +87,18 @@
           </aw-form-floating>
         </div>
         <!-- end companyName -->
+
+        <!-- timezone -->
+        <div class="mb-2">
+          <aw-form-timezone
+            [badRequest]="badRequest"
+            [form]="form"
+            [submitted]="submitted"
+            fieldName="timezone"
+            formControlName="timezone"
+            label="Zona horaria"></aw-form-timezone>
+        </div>
+        <!-- end timezone -->
 
         <a [routerLink]="[siteUrls.auth.login]" class="small">Identificarse</a>
 
