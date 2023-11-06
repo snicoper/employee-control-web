@@ -16,6 +16,9 @@ import { finalize } from 'rxjs';
  */
 @Injectable()
 export class EmployeeSelectedService {
+  private readonly employeesApiService = inject(EmployeesApiService);
+  private readonly timeControlApiService = inject(TimeControlApiService);
+
   private readonly employeeSelected$ = signal<User | null>(null);
   private readonly employeeSelectedRoles$ = signal<UserRole[]>([]);
   private readonly employeeTimeControlState$ = signal<CurrentTimeControlResponse | null>(null);
@@ -23,9 +26,6 @@ export class EmployeeSelectedService {
   private readonly loadingEmployee$ = signal(false);
   private readonly loadingEmployeeRoles$ = signal(false);
   private readonly loadingEmployeeTimeControlState$ = signal(false);
-
-  private readonly employeesApiService = inject(EmployeesApiService);
-  private readonly timeControlApiService = inject(TimeControlApiService);
 
   readonly employeeSelected = computed(() => this.employeeSelected$());
   readonly employeeSelectedRoles = computed(() => this.employeeSelectedRoles$());

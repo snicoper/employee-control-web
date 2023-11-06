@@ -15,18 +15,5 @@ export const employeeTasksTableHeaders: TableHeaderField[] = [
     sortable: true,
     orderType: OrderTypes.none,
     filterable: false
-  },
-  {
-    field: 'background',
-    text: 'Fondo',
-    sortable: false,
-    orderType: OrderTypes.none,
-    filterable: false
-  },
-  {
-    field: 'color',
-    text: 'Color',
-    sortable: false,
-    orderType: OrderTypes.none
   }
 ];

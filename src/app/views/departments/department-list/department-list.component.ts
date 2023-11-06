@@ -52,7 +52,7 @@ export class DepartmentListComponent {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Departamentos', SiteUrls.employees.list, '', false);
+    this.breadcrumb.add('Departamentos', SiteUrls.departments.list, '', false);
   }
 
   private loadDepartments(): void {

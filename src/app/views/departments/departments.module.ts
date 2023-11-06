@@ -10,16 +10,20 @@ import { AwSpinnerModule } from '@aw/components/spinner/aw-spinner.module';
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { AwPipesModule } from '@aw/pipes/pipes.module';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DepartmentCreateComponent } from './department-create/department-create.component';
 import { DepartmentEditComponent } from './department-edit/department-edit.component';
 import { DepartmentListComponent } from './department-list/department-list.component';
+import { DepartmentSelectedService } from './department-view/department-selected.service';
+import { DepartmentViewComponent } from './department-view/department-view.component';
 import { DepartmentRoutingModule } from './departments-routing.module';
 
 @NgModule({
-  declarations: [DepartmentCreateComponent, DepartmentListComponent, DepartmentEditComponent],
+  declarations: [DepartmentCreateComponent, DepartmentListComponent, DepartmentEditComponent, DepartmentViewComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    TabsModule.forRoot(),
     DepartmentRoutingModule,
     AwViewsModule,
     AwFormsModule,
@@ -30,6 +34,7 @@ import { DepartmentRoutingModule } from './departments-routing.module';
     AwTablesModule,
     AwPaginationModule,
     AwPipesModule
-  ]
+  ],
+  providers: [DepartmentSelectedService]
 })
 export class DepartmentsModule {}

@@ -40,7 +40,8 @@ export const ApiUrls = {
 
   departments: {
     createDepartment: '/departments',
-    getDepartmentsByCompanyIdPaginated: '/departments/companies/{companyId}/paginated'
+    getDepartmentsByCompanyIdPaginated: '/departments/companies/{companyId}/paginated',
+    getDepartmentById: '/departments/{id}'
   },
 
   employees: {

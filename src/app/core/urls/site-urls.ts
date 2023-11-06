@@ -30,7 +30,7 @@ export const SiteUrls = {
 
   departments: {
     list: '/departments',
-    details: '/departments/details',
+    details: '/departments/{id}/details',
     create: '/departments/create',
     edit: '/departments/{id}/edit'
   },
