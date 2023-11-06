@@ -25,6 +25,7 @@ export class EmployeeRolesEditComponent {
   isEnterpriseStaff = false;
   isHumanResources = false;
   isEmployee = false;
+  roles = Roles;
   loading = false;
 
   get fullName(): string {
@@ -38,6 +39,19 @@ export class EmployeeRolesEditComponent {
     this.isEmployee = this.employeeSelectedService.isInRole(Roles.employee);
   }
 
+  /** Los roles son jerárquicos */
+  handChangeValue(roleName: string, value: boolean): void {
+    // Si desactiva HumanResources, también desactiva EnterpriseStaff.
+    if (Roles.humanResources === roleName && !value && this.isEnterpriseStaff) {
+      this.isEnterpriseStaff = false;
+    }
+
+    // Si activa EnterpriseStaff, también activa HumanResources.
+    if (Roles.enterpriseStaff === roleName && value && !this.isHumanResources) {
+      this.isHumanResources = true;
+    }
+  }
+
   handleClose(): void {
     this.bsModalRef.hide();
   }
@@ -46,21 +60,21 @@ export class EmployeeRolesEditComponent {
     this.loading = true;
     const employeeId = this.employeeSelected()?.id as string;
     const url = ApiUrls.replace(ApiUrls.employees.updateEmployeeRoles, { id: employeeId });
-    const rolesToAdd: EmployeeRolesRequest = { employeeId: employeeId, roles: [] };
+    const rolesToAdd: EmployeeRolesRequest = { employeeId: employeeId, rolesToAdd: [] };
 
     if (this.isEnterpriseAdmin) {
-      rolesToAdd.roles.push(Roles.enterpriseAdmin);
+      rolesToAdd.rolesToAdd.push(Roles.enterpriseAdmin);
     }
 
     if (this.isEnterpriseStaff) {
-      rolesToAdd.roles.push(Roles.enterpriseStaff);
+      rolesToAdd.rolesToAdd.push(Roles.enterpriseStaff);
     }
 
     if (this.isHumanResources) {
-      rolesToAdd.roles.push(Roles.humanResources);
+      rolesToAdd.rolesToAdd.push(Roles.humanResources);
     }
 
-    rolesToAdd.roles.push(Roles.employee);
+    rolesToAdd.rolesToAdd.push(Roles.employee);
 
     this.employeesApiService
       .put<EmployeeRolesRequest, ResultResponse>(rolesToAdd, url)
