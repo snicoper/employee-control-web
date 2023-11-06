@@ -1,5 +1,4 @@
 import { Injectable, inject } from '@angular/core';
-import { AppEnvironments } from '@aw/core/config/app-environments';
 import { LocalStorageKeys } from '@aw/core/types/local-storage-keys';
 import { LocalStorageService } from '@aw/services/_index';
 import { sidebarMenu } from './sidebar-menu';
@@ -10,7 +9,6 @@ export class SidebarService {
   private readonly localStorageService = inject(LocalStorageService);
 
   private readonly sidebarMenu: SidebarMenu[];
-  private readonly debug = false;
 
   constructor() {
     const sidebar = this.loadFromLocalStorage();
@@ -26,9 +24,7 @@ export class SidebarService {
       }
     });
 
-    if (!AppEnvironments.isDebug || this.debug) {
-      this.saveToLocalStorage();
-    }
+    this.saveToLocalStorage();
   }
 
   getMenuList(): SidebarMenu[] {
