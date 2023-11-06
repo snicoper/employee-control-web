@@ -74,34 +74,21 @@
             <span class="d-flex">
               <span>
                 <ng-container *ngIf="!loadingEmployeeRoles()">
-                  <span class="badge rounded-pill bg-success ms-1" *ngFor="let role of employeeSelectedRoles()">
+                  <span *ngFor="let role of employeeSelectedRoles()" class="badge rounded-pill bg-success ms-1">
                     {{ roleToHumanReadable(role.name) }}
                   </span>
                 </ng-container>
+
                 <ng-container *ngIf="loadingEmployeeRoles()">
                   <aw-spinner [loading]="loadingEmployeeRoles()"></aw-spinner>
                 </ng-container>
               </span>
 
-              <!-- add or remove role rrhh -->
-              <span [awRequiredRole]="roles.enterpriseAdmin" class="ms-auto">
-                <ng-container *ngIf="isHumanResources && !isEnterpriseAdministrator">
-                  <aw-btn-loading
-                    (click)="handleRemoveRoleRrhh()"
-                    [loading]="loadingUpdateRole"
-                    [btnText]="btnTextDeleteRole"
-                    btnClass="ms-auto btn btn-outline-danger btn-sm"></aw-btn-loading>
-                </ng-container>
-
-                <ng-container *ngIf="!isHumanResources && !isEnterpriseAdministrator">
-                  <aw-btn-loading
-                    (click)="handleAddRoleRrhh()"
-                    [loading]="loadingUpdateRole"
-                    [btnText]="btnTextAddRole"
-                    btnClass="ms-auto btn btn-outline-warning btn-sm"></aw-btn-loading>
-                </ng-container>
+              <!-- edit roles -->
+              <span [awRequiredRole]="roles.enterpriseStaff" class="ms-auto">
+                <button (click)="handleRolesModalEdit()" class="btn btn-sm btn-outline-warning">Editar roles</button>
               </span>
-              <!-- end add or remove role rrhh -->
+              <!-- end edit roles -->
             </span>
           </td>
         </tr>

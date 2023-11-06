@@ -1,4 +1,5 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
+import { Roles } from '@aw/core/types/roles';
 import { ApiUrls } from '@aw/core/urls/_index';
 import { CurrentTimeControlResponse } from '@aw/models/_index';
 import { UserRole } from '@aw/models/entities/user-role.model';
@@ -35,9 +36,16 @@ export class EmployeeSelectedService {
   readonly employeeTimeControlState = computed(() => this.employeeTimeControlState$());
   readonly loadingEmployeeTimeControlState = computed(() => this.loadingEmployeeTimeControlState$());
 
+  isInRole(role: Roles): boolean {
+    const index = this.employeeSelectedRoles$().findIndex((r) => r.name === role);
+
+    return index >= 0;
+  }
+
   cleanData(): void {
     this.employeeSelected$.set(null);
     this.employeeSelectedRoles$.set([]);
+    this.employeeTimeControlState$.set(null);
   }
 
   loadData(employeeId: string): void {

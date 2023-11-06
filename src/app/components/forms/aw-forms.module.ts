@@ -10,6 +10,7 @@ import { FormColorComponent } from './inputs/form-color/form-color.component';
 import { FormDatepickerComponent } from './inputs/form-datepicker/form-datepicker.component';
 import { FormFloatingComponent } from './inputs/form-floating/form-floating.component';
 import { FormInputComponent } from './inputs/form-input/form-input.component';
+import { FormSwitchComponent } from './inputs/form-switch/form-switch.component';
 import { FormTextareaComponent } from './inputs/form-textarea/form-textarea.component';
 import { FormTimezoneComponent } from './inputs/form-timezone/form-timezone.component';
 
@@ -24,7 +25,8 @@ import { FormTimezoneComponent } from './inputs/form-timezone/form-timezone.comp
     FormFloatingComponent,
     FormDatepickerComponent,
     FormColorComponent,
-    FormTimezoneComponent
+    FormTimezoneComponent,
+    FormSwitchComponent
   ],
   exports: [
     FieldErrorComponent,
@@ -35,7 +37,8 @@ import { FormTimezoneComponent } from './inputs/form-timezone/form-timezone.comp
     FormFloatingComponent,
     FormDatepickerComponent,
     FormColorComponent,
-    FormTimezoneComponent
+    FormTimezoneComponent,
+    FormSwitchComponent
   ]
 })
 export class AwFormsModule {}

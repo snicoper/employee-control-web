@@ -2,13 +2,15 @@ import { Component, OnDestroy, computed, inject } from '@angular/core';
 import { Roles, roleToHumanReadable } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { ResultResponse } from '@aw/models/_index';
+import { TimeState } from '@aw/models/entities/types/_index';
 import { JwtService } from '@aw/services/_index';
 import { EmployeesApiService } from '@aw/services/api/_index';
 import { DateTime } from 'luxon';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { EmployeeSelectedService } from '../employee-selected.service';
-import { TimeState } from './../../../../models/entities/types/time-state.model';
+import { EmployeeRolesEditComponent } from './employee-roles-edit/employee-roles-edit.component';
 
 @Component({
   selector: 'aw-employee-details',
@@ -19,6 +21,7 @@ export class EmployeeDetailsComponent implements OnDestroy {
   private readonly toastrService = inject(ToastrService);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
   private readonly jwtService = inject(JwtService);
+  private readonly bsModalService = inject(BsModalService);
 
   readonly employeeSelected = computed(() => this.employeeSelectedService.employeeSelected());
   readonly employeeSelectedRoles = computed(() => this.employeeSelectedService.employeeSelectedRoles());
@@ -34,32 +37,8 @@ export class EmployeeDetailsComponent implements OnDestroy {
   readonly timeStates = TimeState;
   readonly dateShort = DateTime.DATE_SHORT;
 
-  loadingUpdateRole = false;
+  bsModalRef?: BsModalRef;
   loadingUpdateActive = false;
-
-  /** Texto botón eliminar role. */
-  get btnTextDeleteRole(): string {
-    return `Eliminar ${roleToHumanReadable(Roles.humanResources)}`;
-  }
-
-  /** Texto botón añadir role. */
-  get btnTextAddRole(): string {
-    return `Establecer ${roleToHumanReadable(Roles.humanResources)}`;
-  }
-
-  /** Empleado seleccionado es humanResources. */
-  get isHumanResources(): boolean {
-    const index = this.employeeSelectedRoles()?.findIndex((role) => role.name === Roles.humanResources);
-
-    return index !== undefined && index >= 0;
-  }
-
-  /** Empleado seleccionado es enterpriseAdministrator. */
-  get isEnterpriseAdministrator(): boolean {
-    const index = this.employeeSelectedRoles()?.findIndex((role) => role.name === Roles.enterpriseAdmin);
-
-    return index !== undefined && index >= 0;
-  }
 
   /** Comprueba si el usuario actual es igual al empleado seleccionado. */
   get canUpdateStates(): boolean {
@@ -74,44 +53,6 @@ export class EmployeeDetailsComponent implements OnDestroy {
   /** Limpiar el empleado seleccionado. */
   ngOnDestroy(): void {
     this.employeeSelectedService.cleanData();
-  }
-
-  /** Eliminar Role RRHH al empleado. */
-  handleRemoveRoleRrhh(): void {
-    this.loadingUpdateRole = true;
-    const data = { employeeId: this.employeeSelected()?.id };
-    const url = this.generateApiUrl(ApiUrls.employees.removeRoleHumanResources);
-
-    this.employeesApiService
-      .put<typeof data, ResultResponse>(data, url)
-      .pipe(finalize(() => (this.loadingUpdateRole = false)))
-      .subscribe({
-        next: (result: ResultResponse) => {
-          if (result.succeeded) {
-            this.toastrService.success('Rol establecido con éxito.');
-            this.employeeSelectedService.loadData(this.employeeSelected()?.id as string);
-          }
-        }
-      });
-  }
-
-  /** Añadir role RRHH al empleado. */
-  handleAddRoleRrhh(): void {
-    this.loadingUpdateRole = true;
-    const data = { employeeId: this.employeeSelected()?.id };
-    const url = this.generateApiUrl(ApiUrls.employees.addRoleHumanResources);
-
-    this.employeesApiService
-      .put<typeof data, ResultResponse>(data, url)
-      .pipe(finalize(() => (this.loadingUpdateRole = false)))
-      .subscribe({
-        next: (result: ResultResponse) => {
-          if (result.succeeded) {
-            this.toastrService.success('Rol eliminado con éxito.');
-            this.employeeSelectedService.loadData(this.employeeSelected()?.id as string);
-          }
-        }
-      });
   }
 
   /** Establecer estado Active a false del empleado. */
@@ -146,6 +87,14 @@ export class EmployeeDetailsComponent implements OnDestroy {
           this.employeeSelectedService.loadData(this.employeeSelected()?.id ?? '');
         }
       });
+  }
+
+  handleRolesModalEdit(): void {
+    const initialState: ModalOptions = {
+      initialState: {}
+    };
+
+    this.bsModalRef = this.bsModalService.show(EmployeeRolesEditComponent, initialState);
   }
 
   /** Wrapper para generar URLs ,de edición de estados. */

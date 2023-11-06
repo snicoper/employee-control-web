@@ -39,7 +39,8 @@ export const ApiUrls = {
   },
 
   departments: {
-    createDepartment: '/departments'
+    createDepartment: '/departments',
+    getDepartmentsByCompanyIdPaginated: '/departments/companies/{companyId}/paginated'
   },
 
   employees: {
@@ -47,6 +48,7 @@ export const ApiUrls = {
     getEmployeeById: '/employees/{id}',
     getRolesByEmployeeId: '/employees/{id}/roles',
     inviteEmployee: '/employees/invite',
+    updateEmployeeRoles: '/employees/{id}/roles',
     deactivateEmployee: '/employees/{id}/deactivate',
     activateEmployee: '/employees/{id}/activate',
     updateEmployee: '/employees',

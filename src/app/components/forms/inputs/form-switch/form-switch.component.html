@@ -1,0 +1,29 @@
+<div class="form-group">
+  <input
+    (ngModelChange)="onChangeValue($event)"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+    [id]="id"
+    [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
+    [value]="value"
+    [checked]="value"
+    type="checkbox"
+    role="switch"
+    class="form-check-input" />
+
+  <ng-container *ngIf="label">
+    <label [for]="id" class="form-check-label">
+      {{ label }}
+    </label>
+  </ng-container>
+
+  <ng-container *ngIf="form">
+    <aw-field-error
+      [badRequest]="badRequest"
+      [fieldName]="fieldName"
+      [fieldText]="label"
+      [form]="form"
+      [submitted]="submitted">
+    </aw-field-error>
+  </ng-container>
+</div>

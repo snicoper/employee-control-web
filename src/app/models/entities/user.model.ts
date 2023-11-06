@@ -1,4 +1,5 @@
 import { Company } from './company.model';
+import { UserRole } from './user-role.model';
 
 export interface User {
   id: string;
@@ -11,4 +12,5 @@ export interface User {
   entryDate?: Date;
   emailConfirmed: boolean;
   company?: Company;
+  userRoles: UserRole[];
 }
