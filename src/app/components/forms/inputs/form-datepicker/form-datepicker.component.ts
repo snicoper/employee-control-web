@@ -55,7 +55,7 @@ export class FormDatepickerComponent {
     };
   }
 
-  onChange = (_: any): void => {};
+  onChange = (_: Date): void => {};
 
   onTouch = (): void => {};
 

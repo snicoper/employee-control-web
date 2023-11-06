@@ -26,25 +26,24 @@ export class FormCheckboxComponent {
   @Input() id: string;
   @Input() label = '';
   @Input() extraCss = '';
-  @Input() placeholder = '';
 
-  value = '';
+  value = false;
   isDisabled = false;
 
   constructor() {
     this.id = Math.random().toString();
   }
 
-  onChange = (_: any): void => {};
+  onChange = (_: boolean): void => {};
 
   onTouch = (): void => {};
 
-  writeValue(value: any): void {
-    if (value !== undefined && value !== this.value) {
-      this.value = value || null;
+  writeValue(value: boolean): void {
+    if (value !== this.value) {
+      this.value = value || false;
       this.onChange(this.value);
     } else {
-      this.value = '';
+      this.value = false;
     }
   }
 
@@ -60,7 +59,7 @@ export class FormCheckboxComponent {
     this.isDisabled = isDisabled;
   }
 
-  onChangeValue(value: any): void {
+  onChangeValue(value: boolean): void {
     this.onChange(value);
   }
 

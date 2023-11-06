@@ -58,7 +58,7 @@ export class FormSwitchComponent {
     this.isDisabled = isDisabled;
   }
 
-  onChangeValue(value: any): void {
+  onChangeValue(value: boolean): void {
     this.onChange(value);
   }
 

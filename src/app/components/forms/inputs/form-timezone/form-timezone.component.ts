@@ -39,7 +39,7 @@ export class FormTimezoneComponent implements ControlValueAccessor {
     });
   }
 
-  onChange = (_: any): void => {};
+  onChange = (_: string): void => {};
 
   onTouch = (): void => {};
 
@@ -64,7 +64,7 @@ export class FormTimezoneComponent implements ControlValueAccessor {
     this.isDisabled = isDisabled;
   }
 
-  onChangeValue(value: any): void {
+  onChangeValue(value: string): void {
     this.onChange(value);
   }
 

@@ -36,11 +36,11 @@ export class FormInputComponent implements ControlValueAccessor {
     this.id = Math.random().toString();
   }
 
-  onChange = (_: any): void => {};
+  onChange = (_: string): void => {};
 
   onTouch = (): void => {};
 
-  writeValue(value: any): void {
+  writeValue(value: string): void {
     if (value !== undefined && value !== this.value) {
       this.value = value || '';
       this.onChange(this.value);
@@ -61,7 +61,7 @@ export class FormInputComponent implements ControlValueAccessor {
     this.isDisabled = isDisabled;
   }
 
-  onChangeValue(value: any): void {
+  onChangeValue(value: string): void {
     this.onChange(value);
   }
 

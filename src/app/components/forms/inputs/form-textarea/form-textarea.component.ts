@@ -40,7 +40,7 @@ export class FormTextareaComponent implements ControlValueAccessor {
 
   onTouch = (): void => {};
 
-  writeValue(value: any): void {
+  writeValue(value: string): void {
     if (value !== undefined && value !== this.value) {
       this.value = value || '';
       this.onChange(this.value);
@@ -61,7 +61,7 @@ export class FormTextareaComponent implements ControlValueAccessor {
     this.isDisabled = isDisabled;
   }
 
-  onChangeValue(value: any): void {
+  onChangeValue(value: string): void {
     this.onChange(value);
   }
 
