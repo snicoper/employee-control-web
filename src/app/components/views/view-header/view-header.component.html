@@ -1,6 +1,9 @@
 <aw-card>
   <h3>
     <ng-content></ng-content>
+    <span class="fs-5">
+      <ng-content select="[awHeaderSubtitle]"></ng-content>
+    </span>
   </h3>
 
   <aw-breadcrumb [breadcrumb]="breadcrumb"></aw-breadcrumb>

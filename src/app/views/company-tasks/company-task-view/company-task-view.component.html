@@ -1,6 +1,6 @@
 <aw-view-base>
   <aw-view-header [breadcrumb]="breadcrumb">
-    Tarea - <span class="fs-5">{{ companyTask()?.name }}</span>
+    Tarea - <span awHeaderSubtitle>{{ companyTask()?.name }}</span>
   </aw-view-header>
 
   <aw-company-task-details [companyTaskId]="companyTaskId"></aw-company-task-details>
