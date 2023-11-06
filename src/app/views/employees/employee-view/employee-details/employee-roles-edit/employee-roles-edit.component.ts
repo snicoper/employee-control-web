@@ -48,6 +48,10 @@ export class EmployeeRolesEditComponent {
     const url = ApiUrls.replace(ApiUrls.employees.updateEmployeeRoles, { id: employeeId });
     const rolesToAdd: EmployeeRolesRequest = { employeeId: employeeId, roles: [] };
 
+    if (this.isEnterpriseAdmin) {
+      rolesToAdd.roles.push(Roles.enterpriseAdmin);
+    }
+
     if (this.isEnterpriseStaff) {
       rolesToAdd.roles.push(Roles.enterpriseStaff);
     }
@@ -55,6 +59,8 @@ export class EmployeeRolesEditComponent {
     if (this.isHumanResources) {
       rolesToAdd.roles.push(Roles.humanResources);
     }
+
+    rolesToAdd.roles.push(Roles.employee);
 
     this.employeesApiService
       .put<EmployeeRolesRequest, ResultResponse>(rolesToAdd, url)
