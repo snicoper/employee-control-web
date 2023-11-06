@@ -17,7 +17,7 @@ const routes: Routes = [
     data: { title: 'Crear nueva tareas' }
   },
   {
-    path: ':id/details',
+    path: ':id',
     component: CompanyTaskViewComponent,
     data: { title: 'Detalles de tarea' }
   },

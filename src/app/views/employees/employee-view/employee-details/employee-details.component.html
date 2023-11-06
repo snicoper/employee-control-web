@@ -122,21 +122,11 @@
     <!-- end no data -->
 
     <!-- loading spinner -->
-    <ng-container *ngIf="loadingEmployee()">
-      <tbody>
-        <tr>
-          <td colspan="100%" class="text-center">
-            <aw-spinner [loading]="loadingEmployee()" [size]="100"></aw-spinner>
-          </td>
-        </tr>
-      </tbody>
-    </ng-container>
+    <aw-table-loading [loading]="loadingEmployee()"></aw-table-loading>
     <!-- end loading spinner -->
   </table>
 
-  <button [routerLink]="siteUrls.employees.list" class="btn btn-primary">
-    <span class="fa-solid fa-chevron-left"></span> Volver
-  </button>
+  <aw-btn-back cssClass="btn btn-primary"></aw-btn-back>
 
   <ng-container *ngIf="canUpdateStates">
     <button [routerLink]="urlToEdit" class="btn btn-success ms-2">

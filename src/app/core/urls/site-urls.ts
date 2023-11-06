@@ -23,21 +23,21 @@ export const SiteUrls = {
 
   companyTasks: {
     list: '/tasks',
-    details: '/tasks/{id}/details',
+    details: '/tasks/{id}',
     create: '/tasks/create',
     edit: '/tasks/{id}/edit'
   },
 
   departments: {
     list: '/departments',
-    details: '/departments/{id}/details',
+    details: '/departments/{id}',
     create: '/departments/create',
     edit: '/departments/{id}/edit'
   },
 
   employees: {
     list: '/employees',
-    details: '/employees/{id}/details',
+    details: '/employees/{id}',
     edit: '/employees/{id}/edit',
     invite: '/employees/invite'
   },

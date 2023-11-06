@@ -20,6 +20,7 @@ export class CompanyTaskDetailsComponent implements OnDestroy {
 
   readonly companyTaskSelected = computed(() => this.companyTaskSelectedService.companyTaskSelected());
   readonly companyTaskLoading = computed(() => this.companyTaskSelectedService.companyTaskLoading());
+
   readonly dateShort = DateTime.DATE_SHORT;
 
   loadingStateTask = false;

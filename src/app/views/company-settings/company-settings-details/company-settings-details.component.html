@@ -2,13 +2,14 @@
   <aw-view-header [breadcrumb]="breadcrumb">Configuración</aw-view-header>
 
   <aw-card>
-    <ng-container *ngIf="!loadingCompanySettings()">
-      <a [routerLink]="[siteUrls.companySettings.edit]" class="mb-3 btn btn-sm btn-outline-success">
-        <span class="fa-solid fa-pencil"></span> Editar
-      </a>
+    <a [routerLink]="[siteUrls.companySettings.edit]" class="mb-3 btn btn-sm btn-outline-success">
+      <span class="fa-solid fa-pencil"></span> Editar
+    </a>
 
-      <table class="table table-striped table-borderless">
-        <thead>
+    <table class="table table-striped table-borderless">
+      <thead>
+        <!-- details -->
+        <ng-container *ngIf="!loadingCompanySettings()">
           <tr>
             <th>
               Zona horaria
@@ -16,12 +17,13 @@
             </th>
             <td>{{ companySettings()?.timezone }} - {{ nowWithTimezone }}</td>
           </tr>
-        </thead>
-      </table>
-    </ng-container>
+        </ng-container>
+        <!-- end details -->
 
-    <ng-container *ngIf="loadingCompanySettings()">
-      <aw-spinner [loading]="loadingCompanySettings()" [size]="100"></aw-spinner>
-    </ng-container>
+        <!-- spinner -->
+        <aw-table-loading [loading]="loadingCompanySettings()"></aw-table-loading>
+        <!-- end spinner -->
+      </thead>
+    </table>
   </aw-card>
 </aw-view-base>

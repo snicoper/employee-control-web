@@ -11,7 +11,7 @@ const routes: Routes = [
     data: { title: 'Lista de departamentos' }
   },
   {
-    path: ':id/details',
+    path: ':id',
     component: DepartmentViewComponent,
     data: { title: 'Detalles departamento' }
   },

@@ -7,9 +7,9 @@
     </thead>
     <!-- end sonarLint -->
 
-    <!-- data company task -->
-    <ng-container *ngIf="companyTaskSelected() && !companyTaskLoading()">
-      <tbody>
+    <tbody>
+      <!-- data company task -->
+      <ng-container *ngIf="companyTaskSelected() && !companyTaskLoading()">
         <tr>
           <td>Nombre</td>
           <td>
@@ -48,14 +48,16 @@
             </span>
           </td>
         </tr>
-      </tbody>
-    </ng-container>
-    <!-- end data company task -->
+      </ng-container>
+      <!-- end data company task -->
+
+      <!-- spinner -->
+      <aw-table-loading [loading]="companyTaskLoading()"></aw-table-loading>
+      <!-- end spinner -->
+    </tbody>
   </table>
 
-  <button [routerLink]="siteUrls.companyTasks.list" class="btn btn-primary">
-    <span class="fa-solid fa-chevron-left"></span> Volver
-  </button>
+  <aw-btn-back></aw-btn-back>
 
   <button [routerLink]="urlToEdit" class="btn btn-success ms-2"><span class="fa-solid fa-pencil"></span> Editar</button>
 </aw-card>

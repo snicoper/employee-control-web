@@ -19,7 +19,7 @@ export class DepartmentViewComponent {
   readonly departmentId: string;
 
   constructor() {
-    this.departmentId = this.route.snapshot.paramMap.get('id') ?? '';
+    this.departmentId = this.route.snapshot.paramMap.get('id') as string;
     this.departmentSelectedService.loadDepartmentById(this.departmentId);
     this.setBreadcrumb();
   }

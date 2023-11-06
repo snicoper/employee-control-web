@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
 import { AwColorsModule } from '@aw/components/colors/aw-colors.module';
@@ -14,15 +15,22 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DepartmentCreateComponent } from './department-create/department-create.component';
 import { DepartmentEditComponent } from './department-edit/department-edit.component';
 import { DepartmentListComponent } from './department-list/department-list.component';
+import { DepartmentDetailsComponent } from './department-view/department-details/department-details.component';
 import { DepartmentSelectedService } from './department-view/department-selected.service';
 import { DepartmentViewComponent } from './department-view/department-view.component';
 import { DepartmentRoutingModule } from './departments-routing.module';
-import { DepartmentDetailsComponent } from './department-view/department-details/department-details.component';
 
 @NgModule({
-  declarations: [DepartmentCreateComponent, DepartmentListComponent, DepartmentEditComponent, DepartmentViewComponent, DepartmentDetailsComponent],
+  declarations: [
+    DepartmentCreateComponent,
+    DepartmentListComponent,
+    DepartmentEditComponent,
+    DepartmentViewComponent,
+    DepartmentDetailsComponent
+  ],
   imports: [
     CommonModule,
+    RouterModule,
     ReactiveFormsModule,
     TabsModule.forRoot(),
     DepartmentRoutingModule,

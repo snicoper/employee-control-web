@@ -8,6 +8,7 @@ import { AwColorsModule } from '@aw/components/colors/aw-colors.module';
 import { AwDualListBoxModule } from '@aw/components/dual-list-box/aw-dual-list-box.module';
 import { AwFormsModule } from '@aw/components/forms/aw-forms.module';
 import { AwPaginationModule } from '@aw/components/pagination/aw-pagination.module';
+import { AwSpinnerModule } from '@aw/components/spinner/aw-spinner.module';
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { AwPipesModule } from '@aw/pipes/pipes.module';
@@ -47,7 +48,8 @@ import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
     AwBreadcrumbModule,
     AwColorsModule,
     AwDualListBoxModule,
-    AwPipesModule
+    AwPipesModule,
+    AwSpinnerModule
   ],
   providers: [CompanyTaskSelectedService]
 })

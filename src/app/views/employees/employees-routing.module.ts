@@ -17,7 +17,7 @@ const routes: Routes = [
     data: { title: 'Invitar a empleado' }
   },
   {
-    path: ':id/details',
+    path: ':id',
     component: EmployeeViewComponent,
     data: { title: 'Detalles de empleado' }
   },
