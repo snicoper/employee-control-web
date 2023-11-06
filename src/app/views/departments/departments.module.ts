@@ -17,9 +17,10 @@ import { DepartmentListComponent } from './department-list/department-list.compo
 import { DepartmentSelectedService } from './department-view/department-selected.service';
 import { DepartmentViewComponent } from './department-view/department-view.component';
 import { DepartmentRoutingModule } from './departments-routing.module';
+import { DepartmentDetailsComponent } from './department-view/department-details/department-details.component';
 
 @NgModule({
-  declarations: [DepartmentCreateComponent, DepartmentListComponent, DepartmentEditComponent, DepartmentViewComponent],
+  declarations: [DepartmentCreateComponent, DepartmentListComponent, DepartmentEditComponent, DepartmentViewComponent, DepartmentDetailsComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

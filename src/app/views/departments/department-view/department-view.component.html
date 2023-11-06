@@ -5,9 +5,11 @@
   </aw-view-header>
   <!-- end header -->
 
-  <!-- employee details -->
-  <ng-container *ngIf="departmentSelected()"> </ng-container>
-  <!-- end employee details -->
+  <!-- department details -->
+  <ng-container *ngIf="departmentSelected()">
+    <aw-department-details></aw-department-details>
+  </ng-container>
+  <!-- end department details -->
 
   <!-- tabs -->
   <ng-container *ngIf="departmentSelected()">
