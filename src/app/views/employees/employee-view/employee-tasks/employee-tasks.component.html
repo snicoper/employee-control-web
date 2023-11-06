@@ -7,9 +7,9 @@
   <span class="me-auto">&nbsp;</span>
   <span>
     <aw-table-input-search
-      [tableHeaderConfig]="tableHeaderConfig"
+      (clickClean)="handleClickClean($event)"
       [apiResult]="apiResult"
-      (clickClean)="handleClickClean($event)"></aw-table-input-search>
+      [tableHeaderConfig]="tableHeaderConfig"></aw-table-input-search>
   </span>
 </div>
 <!-- end filter -->
@@ -18,14 +18,14 @@
 <aw-table [apiResult]="apiResult" [loading]="loading">
   <thead awThead>
     <tr
-      awTableHeader
-      [tableHeaderConfig]="tableHeaderConfig"
+      (clickOrdering)="handleReloadData()"
       [apiResult]="apiResult"
-      (clickOrdering)="handleReloadData()"></tr>
+      [tableHeaderConfig]="tableHeaderConfig"
+      awTableHeader></tr>
   </thead>
 
-  <tbody awTbody *ngIf="apiResult">
-    <tr *ngFor="let task of apiResult.items" (click)="handleSelectItem(task)" class="cursor-pointer">
+  <tbody *ngIf="apiResult" awTbody>
+    <tr (click)="handleSelectItem(task)" *ngFor="let task of apiResult.items" class="cursor-pointer">
       <td>
         <aw-badge [background]="task.background" [color]="task.color" [name]="task.name"></aw-badge>
       </td>
@@ -43,9 +43,9 @@
 
 <!-- pagination -->
 <aw-pagination
-  *ngIf="apiResult"
-  [apiResult]="apiResult"
   (changePage)="handleReloadData()"
-  (changePageListNumber)="handleReloadData()">
+  (changePageListNumber)="handleReloadData()"
+  *ngIf="apiResult"
+  [apiResult]="apiResult">
 </aw-pagination>
 <!-- end pagination -->

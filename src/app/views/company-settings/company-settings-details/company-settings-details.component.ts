@@ -1,8 +1,8 @@
 import { Component, computed, inject } from '@angular/core';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { SiteUrls } from '@aw/core/urls/site-urls';
-import { CurrentCompanyEmployeeService, CurrentCompanySettingsService } from '@aw/services/states/_index';
-import { TimeZone, getTimeZones } from '@vvo/tzdb';
+import { CurrentCompanySettingsService } from '@aw/services/states/_index';
+import { getTimeZones, TimeZone } from '@vvo/tzdb';
 import { DateTime } from 'luxon';
 
 @Component({
@@ -11,7 +11,6 @@ import { DateTime } from 'luxon';
 })
 export class CompanySettingsDetailsComponent {
   private readonly currentCompanySettingsService = inject(CurrentCompanySettingsService);
-  private readonly currentCompanyEmployeeService = inject(CurrentCompanyEmployeeService);
 
   readonly companySettings = computed(() => this.currentCompanySettingsService.companySettings());
   readonly loadingCompanySettings = computed(() => this.currentCompanySettingsService.loadingCompanySettings());

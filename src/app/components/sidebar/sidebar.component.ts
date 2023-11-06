@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, computed, inject } from '@angular/core';
 import { TimeState } from '@aw/models/entities/types/time-state.model';
-import { JwtService, LayoutService } from '@aw/services/_index';
+import { JwtService } from '@aw/services/_index';
 import { CurrentCompanyEmployeeService, CurrentTimeControlStateService } from '@aw/services/states/_index';
 import { SidebarMenu, SidebarMenuTypes } from './sidebar-menu-types.model';
 import { SidebarService } from './sidebar.service';
@@ -20,14 +20,11 @@ import { SidebarService } from './sidebar.service';
 })
 export class SidebarComponent {
   private readonly jwtService = inject(JwtService);
-  private readonly layoutService = inject(LayoutService);
   private readonly sidebarService = inject(SidebarService);
   private readonly currentCompanyEmployeeService = inject(CurrentCompanyEmployeeService);
   private readonly currentTimeControlStateService = inject(CurrentTimeControlStateService);
 
-  readonly sidebarState$ = computed(() => this.layoutService.sidebarState$());
   readonly currentTimeControl = computed(() => this.currentTimeControlStateService.currentTimeControl());
-  readonly loadingCurrentTimeControl = computed(() => this.currentTimeControlStateService.loadingCurrentTimeControl());
 
   readonly sidebarMenus: SidebarMenu[];
   readonly sidebarMenuTypes = SidebarMenuTypes;

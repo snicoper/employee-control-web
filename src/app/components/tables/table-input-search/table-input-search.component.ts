@@ -13,8 +13,6 @@ export class TableInputSearchComponent<T> {
 
   @Output() clickClean = new EventEmitter<ApiResult<T>>();
 
-  private originalPageNumber = 3;
-
   term = '';
 
   handleInputChange(event: Event): void {

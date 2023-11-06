@@ -8,10 +8,10 @@
   <ng-select
     (ngModelChange)="onChangeValue($event)"
     [(ngModel)]="value"
+    [disabled]="isDisabled"
     [id]="id"
     [items]="items"
     [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
-    [disabled]="isDisabled"
     bindLabel="name"
     bindValue="id"></ng-select>
 

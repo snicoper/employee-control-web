@@ -4,14 +4,14 @@ import { Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
-import { BadRequest } from '@aw/models/_index';
+import { BadRequest, ResultResponse } from '@aw/models/_index';
 import { CompanySettings } from '@aw/models/entities/company-settings.model';
 import { CurrentCompanySettingsService } from '@aw/services/states/_index';
 import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { ResultResponse } from './../../../models/result-response.model';
-import { CompanySettingsApiService } from './../../../services/api/company-settings-api.service';
+import { CompanySettingsApiService } from '@aw/services/api/_index';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'aw-company-settings-edit',
@@ -40,15 +40,8 @@ export class CompanySettingsEditComponent {
     this.setBreadcrumb();
     this.buildForm();
     this.setNowWithOriginalTimezone();
-  }
 
-  handleChangeTimezone(): void {
-    const timezoneSelected = this.form.get('timezone')?.value as string;
-
-    this.setNowWithOriginalTimezone();
-    this.nowWithTimezoneSelected = DateTime.local()
-      .setZone(timezoneSelected)
-      .toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET);
+    this.eventListener();
   }
 
   handleSubmit(): void {
@@ -92,6 +85,13 @@ export class CompanySettingsEditComponent {
   private buildForm(): void {
     this.form = this.fb.group({
       timezone: [this.companySettings()?.timezone, [Validators.required]]
+    });
+  }
+
+  private eventListener(): void {
+    this.form.controls['timezone'].valueChanges.pipe(takeUntilDestroyed()).subscribe((timezone: string) => {
+      this.setNowWithOriginalTimezone();
+      this.nowWithTimezoneSelected = DateTime.local().setZone(timezone).toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET);
     });
   }
 }

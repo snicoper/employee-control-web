@@ -5,7 +5,6 @@ import { TimeControlProgressStacked } from '@aw/core/features/times-control/time
 import { ApiUrls } from '@aw/core/urls/_index';
 import { DatetimeUtils } from '@aw/core/utils/_index';
 import { TimeControlApiService } from '@aw/services/api/_index';
-import { CurrentTimeControlStateService } from '@aw/services/states/_index';
 import { DateTime } from 'luxon';
 import { finalize } from 'rxjs';
 import { EmployeeSelectedService } from '../employee-selected.service';
@@ -16,11 +15,9 @@ import { EmployeeSelectedService } from '../employee-selected.service';
 })
 export class EmployeeTimeControlComponent {
   private readonly timeControlApiService = inject(TimeControlApiService);
-  private readonly currentTimeControlStateService = inject(CurrentTimeControlStateService);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
 
   readonly employeeSelected = computed(() => this.employeeSelectedService.employeeSelected());
-  readonly currentTimeControl = computed(() => this.currentTimeControlStateService.currentTimeControl());
 
   progressStackedCollection: ProgressStackedCollection[] = [];
   dateSelected = new Date();

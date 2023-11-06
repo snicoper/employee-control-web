@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef, inject } from '@angular/core';
+import { Component, forwardRef, inject, Input } from '@angular/core';
 import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LocalizationService, LocalizationUtils } from '@aw/core/features/localizations/_index';
 import { FormInputTypes } from '@aw/core/types/_index';
@@ -7,6 +7,7 @@ import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 /* eslint-disable  @typescript-eslint/no-unused-vars */
+
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({
@@ -36,7 +37,6 @@ export class FormDatepickerComponent {
   @Input() placeholder = '';
 
   value?: Date;
-  bsValue?: Date = new Date();
   isDisabled = false;
 
   constructor() {

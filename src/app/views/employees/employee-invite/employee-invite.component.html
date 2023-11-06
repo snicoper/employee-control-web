@@ -1,4 +1,4 @@
-<aw-view-base cssContent="container">
+<aw-view-base>
   <aw-view-header [breadcrumb]="breadcrumb">Invitar empleado</aw-view-header>
 
   <aw-card>
@@ -37,8 +37,8 @@
         <aw-form-input
           [badRequest]="badRequest"
           [form]="form"
-          [submitted]="submitted"
           [inputType]="formInputTypes.email"
+          [submitted]="submitted"
           fieldName="email"
           formControlName="email"
           label="Email">
@@ -50,8 +50,8 @@
       <aw-btn-loading
         [loading]="loading"
         btnClass="btn btn-success mt-2"
-        btnText="Invitar"
-        btnIcon="fas fa-user-plus"></aw-btn-loading>
+        btnIcon="fas fa-user-plus"
+        btnText="Invitar"></aw-btn-loading>
 
       <button [routerLink]="siteUrls.employees.list" class="btn btn-primary mt-2 ms-2" type="button">
         <span class="fa-solid fa-chevron-left"></span> Volver

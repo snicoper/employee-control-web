@@ -1,3 +1,56 @@
 <aw-view-base>
-  <a routerLink="/departments/create">Crear</a>
+  <aw-view-header [breadcrumb]="breadcrumb">Departamentos</aw-view-header>
+
+  <aw-card>
+    <!-- toolbar -->
+    <div class="d-flex mb-2">
+      <span class="me-auto">
+        <a [routerLink]="siteUrls.departments.create" class="btn btn-sm btn-outline-success">
+          <span class="fa-solid fa-building-user"></span> Crear departamento
+        </a>
+      </span>
+
+      <span>
+        <aw-table-input-search
+          (clickClean)="handleClickClean($event)"
+          [apiResult]="apiResult"
+          [tableHeaderConfig]="tableHeaderConfig"></aw-table-input-search>
+      </span>
+    </div>
+    <!-- end toolbar -->
+
+    <!-- table -->
+    <aw-table [apiResult]="apiResult" [loading]="loading">
+      <thead awThead>
+        <tr
+          (clickOrdering)="handleReloadData()"
+          [apiResult]="apiResult"
+          [tableHeaderConfig]="tableHeaderConfig"
+          awTableHeader></tr>
+      </thead>
+
+      <tbody *ngIf="apiResult" awTbody>
+        <tr (click)="handleSelectItem(department)" *ngFor="let department of apiResult.items" class="cursor-pointer">
+          <td>{{ department.name }}</td>
+          <td [innerHTML]="department.active | boolToIcon"></td>
+          <td>
+            <aw-dot [color]="department.background"></aw-dot>
+          </td>
+          <td>
+            <aw-dot [color]="department.color"></aw-dot>
+          </td>
+        </tr>
+      </tbody>
+    </aw-table>
+    <!-- end table -->
+
+    <!-- pagination -->
+    <aw-pagination
+      (changePage)="handleReloadData()"
+      (changePageListNumber)="handleReloadData()"
+      *ngIf="apiResult"
+      [apiResult]="apiResult">
+    </aw-pagination>
+    <!-- end pagination -->
+  </aw-card>
 </aw-view-base>
