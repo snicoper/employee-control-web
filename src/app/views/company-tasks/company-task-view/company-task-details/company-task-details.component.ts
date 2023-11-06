@@ -31,7 +31,7 @@ export class CompanyTaskDetailsComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.companyTaskSelectedService.cleanData();
+    this.companyTaskSelectedService.clean();
   }
 
   handleActivateTask(): void {

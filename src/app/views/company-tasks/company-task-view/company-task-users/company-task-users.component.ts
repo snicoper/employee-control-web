@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, computed, inject } from '@angular/core';
+import { Component, EventEmitter, Output, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
 import { ApiResult } from '@aw/core/features/api-result/api-result';
@@ -14,7 +14,7 @@ import { companyTaskUsersTableHeaders } from './company-task-users-table-headers
   selector: 'aw-company-task-users',
   templateUrl: './company-task-users.component.html'
 })
-export class CompanyTaskUsersComponent implements OnInit {
+export class CompanyTaskUsersComponent {
   @Output() changeComponent = new EventEmitter();
 
   private readonly companyTaskApiService = inject(CompanyTaskApiService);
@@ -27,7 +27,7 @@ export class CompanyTaskUsersComponent implements OnInit {
   tableHeaderConfig = new TableHeaderConfig();
   loading = false;
 
-  ngOnInit(): void {
+  constructor() {
     this.configureTableHeaders();
     this.loadCompanyTaskUsers();
   }

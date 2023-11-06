@@ -15,7 +15,7 @@ export class CompanyTaskSelectedService {
   readonly companyTaskSelected = computed(() => this.companyTaskSelected$());
   readonly companyTaskLoading = computed(() => this.companyTaskLoading$());
 
-  cleanData(): void {
+  clean(): void {
     this.companyTaskSelected$.set(null);
   }
 
