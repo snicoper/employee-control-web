@@ -25,6 +25,7 @@ export class EmployeeRolesEditComponent {
   isEnterpriseStaff = false;
   isHumanResources = false;
   isEmployee = false;
+
   roles = Roles;
   loading = false;
 

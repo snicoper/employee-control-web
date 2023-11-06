@@ -85,9 +85,11 @@
               </span>
 
               <!-- edit roles -->
-              <span [awRequiredRole]="roles.enterpriseStaff" class="ms-auto">
-                <button (click)="handleRolesModalEdit()" class="btn btn-sm btn-outline-warning">Editar roles</button>
-              </span>
+              <ng-container *ngIf="currentEmployeeId !== employeeSelected()?.id">
+                <span [awRequiredRole]="roles.enterpriseStaff" class="ms-auto">
+                  <button (click)="handleRolesModalEdit()" class="btn btn-sm btn-outline-warning">Editar roles</button>
+                </span>
+              </ng-container>
               <!-- end edit roles -->
             </span>
           </td>

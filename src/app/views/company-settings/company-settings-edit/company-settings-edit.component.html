@@ -31,15 +31,15 @@
 
       <!-- buttons-->
       <div class="mt-2">
+        <button [routerLink]="siteUrls.companySettings.details" class="me-2 btn btn-primary">
+          <span class="fa-solid fa-chevron-left"></span> Volver
+        </button>
+
         <aw-btn-loading
           [loading]="loadingForm"
           btnClass="btn btn-success"
           btnIcon="fa-solid fa-screwdriver-wrench"
           btnText="Actualizar"></aw-btn-loading>
-
-        <button [routerLink]="siteUrls.companySettings.details" class="ms-2 btn btn-primary">
-          <span class="fa-solid fa-chevron-left"></span> Volver
-        </button>
       </div>
       <!-- end buttons-->
     </form>

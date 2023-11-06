@@ -36,6 +36,7 @@ export class EmployeeDetailsComponent implements OnDestroy {
   readonly roles = Roles;
   readonly timeStates = TimeState;
   readonly dateShort = DateTime.DATE_SHORT;
+  readonly currentEmployeeId = this.jwtService.getSid();
 
   bsModalRef?: BsModalRef;
   loadingUpdateActive = false;
