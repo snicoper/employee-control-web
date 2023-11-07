@@ -5,14 +5,17 @@ import { TimeControlGroupResponse } from '@aw/core/features/times-control/_index
 import { TimeControlProgressStacked } from '@aw/core/features/times-control/time-control-group';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { DatetimeUtils } from '@aw/core/utils/datetime-utils';
+import { DeviceType, deviceToDeviceType } from '@aw/models/entities/types/device-type.model';
 import { TimeState } from '@aw/models/entities/types/time-state.model';
 import { ResultResponse } from '@aw/models/result-response.model';
 import { JwtService } from '@aw/services/_index';
 import { TimeControlApiService } from '@aw/services/api/_index';
 import { CurrentTimeControlStateService } from '@aw/services/states/_index';
 import { DateTime } from 'luxon';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
+import { TimeControlChangeStateRequest } from './time-control-change-state.request.model';
 
 @Component({
   selector: 'aw-times-control',
@@ -23,8 +26,11 @@ export class TimesControlComponent {
   private readonly jwtService = inject(JwtService);
   private readonly toastrService = inject(ToastrService);
   private readonly currentTimeControlStateService = inject(CurrentTimeControlStateService);
+  private readonly deviceDetectorService = inject(DeviceDetectorService);
 
   readonly currentTimeControl = computed(() => this.currentTimeControlStateService.currentTimeControl());
+
+  private readonly employeeDeviceType: DeviceType;
 
   progressStackedCollection: ProgressStackedCollection[] = [];
   loadingTimeState = false;
@@ -35,6 +41,9 @@ export class TimesControlComponent {
 
   constructor() {
     this.loadTimesControlRange();
+
+    const deviceType = this.deviceDetectorService.getDeviceInfo().deviceType;
+    this.employeeDeviceType = deviceToDeviceType(deviceType);
   }
 
   handleDateSelected(date: Date): void {
@@ -45,10 +54,13 @@ export class TimesControlComponent {
   /** Abrir tiempo de actividad. */
   handleTimeStart(): void {
     this.loadingTimeState = true;
-    const data = { employeeId: this.jwtService.getSid() };
+    const data: TimeControlChangeStateRequest = {
+      employeeId: this.jwtService.getSid(),
+      deviceType: this.employeeDeviceType
+    };
 
     this.timeControlApiService
-      .post<typeof data, ResultResponse>(data, ApiUrls.timeControl.startTimeControl)
+      .post<TimeControlChangeStateRequest, ResultResponse>(data, ApiUrls.timeControl.startTimeControl)
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
         next: (result: ResultResponse) => {
@@ -67,10 +79,13 @@ export class TimesControlComponent {
   /** Cerrar tiempo de actividad. */
   handleTimeFinished(): void {
     this.loadingTimeState = true;
-    const data = { employeeId: this.jwtService.getSid() };
+    const data: TimeControlChangeStateRequest = {
+      employeeId: this.jwtService.getSid(),
+      deviceType: this.employeeDeviceType
+    };
 
     this.timeControlApiService
-      .post<typeof data, ResultResponse>(data, ApiUrls.timeControl.finishTimeControl)
+      .post<TimeControlChangeStateRequest, ResultResponse>(data, ApiUrls.timeControl.finishTimeControl)
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
         next: (result: ResultResponse) => {

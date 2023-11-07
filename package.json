@@ -28,6 +28,7 @@
     "jwt-decode": "^4.0.0",
     "luxon": "^3.4.3",
     "ngx-bootstrap": "^11.0.2",
+    "ngx-device-detector": "^6.0.2",
     "ngx-scrollbar": "^13.0.3",
     "ngx-toastr": "^17.0.2",
     "rxjs": "~7.8.0",
