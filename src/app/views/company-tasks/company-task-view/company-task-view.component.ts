@@ -30,9 +30,9 @@ export class CompanyTaskViewComponent {
 
   handleChangeComponent(): void {
     this.employeeComponent =
-      this.employeeComponent === EmployeeLoadComponent.addUsers
+      this.employeeComponent === EmployeeLoadComponent.addEmployees
         ? EmployeeLoadComponent.employees
-        : EmployeeLoadComponent.addUsers;
+        : EmployeeLoadComponent.addEmployees;
   }
 
   private setBreadcrumb(): void {

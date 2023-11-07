@@ -11,7 +11,7 @@
       <aw-card>
         <div>
           <tabset>
-            <tab heading="Empleados" #tabUsers="tab">
+            <tab #tabUsers="tab" heading="Empleados">
               <aw-company-task-users
                 (changeComponent)="handleChangeComponent()"
                 *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.employees">
@@ -19,13 +19,13 @@
 
               <aw-company-task-add-users
                 (changeComponent)="handleChangeComponent()"
-                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.addUsers">
+                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.addEmployees">
               </aw-company-task-add-users>
             </tab>
-            <tab heading="Basic Title 1" #tabB="tab">
+            <tab #tabB="tab" heading="Basic Title 1">
               <aw-company-task-users *ngIf="tabB.active"></aw-company-task-users>
             </tab>
-            <tab heading="Basic Title 2" #tabC="tab">Basic content 2</tab>
+            <tab #tabC="tab" heading="Basic Title 2">Basic content 2</tab>
           </tabset>
         </div>
       </aw-card>

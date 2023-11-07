@@ -151,7 +151,7 @@ export class ProcessTimeControlGroups {
     // El inicio comienza el día actual y el final el día siguiente.
     // |---------------------| Current day.
     //                   |--------| Time.
-    const diffMidnight = period.start.endOf('day').diff(period.start, ['minutes']).minutes;
+    const diffMidnight = Math.round(period.start.endOf('day').diff(period.start, ['minutes']).minutes);
     const duration = Math.abs(Math.round(period.duration() - diffMidnight));
 
     // Día siguiente desde las 00:00.00.

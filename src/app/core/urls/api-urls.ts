@@ -40,8 +40,11 @@ export const ApiUrls = {
 
   departments: {
     getDepartmentsByCompanyIdPaginated: '/departments/companies/{companyId}/paginated',
+    getEmployeesByCompanyIdPaginated: '/departments/{id}/employees/paginated',
+    GetEmployeesByDepartmentIdPaginated: '/departments/{id}/employees/unassigned',
     getDepartmentById: '/departments/{id}',
     createDepartment: '/departments',
+    assignEmployeesToDepartment: '/departments/{id}/employees/assign',
     updateDepartment: '/departments/{id}',
     activateDepartment: '/departments/activate',
     deactivateDepartment: '/departments/deactivate'

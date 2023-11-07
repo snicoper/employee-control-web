@@ -17,9 +17,19 @@
       <aw-card>
         <div>
           <tabset>
-            <tab #tabTasks="tab" heading="Empleados"> </tab>
+            <tab #tabUsers="tab" heading="Empleados">
+              <aw-department-users
+                (changeComponent)="handleChangeComponent()"
+                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.employees">
+              </aw-department-users>
 
-            <tab #tabTimeControl="tab" heading="Otra pestaña..."> </tab>
+              <aw-department-add-users
+                (changeComponent)="handleChangeComponent()"
+                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.addEmployees">
+              </aw-department-add-users>
+            </tab>
+
+            <tab #tabTimeControl="tab" heading="Otra pestaña..."></tab>
 
             <tab #tabC="tab" heading="Basic Title 2">Basic content 2</tab>
           </tabset>

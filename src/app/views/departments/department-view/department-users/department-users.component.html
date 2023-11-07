@@ -1,0 +1,49 @@
+<div class="d-flex my-3">
+  <h5 class="m-auto">Empleados en el departamento - {{ departmentSelected()?.name }}</h5>
+</div>
+
+<!-- toolbar -->
+<div class="d-flex mb-2">
+  <span class="me-auto">
+    <button (click)="handleChangeComponent()" class="btn btn-sm btn-outline-success">
+      <span class="fa-solid fa-user-plus"></span> Añadir empleados
+    </button>
+  </span>
+
+  <span>
+    <aw-table-input-search
+      (clickClean)="handleClickClean($event)"
+      [apiResult]="apiResult"
+      [tableHeaderConfig]="tableHeaderConfig"></aw-table-input-search>
+  </span>
+</div>
+<!-- end toolbar -->
+
+<!-- table -->
+<aw-table [apiResult]="apiResult" [loading]="loading">
+  <thead awThead>
+    <tr
+      (clickOrdering)="handleReloadData()"
+      [apiResult]="apiResult"
+      [tableHeaderConfig]="tableHeaderConfig"
+      awTableHeader></tr>
+  </thead>
+
+  <tbody *ngIf="apiResult" awTbody>
+    <tr (click)="handleSelectItem(user)" *ngFor="let user of apiResult.items" class="cursor-pointer">
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user.email }}</td>
+    </tr>
+  </tbody>
+</aw-table>
+<!-- end table -->
+
+<!-- pagination -->
+<aw-pagination
+  (changePage)="handleReloadData()"
+  (changePageListNumber)="handleReloadData()"
+  *ngIf="apiResult"
+  [apiResult]="apiResult">
+</aw-pagination>
+<!-- end pagination -->

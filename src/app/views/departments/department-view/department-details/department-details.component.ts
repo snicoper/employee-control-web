@@ -1,4 +1,4 @@
-import { Component, Input, computed, inject } from '@angular/core';
+import { Component, computed, inject, Input, OnDestroy } from '@angular/core';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { ResultResponse } from '@aw/models/result-response.model';
 import { DepartmentApiService } from '@aw/services/api/_index';
@@ -10,7 +10,7 @@ import { DepartmentSelectedService } from '../department-selected.service';
   selector: 'aw-department-details',
   templateUrl: './department-details.component.html'
 })
-export class DepartmentDetailsComponent {
+export class DepartmentDetailsComponent implements OnDestroy {
   @Input({ required: true }) departmentId = '';
 
   private readonly toastrService = inject(ToastrService);
@@ -25,6 +25,10 @@ export class DepartmentDetailsComponent {
 
   get urlToEdit(): string {
     return SiteUrls.replace(SiteUrls.departments.edit, { id: this.departmentId });
+  }
+
+  ngOnDestroy(): void {
+    this.departmentSelectedService.clean();
   }
 
   handleActivateDepartment(): void {

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
 import { AwColorsModule } from '@aw/components/colors/aw-colors.module';
+import { AwDualListBoxModule } from '@aw/components/dual-list-box/aw-dual-list-box.module';
 import { AwFormsModule } from '@aw/components/forms/aw-forms.module';
 import { AwPaginationModule } from '@aw/components/pagination/aw-pagination.module';
 import { AwSpinnerModule } from '@aw/components/spinner/aw-spinner.module';
@@ -15,8 +16,10 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DepartmentCreateComponent } from './department-create/department-create.component';
 import { DepartmentEditComponent } from './department-edit/department-edit.component';
 import { DepartmentListComponent } from './department-list/department-list.component';
+import { DepartmentAddUsersComponent } from './department-view/department-add-users/department-add-users.component';
 import { DepartmentDetailsComponent } from './department-view/department-details/department-details.component';
 import { DepartmentSelectedService } from './department-view/department-selected.service';
+import { DepartmentUsersComponent } from './department-view/department-users/department-users.component';
 import { DepartmentViewComponent } from './department-view/department-view.component';
 import { DepartmentRoutingModule } from './departments-routing.module';
 
@@ -26,7 +29,9 @@ import { DepartmentRoutingModule } from './departments-routing.module';
     DepartmentListComponent,
     DepartmentEditComponent,
     DepartmentViewComponent,
-    DepartmentDetailsComponent
+    DepartmentDetailsComponent,
+    DepartmentUsersComponent,
+    DepartmentAddUsersComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +47,8 @@ import { DepartmentRoutingModule } from './departments-routing.module';
     AwButtonsModule,
     AwTablesModule,
     AwPaginationModule,
-    AwPipesModule
+    AwPipesModule,
+    AwDualListBoxModule
   ],
   providers: [DepartmentSelectedService]
 })
