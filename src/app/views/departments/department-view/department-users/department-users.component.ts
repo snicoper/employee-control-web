@@ -46,7 +46,7 @@ export class DepartmentUsersComponent {
   }
 
   handleSelectItem(departmentUser: DepartmentUserResponse): void {
-    const url = SiteUrls.replace(SiteUrls.departments.details, { id: departmentUser.id });
+    const url = SiteUrls.replace(SiteUrls.employees.details, { id: departmentUser.id });
     this.router.navigateByUrl(url);
   }
 

@@ -24,6 +24,10 @@
       <aw-card>
         <div>
           <tabset>
+            <tab #tabDepartments="tab" heading="Departamentos">
+              <aw-employee-departments></aw-employee-departments>
+            </tab>
+
             <tab #tabTasks="tab" heading="Tareas">
               <aw-employee-tasks *ngIf="tabTasks.active"></aw-employee-tasks>
             </tab>
@@ -31,8 +35,6 @@
             <tab #tabTimeControl="tab" heading="Control de tiempos">
               <aw-employee-time-control *ngIf="tabTimeControl.active"></aw-employee-time-control>
             </tab>
-
-            <tab #tabC="tab" heading="Basic Title 2">Basic content 2</tab>
           </tabset>
         </div>
       </aw-card>

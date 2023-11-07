@@ -26,6 +26,7 @@ import { EmployeeTasksComponent } from './employee-view/employee-tasks/employee-
 import { EmployeeTimeControlComponent } from './employee-view/employee-time-control/employee-time-control.component';
 import { EmployeeViewComponent } from './employee-view/employee-view.component';
 import { EmployeesRoutingModule } from './employees-routing.module';
+import { EmployeeDepartmentsComponent } from './employee-view/employee-departments/employee-departments.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { EmployeesRoutingModule } from './employees-routing.module';
     EmployeeEditComponent,
     EmployeeTasksComponent,
     EmployeeTimeControlComponent,
-    EmployeeRolesEditComponent
+    EmployeeRolesEditComponent,
+    EmployeeDepartmentsComponent
   ],
   imports: [
     CommonModule,

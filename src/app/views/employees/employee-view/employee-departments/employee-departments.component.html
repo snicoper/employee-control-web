@@ -1,6 +1,7 @@
 <div class="d-flex my-3">
   <h5 class="m-auto">
-    Tareas de <small class="text-muted">{{ employeeSelected()?.firstName }} {{ employeeSelected()?.lastName }}</small>
+    Departamentos asignados a
+    <small class="text-muted">{{ employeeSelected()?.firstName }} {{ employeeSelected()?.lastName }}</small>
   </h5>
 </div>
 
@@ -27,11 +28,11 @@
   </thead>
 
   <tbody *ngIf="apiResult" awTbody>
-    <tr (click)="handleSelectItem(task)" *ngFor="let task of apiResult.items" class="cursor-pointer">
+    <tr (click)="handleSelectItem(department)" *ngFor="let department of apiResult.items" class="cursor-pointer">
       <td>
-        <aw-badge [background]="task.background" [color]="task.color" [name]="task.name"></aw-badge>
+        <aw-badge [background]="department.background" [color]="department.color" [name]="department.name"></aw-badge>
       </td>
-      <td [innerHTML]="task.active | boolToIcon"></td>
+      <td [innerHTML]="department.active | boolToIcon"></td>
     </tr>
   </tbody>
 </aw-table>
