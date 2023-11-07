@@ -71,16 +71,17 @@
               <div class="sidebar-submenu" [@slide]="getState(sidebarMenu)">
                 <ul>
                   <li *ngFor="let submenu of sidebarMenu.submenus" [awRequiredRole]="submenu.requiredRole">
-                    <a [routerLink]="submenu.link" routerLinkActive="active" href="#">
+                    <a [routerLink]="submenu.link" routerLinkActive="active">
                       <ng-container *ngIf="submenu.icon">
                         <span [ngClass]="submenu.icon"></span>
+                        {{ submenu.title }}
                       </ng-container>
 
                       <ng-container *ngIf="!submenu.icon">
-                        <span class="fa-regular fa-circle"></span>
+                        <span class="ms-3">
+                          {{ submenu.title }}
+                        </span>
                       </ng-container>
-
-                      {{ submenu.title }}
 
                       <ng-container *ngIf="submenu.badge">
                         <span class="badge badge-pill" [ngClass]="submenu.badge.class">

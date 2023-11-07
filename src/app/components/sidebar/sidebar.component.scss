@@ -4,8 +4,11 @@
 @import "bootstrap/scss/variables";
 
 $bg-color: var(--#{$prefix}tertiary-bg);
+$bg-secondary: var(--#{$prefix}secondary-bg);
+$bg-active: var(--#{$prefix}border-color);
+
 $text-color: var(--#{$prefix}emphasis-color);
-$border-color: var(--#{$prefix}border-color);
+$text-color-active: var(--#{$prefix}secondary-color);
 
 .sidebar {
   margin-top: $navbar-margin-top;
@@ -21,7 +24,7 @@ $border-color: var(--#{$prefix}border-color);
 
   .sidebar-profile,
   .sidebar-menu {
-    border-top: 1px solid $border-color;
+    border-top: 1px solid $bg-secondary;
   }
 
   .sidebar-profile .user-info,
@@ -39,7 +42,7 @@ $border-color: var(--#{$prefix}border-color);
 
   .sidebar-menu ul li a i,
   .sidebar-menu .sidebar-dropdown div {
-    background-color: $border-color;
+    background-color: $bg-secondary;
     border: none;
   }
 
@@ -48,7 +51,7 @@ $border-color: var(--#{$prefix}border-color);
     transition: color 0.3s ease;
 
     &:hover {
-      background-color: lighten($dark, 15);
+      background-color: $bg-active;
     }
   }
 
@@ -201,8 +204,8 @@ $border-color: var(--#{$prefix}border-color);
               padding: 14px 0 14px 15px;
 
               &.active {
-                background-color: lighten($dark, 7);
-                color: $success;
+                background-color: $bg-active;
+                color: $text-color-active;
               }
 
               .badge,
