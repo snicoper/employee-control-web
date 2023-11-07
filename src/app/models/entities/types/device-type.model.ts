@@ -8,6 +8,7 @@ export enum DeviceType {
 
 /**
  * De un valor string, obtener el valor de DeviceType.
+ *
  * @param device String con el tipo de dispositivo.
  * @returns DeviceType.
  */

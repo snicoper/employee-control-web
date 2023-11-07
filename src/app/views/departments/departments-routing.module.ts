@@ -12,14 +12,14 @@ const routes: Routes = [
     data: { title: 'Lista de departamentos' }
   },
   {
-    path: ':id',
-    component: DepartmentViewComponent,
-    data: { title: 'Detalles departamento' }
-  },
-  {
     path: 'create',
     component: DepartmentCreateComponent,
     data: { title: 'Crea departamento' }
+  },
+  {
+    path: ':id',
+    component: DepartmentViewComponent,
+    data: { title: 'Detalles departamento' }
   },
   {
     path: ':id/edit',

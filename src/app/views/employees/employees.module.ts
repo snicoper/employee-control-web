@@ -14,11 +14,13 @@ import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { AwDirectivesModule } from '@aw/directives/aw-directives.module';
 import { AwPipesModule } from '@aw/pipes/pipes.module';
+import { NgApexchartsModule } from 'ng-apexcharts';
 import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmployeeInviteComponent } from './employee-invite/employee-invite.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { EmployeeDepartmentsComponent } from './employee-view/employee-departments/employee-departments.component';
 import { EmployeeDetailsComponent } from './employee-view/employee-details/employee-details.component';
 import { EmployeeRolesEditComponent } from './employee-view/employee-details/employee-roles-edit/employee-roles-edit.component';
 import { EmployeeSelectedService } from './employee-view/employee-selected.service';
@@ -26,7 +28,7 @@ import { EmployeeTasksComponent } from './employee-view/employee-tasks/employee-
 import { EmployeeTimeControlComponent } from './employee-view/employee-time-control/employee-time-control.component';
 import { EmployeeViewComponent } from './employee-view/employee-view.component';
 import { EmployeesRoutingModule } from './employees-routing.module';
-import { EmployeeDepartmentsComponent } from './employee-view/employee-departments/employee-departments.component';
+import { EmployeeChartDeviceComponent } from './employee-view/employee-time-control/employee-chart-device/employee-chart-device.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { EmployeeDepartmentsComponent } from './employee-view/employee-departmen
     EmployeeTasksComponent,
     EmployeeTimeControlComponent,
     EmployeeRolesEditComponent,
-    EmployeeDepartmentsComponent
+    EmployeeDepartmentsComponent,
+    EmployeeChartDeviceComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,7 @@ import { EmployeeDepartmentsComponent } from './employee-view/employee-departmen
     ReactiveFormsModule,
     TabsModule.forRoot(),
     ModalModule,
+    NgApexchartsModule,
     EmployeesRoutingModule,
     AwViewsModule,
     AwCardsModule,
