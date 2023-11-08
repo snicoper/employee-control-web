@@ -5,7 +5,8 @@ import { TimeControlRecordListComponent } from './time-control-record-list/time-
 export const routes: Routes = [
   {
     path: '',
-    component: TimeControlRecordListComponent
+    component: TimeControlRecordListComponent,
+    data: { title: 'Registro de tiempos' }
   }
 ];
 

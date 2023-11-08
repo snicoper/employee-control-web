@@ -75,7 +75,9 @@
 
             <ng-container *ngIf="timeControl.duration === 0"> - </ng-container>
           </td>
-          <td>&nbsp;</td>
+          <td>
+            <span (click)="handleTimeControlModalEdit(timeControl)" class="fa-solid fa-pencil cursor-pointer"></span>
+          </td>
         </tr>
       </tbody>
     </aw-table>

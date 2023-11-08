@@ -79,10 +79,12 @@ export const ApiUrls = {
   timeControl: {
     getTimesControlByCompanyIdPaginated: '/times-control/companies/{companyId}/from/{from}/to/{to}/paginated',
     getTimesControlByEmployeeIdPaginated: '/times-control/employees/{employeeId}/from/{from}/to/{to}/paginated',
+    getTimeControlById: '/times-control/{id}',
     getCurrentStateTimeControl: '/times-control/employees/{employeeId}/time-state',
     getTimeControlRangeByEmployeeId: '/times-control/employees/{employeeId}/from/{from}/to/{to}',
     getTimeStateOpenByEmployeeId: '/times-control/employees/{employeeId}/time-state-open',
     startTimeControl: '/times-control/start',
-    finishTimeControl: '/times-control/finish'
+    finishTimeControl: '/times-control/finish',
+    updateTimeControl: '/times-control/{id}'
   }
 };

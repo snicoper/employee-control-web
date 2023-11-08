@@ -1,55 +1,64 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BadRequest } from '@aw/models/_index';
-import { getTimeZones } from '@vvo/tzdb';
+import { Component, Input, forwardRef, inject } from '@angular/core';
+import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { LocalizationService, LocalizationUtils } from '@aw/core/features/localizations/_index';
+import { BadRequest } from '@aw/models/bad-request';
+import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 /* eslint-disable  @typescript-eslint/no-unused-vars */
 /* eslint-disable  @typescript-eslint/no-empty-function */
 
 @Component({
-  selector: 'aw-form-timezone',
-  templateUrl: './form-timezone.component.html',
+  selector: 'aw-form-timepicker',
+  templateUrl: './form-timepicker.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FormTimezoneComponent),
+      useExisting: forwardRef(() => FormTimePickerComponent),
       multi: true
     }
   ]
 })
-export class FormTimezoneComponent implements ControlValueAccessor {
+export class FormTimePickerComponent {
+  private readonly bsLocaleService = inject(BsLocaleService);
+  private readonly localizationService = inject(LocalizationService);
+
   @Input({ required: true }) badRequest: BadRequest | undefined;
   @Input({ required: true }) form: FormGroup | undefined;
+  @Input() bsConfig: Partial<BsDatepickerConfig>;
   @Input({ required: true }) submitted = false;
   @Input({ required: true }) fieldName = '';
+  @Input() showMeridian = false;
   @Input() id: string;
   @Input() label = '';
   @Input() extraCss = '';
-  @Input() placeholder = '';
 
-  value = '';
+  value: Date = new Date();
   isDisabled = false;
-  items: { id: string; name: string }[];
 
   constructor() {
     this.id = Math.random().toString();
 
-    this.items = getTimeZones().map((tz) => {
-      return { id: tz.name, name: tz.name };
-    });
+    // Locale BsDatepicker.
+    const localeNgxBootstrap = LocalizationUtils.mapLocaleToNgxBootstrap(this.localizationService.getLocaleValue());
+    this.bsLocaleService.use(localeNgxBootstrap);
+
+    // Default BsDatepickerConfig.
+    this.bsConfig = {
+      containerClass: 'theme-default'
+    };
   }
 
-  onChange = (_: string): void => {};
+  onChange = (_: Date): void => {};
 
   onTouch = (): void => {};
 
-  writeValue(value: string): void {
+  writeValue(value: Date): void {
     if (value !== undefined && value !== this.value) {
-      this.value = value || '';
+      this.value = value || Date;
       this.onChange(this.value);
     } else {
-      this.value = '';
+      this.value = new Date();
     }
   }
 
@@ -65,7 +74,7 @@ export class FormTimezoneComponent implements ControlValueAccessor {
     this.isDisabled = isDisabled;
   }
 
-  onChangeValue(value: string): void {
+  onChangeValue(value: Date): void {
     this.onChange(value);
   }
 

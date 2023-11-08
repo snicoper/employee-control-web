@@ -3,15 +3,19 @@
     <!-- Errores Angular. -->
     <span [ngSwitch]="true">
       <ng-container *ngSwitchCase="getControlErrorByErrorName('required')">
-        <div>Campo requerido</div>
+        <div>Campo requerido.</div>
       </ng-container>
 
       <ng-container *ngSwitchCase="getControlErrorByErrorName('email')">
-        <div>Campo email no valido</div>
+        <div>Campo email no valido.</div>
       </ng-container>
 
       <ng-container *ngSwitchCase="getControlErrorByErrorName('noPasswordMatch')">
-        <div>Las contraseñas no coinciden</div>
+        <div>Las contraseñas no coinciden.</div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="getControlErrorByErrorName('startGreaterThanFinish')">
+        <div>La fecha de inicio no puede ser menor a la fecha final.</div>
       </ng-container>
 
       <ng-container *ngSwitchDefault>

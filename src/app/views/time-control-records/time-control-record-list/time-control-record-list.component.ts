@@ -8,7 +8,9 @@ import { SiteUrls } from '@aw/core/urls/site-urls';
 import { urlReplaceParams } from '@aw/core/utils/_index';
 import { TimeControlApiService } from '@aw/services/api/_index';
 import { JwtService } from '@aw/services/jwt.service';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { finalize } from 'rxjs';
+import { TimeControlRecordEditComponent } from '../time-control-record-edit/time-control-record-edit.component';
 import { TimeState } from './../../../models/entities/types/time-state.model';
 import { SimpleGeolocationService } from './../../../services/simple-geolocation.service';
 import { TimeControlRecordResponse } from './time-contol-record-esponse.model';
@@ -22,6 +24,7 @@ export class TimeControlRecordListComponent {
   private readonly timeControlApiService = inject(TimeControlApiService);
   private readonly jwtService = inject(JwtService);
   private readonly simpleGeolocationService = inject(SimpleGeolocationService);
+  private readonly bsModalService = inject(BsModalService);
 
   readonly breadcrumb = new BreadcrumbCollection();
 
@@ -32,6 +35,7 @@ export class TimeControlRecordListComponent {
   timeState = TimeState;
   from?: Date | string = 'null';
   to?: Date | string = 'null';
+  bsModalRef?: BsModalRef;
 
   constructor() {
     this.apiResult.addOrder('start', OrderTypes.ascending, 1);
@@ -58,6 +62,18 @@ export class TimeControlRecordListComponent {
     }
 
     return null;
+  }
+
+  handleTimeControlModalEdit(timeControl: TimeControlRecordResponse): void {
+    const initialState: ModalOptions = {
+      class: 'modal-lg',
+      keyboard: false,
+      initialState: {
+        timeControlId: timeControl.id
+      }
+    };
+
+    this.bsModalRef = this.bsModalService.show(TimeControlRecordEditComponent, initialState);
   }
 
   handleReloadData(): void {

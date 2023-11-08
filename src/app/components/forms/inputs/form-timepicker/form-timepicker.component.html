@@ -5,15 +5,13 @@
     </label>
   </ng-container>
 
-  <ng-select
+  <timepicker
     (ngModelChange)="onChangeValue($event)"
     [(ngModel)]="value"
     [disabled]="isDisabled"
     [id]="id"
-    [items]="items"
-    [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
-    bindLabel="name"
-    bindValue="id" />
+    [showMeridian]="showMeridian"
+    [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }" />
 
   <ng-container *ngIf="form">
     <aw-field-error
