@@ -6,6 +6,7 @@ import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
 import { AwColorsModule } from '@aw/components/colors/aw-colors.module';
 import { AwFormsModule } from '@aw/components/forms/aw-forms.module';
 import { AwPaginationModule } from '@aw/components/pagination/aw-pagination.module';
+import { AwSpinnerModule } from '@aw/components/spinner/aw-spinner.module';
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { AwDirectivesModule } from '@aw/directives/aw-directives.module';
@@ -30,7 +31,8 @@ import { TimeControlRecordsRoutingModule } from './time-control-records-routing.
     AwPipesModule,
     AwColorsModule,
     AwButtonsModule,
-    AwFormsModule
+    AwFormsModule,
+    AwSpinnerModule
   ],
   providers: [BsModalService]
 })

@@ -8,7 +8,7 @@
 
   <!-- body -->
   <div class="modal-body">
-    <ng-container *ngIf="timeControl">
+    <ng-container *ngIf="timeControl && !loadingForm">
       <form (ngSubmit)="handleSubmit()" [formGroup]="form">
         <!-- timezone -->
         <div class="mb-2">
@@ -83,6 +83,10 @@
         </div>
         <!-- end footer -->
       </form>
+
+      <ng-container *ngIf="loadingForm">
+        <aw-spinner [loading]="loadingForm" [size]="100" />
+      </ng-container>
     </ng-container>
   </div>
   <!-- end body -->
