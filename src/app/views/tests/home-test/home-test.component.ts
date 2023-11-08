@@ -9,14 +9,6 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 export class HomeTestComponent {
   private readonly deviceDetectorService = inject(DeviceDetectorService);
 
-  constructor() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position.coords.latitude, position.coords.longitude);
-      });
-    }
-  }
-
   handleAlertsConsole(): void {
     logError('logError');
     logWarning('logWarning');

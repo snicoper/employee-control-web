@@ -10,14 +10,22 @@ export class SimpleGeolocationService {
     return Object.hasOwn(navigator, 'geolocation');
   }
 
-  getCurrentPosition(): GeolocationCords {
-    navigator.geolocation.getCurrentPosition((position) => {
+  getCurrentPosition(): GeolocationCords | null {
+    if (!this.isAvailable) {
+      return null;
+    }
+
+    navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
       const coords = { latitude: position.coords.latitude, longitude: position.coords.longitude } as GeolocationCords;
+
+      if (!coords.latitude || !coords.longitude) {
+        return null;
+      }
 
       return coords;
     });
 
-    return {} as GeolocationCords;
+    return null;
   }
 
   getOpenStreetMapLink(latitude: number, longitude: number): string {

@@ -71,6 +71,4 @@ export class DepartmentListComponent {
         }
       });
   }
-
-  protected readonly document = document;
 }
