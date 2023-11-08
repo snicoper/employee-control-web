@@ -53,12 +53,7 @@ export class TimeControlRecordEditComponent implements OnInit {
     }
 
     this.loadingForm = true;
-
-    const timeControl = {} as TimeControlRecordRequest;
-    timeControl.id = this.timeControlId;
-    timeControl.start = this.form.get('timeStart')?.value;
-    timeControl.finish = this.form.get('timeFinish')?.value;
-
+    const timeControl = this.getDataRequest();
     const url = urlReplaceParams(ApiUrls.timeControl.updateTimeControl, { id: this.timeControlId });
 
     this.timeControlApiService
@@ -71,6 +66,34 @@ export class TimeControlRecordEditComponent implements OnInit {
           this.bsModalRef.hide();
         }
       });
+  }
+
+  private getDataRequest(): TimeControlRecordRequest {
+    const timeControl = {} as TimeControlRecordRequest;
+    const dateStartSelected = new Date(this.form.get('dateStart')?.value);
+    const dateFinishSelected = new Date(this.form.get('dateFinish')?.value);
+    const timeStartSelected = new Date(this.form.get('timeStart')?.value);
+    const timeFinishSelected = new Date(this.form.get('timeFinish')?.value);
+
+    timeControl.id = this.timeControlId;
+    timeControl.start = new Date(
+      dateStartSelected.getFullYear(),
+      dateStartSelected.getMonth(),
+      dateStartSelected.getDay(),
+      timeStartSelected.getHours(),
+      timeStartSelected.getMinutes(),
+      0
+    );
+    timeControl.finish = new Date(
+      dateFinishSelected.getFullYear(),
+      dateFinishSelected.getMonth(),
+      dateFinishSelected.getDay(),
+      timeFinishSelected.getHours(),
+      timeFinishSelected.getMinutes(),
+      0
+    );
+
+    return timeControl;
   }
 
   private buildForm(): void {
