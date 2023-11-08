@@ -3,14 +3,14 @@ import { OrderTypes } from '@aw/core/features/api-result/_index';
 
 export const timeControlRecordListTableHeaders: TableHeaderField[] = [
   {
-    field: 'firstName',
+    field: 'user.firstName',
     text: 'Nombre',
     sortable: true,
     orderType: OrderTypes.none,
     filterable: true
   },
   {
-    field: 'lastName',
+    field: 'user.lastName',
     text: 'Apellidos',
     sortable: true,
     orderType: OrderTypes.none,
@@ -31,16 +31,16 @@ export const timeControlRecordListTableHeaders: TableHeaderField[] = [
     filterable: false
   },
   {
-    field: 'duration',
-    text: 'Duración',
-    sortable: false,
+    field: 'closedBy',
+    text: 'Cerrado por',
+    sortable: true,
     orderType: OrderTypes.none,
     filterable: false
   },
   {
-    field: 'closedBy',
-    text: 'Cerrado por',
-    sortable: false,
+    field: 'timeState',
+    text: 'Estado',
+    sortable: true,
     orderType: OrderTypes.none,
     filterable: false
   },

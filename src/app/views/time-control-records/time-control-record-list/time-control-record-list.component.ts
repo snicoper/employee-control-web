@@ -9,6 +9,7 @@ import { SiteUrls } from '@aw/core/urls/site-urls';
 import { TimeControlApiService } from '@aw/services/api/_index';
 import { JwtService } from '@aw/services/jwt.service';
 import { finalize } from 'rxjs';
+import { TimeState } from './../../../models/entities/types/time-state.model';
 import { TimeControlRecordResponse } from './time-contol-record-esponse.model';
 import { timeControlRecordListTableHeaders } from './time-control-record-list-table-header';
 
@@ -27,6 +28,7 @@ export class TimeControlRecordListComponent {
   tableHeaderConfig = new TableHeaderConfig();
   loading = false;
   siteUrls = SiteUrls;
+  timeState = TimeState;
   from?: Date | string = 'null';
   to?: Date | string = 'null';
 

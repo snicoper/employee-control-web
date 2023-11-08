@@ -28,7 +28,6 @@ import { EmployeeTasksComponent } from './employee-view/employee-tasks/employee-
 import { EmployeeTimeControlComponent } from './employee-view/employee-time-control/employee-time-control.component';
 import { EmployeeViewComponent } from './employee-view/employee-view.component';
 import { EmployeesRoutingModule } from './employees-routing.module';
-import { EmployeeChartDeviceComponent } from './employee-view/employee-time-control/employee-chart-device/employee-chart-device.component';
 
 @NgModule({
   declarations: [
@@ -40,8 +39,7 @@ import { EmployeeChartDeviceComponent } from './employee-view/employee-time-cont
     EmployeeTasksComponent,
     EmployeeTimeControlComponent,
     EmployeeRolesEditComponent,
-    EmployeeDepartmentsComponent,
-    EmployeeChartDeviceComponent
+    EmployeeDepartmentsComponent
   ],
   imports: [
     CommonModule,

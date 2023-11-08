@@ -33,11 +33,28 @@
         <tr *ngFor="let timeControl of apiResult.items" (click)="handleSelectItem(timeControl)" class="cursor-pointer">
           <td>{{ timeControl.firstName }}</td>
           <td>{{ timeControl.lastName }}</td>
-          <td>{{ timeControl.start }} {{ timeControl.deviceTypeStart }}</td>
-          <td>{{ timeControl.finish }} {{ timeControl.deviceTypeFinish }}</td>
-          <td>{{ timeControl.closedBy }}</td>
-          <td>{{ timeControl.timeState }}</td>
-          <td>{{ timeControl.duration }}</td>
+          <td>
+            <span [innerHTML]="timeControl.deviceTypeStart | deviceType"></span>
+            {{ timeControl.start | datetime }}
+          </td>
+          <td>
+            <ng-container *ngIf="timeControl.timeState === timeState.open">
+              <span [innerHTML]="timeControl.deviceTypeFinish | deviceType"></span>
+            </ng-container>
+            <ng-container *ngIf="timeControl.timeState === timeState.close">
+              {{ timeControl.finish | datetime }}
+            </ng-container>
+          </td>
+          <td>{{ timeControl.closedBy | closedBy }}</td>
+          <td>
+            <ng-container *ngIf="timeControl.timeState === timeState.open">
+              <aw-dot-success />
+            </ng-container>
+            <ng-container *ngIf="timeControl.timeState === timeState.close">
+              <aw-dot-danger />
+            </ng-container>
+          </td>
+          <td>{{ timeControl.duration | durationToTime }}</td>
         </tr>
       </tbody>
     </aw-table>
