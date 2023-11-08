@@ -11,6 +11,7 @@ import { TimeState } from '@aw/models/entities/types/time-state.model';
 import { ResultResponse } from '@aw/models/result-response.model';
 import { JwtService } from '@aw/services/_index';
 import { TimeControlApiService } from '@aw/services/api/_index';
+import { SimpleGeolocationService } from '@aw/services/simple-geolocation.service';
 import { CurrentTimeControlStateService } from '@aw/services/states/_index';
 import { DateTime } from 'luxon';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -28,6 +29,7 @@ export class TimesControlComponent {
   private readonly toastrService = inject(ToastrService);
   private readonly currentTimeControlStateService = inject(CurrentTimeControlStateService);
   private readonly deviceDetectorService = inject(DeviceDetectorService);
+  private readonly simpleGeolocationService = inject(SimpleGeolocationService);
 
   readonly currentTimeControl = computed(() => this.currentTimeControlStateService.currentTimeControl());
 
@@ -39,9 +41,16 @@ export class TimesControlComponent {
   timeStates = TimeState;
   loadingTimeControls = false;
   timeTotalInMonth = '';
+  latitude: number | undefined;
+  longitude: number | undefined;
 
   constructor() {
     this.loadTimesControlRange();
+
+    this.simpleGeolocationService.getCurrentPosition().then((result: GeolocationPosition) => {
+      this.latitude = result.coords.latitude;
+      this.longitude = result.coords.longitude;
+    });
 
     const deviceType = this.deviceDetectorService.getDeviceInfo().deviceType;
     this.employeeDeviceType = deviceToDeviceType(deviceType);
@@ -57,7 +66,9 @@ export class TimesControlComponent {
     this.loadingTimeState = true;
     const data: TimeControlChangeStateRequest = {
       employeeId: this.jwtService.getSid(),
-      deviceType: this.employeeDeviceType
+      deviceType: this.employeeDeviceType,
+      latitude: this.latitude,
+      longitude: this.longitude
     };
 
     this.timeControlApiService
@@ -82,7 +93,9 @@ export class TimesControlComponent {
     this.loadingTimeState = true;
     const data: TimeControlChangeStateRequest = {
       employeeId: this.jwtService.getSid(),
-      deviceType: this.employeeDeviceType
+      deviceType: this.employeeDeviceType,
+      latitude: this.latitude,
+      longitude: this.longitude
     };
 
     this.timeControlApiService

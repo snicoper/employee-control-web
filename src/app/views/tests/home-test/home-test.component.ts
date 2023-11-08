@@ -1,13 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { logDebug, logError, logInfo, logWarning } from '@aw/core/errors/_index';
-import { DeviceDetectorService } from 'ngx-device-detector';
+import { SimpleGeolocationService } from '@aw/services/simple-geolocation.service';
 
 @Component({
   selector: 'aw-home-test',
   templateUrl: './home-test.component.html'
 })
 export class HomeTestComponent {
-  private readonly deviceDetectorService = inject(DeviceDetectorService);
+  private readonly simpleGeolocationService = inject(SimpleGeolocationService);
+
+  constructor() {
+    this.simpleGeolocationService.getCurrentPosition();
+  }
 
   handleAlertsConsole(): void {
     logError('logError');

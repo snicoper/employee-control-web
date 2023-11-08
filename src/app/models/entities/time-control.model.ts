@@ -12,8 +12,10 @@ export interface TimeControl {
   timeState: TimeState;
   deviceTypeStart: DeviceType;
   deviceTypeFinish?: DeviceType;
-  user: User;
+  latitude?: number;
+  longitude?: number;
+  user?: User;
   userId: string;
-  company: Company;
+  company?: Company;
   companyId: string;
 }
