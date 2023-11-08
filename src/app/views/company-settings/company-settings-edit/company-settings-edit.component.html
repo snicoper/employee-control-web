@@ -11,7 +11,7 @@
           [submitted]="submitted"
           fieldName="timezone"
           formControlName="timezone"
-          label="Zona horaria"></aw-form-timezone>
+          label="Zona horaria" />
 
         <!-- comparación de horas. -->
         <ng-container *ngIf="nowWithOriginalTimezone">
@@ -19,6 +19,7 @@
             Hora actual seleccionada: <strong>{{ nowWithOriginalTimezone }}</strong>
           </span>
         </ng-container>
+
         <ng-container *ngIf="nowWithTimezoneSelected">
           <span class="text-muted small">
             - Nueva hora seleccionada: <strong>{{ nowWithTimezoneSelected }}</strong>
@@ -30,13 +31,13 @@
 
       <!-- buttons-->
       <div class="mt-2">
-        <aw-btn-back cssClass="me-2 btn btn-primary"></aw-btn-back>
+        <aw-btn-back cssClass="me-2 btn btn-primary" />
 
         <aw-btn-loading
           [loading]="loadingForm"
           btnClass="btn btn-success"
           btnIcon="fa-solid fa-screwdriver-wrench"
-          btnText="Actualizar"></aw-btn-loading>
+          btnText="Actualizar" />
       </div>
       <!-- end buttons-->
     </form>

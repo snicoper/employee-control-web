@@ -5,7 +5,7 @@
         <h1 class="h3 mb-3 fw-normal"><span class="fa-regular fa-building"></span> Nuevo registro</h1>
         <hr />
 
-        <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
+        <aw-non-field-errors [badRequest]="badRequest" />
 
         <!-- firstName -->
         <div class="mb-2">
@@ -15,8 +15,7 @@
             [submitted]="submitted"
             fieldName="firstName"
             formControlName="firstName"
-            label="Nombre">
-          </aw-form-floating>
+            label="Nombre" />
         </div>
         <!-- end firstName -->
 
@@ -28,8 +27,7 @@
             [submitted]="submitted"
             fieldName="lastName"
             formControlName="lastName"
-            label="Apellidos">
-          </aw-form-floating>
+            label="Apellidos" />
         </div>
         <!-- end lastName -->
 
@@ -42,8 +40,7 @@
             [submitted]="submitted"
             fieldName="email"
             formControlName="email"
-            label="Correo electrónico">
-          </aw-form-floating>
+            label="Correo electrónico" />
         </div>
         <!-- end email -->
 
@@ -56,8 +53,7 @@
             [submitted]="submitted"
             fieldName="password"
             formControlName="password"
-            label="Contraseña">
-          </aw-form-floating>
+            label="Contraseña" />
         </div>
         <!-- end password -->
 
@@ -70,8 +66,7 @@
             [submitted]="submitted"
             fieldName="confirmPassword"
             formControlName="confirmPassword"
-            label="Confirmar contraseña">
-          </aw-form-floating>
+            label="Confirmar contraseña" />
         </div>
         <!-- end confirmPassword -->
 
@@ -83,8 +78,7 @@
             [submitted]="submitted"
             fieldName="companyName"
             formControlName="companyName"
-            label="Nombre de empresa">
-          </aw-form-floating>
+            label="Nombre de empresa" />
         </div>
         <!-- end companyName -->
 
@@ -96,7 +90,7 @@
             [submitted]="submitted"
             fieldName="timezone"
             formControlName="timezone"
-            label="Zona horaria"></aw-form-timezone>
+            label="Zona horaria" />
         </div>
         <!-- end timezone -->
 
@@ -105,7 +99,7 @@
         <aw-btn-loading
           [loading]="loading"
           btnClass="w-100 btn btn-lg btn-primary mt-2"
-          btnText="Registrar"></aw-btn-loading>
+          btnText="Registrar" />
       </form>
     </aw-card>
   </div>

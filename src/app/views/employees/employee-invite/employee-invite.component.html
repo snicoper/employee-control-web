@@ -4,7 +4,7 @@
   <aw-card>
     <!-- from-->
     <form (ngSubmit)="handleSubmit()" [formGroup]="form">
-      <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
+      <aw-non-field-errors [badRequest]="badRequest" />
 
       <!-- firstName -->
       <div class="mb-2">
@@ -14,8 +14,7 @@
           [submitted]="submitted"
           fieldName="firstName"
           formControlName="firstName"
-          label="Nombre">
-        </aw-form-input>
+          label="Nombre" />
       </div>
       <!-- end firstName -->
 
@@ -27,8 +26,7 @@
           [submitted]="submitted"
           fieldName="lastName"
           formControlName="lastName"
-          label="Apellidos">
-        </aw-form-input>
+          label="Apellidos" />
       </div>
       <!-- end lastName -->
 
@@ -41,19 +39,18 @@
           [submitted]="submitted"
           fieldName="email"
           formControlName="email"
-          label="Email">
-        </aw-form-input>
+          label="Email" />
       </div>
       <!-- end email -->
 
       <!-- buttons-->
-      <aw-btn-back cssClass="btn btn-primary mt-2 me-2"></aw-btn-back>
+      <aw-btn-back cssClass="btn btn-primary mt-2 me-2" />
 
       <aw-btn-loading
         [loading]="loading"
         btnClass="btn btn-success mt-2"
         btnIcon="fas fa-user-plus"
-        btnText="Invitar"></aw-btn-loading>
+        btnText="Invitar" />
       <!-- end buttons-->
     </form>
     <!-- end from-->

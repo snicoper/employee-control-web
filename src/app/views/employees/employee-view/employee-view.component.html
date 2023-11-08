@@ -2,10 +2,10 @@
   <!-- header -->
   <aw-view-header [breadcrumb]="breadcrumb">
     <ng-container *ngIf="employeeTimeControlState()?.timeState === timeStates.open">
-      <aw-dot-success></aw-dot-success>
+      <aw-dot-success />
     </ng-container>
     <ng-container *ngIf="employeeTimeControlState()?.timeState === timeStates.close">
-      <aw-dot-danger></aw-dot-danger>
+      <aw-dot-danger />
     </ng-container>
 
     Empleado - <span awHeaderSubtitle>{{ employeeSelected()?.firstName }} {{ employeeSelected()?.lastName }}</span>
@@ -14,7 +14,7 @@
 
   <!-- employee details -->
   <ng-container *ngIf="employeeSelected()">
-    <aw-employee-details></aw-employee-details>
+    <aw-employee-details />
   </ng-container>
   <!-- end employee details -->
 
@@ -25,15 +25,15 @@
         <div>
           <tabset>
             <tab #tabDepartments="tab" heading="Departamentos">
-              <aw-employee-departments></aw-employee-departments>
+              <aw-employee-departments />
             </tab>
 
             <tab #tabTasks="tab" heading="Tareas">
-              <aw-employee-tasks *ngIf="tabTasks.active"></aw-employee-tasks>
+              <aw-employee-tasks *ngIf="tabTasks.active" />
             </tab>
 
             <tab #tabTimeControl="tab" heading="Control de tiempos">
-              <aw-employee-time-control *ngIf="tabTimeControl.active"></aw-employee-time-control>
+              <aw-employee-time-control *ngIf="tabTimeControl.active" />
             </tab>
           </tabset>
         </div>

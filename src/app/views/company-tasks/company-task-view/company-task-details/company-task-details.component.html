@@ -16,7 +16,7 @@
             <aw-badge
               [background]="companyTaskSelected()?.background"
               [color]="companyTaskSelected()?.color"
-              [name]="companyTaskSelected()?.name"></aw-badge>
+              [name]="companyTaskSelected()?.name" />
           </td>
         </tr>
         <tr>
@@ -34,7 +34,7 @@
                     (click)="handleDeactivateTask()"
                     [loading]="loadingStateTask"
                     btnClass="btn btn-sm btn-outline-danger"
-                    btnText="Desactivar"></aw-btn-loading>
+                    btnText="Desactivar" />
                 </ng-container>
 
                 <ng-container *ngIf="!companyTaskSelected()?.active">
@@ -42,7 +42,7 @@
                     (click)="handleActivateTask()"
                     [loading]="loadingStateTask"
                     btnClass="btn btn-sm btn-outline-success"
-                    btnText="Activar"></aw-btn-loading>
+                    btnText="Activar" />
                 </ng-container>
               </span>
             </span>
@@ -52,12 +52,12 @@
       <!-- end data company task -->
 
       <!-- spinner -->
-      <aw-table-loading [loading]="companyTaskLoading()"></aw-table-loading>
+      <aw-table-loading [loading]="companyTaskLoading()" />
       <!-- end spinner -->
     </tbody>
   </table>
 
-  <aw-btn-back></aw-btn-back>
+  <aw-btn-back />
 
   <button [routerLink]="urlToEdit" class="btn btn-success ms-2"><span class="fa-solid fa-pencil"></span> Editar</button>
 </aw-card>

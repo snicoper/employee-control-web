@@ -12,7 +12,7 @@
     <aw-table-input-search
       (clickClean)="handleClickClean($event)"
       [apiResult]="apiResult"
-      [tableHeaderConfig]="tableHeaderConfig"></aw-table-input-search>
+      [tableHeaderConfig]="tableHeaderConfig" />
   </span>
 </div>
 <!-- end filter -->
@@ -30,7 +30,7 @@
   <tbody *ngIf="apiResult" awTbody>
     <tr (click)="handleSelectItem(department)" *ngFor="let department of apiResult.items" class="cursor-pointer">
       <td>
-        <aw-badge [background]="department.background" [color]="department.color" [name]="department.name"></aw-badge>
+        <aw-badge [background]="department.background" [color]="department.color" [name]="department.name" />
       </td>
       <td [innerHTML]="department.active | boolToIcon"></td>
     </tr>
@@ -43,6 +43,5 @@
   (changePage)="handleReloadData()"
   (changePageListNumber)="handleReloadData()"
   *ngIf="apiResult"
-  [apiResult]="apiResult">
-</aw-pagination>
+  [apiResult]="apiResult" />
 <!-- end pagination -->

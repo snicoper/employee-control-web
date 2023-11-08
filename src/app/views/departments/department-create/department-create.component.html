@@ -4,14 +4,14 @@
   <aw-card>
     <!-- form -->
     <form (ngSubmit)="handleSubmit()" [formGroup]="form">
-      <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
+      <aw-non-field-errors [badRequest]="badRequest" />
 
       <ng-container *ngIf="form.get('name')?.value">
         <div class="my-3">
           <aw-badge
             [background]="form.get('background')?.value"
             [color]="form.get('color')?.value"
-            [name]="form.get('name')?.value"></aw-badge>
+            [name]="form.get('name')?.value" />
         </div>
       </ng-container>
 
@@ -23,8 +23,7 @@
           [submitted]="submitted"
           fieldName="name"
           formControlName="name"
-          label="Nombre">
-        </aw-form-input>
+          label="Nombre" />
       </div>
       <!-- end name -->
 
@@ -37,8 +36,7 @@
             [submitted]="submitted"
             fieldName="background"
             formControlName="background"
-            label="Color de fondo">
-          </aw-form-color>
+            label="Color de fondo" />
         </div>
         <!-- end background -->
 
@@ -50,8 +48,7 @@
             [submitted]="submitted"
             fieldName="color"
             formControlName="color"
-            label="Color de texto">
-          </aw-form-color>
+            label="Color de texto" />
         </div>
         <!-- end color -->
       </div>
@@ -61,9 +58,9 @@
         [loading]="loading"
         btnClass="btn btn-success mt-2"
         btnIcon="fa-solid fa-list-check"
-        btnText="Crear"></aw-btn-loading>
+        btnText="Crear" />
 
-      <aw-btn-back cssClass="btn btn-primary mt-2 ms-2"></aw-btn-back>
+      <aw-btn-back cssClass="btn btn-primary mt-2 ms-2" />
       <!-- end buttons-->
     </form>
     <!-- end form -->

@@ -12,9 +12,9 @@
 
       <span>
         <aw-table-input-search
-          [tableHeaderConfig]="tableHeaderConfig"
+          (clickClean)="handleClickClean($event)"
           [apiResult]="apiResult"
-          (clickClean)="handleClickClean($event)"></aw-table-input-search>
+          [tableHeaderConfig]="tableHeaderConfig" />
       </span>
     </div>
     <!-- end toolbar -->
@@ -23,14 +23,14 @@
     <aw-table [apiResult]="apiResult" [loading]="loading">
       <thead awThead>
         <tr
-          awTableHeader
-          [tableHeaderConfig]="tableHeaderConfig"
+          (clickOrdering)="handleReloadData()"
           [apiResult]="apiResult"
-          (clickOrdering)="handleReloadData()"></tr>
+          [tableHeaderConfig]="tableHeaderConfig"
+          awTableHeader></tr>
       </thead>
 
-      <tbody awTbody *ngIf="apiResult">
-        <tr *ngFor="let timeControl of apiResult.items" (click)="handleSelectItem(timeControl)" class="cursor-pointer">
+      <tbody *ngIf="apiResult" awTbody>
+        <tr (click)="handleSelectItem(timeControl)" *ngFor="let timeControl of apiResult.items" class="cursor-pointer">
           <td>{{ timeControl.firstName }}</td>
           <td>{{ timeControl.lastName }}</td>
           <td>
@@ -41,6 +41,7 @@
             <ng-container *ngIf="timeControl.timeState === timeState.open">
               <span [innerHTML]="timeControl.deviceTypeFinish | deviceType"></span>
             </ng-container>
+
             <ng-container *ngIf="timeControl.timeState === timeState.close">
               {{ timeControl.finish | datetime }}
             </ng-container>
@@ -50,6 +51,7 @@
             <ng-container *ngIf="timeControl.timeState === timeState.open">
               <aw-dot-success />
             </ng-container>
+
             <ng-container *ngIf="timeControl.timeState === timeState.close">
               <aw-dot-danger />
             </ng-container>
@@ -62,11 +64,10 @@
 
     <!-- pagination -->
     <aw-pagination
-      *ngIf="apiResult"
-      [apiResult]="apiResult"
       (changePage)="handleReloadData()"
-      (changePageListNumber)="handleReloadData()">
-    </aw-pagination>
+      (changePageListNumber)="handleReloadData()"
+      *ngIf="apiResult"
+      [apiResult]="apiResult" />
     <!-- end pagination -->
   </aw-card>
 </aw-view-base>

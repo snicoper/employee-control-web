@@ -12,9 +12,9 @@
 
       <span>
         <aw-table-input-search
-          [tableHeaderConfig]="tableHeaderConfig"
+          (clickClean)="handleClickClean($event)"
           [apiResult]="apiResult"
-          (clickClean)="handleClickClean($event)"></aw-table-input-search>
+          [tableHeaderConfig]="tableHeaderConfig" />
       </span>
     </div>
     <!-- end toolbar -->
@@ -23,14 +23,14 @@
     <aw-table [apiResult]="apiResult" [loading]="loading">
       <thead awThead>
         <tr
-          awTableHeader
-          [tableHeaderConfig]="tableHeaderConfig"
+          (clickOrdering)="handleReloadData()"
           [apiResult]="apiResult"
-          (clickOrdering)="handleReloadData()"></tr>
+          [tableHeaderConfig]="tableHeaderConfig"
+          awTableHeader></tr>
       </thead>
 
-      <tbody awTbody *ngIf="apiResult">
-        <tr *ngFor="let employee of apiResult.items" (click)="handleSelectItem(employee)" class="cursor-pointer">
+      <tbody *ngIf="apiResult" awTbody>
+        <tr (click)="handleSelectItem(employee)" *ngFor="let employee of apiResult.items" class="cursor-pointer">
           <td>{{ employee.firstName }}</td>
           <td>{{ employee.lastName }}</td>
           <td>{{ employee.email }}</td>
@@ -43,11 +43,10 @@
 
     <!-- pagination -->
     <aw-pagination
-      *ngIf="apiResult"
-      [apiResult]="apiResult"
       (changePage)="handleReloadData()"
-      (changePageListNumber)="handleReloadData()">
-    </aw-pagination>
+      (changePageListNumber)="handleReloadData()"
+      *ngIf="apiResult"
+      [apiResult]="apiResult" />
     <!-- end pagination -->
   </aw-card>
 </aw-view-base>

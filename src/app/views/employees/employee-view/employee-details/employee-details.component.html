@@ -41,16 +41,16 @@
                     <aw-btn-loading
                       (click)="handleDeactivateEmployee()"
                       [loading]="loadingUpdateActive"
-                      btnText="Desactivar cuenta"
-                      btnClass="btn btn-sm btn-outline-danger ms-4"></aw-btn-loading>
+                      btnClass="btn btn-sm btn-outline-danger ms-4"
+                      btnText="Desactivar cuenta" />
                   </ng-container>
 
                   <ng-container *ngIf="!employeeSelected()?.active">
                     <aw-btn-loading
                       (click)="handleActivateEmployee()"
                       [loading]="loadingUpdateActive"
-                      btnText="Activar cuenta"
-                      btnClass="btn btn-sm btn-outline-success ms-4"></aw-btn-loading>
+                      btnClass="btn btn-sm btn-outline-success ms-4"
+                      btnText="Activar cuenta" />
                   </ng-container>
                 </span>
               </ng-container>
@@ -80,7 +80,7 @@
                 </ng-container>
 
                 <ng-container *ngIf="loadingEmployeeRoles()">
-                  <aw-spinner [loading]="loadingEmployeeRoles()"></aw-spinner>
+                  <aw-spinner [loading]="loadingEmployeeRoles()" />
                 </ng-container>
               </span>
 
@@ -98,10 +98,11 @@
           <td>Estado control de tiempos</td>
           <td>
             <ng-container *ngIf="employeeTimeControlState()?.timeState === timeStates.open">
-              <aw-dot-success></aw-dot-success> {{ employeeTimeControlState()?.start | datetime }}
+              <aw-dot-success />
+              {{ employeeTimeControlState()?.start | datetime }}
             </ng-container>
             <ng-container *ngIf="employeeTimeControlState()?.timeState === timeStates.close">
-              <aw-dot-danger></aw-dot-danger>
+              <aw-dot-danger />
             </ng-container>
           </td>
         </tr>
@@ -113,7 +114,7 @@
     <ng-container *ngIf="!employeeSelected() && !loadingEmployee()">
       <tbody>
         <tr>
-          <td colspan="100%" class="text-center">
+          <td class="text-center" colspan="100%">
             <h6>Error al cargar datos de empleado.</h6>
           </td>
         </tr>
@@ -122,11 +123,11 @@
     <!-- end no data -->
 
     <!-- loading spinner -->
-    <aw-table-loading [loading]="loadingEmployee()"></aw-table-loading>
+    <aw-table-loading [loading]="loadingEmployee()" />
     <!-- end loading spinner -->
   </table>
 
-  <aw-btn-back cssClass="btn btn-primary"></aw-btn-back>
+  <aw-btn-back cssClass="btn btn-primary" />
 
   <ng-container *ngIf="canUpdateStates">
     <button [routerLink]="urlToEdit" class="btn btn-success ms-2">

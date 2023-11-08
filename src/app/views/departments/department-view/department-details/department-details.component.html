@@ -16,7 +16,7 @@
             <aw-badge
               [background]="departmentSelected()?.background"
               [color]="departmentSelected()?.color"
-              [name]="departmentSelected()?.name"></aw-badge>
+              [name]="departmentSelected()?.name" />
           </td>
         </tr>
         <tr>
@@ -30,7 +30,7 @@
                     (click)="handleDeactivateDepartment()"
                     [loading]="loadingDepartmentState"
                     btnClass="btn btn-sm btn-outline-danger"
-                    btnText="Desactivar"></aw-btn-loading>
+                    btnText="Desactivar" />
                 </ng-container>
 
                 <ng-container *ngIf="!departmentSelected()?.active">
@@ -38,7 +38,7 @@
                     (click)="handleActivateDepartment()"
                     [loading]="loadingDepartmentState"
                     btnClass="btn btn-sm btn-outline-success"
-                    btnText="Activar"></aw-btn-loading>
+                    btnText="Activar" />
                 </ng-container>
               </span>
             </span>
@@ -48,12 +48,12 @@
       <!-- end data company task -->
 
       <!-- spinner -->
-      <aw-table-loading [loading]="loadingDepartmentSelected()"></aw-table-loading>
+      <aw-table-loading [loading]="loadingDepartmentSelected()" />
       <!-- end spinner -->
     </tbody>
   </table>
 
-  <aw-btn-back></aw-btn-back>
+  <aw-btn-back />
 
   <button [routerLink]="urlToEdit" class="btn btn-success ms-2"><span class="fa-solid fa-pencil"></span> Editar</button>
 </aw-card>

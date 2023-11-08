@@ -5,7 +5,7 @@
     <!-- form -->
     <ng-container *ngIf="companyTask">
       <form (ngSubmit)="handleSubmit()" [formGroup]="form">
-        <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
+        <aw-non-field-errors [badRequest]="badRequest" />
 
         <ng-container *ngIf="form.get('name')?.value">
           <div class="my-3">
@@ -24,7 +24,7 @@
             [submitted]="submitted"
             fieldName="name"
             formControlName="name"
-            label="Nombre"></aw-form-input>
+            label="Nombre" />
         </div>
         <!-- end name -->
 
@@ -36,7 +36,7 @@
             [submitted]="submitted"
             fieldName="active"
             formControlName="active"
-            label="Activo"></aw-form-checkbox>
+            label="Activo" />
         </div>
         <!-- end active -->
 
@@ -49,8 +49,7 @@
               [submitted]="submitted"
               fieldName="background"
               formControlName="background"
-              label="Color de fondo">
-            </aw-form-color>
+              label="Color de fondo" />
           </div>
           <!-- end background -->
 
@@ -62,20 +61,19 @@
               [submitted]="submitted"
               fieldName="color"
               formControlName="color"
-              label="Color de texto">
-            </aw-form-color>
+              label="Color de texto" />
           </div>
           <!-- end color -->
         </div>
 
-        <aw-btn-back cssClass="btn btn-primary mt-2"></aw-btn-back>
+        <aw-btn-back cssClass="btn btn-primary mt-2" />
 
         <aw-btn-loading
           [loading]="loadingForm"
           btnClass="btn btn-success mt-2 ms-2"
           btnIcon="fa-regular fa-floppy-disk"
           btnText="Guardar"
-          spinnerLoadingText="Guardando"></aw-btn-loading>
+          spinnerLoadingText="Guardando" />
       </form>
     </ng-container>
     <!-- end form -->

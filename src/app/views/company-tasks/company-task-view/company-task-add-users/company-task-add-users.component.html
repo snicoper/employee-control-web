@@ -10,7 +10,7 @@
 
 <ng-container *ngIf="htmlItemSelector.length">
   <aw-dual-list-box
+    (saveChanges)="handleSaveChanges($event)"
     [htmlItemSelector]="htmlItemSelector"
-    [loading]="loading"
-    (saveChanges)="handleSaveChanges($event)"></aw-dual-list-box>
+    [loading]="loading" />
 </ng-container>

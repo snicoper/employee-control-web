@@ -14,7 +14,7 @@
         <aw-table-input-search
           (clickClean)="handleClickClean($event)"
           [apiResult]="apiResult"
-          [tableHeaderConfig]="tableHeaderConfig"></aw-table-input-search>
+          [tableHeaderConfig]="tableHeaderConfig" />
       </span>
     </div>
     <!-- end toolbar -->
@@ -34,10 +34,10 @@
           <td>{{ department.name }}</td>
           <td [innerHTML]="department.active | boolToIcon"></td>
           <td>
-            <aw-dot [color]="department.background"></aw-dot>
+            <aw-dot [color]="department.background" />
           </td>
           <td>
-            <aw-dot [color]="department.color"></aw-dot>
+            <aw-dot [color]="department.color" />
           </td>
         </tr>
       </tbody>
@@ -49,8 +49,7 @@
       (changePage)="handleReloadData()"
       (changePageListNumber)="handleReloadData()"
       *ngIf="apiResult"
-      [apiResult]="apiResult">
-    </aw-pagination>
+      [apiResult]="apiResult" />
     <!-- end pagination -->
   </aw-card>
 </aw-view-base>

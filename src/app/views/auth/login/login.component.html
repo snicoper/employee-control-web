@@ -9,7 +9,7 @@
           <div class="alert alert-danger" role="alert">Nombre de usuario o contraseña no validos.</div>
         </ng-container>
 
-        <aw-non-field-errors [badRequest]="badRequest"></aw-non-field-errors>
+        <aw-non-field-errors [badRequest]="badRequest" />
 
         <!-- email -->
         <div class="mb-2">
@@ -19,8 +19,7 @@
             [submitted]="submitted"
             fieldName="email"
             formControlName="email"
-            label="Email">
-          </aw-form-floating>
+            label="Email" />
         </div>
         <!-- end email -->
 
@@ -32,8 +31,7 @@
           [submitted]="submitted"
           fieldName="password"
           formControlName="password"
-          label="Contraseña">
-        </aw-form-floating>
+          label="Contraseña" />
         <!-- end password -->
 
         <a [routerLink]="[siteUrls.accounts.register]" class="small">Registro nuevo usuario</a>
@@ -42,7 +40,7 @@
         <aw-btn-loading
           [loading]="loading"
           btnClass="w-100 btn btn-lg btn-primary mt-2"
-          btnText="Acceder"></aw-btn-loading>
+          btnText="Acceder" />
       </form>
     </aw-card>
   </div>

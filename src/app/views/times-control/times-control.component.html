@@ -4,19 +4,19 @@
   <aw-card>
     <aw-month-selector
       (changeMonthSelected)="handleDateSelected($event)"
-      [dateSelected]="dateSelected"></aw-month-selector>
+      [dateSelected]="dateSelected" />
 
     <div class="d-flex mt-4">
       <!-- state -->
       <ng-container *ngIf="currentTimeControl()?.timeState === timeStates.open">
-        <aw-dot-success></aw-dot-success>
+        <aw-dot-success />
         <span class="small text-muted">
           Tiempo iniciado: <strong>{{ currentTimeControl()?.start | datetimeFormat: "cccc t" }}</strong>
         </span>
       </ng-container>
 
       <ng-container *ngIf="currentTimeControl()?.timeState === timeStates.close">
-        <aw-dot-danger></aw-dot-danger>
+        <aw-dot-danger />
         <span class="small text-muted">El tiempo esta finalizado</span>
       </ng-container>
       <!-- end state -->
@@ -29,18 +29,18 @@
           <aw-btn-loading
             (eventClick)="handleTimeFinished()"
             [loading]="loadingTimeState"
+            btnClass="btn btn-outline-warning"
             btnIcon="fa-solid fa-flag-checkered"
-            btnText="Finalizar"
-            btnClass="btn btn-outline-warning"></aw-btn-loading>
+            btnText="Finalizar" />
         </ng-container>
 
         <ng-container *ngIf="currentTimeControl()?.timeState === timeStates.close">
           <aw-btn-loading
             (eventClick)="handleTimeStart()"
             [loading]="loadingTimeState"
+            btnClass="btn btn-success"
             btnIcon="fa-solid fa-hourglass-start"
-            btnText="Iniciar"
-            btnClass="btn btn-success"></aw-btn-loading>
+            btnText="Iniciar" />
         </ng-container>
       </div>
       <!-- end button state -->
@@ -52,8 +52,8 @@
   <!-- times -->
   <aw-card>
     <aw-time-control-progress
-      [progressStackedCollection]="progressStackedCollection"
-      [loading]="loadingTimeControls"></aw-time-control-progress>
+      [loading]="loadingTimeControls"
+      [progressStackedCollection]="progressStackedCollection" />
   </aw-card>
   <!-- end times -->
 </aw-view-base>

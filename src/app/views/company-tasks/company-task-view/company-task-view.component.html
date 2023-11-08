@@ -3,7 +3,7 @@
     Tarea - <span awHeaderSubtitle>{{ companyTask()?.name }}</span>
   </aw-view-header>
 
-  <aw-company-task-details [companyTaskId]="companyTaskId"></aw-company-task-details>
+  <aw-company-task-details [companyTaskId]="companyTaskId" />
 
   <!-- tabs -->
   <ng-container *ngIf="companyTaskId && companyTask()">
@@ -14,16 +14,14 @@
             <tab #tabUsers="tab" heading="Empleados">
               <aw-company-task-users
                 (changeComponent)="handleChangeComponent()"
-                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.employees">
-              </aw-company-task-users>
+                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.employees" />
 
               <aw-company-task-add-users
                 (changeComponent)="handleChangeComponent()"
-                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.addEmployees">
-              </aw-company-task-add-users>
+                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.addEmployees" />
             </tab>
             <tab #tabB="tab" heading="Basic Title 1">
-              <aw-company-task-users *ngIf="tabB.active"></aw-company-task-users>
+              <aw-company-task-users *ngIf="tabB.active" />
             </tab>
             <tab #tabC="tab" heading="Basic Title 2">Basic content 2</tab>
           </tabset>

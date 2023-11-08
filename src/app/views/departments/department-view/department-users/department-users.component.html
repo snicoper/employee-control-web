@@ -14,7 +14,7 @@
     <aw-table-input-search
       (clickClean)="handleClickClean($event)"
       [apiResult]="apiResult"
-      [tableHeaderConfig]="tableHeaderConfig"></aw-table-input-search>
+      [tableHeaderConfig]="tableHeaderConfig" />
   </span>
 </div>
 <!-- end toolbar -->
@@ -44,6 +44,5 @@
   (changePage)="handleReloadData()"
   (changePageListNumber)="handleReloadData()"
   *ngIf="apiResult"
-  [apiResult]="apiResult">
-</aw-pagination>
+  [apiResult]="apiResult" />
 <!-- end pagination -->
