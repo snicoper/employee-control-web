@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { Roles } from '@aw/core/types/roles';
 import { ApiUrls } from '@aw/core/urls/api-urls';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { ResultResponse } from '@aw/models/result-response.model';
 import { EmployeesApiService } from '@aw/services/api/_index';
 import { BsModalRef } from 'ngx-bootstrap/modal';
@@ -60,7 +61,7 @@ export class EmployeeRolesEditComponent {
   handleSaveChanges(): void {
     this.loading = true;
     const employeeId = this.employeeSelected()?.id as string;
-    const url = ApiUrls.replace(ApiUrls.employees.updateEmployeeRoles, { id: employeeId });
+    const url = urlReplaceParams(ApiUrls.employees.updateEmployeeRoles, { id: employeeId });
     const rolesToAdd: EmployeeRolesRequest = { employeeId: employeeId, rolesToAdd: [] };
 
     if (this.isEnterpriseAdmin) {

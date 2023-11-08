@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { BadRequest } from '@aw/models/_index';
 import { CompanyTask } from '@aw/models/entities/company-task.model';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
@@ -34,7 +35,7 @@ export class CompanyTaskEditComponent {
 
   constructor() {
     this.companyTaskId = this.route.snapshot.paramMap.get('id') as string;
-    this.urlCompanyTaskDetails = SiteUrls.replace(SiteUrls.companyTasks.details, { id: this.companyTaskId });
+    this.urlCompanyTaskDetails = urlReplaceParams(SiteUrls.companyTasks.details, { id: this.companyTaskId });
     this.loadCompanyTask();
     this.setBreadcrumb();
   }
@@ -51,7 +52,7 @@ export class CompanyTaskEditComponent {
     const companyTask = this.form.value as CompanyTask;
     companyTask.id = this.companyTaskId;
 
-    const url = ApiUrls.replace(ApiUrls.companyTasks.updateCompanyTask, { id: this.companyTaskId });
+    const url = urlReplaceParams(ApiUrls.companyTasks.updateCompanyTask, { id: this.companyTaskId });
 
     this.companyTaskApiService
       .put<CompanyTask, undefined>(companyTask, url)
@@ -82,7 +83,7 @@ export class CompanyTaskEditComponent {
 
   private loadCompanyTask(): void {
     this.loadingCompanyTask = true;
-    const url = ApiUrls.replace(ApiUrls.companyTasks.updateCompanyTask, { id: this.companyTaskId });
+    const url = urlReplaceParams(ApiUrls.companyTasks.updateCompanyTask, { id: this.companyTaskId });
 
     this.companyTaskApiService
       .get<CompanyTask>(url)

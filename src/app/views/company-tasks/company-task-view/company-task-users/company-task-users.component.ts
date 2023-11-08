@@ -4,6 +4,7 @@ import { TableHeaderConfig } from '@aw/components/tables/table-header/table-head
 import { ApiResult } from '@aw/core/features/api-result/api-result';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
 import { CompanyTaskSelectedService } from '../company-task-selected.service';
@@ -46,7 +47,7 @@ export class CompanyTaskUsersComponent {
   }
 
   handleSelectItem(companyTaskUser: CompanyTaskUserResponse): void {
-    const url = SiteUrls.replace(SiteUrls.employees.details, { id: companyTaskUser.id });
+    const url = urlReplaceParams(SiteUrls.employees.details, { id: companyTaskUser.id });
     this.router.navigateByUrl(url);
   }
 
@@ -56,7 +57,7 @@ export class CompanyTaskUsersComponent {
 
   private loadCompanyTaskUsers(): void {
     this.loading = true;
-    const url = ApiUrls.replace(ApiUrls.companyTasks.getEmployeesByCompanyTaskIdPaginated, {
+    const url = urlReplaceParams(ApiUrls.companyTasks.getEmployeesByCompanyTaskIdPaginated, {
       id: this.companyTaskSelectedService.companyTaskSelected()?.id ?? ''
     });
 

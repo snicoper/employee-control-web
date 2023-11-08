@@ -5,6 +5,7 @@ import { TableHeaderConfig } from '@aw/components/tables/table-header/table-head
 import { ApiResult } from '@aw/core/features/api-result/api-result';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { EmployeesApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
 import { EmployeeListResponse } from './employee-list-response.model';
@@ -41,7 +42,7 @@ export class EmployeeListComponent {
   }
 
   handleSelectItem(employee: EmployeeListResponse): void {
-    const url = SiteUrls.replace(SiteUrls.employees.details, { id: employee.id });
+    const url = urlReplaceParams(SiteUrls.employees.details, { id: employee.id });
     this.router.navigateByUrl(url);
   }
 

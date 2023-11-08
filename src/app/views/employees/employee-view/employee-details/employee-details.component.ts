@@ -1,6 +1,7 @@
 import { Component, OnDestroy, computed, inject } from '@angular/core';
 import { Roles, roleToHumanReadable } from '@aw/core/types/_index';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { ResultResponse } from '@aw/models/_index';
 import { TimeState } from '@aw/models/entities/types/_index';
 import { JwtService } from '@aw/services/_index';
@@ -48,7 +49,7 @@ export class EmployeeDetailsComponent implements OnDestroy {
 
   /** Url para editar empleado. */
   get urlToEdit(): string {
-    return this.siteUrls.replace(SiteUrls.employees.edit, { id: this.employeeSelected()?.id as string });
+    return urlReplaceParams(SiteUrls.employees.edit, { id: this.employeeSelected()?.id as string });
   }
 
   /** Limpiar el empleado seleccionado. */
@@ -100,6 +101,6 @@ export class EmployeeDetailsComponent implements OnDestroy {
 
   /** Wrapper para generar URLs ,de edición de estados. */
   private generateApiUrl(partialUrl: string): string {
-    return ApiUrls.replace(partialUrl, { id: this.employeeSelected()?.id ?? '' });
+    return urlReplaceParams(partialUrl, { id: this.employeeSelected()?.id ?? '' });
   }
 }

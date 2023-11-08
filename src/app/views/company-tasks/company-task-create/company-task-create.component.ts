@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
-import { getRandomColorHexadecimal } from '@aw/core/utils/common-utils';
+import { getRandomColorHexadecimal, urlReplaceParams } from '@aw/core/utils/common-utils';
 import { BadRequest } from '@aw/models/bad-request';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { JwtService } from '@aw/services/jwt.service';
@@ -54,7 +54,7 @@ export class CompanyTaskCreateComponent {
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (result: string) => {
-          const url = SiteUrls.replace(SiteUrls.companyTasks.details, { id: result });
+          const url = urlReplaceParams(SiteUrls.companyTasks.details, { id: result });
           this.toastrService.success('Tarea creada con éxito.');
           this.router.navigateByUrl(url);
         },

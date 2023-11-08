@@ -6,6 +6,7 @@ import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-colle
 import { FormInputTypes } from '@aw/core/types/_index';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { BadRequest, ResultResponse } from '@aw/models/_index';
 import { User } from '@aw/models/entities/_index';
 import { EmployeesApiService } from '@aw/services/api/_index';
@@ -38,7 +39,7 @@ export class EmployeeEditComponent {
 
   constructor() {
     this.employeeId = this.route.snapshot.paramMap.get('id') as string;
-    this.urlEmployeeDetails = SiteUrls.replace(SiteUrls.employees.details, { id: this.employeeId });
+    this.urlEmployeeDetails = urlReplaceParams(SiteUrls.employees.details, { id: this.employeeId });
     this.loadEmployee();
     this.setBreadcrumb();
   }
@@ -66,7 +67,7 @@ export class EmployeeEditComponent {
             return;
           }
 
-          const url = SiteUrls.replace(SiteUrls.employees.details, { id: this.employeeId });
+          const url = urlReplaceParams(SiteUrls.employees.details, { id: this.employeeId });
           this.toastrService.success('Datos de empleado actualizados con éxito.');
           this.router.navigateByUrl(url);
         },
@@ -95,7 +96,7 @@ export class EmployeeEditComponent {
 
   private loadEmployee(): void {
     this.loadingEmployee = true;
-    const url = ApiUrls.replace(ApiUrls.employees.getEmployeeById, { id: this.employeeId });
+    const url = urlReplaceParams(ApiUrls.employees.getEmployeeById, { id: this.employeeId });
 
     this.employeesApiService
       .get<User>(url)

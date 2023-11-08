@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, computed, inject } from '@angular/core';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
@@ -27,7 +28,7 @@ export class CompanyTaskDetailsComponent implements OnDestroy {
   siteUrls = SiteUrls;
 
   get urlToEdit(): string {
-    return SiteUrls.replace(SiteUrls.companyTasks.edit, { id: this.companyTaskId });
+    return urlReplaceParams(SiteUrls.companyTasks.edit, { id: this.companyTaskId });
   }
 
   ngOnDestroy(): void {
@@ -36,7 +37,7 @@ export class CompanyTaskDetailsComponent implements OnDestroy {
 
   handleActivateTask(): void {
     this.loadingStateTask = true;
-    const url = ApiUrls.replace(ApiUrls.companyTasks.activateCompanyTask, { id: this.companyTaskId });
+    const url = urlReplaceParams(ApiUrls.companyTasks.activateCompanyTask, { id: this.companyTaskId });
     const data = { companyTaskId: this.companyTaskId };
 
     this.companyTaskApiService
@@ -52,7 +53,7 @@ export class CompanyTaskDetailsComponent implements OnDestroy {
 
   handleDeactivateTask(): void {
     this.loadingStateTask = true;
-    const url = ApiUrls.replace(ApiUrls.companyTasks.deactivateCompanyTask, { id: this.companyTaskId });
+    const url = urlReplaceParams(ApiUrls.companyTasks.deactivateCompanyTask, { id: this.companyTaskId });
     const data = { companyTaskId: this.companyTaskId };
 
     this.companyTaskApiService

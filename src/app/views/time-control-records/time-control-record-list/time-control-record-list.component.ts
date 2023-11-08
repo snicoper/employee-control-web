@@ -6,6 +6,7 @@ import { OrderTypes } from '@aw/core/features/api-result/_index';
 import { ApiResult } from '@aw/core/features/api-result/api-result';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { TimeControlApiService } from '@aw/services/api/_index';
 import { JwtService } from '@aw/services/jwt.service';
 import { finalize } from 'rxjs';
@@ -50,7 +51,7 @@ export class TimeControlRecordListComponent {
   }
 
   handleSelectItem(timeControl: TimeControlRecordResponse): void {
-    const url = SiteUrls.replace(SiteUrls.employees.details, { id: timeControl.id });
+    const url = urlReplaceParams(SiteUrls.employees.details, { id: timeControl.id });
     this.router.navigateByUrl(url);
   }
 
@@ -64,7 +65,7 @@ export class TimeControlRecordListComponent {
 
   private loadTimeControlRecords(): void {
     this.loading = false;
-    const url = ApiUrls.replace(ApiUrls.timeControl.getTimesControlByCompanyIdPaginated, {
+    const url = urlReplaceParams(ApiUrls.timeControl.getTimesControlByCompanyIdPaginated, {
       companyId: this.jwtService.getCompanyId(),
       from: this.from as string,
       to: this.to as string

@@ -3,7 +3,7 @@ export {
   createGuid,
   formatSizeUnit,
   getRandomColorHexadecimal,
-  replaceStringParams,
-  ucFirst
+  ucFirst,
+  urlReplaceParams
 } from './common-utils';
 export { DatetimeUtils } from './datetime-utils';

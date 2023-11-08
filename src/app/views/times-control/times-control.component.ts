@@ -4,6 +4,7 @@ import { logError } from '@aw/core/errors/log-messages';
 import { TimeControlGroupResponse } from '@aw/core/features/times-control/_index';
 import { TimeControlProgressStacked } from '@aw/core/features/times-control/time-control-group';
 import { ApiUrls } from '@aw/core/urls/api-urls';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { DatetimeUtils } from '@aw/core/utils/datetime-utils';
 import { DeviceType, deviceToDeviceType } from '@aw/models/entities/types/device-type.model';
 import { TimeState } from '@aw/models/entities/types/time-state.model';
@@ -109,7 +110,7 @@ export class TimesControlComponent {
     const dateSelected = DateTime.fromJSDate(this.dateSelected);
     const startDate = dateSelected.startOf('month');
     const endDate = dateSelected.endOf('month');
-    const url = ApiUrls.replace(ApiUrls.timeControl.getTimeControlRangeByEmployeeId, {
+    const url = urlReplaceParams(ApiUrls.timeControl.getTimeControlRangeByEmployeeId, {
       employeeId: this.jwtService.getSid(),
       from: startDate.toUTC().toString(),
       to: endDate.toUTC().toString()

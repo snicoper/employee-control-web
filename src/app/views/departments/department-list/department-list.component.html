@@ -31,7 +31,9 @@
 
       <tbody *ngIf="apiResult" awTbody>
         <tr (click)="handleSelectItem(department)" *ngFor="let department of apiResult.items" class="cursor-pointer">
-          <td>{{ department.name }}</td>
+          <td>
+            <aw-badge [background]="department.background" [color]="department.color" [name]="department.name" />
+          </td>
           <td [innerHTML]="department.active | boolToIcon"></td>
           <td>
             <aw-dot [color]="department.background" />

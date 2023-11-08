@@ -1,5 +1,6 @@
 import { Component, computed, inject, Input, OnDestroy } from '@angular/core';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { ResultResponse } from '@aw/models/result-response.model';
 import { DepartmentApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
@@ -24,7 +25,7 @@ export class DepartmentDetailsComponent implements OnDestroy {
   siteUrls = SiteUrls;
 
   get urlToEdit(): string {
-    return SiteUrls.replace(SiteUrls.departments.edit, { id: this.departmentId });
+    return urlReplaceParams(SiteUrls.departments.edit, { id: this.departmentId });
   }
 
   ngOnDestroy(): void {

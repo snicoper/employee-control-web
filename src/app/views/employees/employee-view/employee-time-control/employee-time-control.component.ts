@@ -3,7 +3,7 @@ import { ProgressStackedCollection } from '@aw/components/progress/progress-stac
 import { TimeControlGroupResponse } from '@aw/core/features/times-control/_index';
 import { TimeControlProgressStacked } from '@aw/core/features/times-control/time-control-group';
 import { ApiUrls } from '@aw/core/urls/_index';
-import { DatetimeUtils } from '@aw/core/utils/_index';
+import { DatetimeUtils, urlReplaceParams } from '@aw/core/utils/_index';
 import { TimeControlApiService } from '@aw/services/api/_index';
 import { DateTime } from 'luxon';
 import { finalize } from 'rxjs';
@@ -41,7 +41,7 @@ export class EmployeeTimeControlComponent {
     const dateSelected = DateTime.fromJSDate(this.dateSelected);
     const startDate = dateSelected.startOf('month');
     const endDate = dateSelected.endOf('month');
-    const url = ApiUrls.replace(ApiUrls.timeControl.getTimeControlRangeByEmployeeId, {
+    const url = urlReplaceParams(ApiUrls.timeControl.getTimeControlRangeByEmployeeId, {
       employeeId: this.employeeSelected()?.id.toString() as string,
       from: startDate.toUTC().toString(),
       to: endDate.toUTC().toString()

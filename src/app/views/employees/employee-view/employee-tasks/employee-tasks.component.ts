@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
 import { ApiResult } from '@aw/core/features/api-result/api-result';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { CompanyTask } from '@aw/models/entities/company-task.model';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
@@ -39,7 +40,7 @@ export class EmployeeTasksComponent {
   }
 
   handleSelectItem(companyTask: CompanyTask): void {
-    const url = SiteUrls.replace(SiteUrls.companyTasks.details, { id: companyTask.id });
+    const url = urlReplaceParams(SiteUrls.companyTasks.details, { id: companyTask.id });
     this.router.navigateByUrl(url);
   }
 
@@ -50,7 +51,7 @@ export class EmployeeTasksComponent {
   private loadCompanyTasks(): void {
     this.loading = true;
 
-    const url = ApiUrls.replace(ApiUrls.companyTasks.getCompanyTasksByEmployeeIdPaginated, {
+    const url = urlReplaceParams(ApiUrls.companyTasks.getCompanyTasksByEmployeeIdPaginated, {
       employeeId: this.employeeSelected()?.id ?? ''
     });
 

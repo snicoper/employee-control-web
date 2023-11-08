@@ -48,7 +48,8 @@ import { DepartmentRoutingModule } from './departments-routing.module';
     AwTablesModule,
     AwPaginationModule,
     AwPipesModule,
-    AwDualListBoxModule
+    AwDualListBoxModule,
+    AwColorsModule
   ],
   providers: [DepartmentSelectedService]
 })

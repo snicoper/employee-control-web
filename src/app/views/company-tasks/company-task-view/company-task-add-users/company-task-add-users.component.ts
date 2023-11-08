@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, computed, inject } from '@angular/core
 import { DualListBox } from '@aw/components/dual-list-box/dual-list-box.model';
 import { HtmlItemSelector } from '@aw/core/models/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { ResultResponse } from '@aw/models/result-response.model';
 import { CompanyTaskApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
@@ -43,7 +44,7 @@ export class CompanyTaskAddUsersComponent {
     const companyTaskId = this.companyTaskSelected()?.id as string;
     const employeeIds = dualListBox.itemsToAdd.map((item) => item.id);
     const data = { id: companyTaskId, employeeIds: employeeIds };
-    const url = ApiUrls.replace(ApiUrls.companyTasks.assignEmployeesToTask, {
+    const url = urlReplaceParams(ApiUrls.companyTasks.assignEmployeesToTask, {
       id: companyTaskId
     });
 
@@ -62,7 +63,7 @@ export class CompanyTaskAddUsersComponent {
 
   private loadEmployees(): void {
     this.loading = true;
-    const url = ApiUrls.replace(ApiUrls.companyTasks.getEmployeesUnassignedTaskByCompanyTaskId, {
+    const url = urlReplaceParams(ApiUrls.companyTasks.getEmployeesUnassignedTaskByCompanyTaskId, {
       id: this.companyTaskSelected()?.id as string
     });
 

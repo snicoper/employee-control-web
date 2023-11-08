@@ -1,5 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { ApiUrls } from '@aw/core/urls/api-urls';
+import { urlReplaceParams } from '@aw/core/utils/common-utils';
 import { CompanySettings } from '@aw/models/entities/company-settings.model';
 import { finalize } from 'rxjs';
 import { CompanySettingsApiService } from '../api/company-settings-api.service';
@@ -26,7 +27,7 @@ export class CurrentCompanySettingsService {
 
   private loadCompanySettings(): void {
     this.loadingCompanySettings$.set(true);
-    const url = ApiUrls.replace(ApiUrls.companySettings.getCompanySettingsByCompanyId, {
+    const url = urlReplaceParams(ApiUrls.companySettings.getCompanySettingsByCompanyId, {
       companyId: this.jwtService.getCompanyId()
     });
 

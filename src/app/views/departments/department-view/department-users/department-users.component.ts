@@ -4,6 +4,7 @@ import { TableHeaderConfig } from '@aw/components/tables/table-header/table-head
 import { ApiResult } from '@aw/core/features/api-result/api-result';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { DepartmentApiService } from '@aw/services/api/department-api.service';
 import { finalize } from 'rxjs';
 import { DepartmentSelectedService } from '../department-selected.service';
@@ -46,7 +47,7 @@ export class DepartmentUsersComponent {
   }
 
   handleSelectItem(departmentUser: DepartmentUserResponse): void {
-    const url = SiteUrls.replace(SiteUrls.employees.details, { id: departmentUser.id });
+    const url = urlReplaceParams(SiteUrls.employees.details, { id: departmentUser.id });
     this.router.navigateByUrl(url);
   }
 
@@ -56,7 +57,7 @@ export class DepartmentUsersComponent {
 
   private loadCompanyTaskUsers(): void {
     this.loading = true;
-    const url = ApiUrls.replace(ApiUrls.departments.getEmployeesByCompanyIdPaginated, {
+    const url = urlReplaceParams(ApiUrls.departments.getEmployeesByCompanyIdPaginated, {
       id: this.departmentSelectedService.departmentSelected()?.id ?? ''
     });
 

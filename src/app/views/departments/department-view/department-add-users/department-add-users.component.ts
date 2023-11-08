@@ -2,6 +2,7 @@ import { Component, computed, EventEmitter, inject, Output } from '@angular/core
 import { DualListBox } from '@aw/components/dual-list-box/dual-list-box.model';
 import { HtmlItemSelector } from '@aw/core/models/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { ResultResponse } from '@aw/models/result-response.model';
 import { DepartmentApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
@@ -43,7 +44,7 @@ export class DepartmentAddUsersComponent {
     const departmentId = this.departmentSelected()?.id as string;
     const employeeIds = dualListBox.itemsToAdd.map((item) => item.id);
     const data = { id: departmentId, employeeIds: employeeIds };
-    const url = ApiUrls.replace(ApiUrls.departments.assignEmployeesToDepartment, {
+    const url = urlReplaceParams(ApiUrls.departments.assignEmployeesToDepartment, {
       id: departmentId
     });
 
@@ -62,7 +63,7 @@ export class DepartmentAddUsersComponent {
 
   private loadEmployees(): void {
     this.loading = true;
-    const url = ApiUrls.replace(ApiUrls.departments.GetEmployeesByDepartmentIdPaginated, {
+    const url = urlReplaceParams(ApiUrls.departments.GetEmployeesByDepartmentIdPaginated, {
       id: this.departmentSelected()?.id as string
     });
 

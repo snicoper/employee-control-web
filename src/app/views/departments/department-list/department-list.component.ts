@@ -5,6 +5,7 @@ import { TableHeaderConfig } from '@aw/components/tables/table-header/table-head
 import { ApiResult } from '@aw/core/features/api-result/api-result';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { Department } from '@aw/models/entities/department.model';
 import { JwtService } from '@aw/services/_index';
 import { DepartmentApiService } from '@aw/services/api/_index';
@@ -43,7 +44,7 @@ export class DepartmentListComponent {
   }
 
   handleSelectItem(department: Department): void {
-    const url = SiteUrls.replace(SiteUrls.departments.details, { id: department.id });
+    const url = urlReplaceParams(SiteUrls.departments.details, { id: department.id });
     this.router.navigateByUrl(url);
   }
 
@@ -57,7 +58,7 @@ export class DepartmentListComponent {
 
   private loadDepartments(): void {
     this.loading = true;
-    const url = ApiUrls.replace(ApiUrls.departments.getDepartmentsByCompanyIdPaginated, {
+    const url = urlReplaceParams(ApiUrls.departments.getDepartmentsByCompanyIdPaginated, {
       companyId: this.jwtService.getCompanyId()
     });
 
@@ -70,4 +71,6 @@ export class DepartmentListComponent {
         }
       });
   }
+
+  protected readonly document = document;
 }

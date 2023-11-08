@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
+import { urlReplaceParams } from '@aw/core/utils/_index';
 import { BadRequest } from '@aw/models/bad-request';
 import { Department } from '@aw/models/entities/department.model';
 import { DepartmentApiService } from '@aw/services/api/department-api.service';
@@ -34,7 +35,7 @@ export class DepartmentEditComponent {
 
   constructor() {
     this.departmentId = this.route.snapshot.paramMap.get('id') as string;
-    this.urlDepartmentDetails = SiteUrls.replace(SiteUrls.departments.details, { id: this.departmentId });
+    this.urlDepartmentDetails = urlReplaceParams(SiteUrls.departments.details, { id: this.departmentId });
     this.loadDepartment();
     this.setBreadcrumb();
   }
@@ -51,7 +52,7 @@ export class DepartmentEditComponent {
     const department = this.form.value as Department;
     department.id = this.departmentId;
 
-    const url = ApiUrls.replace(ApiUrls.departments.updateDepartment, { id: this.departmentId });
+    const url = urlReplaceParams(ApiUrls.departments.updateDepartment, { id: this.departmentId });
 
     this.departmentApiService
       .put<Department, undefined>(department, url)
@@ -82,7 +83,7 @@ export class DepartmentEditComponent {
 
   private loadDepartment(): void {
     this.loadingDepartment = true;
-    const url = ApiUrls.replace(ApiUrls.departments.getDepartmentById, { id: this.departmentId });
+    const url = urlReplaceParams(ApiUrls.departments.getDepartmentById, { id: this.departmentId });
 
     this.departmentApiService
       .get<Department>(url)

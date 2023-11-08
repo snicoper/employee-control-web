@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
-import { getRandomColorHexadecimal } from '@aw/core/utils/_index';
+import { getRandomColorHexadecimal, urlReplaceParams } from '@aw/core/utils/_index';
 import { BadRequest } from '@aw/models/bad-request';
 import { Department } from '@aw/models/entities/department.model';
 import { JwtService } from '@aw/services/_index';
@@ -54,7 +54,7 @@ export class DepartmentCreateComponent {
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (result: DepartmentCreateResponse) => {
-          const url = SiteUrls.replace(SiteUrls.departments.details, { id: result.departmentId });
+          const url = urlReplaceParams(SiteUrls.departments.details, { id: result.departmentId });
           this.toastrService.success('Departamento creado con éxito.');
           this.router.navigateByUrl(url);
         },
