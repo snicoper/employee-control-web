@@ -1,6 +1,6 @@
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export class CustomValidation {
+export abstract class CustomValidation {
   /** Custom validator para comprobar que una fecha sea menor a otra. */
   static dateStartGreaterThanFinish(controlName: string, checkControlName: string): ValidatorFn {
     return (controls: AbstractControl): ValidationErrors | null => {

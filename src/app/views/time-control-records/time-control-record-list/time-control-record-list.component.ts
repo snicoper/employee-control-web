@@ -74,6 +74,13 @@ export class TimeControlRecordListComponent {
     };
 
     this.bsModalRef = this.bsModalService.show(TimeControlRecordEditComponent, initialState);
+    this.bsModalRef.content.saveForm.subscribe({
+      next: (result: boolean) => {
+        if (result) {
+          this.loadTimeControlRecords();
+        }
+      }
+    });
   }
 
   handleReloadData(): void {

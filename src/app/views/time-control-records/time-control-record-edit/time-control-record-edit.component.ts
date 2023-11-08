@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BtnType } from '@aw/components/buttons/btn-loading/btn-loading.type';
 import { LocalizationService } from '@aw/core/features/localizations/localization.service';
@@ -20,6 +20,8 @@ import { TimeControlRecordResponse } from './time-control-record-response.model'
 })
 export class TimeControlRecordEditComponent implements OnInit {
   @Input({ required: true }) timeControlId = '';
+
+  @Output() saveForm = new EventEmitter(false);
 
   private readonly timeControlApiService = inject(TimeControlApiService);
   private readonly toastrService = inject(ToastrService);
@@ -65,6 +67,7 @@ export class TimeControlRecordEditComponent implements OnInit {
       .subscribe({
         next: () => {
           this.toastrService.success('Tiempo actualizado con éxito.');
+          this.saveForm.emit(true);
           this.bsModalRef.hide();
         }
       });
