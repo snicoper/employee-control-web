@@ -31,6 +31,7 @@ export class TimeControlRecordEditComponent implements OnInit {
 
   form: FormGroup = this.fb.group({});
   badRequest: BadRequest | undefined;
+  loadingCompanyTask = false;
   loadingForm = false;
   submitted = false;
   timeControl: TimeControlRecordResponse | undefined;
