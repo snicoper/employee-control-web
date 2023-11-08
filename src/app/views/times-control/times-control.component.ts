@@ -47,10 +47,13 @@ export class TimesControlComponent {
   constructor() {
     this.loadTimesControlRange();
 
-    this.simpleGeolocationService.getCurrentPosition().then((result: GeolocationPosition) => {
-      this.latitude = result.coords.latitude;
-      this.longitude = result.coords.longitude;
-    });
+    this.simpleGeolocationService
+      .getCurrentPosition()
+      .then((result: GeolocationPosition) => {
+        this.latitude = result.coords.latitude;
+        this.longitude = result.coords.longitude;
+      })
+      .catch((error: GeolocationPositionError) => logError(error.message));
 
     const deviceType = this.deviceDetectorService.getDeviceInfo().deviceType;
     this.employeeDeviceType = deviceToDeviceType(deviceType);

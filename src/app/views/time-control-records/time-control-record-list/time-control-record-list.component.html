@@ -68,8 +68,14 @@
               <aw-dot-danger />
             </ng-container>
           </td>
-          <td>{{ timeControl.duration | durationToTime }}</td>
-          <td></td>
+          <td>
+            <ng-container *ngIf="timeControl.duration > 1">
+              {{ timeControl.duration | durationToTime }}
+            </ng-container>
+
+            <ng-container *ngIf="timeControl.duration === 0"> - </ng-container>
+          </td>
+          <td>&nbsp;</td>
         </tr>
       </tbody>
     </aw-table>
