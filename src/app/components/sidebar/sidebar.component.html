@@ -1,4 +1,4 @@
-<nav id="sidebar" class="sidebar">
+<nav class="sidebar" id="sidebar">
   <div class="sidebar-content">
     <ng-scrollbar>
       <div class="sidebar-profile">
@@ -8,9 +8,9 @@
               'time-state-open': currentTimeControl()?.timeState === timeStates.open,
               'time-state-close': currentTimeControl()?.timeState === timeStates.close
             }"
+            alt="User picture"
             class="img-responsive img-rounded"
-            src="assets/images/user.jpg"
-            alt="User picture" />
+            src="assets/images/user.jpg" />
         </div>
 
         <div class="user-info">
@@ -39,11 +39,11 @@
             <ng-container
               *ngIf="sidebarMenu.type !== sidebarMenuTypes.header && sidebarMenu.type !== sidebarMenuTypes.simple">
               <a (click)="toggle(sidebarMenu)" class="cursor-pointer">
-                <span class="{{ sidebarMenu.icon }}"></span>
+                <span [class]="sidebarMenu.icon"></span>
                 <span> {{ sidebarMenu.title }}</span>
 
                 <ng-container *ngIf="sidebarMenu.badge">
-                  <span class="badge badge-pill" [ngClass]="sidebarMenu.badge.class">
+                  <span [ngClass]="sidebarMenu.badge.class" class="badge badge-pill">
                     {{ sidebarMenu.badge.text }}
                   </span>
                 </ng-container>
@@ -54,11 +54,11 @@
             <!-- type simple -->
             <ng-container *ngIf="sidebarMenu.type === sidebarMenuTypes.simple">
               <a [routerLink]="[sidebarMenu.link]" routerLinkActive="active">
-                <span class="{{ sidebarMenu.icon }}"></span>
+                <span [class]="sidebarMenu.icon"></span>
                 <span>&nbsp;{{ sidebarMenu.title }}</span>
 
                 <ng-container *ngIf="sidebarMenu.badge">
-                  <span class="badge badge-pill" [ngClass]="sidebarMenu.badge.class">
+                  <span [ngClass]="sidebarMenu.badge.class" class="badge badge-pill">
                     {{ sidebarMenu.badge.text }}
                   </span>
                 </ng-container>
@@ -68,7 +68,7 @@
 
             <!-- type dropdown -->
             <ng-container *ngIf="sidebarMenu.type === sidebarMenuTypes.dropdown">
-              <div class="sidebar-submenu" [@slide]="getState(sidebarMenu)">
+              <div [@slide]="getState(sidebarMenu)" class="sidebar-submenu">
                 <ul>
                   <li *ngFor="let submenu of sidebarMenu.submenus" [awRequiredRole]="submenu.requiredRole">
                     <a [routerLink]="submenu.link" routerLinkActive="active">
@@ -84,7 +84,7 @@
                       </ng-container>
 
                       <ng-container *ngIf="submenu.badge">
-                        <span class="badge badge-pill" [ngClass]="submenu.badge.class">
+                        <span [ngClass]="submenu.badge.class" class="badge badge-pill">
                           {{ submenu.badge.text }}
                         </span>
                       </ng-container>

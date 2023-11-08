@@ -1,7 +1,7 @@
 <button (click)="handleClick()" [class]="btnClass" [disabled]="loading" [type]="btnType">
   <ng-container *ngIf="!loading">
     <span>
-      <ng-content></ng-content>
+      <ng-content />
 
       <ng-container *ngIf="btnIcon">
         <span [class]="btnIcon"></span>
@@ -15,6 +15,5 @@
     [extraCss]="spinnerClass"
     [loading]="loading"
     [size]="spinnerSize"
-    [text]="spinnerLoadingText">
-  </aw-spinner>
+    [text]="spinnerLoadingText" />
 </button>

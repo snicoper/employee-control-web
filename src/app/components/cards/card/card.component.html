@@ -1,25 +1,25 @@
 <div [ngClass]="extraCss" class="card border-0 shadow-sm bg-body-tertiary">
-  <ng-content select="[awCardHeader]"></ng-content>
-  <ng-content select="[awCardImage]"></ng-content>
+  <ng-content select="[awCardHeader]" />
+  <ng-content select="[awCardImage]" />
 
   <div class="card-body">
     <ng-container *ngIf="!loading">
-      <ng-content select="[awCardTitle]"></ng-content>
-      <ng-content select="[awCardSubTitle]"></ng-content>
+      <ng-content select="[awCardTitle]" />
+      <ng-content select="[awCardSubTitle]" />
     </ng-container>
 
     <!-- main content -->
     <ng-container *ngIf="!loading; else loadingData">
       <p class="card-text">
-        <ng-content></ng-content>
+        <ng-content />
       </p>
     </ng-container>
     <!-- end main content -->
 
     <ng-template #loadingData>
-      <aw-spinner [loading]="loading" [size]="spinnerSize"></aw-spinner>
+      <aw-spinner [loading]="loading" [size]="spinnerSize" />
     </ng-template>
   </div>
 
-  <ng-content class="card-footer text-muted" select="[awCardFooter]"></ng-content>
+  <ng-content class="card-footer text-muted" select="[awCardFooter]" />
 </div>

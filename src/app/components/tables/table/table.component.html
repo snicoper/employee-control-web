@@ -7,12 +7,12 @@
     </thead>
     <!-- end sonarLint -->
 
-    <ng-content select="[awThead]"></ng-content>
+    <ng-content select="[awThead]" />
 
     <ng-container *ngIf="apiResult && !loading">
       <!-- table content -->
       <ng-container *ngIf="apiResult.items.length">
-        <ng-content select="[awTbody]"></ng-content>
+        <ng-content select="[awTbody]" />
       </ng-container>
       <!-- end table content -->
 
@@ -20,7 +20,7 @@
       <ng-container *ngIf="!apiResult.items.length">
         <tbody>
           <tr>
-            <td colspan="100%" class="text-center">
+            <td class="text-center" colspan="100%">
               <h6>No hay datos para mostrar</h6>
             </td>
           </tr>
@@ -33,14 +33,14 @@
     <ng-container *ngIf="showSpinnerLoading && loading">
       <tbody>
         <tr>
-          <td colspan="100%" class="text-center">
-            <aw-spinner [loading]="loading" [size]="100"></aw-spinner>
+          <td class="text-center" colspan="100%">
+            <aw-spinner [loading]="loading" [size]="100" />
           </td>
         </tr>
       </tbody>
     </ng-container>
     <!-- end spinner loading data -->
 
-    <ng-content select="[awTfoot]"></ng-content>
+    <ng-content select="[awTfoot]" />
   </table>
 </div>

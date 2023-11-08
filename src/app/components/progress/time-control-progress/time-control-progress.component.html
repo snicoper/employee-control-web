@@ -1,13 +1,13 @@
 <!-- times -->
 <ng-container *ngIf="!loading">
   <ng-container *ngFor="let progressStacked of progressStackedCollection">
-    <aw-progress-stacked [progressStackedCollection]="progressStacked"></aw-progress-stacked>
+    <aw-progress-stacked [progressStackedCollection]="progressStacked" />
   </ng-container>
 </ng-container>
 <!-- end times -->
 
 <!-- loading -->
 <ng-container *ngIf="loading">
-  <aw-spinner [loading]="loading" [size]="100"></aw-spinner>
+  <aw-spinner [loading]="loading" [size]="100" />
 </ng-container>
 <!-- end loading -->

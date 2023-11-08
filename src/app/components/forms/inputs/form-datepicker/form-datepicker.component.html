@@ -8,11 +8,11 @@
   <input
     (ngModelChange)="onChangeValue($event)"
     [(ngModel)]="value"
+    [bsConfig]="bsConfig"
     [isDisabled]="isDisabled"
     [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
     [placeholder]="placeholder"
     [type]="inputType"
-    [bsConfig]="bsConfig"
     bsDatepicker
     class="form-control" />
 
@@ -22,7 +22,6 @@
       [fieldName]="fieldName"
       [fieldText]="label"
       [form]="form"
-      [submitted]="submitted">
-    </aw-field-error>
+      [submitted]="submitted" />
   </ng-container>
 </div>

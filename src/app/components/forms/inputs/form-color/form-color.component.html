@@ -12,8 +12,8 @@
     [id]="id"
     [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
     [value]="value"
-    type="color"
-    class="form-control form-control-color" />
+    class="form-control form-control-color"
+    type="color" />
 
   <ng-container *ngIf="form">
     <aw-field-error
@@ -21,7 +21,6 @@
       [fieldName]="fieldName"
       [fieldText]="label"
       [form]="form"
-      [submitted]="submitted">
-    </aw-field-error>
+      [submitted]="submitted" />
   </ng-container>
 </div>

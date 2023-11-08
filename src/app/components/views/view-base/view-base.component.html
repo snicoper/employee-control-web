@@ -1,32 +1,32 @@
 <!-- title -->
 <ng-container *ngIf="showPageTitle">
-  <aw-view-title [pageTitle]="pageTitle"></aw-view-title>
+  <aw-view-title [pageTitle]="pageTitle" />
 </ng-container>
 <!-- end title -->
 
-<div class="page-wrapper" [ngClass]="{ toggled: !sidebarState$() }">
+<div [ngClass]="{ toggled: !sidebarState$() }" class="page-wrapper">
   <!-- sidebar -->
   <ng-container *ngIf="sidebarState$()">
-    <aw-sidebar></aw-sidebar>
+    <aw-sidebar />
   </ng-container>
   <!-- end sidebar -->
 
   <main class="page-content">
     <!-- navbar -->
     <ng-container *ngIf="navbarState$()">
-      <aw-navbar></aw-navbar>
+      <aw-navbar />
     </ng-container>
     <!-- end navbar -->
 
     <!-- page content -->
     <div [ngClass]="cssContent" class="main-content pt-2 fade-in-fast">
-      <ng-content></ng-content>
+      <ng-content />
     </div>
     <!-- end page content -->
 
     <!-- footer -->
     <ng-container *ngIf="footerState$()">
-      <aw-footer [cssContent]="cssContent"></aw-footer>
+      <aw-footer [cssContent]="cssContent" />
     </ng-container>
     <!-- end footer -->
   </main>

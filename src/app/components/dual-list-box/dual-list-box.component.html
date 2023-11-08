@@ -4,19 +4,19 @@
       <!-- left box -->
       <div class="flex-fill box-left me-3">
         <input
-          [(ngModel)]="termLeftValue"
           (input)="handleFilterLeftBox()"
-          type="search"
+          [(ngModel)]="termLeftValue"
           class="form-control mb-2"
-          placeholder="Filtrar..." />
+          placeholder="Filtrar..."
+          type="search" />
 
         <select
           [(ngModel)]="itemsLeftSelected"
           [id]="boxLeftId"
           [size]="size"
+          aria-label="Items unselected"
           class="form-select"
-          multiple
-          aria-label="Items unselected">
+          multiple>
           <option *ngFor="let item of htmlItemSelectorsLeft" [ngValue]="item.id">{{ item.value }}</option>
         </select>
 
@@ -36,19 +36,19 @@
       <!-- right box -->
       <div class="flex-fill box-right">
         <input
-          [(ngModel)]="termRightValue"
           (input)="handleFilterRightBox()"
-          type="search"
+          [(ngModel)]="termRightValue"
           class="form-control mb-2"
-          placeholder="Filtrar..." />
+          placeholder="Filtrar..."
+          type="search" />
 
         <select
           [(ngModel)]="itemsRightSelected"
           [id]="boxRightId"
           [size]="size"
+          aria-label="Items selected"
           class="form-select"
-          multiple
-          aria-label="Items selected">
+          multiple>
           <option *ngFor="let item of htmlItemSelectorsRight" [ngValue]="item.id">{{ item.value }}</option>
         </select>
 
@@ -73,7 +73,7 @@
   <ng-container *ngIf="loading">
     <div class="d-flex">
       <div class="m-auto">
-        <aw-spinner [loading]="loading" [size]="100"></aw-spinner>
+        <aw-spinner [loading]="loading" [size]="100" />
       </div>
     </div>
   </ng-container>

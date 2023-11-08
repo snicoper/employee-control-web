@@ -2,14 +2,14 @@
   <input
     (ngModelChange)="onChangeValue($event)"
     [(ngModel)]="value"
+    [checked]="value"
     [disabled]="isDisabled"
     [id]="id"
     [ngClass]="{ extraCss: true, 'is-invalid': isInvalid() }"
     [value]="value"
-    [checked]="value"
-    type="checkbox"
+    class="form-check-input"
     role="switch"
-    class="form-check-input" />
+    type="checkbox" />
 
   <ng-container *ngIf="label">
     <label [for]="id" class="form-check-label">
@@ -23,7 +23,6 @@
       [fieldName]="fieldName"
       [fieldText]="label"
       [form]="form"
-      [submitted]="submitted">
-    </aw-field-error>
+      [submitted]="submitted" />
   </ng-container>
 </div>

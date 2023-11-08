@@ -1,1 +1,1 @@
-<ng-select [items]="timezones" [(ngModel)]="timezoneSelected" (change)="handleChangeTimezone()"></ng-select>
+<ng-select (change)="handleChangeTimezone()" [(ngModel)]="timezoneSelected" [items]="timezones" />
