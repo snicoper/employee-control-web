@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
 import { OrderTypes } from '@aw/core/features/api-result/_index';
@@ -11,6 +10,7 @@ import { TimeControlApiService } from '@aw/services/api/_index';
 import { JwtService } from '@aw/services/jwt.service';
 import { finalize } from 'rxjs';
 import { TimeState } from './../../../models/entities/types/time-state.model';
+import { SimpleGeolocationService } from './../../../services/simple-geolocation.service';
 import { TimeControlRecordResponse } from './time-contol-record-esponse.model';
 import { timeControlRecordListTableHeaders } from './time-control-record-list-table-header';
 
@@ -20,8 +20,8 @@ import { timeControlRecordListTableHeaders } from './time-control-record-list-ta
 })
 export class TimeControlRecordListComponent {
   private readonly timeControlApiService = inject(TimeControlApiService);
-  private readonly router = inject(Router);
   private readonly jwtService = inject(JwtService);
+  private readonly simpleGeolocationService = inject(SimpleGeolocationService);
 
   readonly breadcrumb = new BreadcrumbCollection();
 
@@ -41,6 +41,25 @@ export class TimeControlRecordListComponent {
     this.loadTimeControlRecords();
   }
 
+  getStartOpenStreetMapLink(timeControl: TimeControlRecordResponse): string | null {
+    if (timeControl.latitudeStart && timeControl.longitudeStart) {
+      return this.simpleGeolocationService.getOpenStreetMapLink(timeControl.latitudeStart, timeControl.longitudeStart);
+    }
+
+    return null;
+  }
+
+  getFinishOpenStreetMapLink(timeControl: TimeControlRecordResponse): string | null {
+    if (timeControl.latitudeFinish && timeControl.longitudeFinish) {
+      return this.simpleGeolocationService.getOpenStreetMapLink(
+        timeControl.latitudeFinish,
+        timeControl.longitudeFinish
+      );
+    }
+
+    return null;
+  }
+
   handleReloadData(): void {
     this.loadTimeControlRecords();
   }
@@ -48,11 +67,6 @@ export class TimeControlRecordListComponent {
   handleClickClean(event: ApiResult<TimeControlRecordResponse>): void {
     this.apiResult = event;
     this.handleReloadData();
-  }
-
-  handleSelectItem(timeControl: TimeControlRecordResponse): void {
-    const url = urlReplaceParams(SiteUrls.employees.details, { id: timeControl.id });
-    this.router.navigateByUrl(url);
   }
 
   private configureTableHeaders(): void {

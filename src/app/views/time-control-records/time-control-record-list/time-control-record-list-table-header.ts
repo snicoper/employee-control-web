@@ -50,5 +50,12 @@ export const timeControlRecordListTableHeaders: TableHeaderField[] = [
     sortable: false,
     orderType: OrderTypes.none,
     filterable: false
+  },
+  {
+    field: '',
+    text: '',
+    sortable: false,
+    orderType: OrderTypes.none,
+    filterable: false
   }
 ];

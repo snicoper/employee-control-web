@@ -9,5 +9,9 @@ export interface TimeControlRecordResponse {
   timeState: number;
   deviceTypeStart: number;
   deviceTypeFinish: number;
+  latitudeStart?: number;
+  longitudeStart?: number;
+  latitudeFinish?: number;
+  longitudeFinish?: number;
   duration: number;
 }
