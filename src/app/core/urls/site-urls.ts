@@ -50,6 +50,10 @@ export const SiteUrls = {
     homeTests: '/tests'
   },
 
+  timeControlRecords: {
+    home: '/time-control-records'
+  },
+
   timeControl: {
     home: '/time-control'
   },

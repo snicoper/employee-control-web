@@ -56,6 +56,13 @@ const routes: Routes = [
     loadChildren: () => import('@aw/views/tests/tests.module').then((m) => m.TestsModule)
   },
   {
+    path: 'time-control-records',
+    data: { roles: [Roles.enterpriseStaff] },
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('@aw/views/time-control-records/time-control-records.module').then((m) => m.TimeControlRecordsModule)
+  },
+  {
     path: 'time-control',
     data: { roles: [Roles.employee] },
     canActivate: [AuthGuard],

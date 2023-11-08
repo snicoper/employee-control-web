@@ -33,7 +33,7 @@ export const sidebarMenu: SidebarMenu[] = [
         title: 'Configuración',
         link: SiteUrls.companySettings.details,
         active: false,
-        requiredRole: Roles.enterpriseAdmin
+        requiredRole: Roles.enterpriseStaff
       },
       {
         title: 'Empleados',
@@ -49,6 +49,12 @@ export const sidebarMenu: SidebarMenu[] = [
         title: 'Tareas',
         link: SiteUrls.companyTasks.list,
         active: false
+      },
+      {
+        title: 'Registro de tiempos',
+        link: SiteUrls.timeControlRecords.home,
+        active: false,
+        requiredRole: Roles.enterpriseStaff
       }
     ]
   },
