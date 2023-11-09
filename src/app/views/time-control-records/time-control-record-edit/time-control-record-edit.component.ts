@@ -127,7 +127,7 @@ export class TimeControlRecordEditComponent implements OnInit {
       .get<TimeControlRecordResponse>(url)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
-        next: (result) => {
+        next: (result: TimeControlRecordResponse) => {
           this.timeControl = result;
           this.buildForm();
         },
