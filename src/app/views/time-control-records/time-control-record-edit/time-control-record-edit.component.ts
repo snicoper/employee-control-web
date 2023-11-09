@@ -46,6 +46,7 @@ export class TimeControlRecordEditComponent implements OnInit {
   }
 
   handleSubmit(): void {
+    const timeControl = this.getDataRequest();
     this.submitted = true;
 
     if (this.form.invalid) {
@@ -53,7 +54,6 @@ export class TimeControlRecordEditComponent implements OnInit {
     }
 
     this.loadingForm = true;
-    const timeControl = this.getDataRequest();
     const url = urlReplaceParams(ApiUrls.timeControl.updateTimeControl, { id: this.timeControlId });
 
     this.timeControlApiService
@@ -70,28 +70,38 @@ export class TimeControlRecordEditComponent implements OnInit {
 
   private getDataRequest(): TimeControlRecordRequest {
     const timeControl = {} as TimeControlRecordRequest;
-    const dateStartSelected = new Date(this.form.get('dateStart')?.value);
-    const dateFinishSelected = new Date(this.form.get('dateFinish')?.value);
-    const timeStartSelected = new Date(this.form.get('timeStart')?.value);
-    const timeFinishSelected = new Date(this.form.get('timeFinish')?.value);
+    const dateStart = new Date(this.form.get('dateStart')?.value);
+    const dateFinish = new Date(this.form.get('dateFinish')?.value);
+    const timeStart = new Date(this.form.get('timeStart')?.value);
+    const timeFinish = new Date(this.form.get('timeFinish')?.value);
+
+    const start = new Date(
+      dateStart.getFullYear(),
+      dateStart.getMonth(),
+      dateStart.getDate(),
+      timeStart.getHours(),
+      timeStart.getMinutes(),
+      0
+    );
+
+    const end = new Date(
+      dateFinish.getFullYear(),
+      dateFinish.getMonth(),
+      dateFinish.getDate(),
+      timeFinish.getHours(),
+      timeFinish.getMinutes(),
+      0
+    );
+
+    if (start.getTime() > end.getTime()) {
+      this.form.get('dateFinish')?.setErrors({ startTimeGreaterThanFinish: true });
+
+      return timeControl;
+    }
 
     timeControl.id = this.timeControlId;
-    timeControl.start = new Date(
-      dateStartSelected.getFullYear(),
-      dateStartSelected.getMonth(),
-      dateStartSelected.getDay(),
-      timeStartSelected.getHours(),
-      timeStartSelected.getMinutes(),
-      0
-    );
-    timeControl.finish = new Date(
-      dateFinishSelected.getFullYear(),
-      dateFinishSelected.getMonth(),
-      dateFinishSelected.getDay(),
-      timeFinishSelected.getHours(),
-      timeFinishSelected.getMinutes(),
-      0
-    );
+    timeControl.start = start;
+    timeControl.finish = end;
 
     return timeControl;
   }
@@ -111,7 +121,7 @@ export class TimeControlRecordEditComponent implements OnInit {
         timeStart: [start, [Validators.required]],
         dateFinish: [finish],
         timeFinish: [finish],
-        timezone: [timezone]
+        timezone: [timezone, [Validators.required]]
       },
       {
         validators: [CustomValidation.dateStartGreaterThanFinish('dateStart', 'dateFinish')]

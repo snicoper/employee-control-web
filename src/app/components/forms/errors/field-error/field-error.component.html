@@ -18,6 +18,10 @@
         <div>La fecha de inicio no puede ser menor a la fecha final.</div>
       </ng-container>
 
+      <ng-container *ngSwitchCase="getControlErrorByErrorName('startTimeGreaterThanFinish')">
+        <div>La fecha/hora parecen menor a la de inicio.</div>
+      </ng-container>
+
       <ng-container *ngSwitchDefault>
         <div></div>
       </ng-container>
