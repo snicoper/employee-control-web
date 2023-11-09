@@ -1,8 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BtnType } from '@aw/components/buttons/btn-loading/btn-loading.type';
-import { LocalizationService } from '@aw/core/features/localizations/localization.service';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { urlReplaceParams } from '@aw/core/utils/common-utils';
 import { CustomValidation } from '@aw/core/validators/_index';
@@ -27,11 +26,9 @@ export class TimeControlRecordEditComponent implements OnInit {
   private readonly toastrService = inject(ToastrService);
   private readonly fb = inject(FormBuilder);
   private readonly bsModalRef = inject(BsModalRef);
-  private readonly localizationService = inject(LocalizationService);
 
   form: FormGroup = this.fb.group({});
   badRequest: BadRequest | undefined;
-  loadingCompanyTask = false;
   loadingForm = false;
   submitted = false;
   timeControl: TimeControlRecordResponse | undefined;
@@ -113,15 +110,13 @@ export class TimeControlRecordEditComponent implements OnInit {
 
     const start = new Date(this.timeControl.start);
     const finish = new Date(this.timeControl.finish);
-    const timezone = this.localizationService.getTimezoneValue();
 
     this.form = this.fb.group(
       {
         dateStart: [start, [Validators.required]],
         timeStart: [start, [Validators.required]],
         dateFinish: [finish],
-        timeFinish: [finish],
-        timezone: [timezone, [Validators.required]]
+        timeFinish: [finish]
       },
       {
         validators: [CustomValidation.dateStartGreaterThanFinish('dateStart', 'dateFinish')]

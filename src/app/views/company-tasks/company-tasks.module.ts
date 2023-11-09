@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AwBadgesModule } from '@aw/components/badges/aw-badges.module';
 import { AwBreadcrumbModule } from '@aw/components/breadcrumb/aw-breadcrumb.module';
 import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
@@ -49,7 +50,8 @@ import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
     AwColorsModule,
     AwDualListBoxModule,
     AwPipesModule,
-    AwSpinnerModule
+    AwSpinnerModule,
+    AwBadgesModule
   ],
   providers: [CompanyTaskSelectedService]
 })

@@ -39,7 +39,7 @@
 
             <ng-container *ngIf="getStartOpenStreetMapLink(timeControl)">
               <a [href]="getStartOpenStreetMapLink(timeControl)" target="_blank">
-                <span awTooltip title="Ver en mapa" class="fa-solid fa-location-pin text-success"></span>
+                <span awTooltip class="fa-solid fa-location-pin text-success" title="Ver en mapa"></span>
               </a>
             </ng-container>
           </td>
@@ -53,7 +53,7 @@
 
               <ng-container *ngIf="getFinishOpenStreetMapLink(timeControl)">
                 <a [href]="getFinishOpenStreetMapLink(timeControl)" target="_blank">
-                  <span awTooltip title="Ver en mapa" class="fa-solid fa-location-pin text-success"></span>
+                  <span awTooltip class="fa-solid fa-location-pin text-success" title="Ver en mapa"></span>
                 </a>
               </ng-container>
             </ng-container>
@@ -78,18 +78,22 @@
               {{ timeControl.duration | durationToTime }}
             </ng-container>
 
-            <ng-container *ngIf="timeControl.duration === 0"> - </ng-container>
+            <ng-container *ngIf="timeControl.duration === 0"> -</ng-container>
           </td>
           <td>
             <ng-container *ngIf="timeControl.timeState === timeState.close">
-              <span (click)="handleTimeControlModalEdit(timeControl)" class="fa-solid fa-pencil cursor-pointer"></span>
+              <span
+                (click)="handleTimeControlModalEdit(timeControl)"
+                awTooltip
+                class="fa-solid fa-pencil cursor-pointer"
+                title="Editar"></span>
             </ng-container>
             <ng-container *ngIf="timeControl.timeState === timeState.open">
               <span
-                awTooltip
                 (click)="handleCloseTimeControl(timeControl)"
-                title="Cerrar tiempo"
-                class="fa-regular fa-circle-xmark cursor-pointer text-danger"></span>
+                awTooltip
+                class="fa-regular fa-circle-xmark cursor-pointer text-danger"
+                title="Cerrar"></span>
             </ng-container>
           </td>
         </tr>

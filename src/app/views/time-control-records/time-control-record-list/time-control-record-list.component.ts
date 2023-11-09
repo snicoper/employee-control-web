@@ -15,10 +15,10 @@ import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { TimeControlRecordEditComponent } from '../time-control-record-edit/time-control-record-edit.component';
-import { TimeState } from './../../../models/entities/types/time-state.model';
-import { SimpleGeolocationService } from './../../../services/simple-geolocation.service';
 import { TimeControlRecordResponse } from './time-contol-record-esponse.model';
 import { timeControlRecordListTableHeaders } from './time-control-record-list-table-header';
+import { SimpleGeolocationService } from '@aw/services/simple-geolocation.service';
+import { TimeState } from '@aw/models/entities/types/_index';
 
 @Component({
   selector: 'aw-time-control-record-list',
@@ -73,7 +73,6 @@ export class TimeControlRecordListComponent {
 
   handleTimeControlModalEdit(timeControl: TimeControlRecordResponse): void {
     const initialState: ModalOptions = {
-      class: 'modal-lg',
       keyboard: false,
       initialState: {
         timeControlId: timeControl.id
