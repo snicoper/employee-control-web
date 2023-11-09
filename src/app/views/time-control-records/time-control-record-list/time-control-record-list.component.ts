@@ -8,6 +8,7 @@ import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { urlReplaceParams } from '@aw/core/utils/_index';
 import { ResultResponse } from '@aw/models/_index';
+import { ClosedBy } from '@aw/models/entities/types/closed-by.model';
 import { TimeControlApiService } from '@aw/services/api/_index';
 import { JwtService } from '@aw/services/jwt.service';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
@@ -37,6 +38,7 @@ export class TimeControlRecordListComponent {
   loading = false;
   siteUrls = SiteUrls;
   timeState = TimeState;
+  closedBy = ClosedBy;
   from?: Date | string = 'null';
   to?: Date | string = 'null';
   loadingTimeState = false;

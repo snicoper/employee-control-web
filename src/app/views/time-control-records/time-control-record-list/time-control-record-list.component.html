@@ -58,7 +58,12 @@
               </ng-container>
             </ng-container>
           </td>
-          <td>{{ timeControl.closedBy | closedBy }}</td>
+          <td>
+            <ng-container *ngIf="timeControl.closedBy === closedBy.staff || timeControl.closedBy === closedBy.system">
+              <span class="fa-solid fa-exclamation text-danger"></span>
+            </ng-container>
+            {{ timeControl.closedBy | closedBy }}
+          </td>
           <td>
             <ng-container *ngIf="timeControl.timeState === timeState.open">
               <aw-dot-success />
