@@ -1,5 +1,5 @@
 export interface TimeControlRecordRequest {
   id: string;
-  start: Date;
-  finish: Date;
+  start: string;
+  finish: string;
 }
