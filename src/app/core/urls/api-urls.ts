@@ -85,6 +85,7 @@ export const ApiUrls = {
     getTimeStateOpenByEmployeeId: '/times-control/employees/{employeeId}/time-state-open',
     startTimeControl: '/times-control/start',
     finishTimeControl: '/times-control/finish',
+    finishTimeControlByStaff: '/times-control/finish/staff',
     updateTimeControl: '/times-control/{id}'
   }
 };

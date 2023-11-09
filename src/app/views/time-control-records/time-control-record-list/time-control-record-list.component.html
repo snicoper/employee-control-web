@@ -76,7 +76,16 @@
             <ng-container *ngIf="timeControl.duration === 0"> - </ng-container>
           </td>
           <td>
-            <span (click)="handleTimeControlModalEdit(timeControl)" class="fa-solid fa-pencil cursor-pointer"></span>
+            <ng-container *ngIf="timeControl.timeState === timeState.close">
+              <span (click)="handleTimeControlModalEdit(timeControl)" class="fa-solid fa-pencil cursor-pointer"></span>
+            </ng-container>
+            <ng-container *ngIf="timeControl.timeState === timeState.open">
+              <span
+                awTooltip
+                (click)="handleCloseTimeControl(timeControl)"
+                title="Cerrar tiempo"
+                class="fa-regular fa-circle-xmark cursor-pointer text-danger"></span>
+            </ng-container>
           </td>
         </tr>
       </tbody>

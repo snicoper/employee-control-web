@@ -1,14 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
+import { logError } from '@aw/core/errors/_index';
 import { OrderTypes } from '@aw/core/features/api-result/_index';
 import { ApiResult } from '@aw/core/features/api-result/api-result';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { urlReplaceParams } from '@aw/core/utils/_index';
+import { ResultResponse } from '@aw/models/_index';
 import { TimeControlApiService } from '@aw/services/api/_index';
 import { JwtService } from '@aw/services/jwt.service';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { TimeControlRecordEditComponent } from '../time-control-record-edit/time-control-record-edit.component';
 import { TimeState } from './../../../models/entities/types/time-state.model';
@@ -25,6 +28,7 @@ export class TimeControlRecordListComponent {
   private readonly jwtService = inject(JwtService);
   private readonly simpleGeolocationService = inject(SimpleGeolocationService);
   private readonly bsModalService = inject(BsModalService);
+  private readonly toastrService = inject(ToastrService);
 
   readonly breadcrumb = new BreadcrumbCollection();
 
@@ -35,6 +39,7 @@ export class TimeControlRecordListComponent {
   timeState = TimeState;
   from?: Date | string = 'null';
   to?: Date | string = 'null';
+  loadingTimeState = false;
   bsModalRef?: BsModalRef;
 
   constructor() {
@@ -85,6 +90,26 @@ export class TimeControlRecordListComponent {
 
   handleReloadData(): void {
     this.loadTimeControlRecords();
+  }
+
+  handleCloseTimeControl(timeControl: TimeControlRecordResponse): void {
+    this.loadingTimeState = true;
+    const data = { timeControlId: timeControl.id };
+
+    this.timeControlApiService
+      .post<typeof data, ResultResponse>(data, ApiUrls.timeControl.finishTimeControlByStaff)
+      .pipe(finalize(() => (this.loadingTimeState = false)))
+      .subscribe({
+        next: (result: ResultResponse) => {
+          if (result.succeeded) {
+            this.loadTimeControlRecords();
+            this.toastrService.success('Tiempo finalizado con éxito.');
+          } else {
+            this.toastrService.error('Ha ocurrido un error al iniciar el tiempo.');
+            logError(result.errors.join());
+          }
+        }
+      });
   }
 
   handleClickClean(event: ApiResult<TimeControlRecordResponse>): void {
