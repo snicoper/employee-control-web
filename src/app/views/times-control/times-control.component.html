@@ -2,9 +2,7 @@
   <aw-view-header>Control de tiempos</aw-view-header>
 
   <aw-card>
-    <aw-month-selector
-      (changeMonthSelected)="handleDateSelected($event)"
-      [dateSelected]="dateSelected" />
+    <aw-month-selector (changeMonthSelected)="handleDateSelected($event)" [dateSelected]="dateSelected" />
 
     <div class="d-flex mt-4">
       <!-- state -->
@@ -51,9 +49,7 @@
 
   <!-- times -->
   <aw-card>
-    <aw-time-control-progress
-      [loading]="loadingTimeControls"
-      [progressStackedCollection]="progressStackedCollection" />
+    <aw-time-control-progress [loading]="loadingTimeControls" [progressStackedCollection]="progressStackedCollection" />
   </aw-card>
   <!-- end times -->
 </aw-view-base>

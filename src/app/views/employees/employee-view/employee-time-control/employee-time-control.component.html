@@ -3,9 +3,7 @@
 </div>
 
 <div class="my-3">
-  <aw-month-selector
-    (changeMonthSelected)="handleDateSelected($event)"
-    [dateSelected]="dateSelected" />
+  <aw-month-selector (changeMonthSelected)="handleDateSelected($event)" [dateSelected]="dateSelected" />
 </div>
 
 <div class="d-flex my-3">
@@ -14,8 +12,6 @@
 
 <!-- times -->
 <div>
-  <aw-time-control-progress
-    [loading]="loadingTimeControls"
-    [progressStackedCollection]="progressStackedCollection" />
+  <aw-time-control-progress [loading]="loadingTimeControls" [progressStackedCollection]="progressStackedCollection" />
   <!-- end times -->
 </div>

@@ -9,7 +9,14 @@ import { DotInfoComponent } from './dot-info/dot-info.component';
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [DotComponent, BadgeComponent, DotSuccessComponent, DotDangerComponent, DotWarningComponent, DotInfoComponent],
+  declarations: [
+    DotComponent,
+    BadgeComponent,
+    DotSuccessComponent,
+    DotDangerComponent,
+    DotWarningComponent,
+    DotInfoComponent
+  ],
   exports: [DotComponent, BadgeComponent, DotSuccessComponent, DotDangerComponent]
 })
 export class AwColorsModule {}
