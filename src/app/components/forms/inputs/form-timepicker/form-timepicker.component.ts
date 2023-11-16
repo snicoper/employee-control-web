@@ -1,5 +1,5 @@
 import { Component, Input, forwardRef, inject } from '@angular/core';
-import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LocalizationService, LocalizationUtils } from '@aw/core/features/localizations/_index';
 import { BadRequest } from '@aw/models/bad-request';
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
@@ -19,7 +19,7 @@ import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
     }
   ]
 })
-export class FormTimePickerComponent {
+export class FormTimePickerComponent implements ControlValueAccessor {
   private readonly bsLocaleService = inject(BsLocaleService);
   private readonly localizationService = inject(LocalizationService);
 
@@ -45,7 +45,8 @@ export class FormTimePickerComponent {
 
     // Default BsDatepickerConfig.
     this.bsConfig = {
-      containerClass: 'theme-default'
+      containerClass: 'theme-default',
+      useUtc: true
     };
   }
 
@@ -55,7 +56,7 @@ export class FormTimePickerComponent {
 
   writeValue(value: Date): void {
     if (value !== undefined && value !== this.value) {
-      this.value = value || Date;
+      this.value = value || new Date();
       this.onChange(this.value);
     } else {
       this.value = new Date();

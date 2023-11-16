@@ -39,7 +39,7 @@
 
             <ng-container *ngIf="getStartOpenStreetMapLink(timeControl)">
               <a [href]="getStartOpenStreetMapLink(timeControl)" target="_blank">
-                <span awTooltip title="Ver en mapa" class="fa-solid fa-location-pin text-success"></span>
+                <span awTooltip class="fa-solid fa-location-pin text-success" title="Ver en mapa"></span>
               </a>
             </ng-container>
           </td>
@@ -53,12 +53,17 @@
 
               <ng-container *ngIf="getFinishOpenStreetMapLink(timeControl)">
                 <a [href]="getFinishOpenStreetMapLink(timeControl)" target="_blank">
-                  <span awTooltip title="Ver en mapa" class="fa-solid fa-location-pin text-success"></span>
+                  <span awTooltip class="fa-solid fa-location-pin text-success" title="Ver en mapa"></span>
                 </a>
               </ng-container>
             </ng-container>
           </td>
-          <td>{{ timeControl.closedBy | closedBy }}</td>
+          <td>
+            <ng-container *ngIf="timeControl.closedBy === closedBy.staff || timeControl.closedBy === closedBy.system">
+              <span class="fa-solid fa-exclamation text-danger"></span>
+            </ng-container>
+            {{ timeControl.closedBy | closedBy }}
+          </td>
           <td>
             <ng-container *ngIf="timeControl.timeState === timeState.open">
               <aw-dot-success />
@@ -73,10 +78,23 @@
               {{ timeControl.duration | durationToTime }}
             </ng-container>
 
-            <ng-container *ngIf="timeControl.duration === 0"> - </ng-container>
+            <ng-container *ngIf="timeControl.duration === 0"> -</ng-container>
           </td>
           <td>
-            <span (click)="handleTimeControlModalEdit(timeControl)" class="fa-solid fa-pencil cursor-pointer"></span>
+            <ng-container *ngIf="timeControl.timeState === timeState.close">
+              <span
+                (click)="handleTimeControlModalEdit(timeControl)"
+                awTooltip
+                class="fa-solid fa-pencil cursor-pointer"
+                title="Editar"></span>
+            </ng-container>
+            <ng-container *ngIf="timeControl.timeState === timeState.open">
+              <span
+                (click)="handleCloseTimeControl(timeControl)"
+                awTooltip
+                class="fa-regular fa-circle-xmark cursor-pointer text-danger"
+                title="Cerrar"></span>
+            </ng-container>
           </td>
         </tr>
       </tbody>

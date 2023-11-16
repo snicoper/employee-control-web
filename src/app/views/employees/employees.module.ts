@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AwBadgesModule } from '@aw/components/badges/aw-badges.module';
 import { AwBreadcrumbModule } from '@aw/components/breadcrumb/aw-breadcrumb.module';
 import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
@@ -61,7 +62,8 @@ import { EmployeesRoutingModule } from './employees-routing.module';
     AwPipesModule,
     AwDirectivesModule,
     AwSelectorsModule,
-    AwProgressModule
+    AwProgressModule,
+    AwBadgesModule
   ],
   providers: [BsModalService, EmployeeSelectedService]
 })

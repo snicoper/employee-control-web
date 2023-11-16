@@ -1,4 +1,5 @@
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { DateTime } from 'luxon';
 
 export abstract class CustomValidation {
   /** Custom validator para comprobar que una fecha sea menor a otra. */
@@ -7,10 +8,10 @@ export abstract class CustomValidation {
       const control = controls.get(controlName);
       const checkControl = controls.get(checkControlName);
 
-      const start = new Date(control?.value);
-      const finish = new Date(checkControl?.value);
+      const start = DateTime.fromJSDate(new Date(control?.value));
+      const finish = DateTime.fromJSDate(new Date(checkControl?.value));
 
-      if (start.getDate() > finish.getDate()) {
+      if (start.valueOf() > finish.valueOf()) {
         checkControl?.setErrors({ startGreaterThanFinish: true });
       } else {
         checkControl?.setErrors(null);
@@ -42,6 +43,16 @@ export abstract class CustomValidation {
     const match = /^#[0-9A-F]{6}$/i.test(value);
 
     return match ? null : { colorHexadecimal: true };
+  };
+
+  static noFutureDate = (control: FormControl): { noFutureDate: boolean } | null => {
+    const value = DateTime.fromJSDate(new Date(control.value));
+
+    if (value.valueOf() > DateTime.local().valueOf()) {
+      return { noFutureDate: true };
+    }
+
+    return null;
   };
 
   /** Validación de un array con un valor x. */

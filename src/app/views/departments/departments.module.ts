@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AwBadgesModule } from '@aw/components/badges/aw-badges.module';
 import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
 import { AwColorsModule } from '@aw/components/colors/aw-colors.module';
@@ -49,7 +50,7 @@ import { DepartmentRoutingModule } from './departments-routing.module';
     AwPaginationModule,
     AwPipesModule,
     AwDualListBoxModule,
-    AwColorsModule
+    AwBadgesModule
   ],
   providers: [DepartmentSelectedService]
 })

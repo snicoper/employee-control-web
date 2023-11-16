@@ -1,5 +1,5 @@
 import { Component, Input, forwardRef } from '@angular/core';
-import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BadRequest } from '@aw/models/bad-request';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -17,7 +17,7 @@ import { BadRequest } from '@aw/models/bad-request';
     }
   ]
 })
-export class FormSwitchComponent {
+export class FormSwitchComponent implements ControlValueAccessor {
   @Input({ required: true }) badRequest: BadRequest | undefined;
   @Input({ required: true }) form: FormGroup | undefined;
   @Input({ required: true }) submitted = false;
