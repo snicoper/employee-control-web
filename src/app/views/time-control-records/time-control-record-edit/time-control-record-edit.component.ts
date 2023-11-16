@@ -46,7 +46,6 @@ export class TimeControlRecordEditComponent implements OnInit {
   }
 
   handleSubmit(): void {
-    const timeControl = this.getDataRequest();
     this.submitted = true;
 
     if (this.form.invalid) {
@@ -54,6 +53,7 @@ export class TimeControlRecordEditComponent implements OnInit {
     }
 
     this.loadingForm = true;
+    const timeControl = this.getFomData();
     const url = urlReplaceParams(ApiUrls.timeControl.updateTimeControl, { id: this.timeControlId });
 
     this.timeControlApiService
@@ -68,7 +68,7 @@ export class TimeControlRecordEditComponent implements OnInit {
       });
   }
 
-  private getDataRequest(): TimeControlRecordRequest {
+  private getFomData(): TimeControlRecordRequest {
     const timeControl = {} as TimeControlRecordRequest;
 
     const dateStart = new Date(this.form.get('dateStart')?.value);
@@ -76,33 +76,31 @@ export class TimeControlRecordEditComponent implements OnInit {
     const timeStart = new Date(this.form.get('timeStart')?.value);
     const timeFinish = new Date(this.form.get('timeFinish')?.value);
 
-    const start = DateTime.local(
+    const offset = dateStart.getTimezoneOffset();
+    const dtOffset = DateTime.local().offset;
+    const offsetDiff = offset + dtOffset;
+
+    const start = new Date(
       dateStart.getFullYear(),
       dateStart.getMonth(),
       dateStart.getDate(),
       timeStart.getHours(),
-      timeStart.getMinutes(),
+      timeStart.getMinutes() - offsetDiff,
       0
     );
 
-    const end = DateTime.local(
+    const end = new Date(
       dateFinish.getFullYear(),
       dateFinish.getMonth(),
       dateFinish.getDate(),
       timeFinish.getHours(),
-      timeFinish.getMinutes(),
+      timeFinish.getMinutes() - offsetDiff,
       0
     );
 
-    if (start.valueOf() > end.valueOf()) {
-      this.form.get('dateFinish')?.setErrors({ startTimeGreaterThanFinish: true });
-
-      return timeControl;
-    }
-
     timeControl.id = this.timeControlId;
-    timeControl.start = start.toUTC().toString();
-    timeControl.finish = end.toUTC().toString();
+    timeControl.start = start.toISOString();
+    timeControl.finish = end.toISOString();
 
     return timeControl;
   }
@@ -113,18 +111,43 @@ export class TimeControlRecordEditComponent implements OnInit {
     }
 
     const timezone = this.localizationService.getTimezoneValue();
-    const start = new Date(this.timeControl.start).toLocaleString('es-ES', { timeZone: timezone });
-    const finish = new Date(this.timeControl.finish).toLocaleString('es-ES', { timeZone: timezone });
+    const start = new Date(this.timeControl.start);
+    const finish = new Date(this.timeControl.finish);
+
+    const offset = start.getTimezoneOffset();
+    const dtOffset = DateTime.local().offset;
+    const offsetDiff = offset + dtOffset;
+
+    const startWithOffset = new Date(
+      start.getFullYear(),
+      start.getMonth(),
+      start.getDate(),
+      start.getHours(),
+      start.getMinutes() + offsetDiff,
+      0
+    );
+
+    const endWithOffset = new Date(
+      finish.getFullYear(),
+      finish.getMonth(),
+      finish.getDate(),
+      finish.getHours(),
+      finish.getMinutes() + offsetDiff,
+      0
+    );
 
     this.form = this.fb.group(
       {
-        dateStart: [start, [Validators.required]],
-        timeStart: [start, [Validators.required]],
-        dateFinish: [finish],
-        timeFinish: [finish]
+        dateStart: [startWithOffset, [Validators.required, CustomValidation.noFutureDate]],
+        dateFinish: [endWithOffset, [Validators.required, CustomValidation.noFutureDate]],
+        timeStart: [start.toLocaleString('es-ES', { timeZone: timezone }), [Validators.required]],
+        timeFinish: [finish.toLocaleString('es-ES', { timeZone: timezone })]
       },
       {
-        validators: [CustomValidation.dateStartGreaterThanFinish('dateStart', 'dateFinish')]
+        validators: [
+          CustomValidation.dateStartGreaterThanFinish('dateStart', 'dateFinish'),
+          CustomValidation.dateStartGreaterThanFinish('timeStart', 'timeFinish')
+        ]
       }
     );
   }

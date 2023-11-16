@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input } from '@angular/core';
-import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormInputTypes } from '@aw/core/types/_index';
 import { BadRequest } from '@aw/models/_index';
 
@@ -18,7 +18,7 @@ import { BadRequest } from '@aw/models/_index';
     }
   ]
 })
-export class FormFloatingComponent {
+export class FormFloatingComponent implements ControlValueAccessor {
   @Input({ required: true }) badRequest: BadRequest | undefined;
   @Input({ required: true }) form: FormGroup | undefined;
   @Input({ required: true }) submitted = false;

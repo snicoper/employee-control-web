@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input } from '@angular/core';
-import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BadRequest } from '@aw/models/_index';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -18,7 +18,7 @@ import { BadRequest } from '@aw/models/_index';
     }
   ]
 })
-export class FormCheckboxComponent {
+export class FormCheckboxComponent implements ControlValueAccessor {
   @Input({ required: true }) badRequest: BadRequest | undefined;
   @Input({ required: true }) form: FormGroup | undefined;
   @Input({ required: true }) submitted = false;

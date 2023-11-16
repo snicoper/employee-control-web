@@ -8,17 +8,17 @@ import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { urlReplaceParams } from '@aw/core/utils/_index';
 import { ResultResponse } from '@aw/models/_index';
+import { TimeState } from '@aw/models/entities/types/_index';
 import { ClosedBy } from '@aw/models/entities/types/closed-by.model';
 import { TimeControlApiService } from '@aw/services/api/_index';
 import { JwtService } from '@aw/services/jwt.service';
+import { SimpleGeolocationService } from '@aw/services/simple-geolocation.service';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { TimeControlRecordEditComponent } from '../time-control-record-edit/time-control-record-edit.component';
 import { TimeControlRecordResponse } from './time-contol-record-esponse.model';
 import { timeControlRecordListTableHeaders } from './time-control-record-list-table-header';
-import { SimpleGeolocationService } from '@aw/services/simple-geolocation.service';
-import { TimeState } from '@aw/models/entities/types/_index';
 
 @Component({
   selector: 'aw-time-control-record-list',
@@ -74,6 +74,7 @@ export class TimeControlRecordListComponent {
   handleTimeControlModalEdit(timeControl: TimeControlRecordResponse): void {
     const initialState: ModalOptions = {
       keyboard: false,
+      class: 'modal-lg',
       initialState: {
         timeControlId: timeControl.id
       }
