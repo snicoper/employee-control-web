@@ -9,15 +9,14 @@
 
     <ng-content select="[awThead]" />
 
-    <ng-container *ngIf="apiResult && !loading">
+    @if (apiResult && !loading) {
       <!-- table content -->
-      <ng-container *ngIf="apiResult.items.length">
+      @if (apiResult.items.length) {
         <ng-content select="[awTbody]" />
-      </ng-container>
+      }
       <!-- end table content -->
-
       <!-- no data -->
-      <ng-container *ngIf="!apiResult.items.length">
+      @if (!apiResult.items.length) {
         <tbody>
           <tr>
             <td class="text-center" colspan="100%">
@@ -25,12 +24,12 @@
             </td>
           </tr>
         </tbody>
-      </ng-container>
+      }
       <!-- end no data -->
-    </ng-container>
+    }
 
     <!-- spinner loading data -->
-    <ng-container *ngIf="showSpinnerLoading && loading">
+    @if (showSpinnerLoading && loading) {
       <tbody>
         <tr>
           <td class="text-center" colspan="100%">
@@ -38,7 +37,7 @@
           </td>
         </tr>
       </tbody>
-    </ng-container>
+    }
     <!-- end spinner loading data -->
 
     <ng-content select="[awTfoot]" />

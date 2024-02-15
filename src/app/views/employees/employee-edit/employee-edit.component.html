@@ -3,10 +3,9 @@
 
   <aw-card>
     <!-- form -->
-    <ng-container *ngIf="employee">
+    @if (employee) {
       <form (ngSubmit)="handleSubmit()" [formGroup]="form">
         <aw-non-field-errors [badRequest]="badRequest" />
-
         <!-- firstName -->
         <div class="mb-2">
           <aw-form-input
@@ -18,7 +17,6 @@
             label="Nombre" />
         </div>
         <!-- end firstName -->
-
         <!-- lastName -->
         <div class="mb-2">
           <aw-form-input
@@ -30,7 +28,6 @@
             label="Apellidos" />
         </div>
         <!-- end lastName -->
-
         <!-- email -->
         <div class="mb-2">
           <aw-form-input
@@ -43,7 +40,6 @@
             label="Correo electrónico" />
         </div>
         <!-- end email -->
-
         <!-- phoneNumber -->
         <div class="mb-2">
           <aw-form-input
@@ -55,7 +51,6 @@
             label="Teléfono" />
         </div>
         <!-- end phoneNumber -->
-
         <!-- entryDate -->
         <div class="mb-2">
           <aw-form-datepicker
@@ -67,9 +62,7 @@
             label="Fecha de ingreso" />
         </div>
         <!-- end entryDate -->
-
         <aw-btn-back cssClass="btn btn-primary mt-2"></aw-btn-back>
-
         <aw-btn-loading
           [loading]="loadingForm"
           btnClass="btn btn-success mt-2 ms-2"
@@ -77,13 +70,13 @@
           btnText="Guardar"
           spinnerLoadingText="Guardando" />
       </form>
-    </ng-container>
+    }
     <!-- form -->
 
     <!-- spinner -->
-    <ng-container *ngIf="loadingEmployee">
+    @if (loadingEmployee) {
       <aw-spinner [loading]="loadingEmployee" [size]="100" />
-    </ng-container>
+    }
     <!-- end spinner -->
   </aw-card>
 </aw-view-base>

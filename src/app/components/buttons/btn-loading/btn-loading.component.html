@@ -1,14 +1,13 @@
 <button (click)="handleClick()" [class]="btnClass" [disabled]="loading" [type]="btnType">
-  <ng-container *ngIf="!loading">
+  @if (!loading) {
     <span>
       <ng-content />
-
-      <ng-container *ngIf="btnIcon">
+      @if (btnIcon) {
         <span [class]="btnIcon"></span>
-      </ng-container>
+      }
       {{ btnText }}
     </span>
-  </ng-container>
+  }
 
   <aw-spinner
     [color]="spinnerColor"

@@ -1,26 +1,28 @@
-<ng-container *ngIf="breadcrumb.hasItems()">
+@if (breadcrumb.hasItems()) {
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li
-        *ngFor="let bread of breadcrumb.getItems()"
-        [ngClass]="{ active: bread.active }"
-        class="breadcrumb-item small">
-        <ng-container *ngIf="bread.active">
-          <a [routerLink]="bread.link">
-            <span *ngIf="bread.icon">
-              <span [ngClass]="bread.icon"></span>
+      @for (bread of breadcrumb.getItems(); track bread) {
+        <li
+          [ngClass]="{ active: bread.active }"
+          class="breadcrumb-item small">
+          @if (bread.active) {
+            <a [routerLink]="bread.link">
+              @if (bread.icon) {
+                <span>
+                  <span [ngClass]="bread.icon"></span>
+                </span>
+              }
+              {{ bread.text }}
+            </a>
+          }
+          @if (!bread.active) {
+            <span class="text-muted">
+              <span [ngClass]="bread.icon" aria-current="page"></span>
+              {{ bread.text }}
             </span>
-            {{ bread.text }}
-          </a>
-        </ng-container>
-
-        <ng-container *ngIf="!bread.active">
-          <span class="text-muted">
-            <span [ngClass]="bread.icon" aria-current="page"></span>
-            {{ bread.text }}
-          </span>
-        </ng-container>
-      </li>
+          }
+        </li>
+      }
     </ol>
   </nav>
-</ng-container>
+}

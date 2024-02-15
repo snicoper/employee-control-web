@@ -1,5 +1,5 @@
 <div class="dual-list-box">
-  <ng-container *ngIf="!loading">
+  @if (!loading) {
     <div class="d-flex">
       <!-- left box -->
       <div class="flex-fill box-left me-3">
@@ -9,7 +9,6 @@
           class="form-control mb-2"
           placeholder="Filtrar..."
           type="search" />
-
         <select
           [(ngModel)]="itemsLeftSelected"
           [id]="boxLeftId"
@@ -17,9 +16,10 @@
           aria-label="Items unselected"
           class="form-select"
           multiple>
-          <option *ngFor="let item of htmlItemSelectorsLeft" [ngValue]="item.id">{{ item.value }}</option>
+          @for (item of htmlItemSelectorsLeft; track item) {
+            <option [ngValue]="item.id">{{ item.value }}</option>
+          }
         </select>
-
         <button
           (click)="handleLeftBtnClick()"
           [disabled]="!itemsLeftSelected.length"
@@ -32,7 +32,6 @@
         </button>
       </div>
       <!-- end left box -->
-
       <!-- right box -->
       <div class="flex-fill box-right">
         <input
@@ -41,7 +40,6 @@
           class="form-control mb-2"
           placeholder="Filtrar..."
           type="search" />
-
         <select
           [(ngModel)]="itemsRightSelected"
           [id]="boxRightId"
@@ -49,9 +47,10 @@
           aria-label="Items selected"
           class="form-select"
           multiple>
-          <option *ngFor="let item of htmlItemSelectorsRight" [ngValue]="item.id">{{ item.value }}</option>
+          @for (item of htmlItemSelectorsRight; track item) {
+            <option [ngValue]="item.id">{{ item.value }}</option>
+          }
         </select>
-
         <button
           (click)="handleRightBtnClick()"
           [disabled]="!itemsRightSelected.length"
@@ -62,19 +61,18 @@
       </div>
       <!-- end right box -->
     </div>
-
     <div class="d-flex mt-3">
       <button (click)="handleSaveChanges()" class="btn btn-outline-success m-auto">
         <span class="fa-solid fa-floppy-disk"></span> Guardar cambios
       </button>
     </div>
-  </ng-container>
+  }
 
-  <ng-container *ngIf="loading">
+  @if (loading) {
     <div class="d-flex">
       <div class="m-auto">
         <aw-spinner [loading]="loading" [size]="100" />
       </div>
     </div>
-  </ng-container>
+  }
 </div>

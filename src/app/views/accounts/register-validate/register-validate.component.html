@@ -2,32 +2,30 @@
   <div class="row">
     <div class="col-lg-6 m-auto">
       <!-- success-->
-      <ng-container *ngIf="errorMessages.length === 0">
+      @if (errorMessages.length === 0) {
         <div class="alert alert-success mt-4">
           Se ha validado con éxito el email, ahora puede identificarse como usuario.
         </div>
-
         <div class="d-flex">
           <button [routerLink]="siteUrls.auth.login" class="btn btn-outline-success align-self-center mx-auto">
             Identificarse
           </button>
         </div>
-      </ng-container>
+      }
       <!-- end success-->
 
       <!-- failure-->
-      <ng-container *ngIf="errorMessages.length > 0">
+      @if (errorMessages.length > 0) {
         <div class="alert alert-danger mt-4">
           Ha ocurrido un error en la validación del correo.<br />
           <strong>Error:</strong> {{ errorMessages[0] }}
         </div>
-
         <div class="d-flex">
           <button [routerLink]="siteUrls.accounts.register" class="btn btn-outline-success align-self-center mx-auto">
             Ir a página de registro
           </button>
         </div>
-      </ng-container>
+      }
       <!-- end failure-->
     </div>
   </div>

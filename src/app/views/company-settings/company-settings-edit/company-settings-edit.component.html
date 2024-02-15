@@ -14,17 +14,17 @@
           label="Zona horaria" />
 
         <!-- comparación de horas. -->
-        <ng-container *ngIf="nowWithOriginalTimezone">
+        @if (nowWithOriginalTimezone) {
           <span class="text-muted small">
             Hora actual seleccionada: <strong>{{ nowWithOriginalTimezone }}</strong>
           </span>
-        </ng-container>
+        }
 
-        <ng-container *ngIf="nowWithTimezoneSelected">
+        @if (nowWithTimezoneSelected) {
           <span class="text-muted small">
             - Nueva hora seleccionada: <strong>{{ nowWithTimezoneSelected }}</strong>
           </span>
-        </ng-container>
+        }
         <!-- end comparación de horas. -->
       </div>
       <!-- end timezone -->

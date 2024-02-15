@@ -3,22 +3,21 @@
   <ng-content select="[awCardImage]" />
 
   <div class="card-body">
-    <ng-container *ngIf="!loading">
+    @if (!loading) {
       <ng-content select="[awCardTitle]" />
       <ng-content select="[awCardSubTitle]" />
-    </ng-container>
+    }
 
     <!-- main content -->
-    <ng-container *ngIf="!loading; else loadingData">
+    @if (!loading) {
       <p class="card-text">
         <ng-content />
       </p>
-    </ng-container>
+    } @else {
+      <aw-spinner [loading]="loading" [size]="spinnerSize" />
+    }
     <!-- end main content -->
 
-    <ng-template #loadingData>
-      <aw-spinner [loading]="loading" [size]="spinnerSize" />
-    </ng-template>
   </div>
 
   <ng-content class="card-footer text-muted" select="[awCardFooter]" />

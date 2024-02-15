@@ -6,28 +6,33 @@
   <aw-company-task-details [companyTaskId]="companyTaskId" />
 
   <!-- tabs -->
-  <ng-container *ngIf="companyTaskId && companyTask()">
+  @if (companyTaskId && companyTask()) {
     <div class="mt-3">
       <aw-card>
         <div>
           <tabset>
             <tab #tabUsers="tab" heading="Empleados">
-              <aw-company-task-users
-                (changeComponent)="handleChangeComponent()"
-                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.employees" />
-
-              <aw-company-task-add-users
-                (changeComponent)="handleChangeComponent()"
-                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.addEmployees" />
+              @if (tabUsers.active && employeeComponent === employeeLoadComponent.employees) {
+                <aw-company-task-users
+                  (changeComponent)="handleChangeComponent()"
+                  />
+              }
+              @if (tabUsers.active && employeeComponent === employeeLoadComponent.addEmployees) {
+                <aw-company-task-add-users
+                  (changeComponent)="handleChangeComponent()"
+                  />
+              }
             </tab>
             <tab #tabB="tab" heading="Basic Title 1">
-              <aw-company-task-users *ngIf="tabB.active" />
+              @if (tabB.active) {
+                <aw-company-task-users />
+              }
             </tab>
             <tab #tabC="tab" heading="Basic Title 2">Basic content 2</tab>
           </tabset>
         </div>
       </aw-card>
     </div>
-  </ng-container>
+  }
   <!-- end tabs -->
 </aw-view-base>

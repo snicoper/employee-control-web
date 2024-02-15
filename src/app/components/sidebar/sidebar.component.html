@@ -21,80 +21,75 @@
 
       <div class="sidebar-menu">
         <ul>
-          <li
-            *ngFor="let sidebarMenu of sidebarMenus"
-            [awRequiredRole]="sidebarMenu.requiredRole"
+          @for (sidebarMenu of sidebarMenus; track sidebarMenu) {
+            <li
+              [awRequiredRole]="sidebarMenu.requiredRole"
             [ngClass]="{
               active: sidebarMenu.active,
               'sidebar-dropdown': sidebarMenu.type === sidebarMenuTypes.dropdown,
               'header-menu': sidebarMenu.type === sidebarMenuTypes.header
             }">
-            <!-- type header -->
-            <ng-container *ngIf="sidebarMenu.type === sidebarMenuTypes.header">
-              <span>{{ sidebarMenu.title }}</span>
-            </ng-container>
-            <!-- end type header -->
-
-            <!-- type != header && type != simple -->
-            <ng-container
-              *ngIf="sidebarMenu.type !== sidebarMenuTypes.header && sidebarMenu.type !== sidebarMenuTypes.simple">
-              <a (click)="toggle(sidebarMenu)" class="cursor-pointer">
-                <span [class]="sidebarMenu.icon"></span>
-                <span> {{ sidebarMenu.title }}</span>
-
-                <ng-container *ngIf="sidebarMenu.badge">
-                  <span [ngClass]="sidebarMenu.badge.class" class="badge badge-pill">
-                    {{ sidebarMenu.badge.text }}
-                  </span>
-                </ng-container>
-              </a>
-            </ng-container>
-            <!-- end type != header && type != simple -->
-
-            <!-- type simple -->
-            <ng-container *ngIf="sidebarMenu.type === sidebarMenuTypes.simple">
-              <a [routerLink]="[sidebarMenu.link]" routerLinkActive="active">
-                <span [class]="sidebarMenu.icon"></span>
-                <span>&nbsp;{{ sidebarMenu.title }}</span>
-
-                <ng-container *ngIf="sidebarMenu.badge">
-                  <span [ngClass]="sidebarMenu.badge.class" class="badge badge-pill">
-                    {{ sidebarMenu.badge.text }}
-                  </span>
-                </ng-container>
-              </a>
-            </ng-container>
-            <!-- end type simple -->
-
-            <!-- type dropdown -->
-            <ng-container *ngIf="sidebarMenu.type === sidebarMenuTypes.dropdown">
-              <div [@slide]="getState(sidebarMenu)" class="sidebar-submenu">
-                <ul>
-                  <li *ngFor="let submenu of sidebarMenu.submenus" [awRequiredRole]="submenu.requiredRole">
-                    <a [routerLink]="submenu.link" routerLinkActive="active">
-                      <ng-container *ngIf="submenu.icon">
-                        <span [ngClass]="submenu.icon"></span>
-                        {{ submenu.title }}
-                      </ng-container>
-
-                      <ng-container *ngIf="!submenu.icon">
-                        <span class="ms-3">
-                          {{ submenu.title }}
-                        </span>
-                      </ng-container>
-
-                      <ng-container *ngIf="submenu.badge">
-                        <span [ngClass]="submenu.badge.class" class="badge badge-pill">
-                          {{ submenu.badge.text }}
-                        </span>
-                      </ng-container>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </ng-container>
-            <!-- end type dropdown -->
-          </li>
+              <!-- type header -->
+              @if (sidebarMenu.type === sidebarMenuTypes.header) {
+                <span>{{ sidebarMenu.title }}</span>
+              }
+              <!-- end type header -->
+              <!-- type != header && type != simple -->
+              @if (sidebarMenu.type !== sidebarMenuTypes.header && sidebarMenu.type !== sidebarMenuTypes.simple) {
+                <a (click)="toggle(sidebarMenu)" class="cursor-pointer">
+                  <span [class]="sidebarMenu.icon"></span>
+                  <span> {{ sidebarMenu.title }}</span>
+                  @if (sidebarMenu.badge) {
+                    <span [ngClass]="sidebarMenu.badge.class" class="badge badge-pill">
+                      {{ sidebarMenu.badge.text }}
+                    </span>
+                  }
+                </a>
+              }
+              <!-- end type != header && type != simple -->
+              <!-- type simple -->
+              @if (sidebarMenu.type === sidebarMenuTypes.simple) {
+                <a [routerLink]="[sidebarMenu.link]" routerLinkActive="active">
+                  <span [class]="sidebarMenu.icon"></span>
+                  <span>&nbsp;{{ sidebarMenu.title }}</span>
+                  @if (sidebarMenu.badge) {
+                    <span [ngClass]="sidebarMenu.badge.class" class="badge badge-pill">
+                      {{ sidebarMenu.badge.text }}
+                    </span>
+                  }
+                </a>
+              }
+              <!-- end type simple -->
+              <!-- type dropdown -->
+              @if (sidebarMenu.type === sidebarMenuTypes.dropdown) {
+                <div [@slide]="getState(sidebarMenu)" class="sidebar-submenu">
+                  <ul>
+                    @for (submenu of sidebarMenu.submenus; track submenu) {
+                      <li [awRequiredRole]="submenu.requiredRole">
+                        <a [routerLink]="submenu.link" routerLinkActive="active">
+                          @if (submenu.icon) {
+                            <span [ngClass]="submenu.icon"></span>
+                            {{ submenu.title }}
+                          }
+                          @if (!submenu.icon) {
+                            <span class="ms-3">
+                              {{ submenu.title }}
+                            </span>
+                          }
+                          @if (submenu.badge) {
+                            <span [ngClass]="submenu.badge.class" class="badge badge-pill">
+                              {{ submenu.badge.text }}
+                            </span>
+                          }
+                        </a>
+                      </li>
+                    }
+                  </ul>
+                </div>
+              }
+              <!-- end type dropdown -->
+            </li>
+          }
         </ul>
       </div>
     </ng-scrollbar>

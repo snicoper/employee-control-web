@@ -6,40 +6,40 @@
 
     <div class="d-flex mt-4">
       <!-- state -->
-      <ng-container *ngIf="currentTimeControl()?.timeState === timeStates.open">
+      @if (currentTimeControl()?.timeState === timeStates.open) {
         <aw-dot-success />
         <span class="small text-muted">
           Tiempo iniciado: <strong>{{ currentTimeControl()?.start | datetimeFormat: "cccc t" }}</strong>
         </span>
-      </ng-container>
+      }
 
-      <ng-container *ngIf="currentTimeControl()?.timeState === timeStates.close">
+      @if (currentTimeControl()?.timeState === timeStates.close) {
         <aw-dot-danger />
         <span class="small text-muted">El tiempo esta finalizado</span>
-      </ng-container>
+      }
       <!-- end state -->
 
       <div class="ms-auto small text-muted">Tiempo total: {{ timeTotalInMonth }}</div>
 
       <!-- button state -->
       <div class="ms-auto justify-content-center">
-        <ng-container *ngIf="currentTimeControl()?.timeState === timeStates.open">
+        @if (currentTimeControl()?.timeState === timeStates.open) {
           <aw-btn-loading
             (eventClick)="handleTimeFinished()"
             [loading]="loadingTimeState"
             btnClass="btn btn-outline-warning"
             btnIcon="fa-solid fa-flag-checkered"
             btnText="Finalizar" />
-        </ng-container>
+        }
 
-        <ng-container *ngIf="currentTimeControl()?.timeState === timeStates.close">
+        @if (currentTimeControl()?.timeState === timeStates.close) {
           <aw-btn-loading
             (eventClick)="handleTimeStart()"
             [loading]="loadingTimeState"
             btnClass="btn btn-success"
             btnIcon="fa-solid fa-hourglass-start"
             btnText="Iniciar" />
-        </ng-container>
+        }
       </div>
       <!-- end button state -->
     </div>

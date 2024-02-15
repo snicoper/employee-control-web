@@ -1,9 +1,9 @@
 <div class="form-group">
-  <ng-container *ngIf="label">
+  @if (label) {
     <label [for]="id" class="form-label">
       {{ label }}
     </label>
-  </ng-container>
+  }
 
   <input
     (ngModelChange)="onChangeValue($event)"
@@ -15,12 +15,12 @@
     class="form-control form-control-color"
     type="color" />
 
-  <ng-container *ngIf="form">
+  @if (form) {
     <aw-field-error
       [badRequest]="badRequest"
       [fieldName]="fieldName"
       [fieldText]="label"
       [form]="form"
       [submitted]="submitted" />
-  </ng-container>
+  }
 </div>

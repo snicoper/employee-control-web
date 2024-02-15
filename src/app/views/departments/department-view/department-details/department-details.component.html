@@ -9,7 +9,7 @@
 
     <!-- data company task -->
     <tbody>
-      <ng-container *ngIf="departmentSelected() && !loadingDepartmentSelected()">
+      @if (departmentSelected() && !loadingDepartmentSelected()) {
         <tr>
           <td>Nombre</td>
           <td>
@@ -25,26 +25,25 @@
             <span class="d-flex">
               <span [innerHTML]="departmentSelected()?.active | boolToIcon"></span>
               <span class="ms-auto">
-                <ng-container *ngIf="departmentSelected()?.active">
+                @if (departmentSelected()?.active) {
                   <aw-btn-loading
                     (click)="handleDeactivateDepartment()"
                     [loading]="loadingDepartmentState"
                     btnClass="btn btn-sm btn-outline-danger"
                     btnText="Desactivar" />
-                </ng-container>
-
-                <ng-container *ngIf="!departmentSelected()?.active">
+                }
+                @if (!departmentSelected()?.active) {
                   <aw-btn-loading
                     (click)="handleActivateDepartment()"
                     [loading]="loadingDepartmentState"
                     btnClass="btn btn-sm btn-outline-success"
                     btnText="Activar" />
-                </ng-container>
+                }
               </span>
             </span>
           </td>
         </tr>
-      </ng-container>
+      }
       <!-- end data company task -->
 
       <!-- spinner -->

@@ -11,18 +11,18 @@
     role="switch"
     type="checkbox" />
 
-  <ng-container *ngIf="label">
+  @if (label) {
     <label [for]="id" class="form-check-label">
       {{ label }}
     </label>
-  </ng-container>
+  }
 
-  <ng-container *ngIf="form">
+  @if (form) {
     <aw-field-error
       [badRequest]="badRequest"
       [fieldName]="fieldName"
       [fieldText]="label"
       [form]="form"
       [submitted]="submitted" />
-  </ng-container>
+  }
 </div>

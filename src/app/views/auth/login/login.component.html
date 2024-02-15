@@ -5,9 +5,9 @@
         <h1 class="h3 mb-3 fw-normal"><span class="fa-solid fa-user"></span> Iniciar sesión</h1>
         <hr />
 
-        <ng-container *ngIf="invalidLogin">
+        @if (invalidLogin) {
           <div class="alert alert-danger" role="alert">Nombre de usuario o contraseña no validos.</div>
-        </ng-container>
+        }
 
         <aw-non-field-errors [badRequest]="badRequest" />
 

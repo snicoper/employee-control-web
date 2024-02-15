@@ -53,8 +53,10 @@
             'fa-solid fa-moon': theme() === themeColors.light,
             'fa-regular fa-sun': theme() === themeColors.dark
           }"
-          class="me-2 cursor-pointer"></span>
-        <ng-container *ngIf="authState$()">{{ userName }}</ng-container>
+        class="me-2 cursor-pointer"></span>
+        @if (authState$()) {
+          {{ userName }}
+        }
       </div>
     </div>
   </div>

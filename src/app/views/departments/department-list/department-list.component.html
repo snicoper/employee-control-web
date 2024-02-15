@@ -26,32 +26,37 @@
           (clickOrdering)="handleReloadData()"
           [apiResult]="apiResult"
           [tableHeaderConfig]="tableHeaderConfig"
-          awTableHeader></tr>
+        awTableHeader></tr>
       </thead>
 
-      <tbody *ngIf="apiResult" awTbody>
-        <tr (click)="handleSelectItem(department)" *ngFor="let department of apiResult.items" class="cursor-pointer">
-          <td>
-            <aw-badge [background]="department.background" [color]="department.color" [name]="department.name" />
-          </td>
-          <td [innerHTML]="department.active | boolToIcon"></td>
-          <td>
-            <aw-dot [color]="department.background" />
-          </td>
-          <td>
-            <aw-dot [color]="department.color" />
-          </td>
-        </tr>
-      </tbody>
+      @if (apiResult) {
+        <tbody awTbody>
+          @for (department of apiResult.items; track department) {
+            <tr (click)="handleSelectItem(department)" class="cursor-pointer">
+              <td>
+                <aw-badge [background]="department.background" [color]="department.color" [name]="department.name" />
+              </td>
+              <td [innerHTML]="department.active | boolToIcon"></td>
+              <td>
+                <aw-dot [color]="department.background" />
+              </td>
+              <td>
+                <aw-dot [color]="department.color" />
+              </td>
+            </tr>
+          }
+        </tbody>
+      }
     </aw-table>
     <!-- end table -->
 
     <!-- pagination -->
-    <aw-pagination
-      (changePage)="handleReloadData()"
-      (changePageListNumber)="handleReloadData()"
-      *ngIf="apiResult"
-      [apiResult]="apiResult" />
+    @if (apiResult) {
+      <aw-pagination
+        (changePage)="handleReloadData()"
+        (changePageListNumber)="handleReloadData()"
+        [apiResult]="apiResult" />
+    }
     <!-- end pagination -->
   </aw-card>
 </aw-view-base>

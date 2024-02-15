@@ -9,18 +9,18 @@
     [type]="inputType"
     [value]="value"
     class="form-control" />
-  <ng-container *ngIf="label">
+  @if (label) {
     <label [for]="id">
       {{ label }}
     </label>
-  </ng-container>
+  }
 </div>
 
-<ng-container *ngIf="form">
+@if (form) {
   <aw-field-error
     [badRequest]="badRequest"
     [fieldName]="fieldName"
     [fieldText]="label"
     [form]="form"
     [submitted]="submitted" />
-</ng-container>
+}

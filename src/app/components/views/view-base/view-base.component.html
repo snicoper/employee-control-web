@@ -1,21 +1,21 @@
 <!-- title -->
-<ng-container *ngIf="showPageTitle">
+@if (showPageTitle) {
   <aw-view-title [pageTitle]="pageTitle" />
-</ng-container>
+}
 <!-- end title -->
 
 <div [ngClass]="{ toggled: !sidebarState$() }" class="page-wrapper">
   <!-- sidebar -->
-  <ng-container *ngIf="sidebarState$()">
+  @if (sidebarState$()) {
     <aw-sidebar />
-  </ng-container>
+  }
   <!-- end sidebar -->
 
   <main class="page-content">
     <!-- navbar -->
-    <ng-container *ngIf="navbarState$()">
+    @if (navbarState$()) {
       <aw-navbar />
-    </ng-container>
+    }
     <!-- end navbar -->
 
     <!-- page content -->
@@ -25,9 +25,9 @@
     <!-- end page content -->
 
     <!-- footer -->
-    <ng-container *ngIf="footerState$()">
+    @if (footerState$()) {
       <aw-footer [cssContent]="cssContent" />
-    </ng-container>
+    }
     <!-- end footer -->
   </main>
 </div>

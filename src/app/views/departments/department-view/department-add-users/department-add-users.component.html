@@ -8,9 +8,9 @@
   </button>
 </div>
 
-<ng-container *ngIf="htmlItemSelector.length">
+@if (htmlItemSelector.length) {
   <aw-dual-list-box
     (saveChanges)="handleSaveChanges($event)"
     [htmlItemSelector]="htmlItemSelector"
     [loading]="loading" />
-</ng-container>
+}

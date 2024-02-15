@@ -1,9 +1,9 @@
 <!-- spinner -->
-<ng-container *ngIf="loading">
+@if (loading) {
   <tr>
     <td class="text-center" colspan="100%">
       <aw-spinner [loading]="loading" [size]="100" />
     </td>
   </tr>
-</ng-container>
+}
 <!-- end spinner -->

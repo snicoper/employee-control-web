@@ -10,7 +10,7 @@
       <caption></caption>
       <thead>
         <!-- details -->
-        <ng-container *ngIf="!loadingCompanySettings()">
+        @if (!loadingCompanySettings()) {
           <tr>
             <th>
               Zona horaria
@@ -18,7 +18,7 @@
             </th>
             <td>{{ companySettings()?.timezone }} - {{ nowWithTimezone }}</td>
           </tr>
-        </ng-container>
+        }
         <!-- end details -->
 
         <!-- spinner -->

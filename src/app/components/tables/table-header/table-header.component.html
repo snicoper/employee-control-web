@@ -1,40 +1,38 @@
-<th *ngFor="let header of tableHeaderConfig.headers" class="nowrap">
-  <div class="d-flex justify-content-start">
-    <!-- text header -->
-    <ng-container *ngIf="header.sortable">
-      <span (click)="handleClickOrder(header)" class="cursor-pointer">
-        {{ header.text }}
-      </span>
-    </ng-container>
-
-    <ng-container *ngIf="!header.sortable">
-      <span>
-        {{ header.text }}
-      </span>
-    </ng-container>
-    <!-- end text header -->
-
-    <!-- sortable -->
-    <ng-container *ngIf="header.sortable">
-      <div (click)="handleClickOrder(header)" class="cursor-pointer ml-auto">
-        <!-- sort order -->
-        <ng-container *ngIf="header.orderType !== orderTypes.none">
-          <span class="badge mr-2 opacity3">
-            {{ getOrderPrecedence(header) }}
-          </span>
-
-          <span
-            [ngClass]="{ 'fa-rotate-180': header.orderType === orderTypes.ascending }"
-            class="fas fa-angle-down arrow opacity3">
-          </span>
-        </ng-container>
-
-        <ng-container *ngIf="header.orderType === orderTypes.none">
-          <span class="ml-auto opacity3"> &nbsp;<span class="icon fas fa-arrows-alt-v"></span> </span>
-        </ng-container>
-        <!-- end sort order -->
-      </div>
-    </ng-container>
-    <!-- end sortable -->
-  </div>
-</th>
+@for (header of tableHeaderConfig.headers; track header) {
+  <th class="nowrap">
+    <div class="d-flex justify-content-start">
+      <!-- text header -->
+      @if (header.sortable) {
+        <span (click)="handleClickOrder(header)" class="cursor-pointer">
+          {{ header.text }}
+        </span>
+      }
+      @if (!header.sortable) {
+        <span>
+          {{ header.text }}
+        </span>
+      }
+      <!-- end text header -->
+      <!-- sortable -->
+      @if (header.sortable) {
+        <div (click)="handleClickOrder(header)" class="cursor-pointer ml-auto">
+          <!-- sort order -->
+          @if (header.orderType !== orderTypes.none) {
+            <span class="badge mr-2 opacity3">
+              {{ getOrderPrecedence(header) }}
+            </span>
+            <span
+              [ngClass]="{ 'fa-rotate-180': header.orderType === orderTypes.ascending }"
+              class="fas fa-angle-down arrow opacity3">
+            </span>
+          }
+          @if (header.orderType === orderTypes.none) {
+            <span class="ml-auto opacity3"> &nbsp;<span class="icon fas fa-arrows-alt-v"></span> </span>
+          }
+          <!-- end sort order -->
+        </div>
+      }
+      <!-- end sortable -->
+    </div>
+  </th>
+}

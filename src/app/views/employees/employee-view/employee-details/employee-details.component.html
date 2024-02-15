@@ -8,7 +8,7 @@
     <!-- end sonarLint -->
 
     <!-- data employee-->
-    <ng-container *ngIf="employeeSelected() && !loadingEmployee()">
+    @if (employeeSelected() && !loadingEmployee()) {
       <tbody>
         <tr>
           <td>Nombre</td>
@@ -33,27 +33,25 @@
               <span>
                 <span [innerHTML]="employeeSelected()?.active | boolToIcon"></span>
               </span>
-
               <!-- activar o desactivar cuenta -->
-              <ng-container *ngIf="canUpdateStates">
+              @if (canUpdateStates) {
                 <span class="ms-auto">
-                  <ng-container *ngIf="employeeSelected()?.active">
+                  @if (employeeSelected()?.active) {
                     <aw-btn-loading
                       (click)="handleDeactivateEmployee()"
                       [loading]="loadingUpdateActive"
                       btnClass="btn btn-sm btn-outline-danger ms-4"
                       btnText="Desactivar cuenta" />
-                  </ng-container>
-
-                  <ng-container *ngIf="!employeeSelected()?.active">
+                  }
+                  @if (!employeeSelected()?.active) {
                     <aw-btn-loading
                       (click)="handleActivateEmployee()"
                       [loading]="loadingUpdateActive"
                       btnClass="btn btn-sm btn-outline-success ms-4"
                       btnText="Activar cuenta" />
-                  </ng-container>
+                  }
                 </span>
-              </ng-container>
+              }
               <!-- end activar o desactivar cuenta -->
             </span>
           </td>
@@ -73,23 +71,23 @@
           <td>
             <span class="d-flex">
               <span>
-                <ng-container *ngIf="!loadingEmployeeRoles()">
-                  <span *ngFor="let role of employeeSelectedRoles()" class="badge rounded-pill bg-success ms-1">
-                    {{ roleToHumanReadable(role.name) }}
-                  </span>
-                </ng-container>
-
-                <ng-container *ngIf="loadingEmployeeRoles()">
+                @if (!loadingEmployeeRoles()) {
+                  @for (role of employeeSelectedRoles(); track role) {
+                    <span class="badge rounded-pill bg-success ms-1">
+                      {{ roleToHumanReadable(role.name) }}
+                    </span>
+                  }
+                }
+                @if (loadingEmployeeRoles()) {
                   <aw-spinner [loading]="loadingEmployeeRoles()" />
-                </ng-container>
+                }
               </span>
-
               <!-- edit roles -->
-              <ng-container *ngIf="currentEmployeeId !== employeeSelected()?.id">
+              @if (currentEmployeeId !== employeeSelected()?.id) {
                 <span [awRequiredRole]="roles.enterpriseStaff" class="ms-auto">
                   <button (click)="handleRolesModalEdit()" class="btn btn-sm btn-outline-warning">Editar roles</button>
                 </span>
-              </ng-container>
+              }
               <!-- end edit roles -->
             </span>
           </td>
@@ -97,21 +95,21 @@
         <tr>
           <td>Estado control de tiempos</td>
           <td>
-            <ng-container *ngIf="employeeTimeControlState()?.timeState === timeStates.open">
+            @if (employeeTimeControlState()?.timeState === timeStates.open) {
               <aw-dot-success />
               {{ employeeTimeControlState()?.start | datetime }}
-            </ng-container>
-            <ng-container *ngIf="employeeTimeControlState()?.timeState === timeStates.close">
+            }
+            @if (employeeTimeControlState()?.timeState === timeStates.close) {
               <aw-dot-danger />
-            </ng-container>
+            }
           </td>
         </tr>
       </tbody>
-    </ng-container>
+    }
     <!-- end data employee-->
 
     <!-- no data -->
-    <ng-container *ngIf="!employeeSelected() && !loadingEmployee()">
+    @if (!employeeSelected() && !loadingEmployee()) {
       <tbody>
         <tr>
           <td class="text-center" colspan="100%">
@@ -119,7 +117,7 @@
           </td>
         </tr>
       </tbody>
-    </ng-container>
+    }
     <!-- end no data -->
 
     <!-- loading spinner -->
@@ -129,9 +127,9 @@
 
   <aw-btn-back cssClass="btn btn-primary" />
 
-  <ng-container *ngIf="canUpdateStates">
+  @if (canUpdateStates) {
     <button [routerLink]="urlToEdit" class="btn btn-success ms-2">
       <span class="fa-solid fa-pencil"></span> Editar
     </button>
-  </ng-container>
+  }
 </aw-card>

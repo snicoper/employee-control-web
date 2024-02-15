@@ -6,36 +6,37 @@
   <!-- end header -->
 
   <!-- department details -->
-  <ng-container *ngIf="departmentSelected()">
+  @if (departmentSelected()) {
     <aw-department-details [departmentId]="departmentId"></aw-department-details>
-  </ng-container>
+  }
   <!-- end department details -->
 
   <!-- tabs -->
-  <ng-container *ngIf="departmentSelected()">
+  @if (departmentSelected()) {
     <div class="mt-3">
       <aw-card>
         <div>
           <tabset>
             <tab #tabUsers="tab" heading="Empleados">
-              <aw-department-users
-                (changeComponent)="handleChangeComponent()"
-                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.employees">
-              </aw-department-users>
-
-              <aw-department-add-users
-                (changeComponent)="handleChangeComponent()"
-                *ngIf="tabUsers.active && employeeComponent === employeeLoadComponent.addEmployees">
-              </aw-department-add-users>
+              @if (tabUsers.active && employeeComponent === employeeLoadComponent.employees) {
+                <aw-department-users
+                  (changeComponent)="handleChangeComponent()"
+                  >
+                </aw-department-users>
+              }
+              @if (tabUsers.active && employeeComponent === employeeLoadComponent.addEmployees) {
+                <aw-department-add-users
+                  (changeComponent)="handleChangeComponent()"
+                  >
+                </aw-department-add-users>
+              }
             </tab>
-
             <tab #tabTimeControl="tab" heading="Otra pestaña..."></tab>
-
             <tab #tabC="tab" heading="Basic Title 2">Basic content 2</tab>
           </tabset>
         </div>
       </aw-card>
     </div>
-  </ng-container>
+  }
 </aw-view-base>
 <!-- end tabs -->
