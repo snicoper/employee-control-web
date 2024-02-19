@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 
 export abstract class CustomValidation {
   /** Custom validator para comprobar que una fecha sea menor a otra. */
-  static dateStartGreaterThanFinish(controlName: string, checkControlName: string): ValidatorFn {
+  static readonly dateStartGreaterThanFinish = (controlName: string, checkControlName: string): ValidatorFn => {
     return (controls: AbstractControl): ValidationErrors | null => {
       const control = controls.get(controlName);
       const checkControl = controls.get(checkControlName);
@@ -19,10 +19,10 @@ export abstract class CustomValidation {
 
       return null;
     };
-  }
+  };
 
   /** Validación contraseñas iguales. */
-  static passwordMustMatch(controlName: string, checkControlName: string): ValidatorFn {
+  static readonly passwordMustMatch = (controlName: string, checkControlName: string): ValidatorFn => {
     return (controls: AbstractControl): ValidationErrors | null => {
       const control = controls.get(controlName);
       const checkControl = controls.get(checkControlName);
@@ -35,17 +35,17 @@ export abstract class CustomValidation {
 
       return null;
     };
-  }
+  };
 
   /** Validación valor sea un color hexadecimal. */
-  static colorHexadecimal = (control: FormControl): { colorHexadecimal: boolean } | null => {
+  static readonly colorHexadecimal = (control: FormControl): { colorHexadecimal: boolean } | null => {
     const value = control.value as string;
     const match = /^#[0-9A-F]{6}$/i.test(value);
 
     return match ? null : { colorHexadecimal: true };
   };
 
-  static noFutureDate = (control: FormControl): { noFutureDate: boolean } | null => {
+  static readonly noFutureDate = (control: FormControl): { noFutureDate: boolean } | null => {
     const value = DateTime.fromJSDate(new Date(control.value));
 
     if (value.valueOf() > DateTime.local().valueOf()) {
@@ -56,7 +56,7 @@ export abstract class CustomValidation {
   };
 
   /** Validación de un array con un valor x. */
-  static minLengthArray = (control: FormControl): { required: boolean } | null => {
+  static readonly minLengthArray = (control: FormControl): { required: boolean } | null => {
     const values = control.value as number[];
 
     return values && values.length > 0 ? null : { required: true };
