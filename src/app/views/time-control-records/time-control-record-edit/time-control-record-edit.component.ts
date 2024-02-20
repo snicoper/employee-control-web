@@ -2,13 +2,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BtnType } from '@aw/components/buttons/btn-loading/btn-loading.type';
-import { LocalizationService } from '@aw/core/features/localizations/_index';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { urlReplaceParams } from '@aw/core/utils/common-utils';
 import { CustomValidation } from '@aw/core/validators/_index';
 import { BadRequest, ResultResponse } from '@aw/models/_index';
 import { TimeControlApiService } from '@aw/services/api/time-control-api.service';
-import { EmployeeSettingsService } from '@aw/services/states/_index';
 import { DateTime } from 'luxon';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -22,11 +20,9 @@ import { TimeControlRecordResponse } from './time-control-record-response.model'
 })
 export class TimeControlRecordEditComponent implements OnInit {
   private readonly timeControlApiService = inject(TimeControlApiService);
-  private readonly employeeSettingsService = inject(EmployeeSettingsService);
   private readonly toastrService = inject(ToastrService);
   private readonly fb = inject(FormBuilder);
   private readonly bsModalRef = inject(BsModalRef);
-  private readonly localizationService = inject(LocalizationService);
 
   @Input({ required: true }) timeControlId = '';
 
@@ -78,6 +74,7 @@ export class TimeControlRecordEditComponent implements OnInit {
     const timeStart = new Date(this.form.get('timeStart')?.value);
     const timeFinish = new Date(this.form.get('timeFinish')?.value);
 
+    // Resta offset respecto a la zona horaria del usuario.
     const offset = dateStart.getTimezoneOffset();
     const dtOffset = DateTime.local().offset;
     const offsetDiff = offset + dtOffset;
@@ -112,10 +109,10 @@ export class TimeControlRecordEditComponent implements OnInit {
       return;
     }
 
-    const timezone = this.employeeSettingsService.getCurrentValue()?.timezone;
     const start = new Date(this.timeControl.start);
     const finish = new Date(this.timeControl.finish);
 
+    // Añade offset respecto a la zona horaria del usuario.
     const offset = start.getTimezoneOffset();
     const dtOffset = DateTime.local().offset;
     const offsetDiff = offset + dtOffset;
@@ -142,8 +139,8 @@ export class TimeControlRecordEditComponent implements OnInit {
       {
         dateStart: [startWithOffset, [Validators.required, CustomValidation.noFutureDate]],
         dateFinish: [endWithOffset, [Validators.required, CustomValidation.noFutureDate]],
-        timeStart: [start.toLocaleString('es-ES', { timeZone: timezone }), [Validators.required]],
-        timeFinish: [finish.toLocaleString('es-ES', { timeZone: timezone })]
+        timeStart: [startWithOffset, [Validators.required]],
+        timeFinish: [endWithOffset]
       },
       {
         validators: [
