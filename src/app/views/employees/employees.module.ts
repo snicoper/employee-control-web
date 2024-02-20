@@ -12,6 +12,7 @@ import { AwProgressModule } from '@aw/components/progress/aw-progress.module';
 import { AwSelectorsModule } from '@aw/components/selectors/aw-selectors.module';
 import { AwSpinnerModule } from '@aw/components/spinner/aw-spinner.module';
 import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
+import { AwTooltipsModule } from '@aw/components/tooltips/aw-tooltips.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { AwDirectivesModule } from '@aw/directives/aw-directives.module';
 import { AwPipesModule } from '@aw/pipes/pipes.module';
@@ -21,6 +22,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmployeeInviteComponent } from './employee-invite/employee-invite.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { EmployeeSettingsDetailsComponent } from './employee-settings/employee-settings-details/employee-settings-details.component';
+import { EmployeeSettingsEditComponent } from './employee-settings/employee-settings-edit/employee-settings-edit.component';
 import { EmployeeDepartmentsComponent } from './employee-view/employee-departments/employee-departments.component';
 import { EmployeeDetailsComponent } from './employee-view/employee-details/employee-details.component';
 import { EmployeeRolesEditComponent } from './employee-view/employee-details/employee-roles-edit/employee-roles-edit.component';
@@ -40,7 +43,9 @@ import { EmployeesRoutingModule } from './employees-routing.module';
     EmployeeTasksComponent,
     EmployeeTimeControlComponent,
     EmployeeRolesEditComponent,
-    EmployeeDepartmentsComponent
+    EmployeeDepartmentsComponent,
+    EmployeeSettingsDetailsComponent,
+    EmployeeSettingsEditComponent
   ],
   imports: [
     CommonModule,
@@ -63,7 +68,9 @@ import { EmployeesRoutingModule } from './employees-routing.module';
     AwDirectivesModule,
     AwSelectorsModule,
     AwProgressModule,
-    AwBadgesModule
+    AwBadgesModule,
+    AwTablesModule,
+    AwTooltipsModule
   ],
   providers: [BsModalService, EmployeeSelectedService]
 })

@@ -66,7 +66,7 @@ export const sidebarMenu: SidebarMenu[] = [
     submenus: [
       {
         title: 'Configuración',
-        link: SiteUrls.userSettings.home,
+        link: SiteUrls.employees.settings,
         active: false
       },
       {

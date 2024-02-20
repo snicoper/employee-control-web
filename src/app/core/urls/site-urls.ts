@@ -37,7 +37,9 @@ export const SiteUrls = {
     list: '/employees',
     details: '/employees/{id}',
     edit: '/employees/{id}/edit',
-    invite: '/employees/invite'
+    invite: '/employees/invite',
+    settings: '/employees/settings',
+    settingsEdit: '/employees/settings/edit'
   },
 
   dashboard: {
@@ -54,10 +56,6 @@ export const SiteUrls = {
 
   timeControl: {
     home: '/time-control'
-  },
-
-  userSettings: {
-    home: '/user-settings'
   },
 
   errors: {

@@ -7,9 +7,9 @@ import { timeZonesNames } from '@vvo/tzdb';
   templateUrl: './timezone-selector.component.html'
 })
 export class TimezoneSelectorComponent implements OnInit {
-  @Input() timezoneSelected = '';
-
   private readonly localizationService = inject(LocalizationService);
+
+  @Input() timezoneSelected = '';
 
   timezones: string[] = timeZonesNames;
 

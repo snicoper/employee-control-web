@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmployeeInviteComponent } from './employee-invite/employee-invite.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { EmployeeSettingsDetailsComponent } from './employee-settings/employee-settings-details/employee-settings-details.component';
+import { EmployeeSettingsEditComponent } from './employee-settings/employee-settings-edit/employee-settings-edit.component';
 import { EmployeeViewComponent } from './employee-view/employee-view.component';
 
 const routes: Routes = [
@@ -15,6 +17,16 @@ const routes: Routes = [
     path: 'invite',
     component: EmployeeInviteComponent,
     data: { title: 'Invitar a empleado' }
+  },
+  {
+    path: 'settings',
+    component: EmployeeSettingsDetailsComponent,
+    data: { title: 'Configuración de usuario' }
+  },
+  {
+    path: 'settings/edit',
+    component: EmployeeSettingsEditComponent,
+    data: { title: 'Editar configuración de usuario' }
   },
   {
     path: ':id',
