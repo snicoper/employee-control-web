@@ -6,7 +6,6 @@ import { finalize } from 'rxjs';
 import { TimeControlApiService } from '../api/time-control-api.service';
 import { JwtService } from '../jwt.service';
 
-// TODO: Cambiar a UserTimeControlStateService
 /** Estado del usuario activo. */
 @Injectable({ providedIn: 'root' })
 export class CurrentTimeControlStateService {

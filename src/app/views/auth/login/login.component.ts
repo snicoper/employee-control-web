@@ -7,7 +7,7 @@ import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { BadRequest } from '@aw/models/_index';
 import { JwtService } from '@aw/services/_index';
 import { AuthApiService } from '@aw/services/api/_index';
-import { CurrentCompanyEmployeeService } from '@aw/services/states/_index';
+import { CurrentCompanyEmployeeService, EmployeeSettingsService } from '@aw/services/states/_index';
 import { finalize } from 'rxjs';
 import { LoginRequest } from './login-request.model';
 import { LoginResponse } from './login-response.model';
@@ -20,6 +20,7 @@ import { LoginResponse } from './login-response.model';
 export class LoginComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authApiService = inject(AuthApiService);
+  private readonly employeeSettingsService = inject(EmployeeSettingsService);
   private readonly jwtService = inject(JwtService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
@@ -57,6 +58,7 @@ export class LoginComponent {
 
           if (this.jwtService.getToken()) {
             this.currentCompanyEmployeeService.refresh();
+            this.employeeSettingsService.refresh();
             const returnUrl = (this.route.snapshot.params['returnUrl'] as string) || '/';
             this.router.navigateByUrl(returnUrl);
           }
