@@ -32,15 +32,14 @@ export class EmployeeSettingsService {
   private loadEmployeeSettings(): void {
     this.loadingEmployeeSettings$.set(true);
 
-    const url = ApiUrls.employees.getCurrentEmployeeSettings;
-
     this.employeesApiService
-      .get<EmployeeSettings>(url)
+      .get<EmployeeSettings>(ApiUrls.employees.getCurrentEmployeeSettings)
       .pipe(finalize(() => this.loadingEmployeeSettings$.set(false)))
       .subscribe({
         next: (result: EmployeeSettings) => {
+          console.log(result);
           this.employeeSettings$.set(result);
-          this.localizationService.setTimezone(result.timezone);
+          this.localizationService.setTimezone(result.timeZone);
         }
       });
   }
