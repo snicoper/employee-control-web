@@ -5,10 +5,11 @@ import { Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
-import { BadRequest, ResultResponse } from '@aw/models/_index';
-import { CompanySettings } from '@aw/models/entities/company-settings.model';
-import { CompanySettingsApiService } from '@aw/services/api/_index';
-import { CurrentCompanySettingsService } from '@aw/services/states/_index';
+import { urlReplaceParams } from '@aw/core/utils/common-utils';
+import { BadRequest } from '@aw/models/_index';
+import { EmployeeSettings } from '@aw/models/entities/employee-settings.model';
+import { EmployeesApiService } from '@aw/services/api/_index';
+import { EmployeeSettingsService } from '@aw/services/states/_index';
 import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
@@ -18,13 +19,13 @@ import { finalize } from 'rxjs';
   templateUrl: './employee-settings-edit.component.html'
 })
 export class EmployeeSettingsEditComponent {
-  private readonly currentCompanySettingsService = inject(CurrentCompanySettingsService);
-  private readonly companySettingsApiService = inject(CompanySettingsApiService);
+  private readonly employeeSettingsService = inject(EmployeeSettingsService);
+  private readonly employeesApiService = inject(EmployeesApiService);
   private readonly fb = inject(FormBuilder);
   private readonly toastrService = inject(ToastrService);
   private readonly router = inject(Router);
 
-  readonly companySettings = computed(() => this.currentCompanySettingsService.companySettings());
+  readonly employeeSettings = computed(() => this.employeeSettingsService.employeeSettings());
 
   readonly breadcrumb = new BreadcrumbCollection();
 
@@ -53,18 +54,20 @@ export class EmployeeSettingsEditComponent {
 
     this.loadingForm = true;
 
-    const companySettings = this.form.value as CompanySettings;
-    companySettings.id = this.companySettings()?.id as string;
+    const employeeSettings = Object.assign({} as EmployeeSettings, this.employeeSettings());
+    const url = urlReplaceParams(ApiUrls.employees.updateEmployeeSettings, { id: employeeSettings.userId });
 
-    this.companySettingsApiService
-      .put<CompanySettings, ResultResponse>(companySettings, ApiUrls.companySettings.updateCompanySettings)
+    employeeSettings.timezone = this.form.get('timezone')?.value;
+
+    this.employeesApiService
+      .put<EmployeeSettings, EmployeeSettings>(employeeSettings, url)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
-        next: (result: ResultResponse) => {
-          if (result.succeeded) {
+        next: (result: EmployeeSettings) => {
+          if (result) {
             this.toastrService.success('Configuración actualizada con éxito');
-            this.router.navigateByUrl(SiteUrls.companySettings.details);
-            this.currentCompanySettingsService.refresh();
+            this.router.navigateByUrl(SiteUrls.employees.settings);
+            this.employeeSettingsService.refresh();
           }
         }
       });
@@ -78,13 +81,13 @@ export class EmployeeSettingsEditComponent {
 
   private setNowWithOriginalTimezone(): void {
     this.nowWithOriginalTimezone = DateTime.local()
-      .setZone(this.companySettings()?.timezone)
+      .setZone(this.employeeSettings()?.timezone)
       .toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET);
   }
 
   private buildForm(): void {
     this.form = this.fb.group({
-      timezone: [this.companySettings()?.timezone, [Validators.required]]
+      timezone: [this.employeeSettings()?.timezone, [Validators.required]]
     });
   }
 

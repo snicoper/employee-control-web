@@ -13,7 +13,7 @@ export class EmployeeSettingsService {
   private readonly employeeSettings$ = signal<EmployeeSettings | null>(null);
   private readonly loadingEmployeeSettings$ = signal(false);
 
-  readonly currentEmployeeSettings = computed(() => this.employeeSettings$());
+  readonly employeeSettings = computed(() => this.employeeSettings$());
   readonly loadingEmployeeSettings = computed(() => this.loadingEmployeeSettings$());
 
   refresh(): void {
