@@ -31,7 +31,7 @@ export class EmployeeSettingsDetailsComponent {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Configuración', SiteUrls.companySettings.details, '', false);
+    this.breadcrumb.add('Configuración de empleado', SiteUrls.employees.settings, '', false);
   }
 
   private setNowWithOriginalTimezone(): void {
