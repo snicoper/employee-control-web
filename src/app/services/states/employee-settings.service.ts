@@ -37,7 +37,6 @@ export class EmployeeSettingsService {
       .pipe(finalize(() => this.loadingEmployeeSettings$.set(false)))
       .subscribe({
         next: (result: EmployeeSettings) => {
-          console.log(result);
           this.employeeSettings$.set(result);
           this.localizationService.setTimezone(result.timeZone);
         }
