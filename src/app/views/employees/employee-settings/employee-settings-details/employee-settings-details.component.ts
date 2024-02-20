@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { SiteUrls } from '@aw/core/urls/site-urls';
-import { CurrentCompanySettingsService } from '@aw/services/states/current-company-settings.service';
+import { EmployeeSettingsService } from '@aw/services/states/_index';
 import { TimeZone, getTimeZones } from '@vvo/tzdb';
 import { DateTime } from 'luxon';
 
@@ -10,10 +10,10 @@ import { DateTime } from 'luxon';
   templateUrl: './employee-settings-details.component.html'
 })
 export class EmployeeSettingsDetailsComponent {
-  private readonly currentCompanySettingsService = inject(CurrentCompanySettingsService);
+  private readonly employeeSettingsService = inject(EmployeeSettingsService);
 
-  readonly companySettings = computed(() => this.currentCompanySettingsService.companySettings());
-  readonly loadingCompanySettings = computed(() => this.currentCompanySettingsService.loadingCompanySettings());
+  readonly employeeSettings = computed(() => this.employeeSettingsService.employeeSettings());
+  readonly loadingEmployeeSettings = computed(() => this.employeeSettingsService.loadingEmployeeSettings());
 
   readonly breadcrumb = new BreadcrumbCollection();
   nowWithTimezone = '';
@@ -27,7 +27,7 @@ export class EmployeeSettingsDetailsComponent {
   }
 
   getCurrentTimezoneInfo(): void {
-    this.timezoneInfo = getTimeZones().find((tz) => tz.name === this.companySettings()?.timezone);
+    this.timezoneInfo = getTimeZones().find((tz) => tz.name === this.employeeSettings()?.timezone);
   }
 
   private setBreadcrumb(): void {
@@ -36,7 +36,7 @@ export class EmployeeSettingsDetailsComponent {
 
   private setNowWithOriginalTimezone(): void {
     this.nowWithTimezone = DateTime.local()
-      .setZone(this.companySettings()?.timezone)
+      .setZone(this.employeeSettings()?.timezone)
       .toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET);
   }
 }

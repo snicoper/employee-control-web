@@ -10,21 +10,19 @@
       <caption></caption>
       <thead>
         <!-- details -->
-        @if (!loadingCompanySettings()) {
+        @if (!loadingEmployeeSettings()) {
           <tr>
             <th>
               Zona horaria
-              <aw-tooltip-info
-                content="Los tiempos se vera en base a la zona horaria"
-                cssClass="text-info"></aw-tooltip-info>
+              <aw-tooltip-info content="Los tiempos se vera en base a la zona horaria" cssClass="text-info" />
             </th>
-            <td>{{ companySettings()?.timezone }} - {{ nowWithTimezone }}</td>
+            <td>{{ employeeSettings()?.timezone }} - {{ nowWithTimezone }}</td>
           </tr>
         }
         <!-- end details -->
 
         <!-- spinner -->
-        <aw-table-loading [loading]="loadingCompanySettings()"></aw-table-loading>
+        <aw-table-loading [loading]="loadingEmployeeSettings()" />
         <!-- end spinner -->
       </thead>
     </table>
