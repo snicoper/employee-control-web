@@ -56,6 +56,10 @@ export const SiteUrls = {
     home: '/time-control'
   },
 
+  userSettings: {
+    home: '/user-settings'
+  },
+
   errors: {
     forbidden: '/errors/403',
     notFound: '/errors/404'

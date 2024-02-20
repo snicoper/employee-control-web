@@ -26,7 +26,7 @@
           (clickOrdering)="handleReloadData()"
           [apiResult]="apiResult"
           [tableHeaderConfig]="tableHeaderConfig"
-        awTableHeader></tr>
+          awTableHeader></tr>
       </thead>
 
       @if (apiResult) {
@@ -85,14 +85,14 @@
                     (click)="handleTimeControlModalEdit(timeControl)"
                     awTooltip
                     class="fa-solid fa-pencil cursor-pointer"
-                  title="Editar"></span>
+                    title="Editar"></span>
                 }
                 @if (timeControl.timeState === timeState.open) {
                   <span
                     (click)="handleCloseTimeControl(timeControl)"
                     awTooltip
                     class="fa-regular fa-circle-xmark cursor-pointer text-danger"
-                  title="Cerrar"></span>
+                    title="Cerrar"></span>
                 }
               </td>
             </tr>

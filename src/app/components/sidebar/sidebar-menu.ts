@@ -65,6 +65,11 @@ export const sidebarMenu: SidebarMenu[] = [
     type: SidebarMenuTypes.dropdown,
     submenus: [
       {
+        title: 'Configuración',
+        link: SiteUrls.userSettings.home,
+        active: false
+      },
+      {
         title: 'Control de tiempo',
         link: SiteUrls.timeControl.home,
         active: false

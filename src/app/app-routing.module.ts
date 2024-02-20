@@ -69,6 +69,12 @@ const routes: Routes = [
     loadChildren: () => import('@aw/views/times-control/times-control.module').then((m) => m.TimesControlModule)
   },
   {
+    path: 'user-settings',
+    data: { roles: [Roles.employee] },
+    canActivate: [AuthGuard],
+    loadChildren: () => import('@aw/views/user-settings/user-settings.module').then((m) => m.UserSettingsModule)
+  },
+  {
     path: '**',
     redirectTo: '/errors/404',
     pathMatch: 'full'

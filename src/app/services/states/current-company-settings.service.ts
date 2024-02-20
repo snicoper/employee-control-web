@@ -6,6 +6,7 @@ import { finalize } from 'rxjs';
 import { CompanySettingsApiService } from '../api/company-settings-api.service';
 import { JwtService } from '../jwt.service';
 
+/** Settings de la compañía actual. */
 @Injectable({ providedIn: 'root' })
 export class CurrentCompanySettingsService {
   private readonly companySettingsApiService = inject(CompanySettingsApiService);
