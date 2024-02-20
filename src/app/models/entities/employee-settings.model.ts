@@ -4,5 +4,5 @@ export interface EmployeeSettings {
   id: string;
   userId: string;
   user: User;
-  timeZone: string;
+  timezone: string;
 }

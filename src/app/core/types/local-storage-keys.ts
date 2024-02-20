@@ -4,6 +4,5 @@ export enum LocalStorageKeys {
   refreshToken = 'refresh_token',
   theme = 'theme',
   locale = 'locale',
-  timezone = 'timezone',
   sidebar = 'sidebar'
 }

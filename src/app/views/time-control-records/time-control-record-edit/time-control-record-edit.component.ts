@@ -8,6 +8,7 @@ import { urlReplaceParams } from '@aw/core/utils/common-utils';
 import { CustomValidation } from '@aw/core/validators/_index';
 import { BadRequest, ResultResponse } from '@aw/models/_index';
 import { TimeControlApiService } from '@aw/services/api/time-control-api.service';
+import { EmployeeSettingsService } from '@aw/services/states/_index';
 import { DateTime } from 'luxon';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -21,6 +22,7 @@ import { TimeControlRecordResponse } from './time-control-record-response.model'
 })
 export class TimeControlRecordEditComponent implements OnInit {
   private readonly timeControlApiService = inject(TimeControlApiService);
+  private readonly employeeSettingsService = inject(EmployeeSettingsService);
   private readonly toastrService = inject(ToastrService);
   private readonly fb = inject(FormBuilder);
   private readonly bsModalRef = inject(BsModalRef);
@@ -110,7 +112,7 @@ export class TimeControlRecordEditComponent implements OnInit {
       return;
     }
 
-    const timezone = this.localizationService.getTimezoneValue();
+    const timezone = this.employeeSettingsService.getCurrentValue()?.timezone;
     const start = new Date(this.timeControl.start);
     const finish = new Date(this.timeControl.finish);
 

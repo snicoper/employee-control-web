@@ -65,9 +65,6 @@ export class FormColorComponent implements ControlValueAccessor {
   isInvalid(): boolean {
     const control = this.form?.get(this.fieldName) as FormGroup;
 
-    return !!(
-      (this.submitted && control.invalid) ||
-      (this.badRequest?.errors && this.badRequest.errors[this.fieldName])
-    );
+    return !!((this.submitted && control.invalid) || this.badRequest?.errors[this.fieldName]);
   }
 }

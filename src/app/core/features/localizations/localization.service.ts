@@ -13,29 +13,29 @@ export class LocalizationService {
   private readonly locale$ = signal(LocalizationUtils.defaultLocale);
   private readonly timezone$ = signal(LocalizationUtils.defaultTimezone);
 
-  initialize(locale?: LocalesSupported, timezone?: string): void {
+  initialize(locale?: LocalesSupported): void {
     // Precedencia: localStorage -> parámetro -> defaultLocale.
     locale =
       (this.localStorageService.get(LocalStorageKeys.locale) as LocalesSupported) ??
       locale ??
       DateTime.now().resolvedLocaleOptions().locale;
 
-    timezone = this.localStorageService.get(LocalStorageKeys.timezone) ?? timezone ?? LocalizationUtils.defaultTimezone;
-
     // La inicialización no contiene los datos de locales supported en el Service por lo que
     // no comprobará la validación.
     this.setLocale(locale);
-    this.setTimezone(timezone);
   }
 
+  /** Obtener locale del usuario actual. */
   getLocaleValue(): LocalesSupported {
     return this.locale$();
   }
 
+  /** Obtener timezone del usuario actual. */
   getTimezoneValue(): string {
     return this.timezone$();
   }
 
+  /** Establecer locale del usuario actual. */
   setLocale(locale: LocalesSupported): void {
     this.locale$.set(locale);
     Settings.defaultLocale = this.locale$();
@@ -45,9 +45,9 @@ export class LocalizationService {
     defineLocale(LocalesSupported.es, esLocale);
   }
 
+  /** Establecer timezone del usuario actual. */
   setTimezone(timezone: string): void {
     this.timezone$.set(timezone);
     Settings.defaultZone = timezone;
-    this.localStorageService.set(LocalStorageKeys.timezone, timezone);
   }
 }

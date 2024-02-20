@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LocalizationService } from '@aw/core/features/localizations/_index';
 import { FormInputTypes } from '@aw/core/types/form-input-types';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
@@ -10,6 +9,7 @@ import { BadRequest } from '@aw/models/_index';
 import { AccountsApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
+import { CurrentCompanySettingsService } from './../../../services/states/current-company-settings.service';
 import { RegisterRequest } from './register-request.model';
 
 @Component({
@@ -20,9 +20,9 @@ import { RegisterRequest } from './register-request.model';
 export class RegisterComponent {
   private readonly fb = inject(FormBuilder);
   private readonly accountsApiService = inject(AccountsApiService);
+  private readonly currentCompanySettingsService = inject(CurrentCompanySettingsService);
   private readonly route = inject(Router);
   private readonly toastrService = inject(ToastrService);
-  private readonly localizationService = inject(LocalizationService);
 
   form: FormGroup = this.fb.group({});
   badRequest: BadRequest | undefined;
@@ -67,7 +67,7 @@ export class RegisterComponent {
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
       companyName: ['', [Validators.required]],
-      timezone: [this.localizationService.getTimezoneValue(), [Validators.required]]
+      timezone: [this.currentCompanySettingsService.companySettings()?.timezone, [Validators.required]]
     });
   }
 }

@@ -8,9 +8,7 @@ import {
 } from '@aw/services/states/_index';
 import { LocalizationService } from '../features/localizations/_index';
 
-/**
- * Configuración inicial de la aplicación.
- */
+/** Configuración inicial de la aplicación. */
 @Injectable()
 export class AppConfig {
   private readonly authService = inject(AuthService);

@@ -38,7 +38,7 @@ export class EmployeeSettingsService {
       .subscribe({
         next: (result: EmployeeSettings) => {
           this.employeeSettings$.set(result);
-          this.localizationService.setTimezone(result.timeZone);
+          this.localizationService.setTimezone(result.timezone);
         }
       });
   }
