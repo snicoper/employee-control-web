@@ -4,12 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { FormInputTypes } from '@aw/core/types/_index';
-import { ApiUrls } from '@aw/core/urls/_index';
-import { SiteUrls } from '@aw/core/urls/site-urls';
+import { ApiUrls, SiteUrls } from '@aw/core/urls/_index';
 import { urlReplaceParams } from '@aw/core/utils/_index';
 import { BadRequest } from '@aw/models/_index';
 import { JwtService } from '@aw/services/_index';
 import { EmployeesApiService } from '@aw/services/api/_index';
+import { CurrentCompanySettingsService } from '@aw/services/states/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { InviteEmployeeRequest } from './employee-invite-request.model';
@@ -24,6 +24,7 @@ export class EmployeeInviteComponent {
   private readonly jwtService = inject(JwtService);
   private readonly toastrService = inject(ToastrService);
   private readonly router = inject(Router);
+  private readonly currentCompanySettingsService = inject(CurrentCompanySettingsService);
 
   readonly breadcrumb = new BreadcrumbCollection();
 
@@ -74,10 +75,13 @@ export class EmployeeInviteComponent {
   }
 
   private buildForm(): void {
+    const companySettings = this.currentCompanySettingsService.getCompanySettingsValue();
+
     this.form = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      email: ['', [Validators.email, Validators.required]]
+      email: ['', [Validators.email, Validators.required]],
+      timezone: [companySettings?.timezone, [Validators.required]]
     });
   }
 }

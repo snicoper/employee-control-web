@@ -3,4 +3,5 @@ export interface InviteEmployeeRequest {
   lastName: string;
   email: string;
   companyId: string;
+  timezone: string;
 }
