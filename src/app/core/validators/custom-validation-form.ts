@@ -48,7 +48,7 @@ export abstract class CustomValidation {
   static readonly noFutureDate = (control: FormControl): { noFutureDate: boolean } | null => {
     const value = DateTime.fromJSDate(new Date(control.value));
 
-    if (value.valueOf() > DateTime.local().valueOf()) {
+    if (value.toMillis() > DateTime.local().toMillis()) {
       return { noFutureDate: true };
     }
 

@@ -50,8 +50,17 @@ export class TimeControlRecordEditComponent implements OnInit {
       return;
     }
 
-    this.loadingForm = true;
     const timeControl = this.getFomData();
+
+    // No permitir fecha/hora mayor a la actual.
+    if (new Date() < new Date(timeControl.finish)) {
+      this.form.get('timeFinish')?.setErrors({ noFutureDate: true });
+
+      return;
+    }
+
+    // Actualizar tiempo.
+    this.loadingForm = true;
     const url = urlReplaceParams(ApiUrls.timeControl.updateTimeControl, { id: this.timeControlId });
 
     this.timeControlApiService
@@ -140,7 +149,7 @@ export class TimeControlRecordEditComponent implements OnInit {
         dateStart: [startWithOffset, [Validators.required, CustomValidation.noFutureDate]],
         dateFinish: [endWithOffset, [Validators.required, CustomValidation.noFutureDate]],
         timeStart: [startWithOffset, [Validators.required]],
-        timeFinish: [endWithOffset]
+        timeFinish: [endWithOffset, []]
       },
       {
         validators: [
