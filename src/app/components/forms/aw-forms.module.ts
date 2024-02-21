@@ -28,28 +28,28 @@ import { FormTimezoneComponent } from './inputs/form-timezone/form-timezone.comp
   declarations: [
     FieldErrorComponent,
     NonFieldErrorsComponent,
-    FormInputComponent,
     FormCheckboxComponent,
-    FormTextareaComponent,
-    FormFloatingComponent,
-    FormDatepickerComponent,
     FormColorComponent,
-    FormTimezoneComponent,
+    FormDatepickerComponent,
+    FormFloatingComponent,
+    FormInputComponent,
     FormSwitchComponent,
-    FormTimePickerComponent
+    FormTextareaComponent,
+    FormTimePickerComponent,
+    FormTimezoneComponent
   ],
   exports: [
     FieldErrorComponent,
     NonFieldErrorsComponent,
-    FormInputComponent,
     FormCheckboxComponent,
-    FormTextareaComponent,
-    FormFloatingComponent,
-    FormDatepickerComponent,
     FormColorComponent,
-    FormTimezoneComponent,
+    FormDatepickerComponent,
+    FormFloatingComponent,
+    FormInputComponent,
     FormSwitchComponent,
-    FormTimePickerComponent
+    FormTextareaComponent,
+    FormTimePickerComponent,
+    FormTimezoneComponent
   ]
 })
 export class AwFormsModule {}

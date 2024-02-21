@@ -12,11 +12,21 @@ import { AwDirectivesModule } from '@aw/directives/aw-directives.module';
 import { AwPipesModule } from '@aw/pipes/pipes.module';
 import { TimeControlRecordListComponent } from '@aw/views/time-control-records/time-control-record-list/time-control-record-list.component';
 import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
+import { TimeControlRecordCreateComponent } from './time-control-record-create/time-control-record-create.component';
+import { TimeControlRecordCreateService } from './time-control-record-create/time-control-record-create.service';
+import { TimeControlRecordFormComponent } from './time-control-record-create/time-control-record-form/time-control-record-form.component';
+import { TimeControlSelectEmployeeComponent } from './time-control-record-create/time-control-select-employee/time-control-select-employee.component';
 import { TimeControlRecordEditComponent } from './time-control-record-edit/time-control-record-edit.component';
 import { TimeControlRecordsRoutingModule } from './time-control-records-routing.module';
 
 @NgModule({
-  declarations: [TimeControlRecordListComponent, TimeControlRecordEditComponent],
+  declarations: [
+    TimeControlRecordListComponent,
+    TimeControlRecordEditComponent,
+    TimeControlRecordCreateComponent,
+    TimeControlSelectEmployeeComponent,
+    TimeControlRecordFormComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -32,6 +42,6 @@ import { TimeControlRecordsRoutingModule } from './time-control-records-routing.
     AwButtonsModule,
     AwFormsModule
   ],
-  providers: [BsModalService]
+  providers: [BsModalService, TimeControlRecordCreateService]
 })
 export class TimeControlRecordsModule {}

@@ -1,14 +1,6 @@
-<div class="d-flex my-3">
-  <h5 class="m-auto">Empleados en la tarea - {{ companyTaskSelected()?.name }}</h5>
-</div>
-
 <!-- toolbar -->
-<div class="d-flex mb-2">
-  <span class="me-auto">
-    <button (click)="handleChangeComponent()" class="btn btn-sm btn-outline-success">
-      <span class="fa-solid fa-user-plus"></span> Añadir empleados
-    </button>
-  </span>
+<div class="mb-2">
+  <h3 class="text-center mb-4">Seleccionar empleado</h3>
 
   <span>
     <aw-table-input-search
@@ -51,3 +43,5 @@
     [apiResult]="apiResult" />
 }
 <!-- end pagination -->
+
+<aw-btn-back text="Cancelar" />

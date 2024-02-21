@@ -8,12 +8,12 @@ import { CalendarCellViewModel } from 'ngx-bootstrap/datepicker/models';
   templateUrl: './month-selector.component.html'
 })
 export class MonthSelectorComponent {
+  private readonly bsLocaleService = inject(BsLocaleService);
+  private readonly localizationService = inject(LocalizationService);
+
   @Input() dateSelected = new Date();
 
   @Output() changeMonthSelected = new EventEmitter<Date>();
-
-  private readonly bsLocaleService = inject(BsLocaleService);
-  private readonly localizationService = inject(LocalizationService);
 
   bsConfig: Partial<BsDatepickerConfig>;
 

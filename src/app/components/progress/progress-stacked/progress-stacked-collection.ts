@@ -1,4 +1,5 @@
 import { ProgressStackedItem } from './progress-stacked-item.model';
+
 export class ProgressStackedCollection {
   progressStackedItems: ProgressStackedItem[] = [];
   title: string = '';

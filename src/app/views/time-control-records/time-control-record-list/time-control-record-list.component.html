@@ -5,8 +5,8 @@
     <!-- toolbar -->
     <div class="d-flex mb-2">
       <span class="me-auto">
-        <a [routerLink]="siteUrls.employees.invite" class="btn btn-sm btn-outline-success">
-          <span class="fas fa-user-plus"></span> Añadir tiempo
+        <a [routerLink]="siteUrls.timeControlRecords.create" class="btn btn-sm btn-outline-success">
+          <span class="fa-regular fa-clock"></span> Añadir tiempo
         </a>
       </span>
 
@@ -38,6 +38,7 @@
               <td>
                 <span [innerHTML]="timeControl.deviceTypeStart | deviceType"></span>
                 {{ timeControl.start | datetime }}
+
                 @if (getStartOpenStreetMapLink(timeControl)) {
                   <a [href]="getStartOpenStreetMapLink(timeControl)" target="_blank">
                     <span awTooltip class="fa-solid fa-location-pin text-success" title="Ver en mapa"></span>
@@ -45,9 +46,8 @@
                 }
               </td>
               <td>
-                @if (timeControl.timeState === timeState.open) {
-                  <span [innerHTML]="timeControl.deviceTypeFinish | deviceType"></span>
-                }
+                <span [innerHTML]="timeControl.deviceTypeFinish | deviceType"></span>
+
                 @if (timeControl.timeState === timeState.close) {
                   {{ timeControl.finish | datetime }}
                   @if (getFinishOpenStreetMapLink(timeControl)) {
