@@ -12,7 +12,7 @@ export class ClosedByPipe implements PipeTransform {
       case ClosedBy.system:
         return 'Sistema';
       default:
-        return '-';
+        return ' ';
     }
   }
 }

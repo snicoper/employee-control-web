@@ -61,12 +61,14 @@
                 @if (timeControl.closedBy === closedBy.staff || timeControl.closedBy === closedBy.system) {
                   <span class="fa-solid fa-exclamation text-danger"></span>
                 }
+
                 {{ timeControl.closedBy | closedBy }}
               </td>
               <td>
                 @if (timeControl.timeState === timeState.open) {
                   <aw-dot-success />
                 }
+
                 @if (timeControl.timeState === timeState.close) {
                   <aw-dot-danger />
                 }
@@ -75,8 +77,9 @@
                 @if (timeControl.duration > 1) {
                   {{ timeControl.duration | durationToTime }}
                 }
+
                 @if (timeControl.duration === 0) {
-                  -
+                  ...
                 }
               </td>
               <td>
@@ -86,12 +89,19 @@
                     awTooltip
                     class="fa-solid fa-pencil cursor-pointer"
                     title="Editar"></span>
+
+                  <span
+                    (click)="handleTimeControlModalEdit(timeControl)"
+                    awTooltip
+                    class="fa-solid fa-circle-xmark cursor-pointer text-danger ms-2"
+                    title="Eliminar"></span>
                 }
+
                 @if (timeControl.timeState === timeState.open) {
                   <span
                     (click)="handleCloseTimeControl(timeControl)"
                     awTooltip
-                    class="fa-regular fa-circle-xmark cursor-pointer text-danger"
+                    class="fa-solid fa-lock cursor-pointer text-danger"
                     title="Cerrar"></span>
                 }
               </td>
