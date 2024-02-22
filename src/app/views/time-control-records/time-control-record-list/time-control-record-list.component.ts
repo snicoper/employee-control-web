@@ -114,6 +114,22 @@ export class TimeControlRecordListComponent {
       });
   }
 
+  handleDeleteTimeControl(timeControl: TimeControlRecordResponse): void {
+    const url = urlReplaceParams(ApiUrls.timeControl.deleteTimeControl, { id: timeControl.id });
+
+    this.timeControlApiService.delete<ResultResponse>(url).subscribe({
+      next: (result: ResultResponse) => {
+        if (result.succeeded) {
+          this.loadTimeControlRecords();
+          this.toastrService.success('Tiempo eliminado con éxito.');
+        } else {
+          this.toastrService.error('Ha ocurrido un error al eliminar el tiempo.');
+          logError(result.errors.join());
+        }
+      }
+    });
+  }
+
   handleClickClean(event: ApiResult<TimeControlRecordResponse>): void {
     this.apiResult = event;
     this.handleReloadData();

@@ -63,10 +63,10 @@ export abstract class BaseApiService {
    *
    * @param urlPart Parte de la url base a concatenar.
    */
-  delete(urlPart = ''): Observable<undefined> {
+  delete<TResult>(urlPart = ''): Observable<TResult> {
     const url = `${this.baseUrl}${urlPart}`;
 
-    return this.delete(url);
+    return this.http.delete<TResult>(url);
   }
 
   protected prepareQueryParams<TModel>(apiResult: ApiResult<TModel>): string {

@@ -89,6 +89,7 @@ export const ApiUrls = {
     startTimeControl: '/times-control/start',
     finishTimeControl: '/times-control/finish',
     finishTimeControlByStaff: '/times-control/finish/staff',
-    updateTimeControl: '/times-control/{id}'
+    updateTimeControl: '/times-control/{id}',
+    deleteTimeControl: '/times-control/{id}'
   }
 };
