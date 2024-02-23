@@ -7,6 +7,12 @@ export const SiteUrls = {
     logout: '/auth/logout'
   },
 
+  categoryAbsence: {
+    list: '/category-absences',
+    create: '/category-absences/create',
+    edit: '/category-absences/edit'
+  },
+
   accounts: {
     register: '/accounts/register',
     registerSuccess: '/accounts/register-success',

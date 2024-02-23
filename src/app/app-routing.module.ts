@@ -17,6 +17,13 @@ const routes: Routes = [
     loadChildren: () => import('@aw/views/auth/auth.module').then((m) => m.AuthModule)
   },
   {
+    path: 'category-absences',
+    data: { roles: [Roles.humanResources] },
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('@aw/views/category-absence/category-absence.module').then((m) => m.CategoryAbsenceModule)
+  },
+  {
     path: 'company-settings',
     data: { roles: [Roles.humanResources] },
     canActivate: [AuthGuard],
