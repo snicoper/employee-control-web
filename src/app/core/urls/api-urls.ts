@@ -24,6 +24,7 @@ export const ApiUrls = {
   },
 
   categoryAbsences: {
+    getCategoryAbsenceByCompanyIdPaginated: '/category-absence/companies/{companyId}/paginated',
     createCompanyAbsence: '/category-absence'
   },
 

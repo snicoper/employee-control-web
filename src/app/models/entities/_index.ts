@@ -1,3 +1,4 @@
+export { CategoryAbsence } from './categoty-absence.model';
 export { CompanyTask } from './company-task.model';
 export { Company } from './company.model';
 export { Department } from './department.model';
