@@ -1,5 +1,14 @@
 <aw-view-base>
   <aw-view-header>Categorías de ausencias</aw-view-header>
 
-  <aw-card> </aw-card>
+  <aw-card>
+    <!-- toolbar -->
+    <div class="d-flex mb-2">
+      <span class="me-auto">
+        <a [routerLink]="siteUrls.categoryAbsence.create" class="btn btn-sm btn-outline-success">
+          <span class="fa-solid fa-list-check"></span> Crear ausencia
+        </a>
+      </span>
+    </div>
+  </aw-card>
 </aw-view-base>

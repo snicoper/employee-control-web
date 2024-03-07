@@ -23,6 +23,10 @@ export const ApiUrls = {
     getCompanyByCurrentUser: '/companies/current-user'
   },
 
+  categoryAbsences: {
+    createCompanyAbsence: '/category-absence'
+  },
+
   companyTasks: {
     getCompanyTasksByCompanyIdPaginated: '/tasks/companies/{companyId}/paginated',
     getEmployeesByCompanyTaskIdPaginated: '/tasks/{id}/employees/paginated',
