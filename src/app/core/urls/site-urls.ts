@@ -10,7 +10,7 @@ export const SiteUrls = {
   categoryAbsence: {
     list: '/category-absences',
     create: '/category-absences/create',
-    edit: '/category-absences/edit'
+    edit: '/category-absences/{id}/edit'
   },
 
   accounts: {

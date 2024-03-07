@@ -83,27 +83,29 @@
                 }
               </td>
               <td>
-                @if (timeControl.timeState === timeState.close) {
-                  <span
-                    (click)="handleTimeControlModalEdit(timeControl)"
-                    awTooltip
-                    class="fa-solid fa-pencil cursor-pointer"
-                    title="Editar"></span>
+                <span class="d-flex justify-content-end btn-actions">
+                  @if (timeControl.timeState === timeState.close) {
+                    <span
+                      (click)="handleTimeControlModalEdit(timeControl)"
+                      awTooltip
+                      class="fa-solid fa-pencil cursor-pointer"
+                      title="Editar"></span>
 
-                  <span
-                    (click)="handleDeleteTimeControl(timeControl)"
-                    awTooltip
-                    class="fa-solid fa-circle-xmark cursor-pointer text-danger ms-2"
-                    title="Eliminar"></span>
-                }
+                    <span
+                      (click)="handleDeleteTimeControl(timeControl)"
+                      awTooltip
+                      class="fa-solid fa-circle-xmark cursor-pointer text-danger ms-2"
+                      title="Eliminar"></span>
+                  }
 
-                @if (timeControl.timeState === timeState.open) {
-                  <span
-                    (click)="handleCloseTimeControl(timeControl)"
-                    awTooltip
-                    class="fa-solid fa-lock cursor-pointer text-danger"
-                    title="Cerrar"></span>
-                }
+                  @if (timeControl.timeState === timeState.open) {
+                    <span
+                      (click)="handleCloseTimeControl(timeControl)"
+                      awTooltip
+                      class="fa-solid fa-lock cursor-pointer text-danger"
+                      title="Cerrar"></span>
+                  }
+                </span>
               </td>
             </tr>
           }

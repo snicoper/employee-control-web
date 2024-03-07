@@ -7,10 +7,10 @@ import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
 import { getRandomColorHexadecimal } from '@aw/core/utils/_index';
 import { BadRequest } from '@aw/models/bad-request';
+import { JwtService } from '@aw/services/_index';
+import { CategoryAbsencesApiService } from '@aw/services/api/_index';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { CategoryAbsencesService } from './../../../services/api/category-absences.service';
-import { JwtService } from './../../../services/jwt.service';
 import { CategoryAbsenceCreateRequest } from './category-absence-create-request.model';
 
 @Component({
@@ -19,7 +19,7 @@ import { CategoryAbsenceCreateRequest } from './category-absence-create-request.
 })
 export class CategoryAbsenceCreateComponent {
   private readonly fb = inject(FormBuilder);
-  private readonly categoryAbsencesService = inject(CategoryAbsencesService);
+  private readonly categoryAbsencesApiService = inject(CategoryAbsencesApiService);
   private readonly jwtService = inject(JwtService);
   private readonly toastrService = inject(ToastrService);
   private readonly router = inject(Router);
@@ -48,7 +48,7 @@ export class CategoryAbsenceCreateComponent {
     const categoryAbsenceCreateRequest = this.form.value as CategoryAbsenceCreateRequest;
     categoryAbsenceCreateRequest.companyId = this.jwtService.getCompanyId();
 
-    this.categoryAbsencesService
+    this.categoryAbsencesApiService
       .post<CategoryAbsenceCreateRequest, string>(
         categoryAbsenceCreateRequest,
         ApiUrls.categoryAbsences.createCompanyAbsence

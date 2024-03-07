@@ -16,7 +16,7 @@ const routes: Routes = [
     data: { title: 'Crear categoría de ausencias' }
   },
   {
-    path: 'update',
+    path: ':id/edit',
     component: CategoryAbsenceEditComponent,
     data: { title: 'Actualizar categoría de ausencias' }
   }

@@ -29,5 +29,12 @@ export const categoryAbsenceListTableHeader: TableHeaderField[] = [
     sortable: false,
     orderType: OrderTypes.none,
     filterable: false
+  },
+  {
+    field: '',
+    text: '',
+    sortable: false,
+    orderType: OrderTypes.none,
+    filterable: false
   }
 ];

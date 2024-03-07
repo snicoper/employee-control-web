@@ -6,12 +6,12 @@
     @if (companyTask) {
       <form (ngSubmit)="handleSubmit()" [formGroup]="form">
         <aw-non-field-errors [badRequest]="badRequest" />
-        @if (form.get('name')?.value) {
+        @if (form.get("name")?.value) {
           <div class="my-3">
             <aw-badge
               [background]="form.get('background')?.value"
               [color]="form.get('color')?.value"
-            [name]="form.get('name')?.value"></aw-badge>
+              [name]="form.get('name')?.value" />
           </div>
         }
         <!-- name -->
