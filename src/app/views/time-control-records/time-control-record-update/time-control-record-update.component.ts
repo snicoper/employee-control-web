@@ -6,13 +6,13 @@ import { ApiUrls } from '@aw/core/urls/api-urls';
 import { urlReplaceParams } from '@aw/core/utils/common-utils';
 import { CustomValidation } from '@aw/core/validators/_index';
 import { BadRequest, ResultResponse } from '@aw/models/_index';
+import { TimeControl } from '@aw/models/entities/time-control.model';
 import { TimeControlApiService } from '@aw/services/api/time-control-api.service';
 import { DateTime } from 'luxon';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { TimeControlRecordRequest } from './time-control-record-request';
-import { TimeControlRecordResponse } from './time-control-record-response.model';
 
 @Component({
   selector: 'aw-time-control-record-update',
@@ -32,7 +32,7 @@ export class TimeControlRecordUpdateComponent implements OnInit {
   badRequest: BadRequest | undefined;
   loadingForm = false;
   submitted = false;
-  timeControl: TimeControlRecordResponse | undefined;
+  timeControl: TimeControl | undefined;
   btnType = BtnType;
 
   ngOnInit(): void {
@@ -119,7 +119,11 @@ export class TimeControlRecordUpdateComponent implements OnInit {
     }
 
     const start = new Date(this.timeControl.start);
-    const finish = new Date(this.timeControl.finish);
+    let finish = new Date();
+
+    if (this.timeControl.finish) {
+      finish = new Date(this.timeControl.finish);
+    }
 
     // Añade offset respecto a la zona horaria del usuario.
     const offset = start.getTimezoneOffset();
@@ -165,10 +169,10 @@ export class TimeControlRecordUpdateComponent implements OnInit {
     const url = urlReplaceParams(ApiUrls.timeControl.getTimeControlById, { id: this.timeControlId });
 
     this.timeControlApiService
-      .get<TimeControlRecordResponse>(url)
+      .get<TimeControl>(url)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
-        next: (result: TimeControlRecordResponse) => {
+        next: (result: TimeControl) => {
           this.timeControl = result;
           this.buildForm();
         },
