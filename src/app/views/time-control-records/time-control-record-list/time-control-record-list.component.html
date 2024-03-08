@@ -10,6 +10,14 @@
         </a>
       </div>
 
+      <button
+        (click)="handleFilterOpenTimesChange()"
+        [ngClass]="{ 'btn-primary': filterOpenTimesValue, 'btn-outline-primary': !filterOpenTimesValue }"
+        type="button"
+        class="btn btn-sm">
+        <span class="fa-regular fa-hourglass-half"></span> Tiempos abiertos
+      </button>
+
       <div>
         <aw-table-input-search
           (clickClean)="handleClickClean($event)"
@@ -32,7 +40,7 @@
       @if (apiResult) {
         <tbody awTbody>
           @for (timeControl of apiResult.items; track timeControl) {
-            <tr class="cursor-pointer">
+            <tr>
               <td>{{ timeControl.firstName }}</td>
               <td>{{ timeControl.lastName }}</td>
               <td>

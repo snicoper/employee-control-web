@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
 import { logError } from '@aw/core/errors/_index';
-import { OrderTypes } from '@aw/core/features/api-result/_index';
+import { LogicalOperators, OrderTypes, RelationalOperators } from '@aw/core/features/api-result/_index';
 import { ApiResult } from '@aw/core/features/api-result/api-result';
 import { ApiUrls } from '@aw/core/urls/api-urls';
 import { SiteUrls } from '@aw/core/urls/site-urls';
@@ -45,6 +45,7 @@ export class TimeControlRecordListComponent {
   to?: Date | string = 'null';
   loadingTimeState = false;
   bsModalRef?: BsModalRef;
+  filterOpenTimesValue = false;
 
   constructor() {
     this.apiResult.addOrder('start', OrderTypes.ascending, 1);
@@ -73,6 +74,12 @@ export class TimeControlRecordListComponent {
     return null;
   }
 
+  handleFilterOpenTimesChange(): void {
+    this.filterOpenTimesValue = !this.filterOpenTimesValue;
+    this.handleClickClean(this.apiResult);
+    this.loadTimeControlRecords();
+  }
+
   handleTimeControlModalEdit(timeControl: TimeControlRecordResponse): void {
     const initialState: ModalOptions = {
       keyboard: false,
@@ -94,11 +101,6 @@ export class TimeControlRecordListComponent {
 
   handleReloadData(): void {
     this.loadTimeControlRecords();
-  }
-
-  handleDetails(timeControl: TimeControlRecordResponse): void {
-    const url = urlReplaceParams(SiteUrls.timeControlRecords.details, { id: timeControl.id });
-    this.router.navigateByUrl(url);
   }
 
   handleCloseTimeControl(timeControl: TimeControlRecordResponse): void {
@@ -157,6 +159,18 @@ export class TimeControlRecordListComponent {
       from: this.from as string,
       to: this.to as string
     });
+
+    this.apiResult = ApiResult.clone(this.apiResult);
+    this.apiResult.removeFilterByPropertyName('timeState');
+
+    if (this.filterOpenTimesValue) {
+      this.apiResult.addFilter(
+        'timeState',
+        RelationalOperators.equalTo,
+        TimeState.open.toString(),
+        this.apiResult.filters.length === 0 ? LogicalOperators.none : LogicalOperators.and
+      );
+    }
 
     this.timeControlApiService
       .getPaginated<TimeControlRecordResponse>(this.apiResult, url)

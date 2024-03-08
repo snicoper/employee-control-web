@@ -16,7 +16,6 @@ import { TimeControlRecordCreateComponent } from './time-control-record-create/t
 import { TimeControlRecordCreateService } from './time-control-record-create/time-control-record-create.service';
 import { TimeControlRecordFormComponent } from './time-control-record-create/time-control-record-form/time-control-record-form.component';
 import { TimeControlSelectEmployeeComponent } from './time-control-record-create/time-control-select-employee/time-control-select-employee.component';
-import { TimeControlRecordDetailsComponent } from './time-control-record-datails/time-control-record-details.component';
 import { TimeControlRecordUpdateComponent } from './time-control-record-update/time-control-record-update.component';
 import { TimeControlRecordsRoutingModule } from './time-control-records-routing.module';
 
@@ -26,8 +25,7 @@ import { TimeControlRecordsRoutingModule } from './time-control-records-routing.
     TimeControlRecordUpdateComponent,
     TimeControlRecordCreateComponent,
     TimeControlSelectEmployeeComponent,
-    TimeControlRecordFormComponent,
-    TimeControlRecordDetailsComponent
+    TimeControlRecordFormComponent
   ],
   imports: [
     CommonModule,
