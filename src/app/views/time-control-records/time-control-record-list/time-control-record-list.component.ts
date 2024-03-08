@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { TableHeaderConfig } from '@aw/components/tables/table-header/table-header.config';
 import { logError } from '@aw/core/errors/_index';
@@ -30,6 +31,7 @@ export class TimeControlRecordListComponent {
   private readonly simpleGeolocationService = inject(SimpleGeolocationService);
   private readonly bsModalService = inject(BsModalService);
   private readonly toastrService = inject(ToastrService);
+  private readonly router = inject(Router);
 
   readonly breadcrumb = new BreadcrumbCollection();
 
@@ -92,6 +94,11 @@ export class TimeControlRecordListComponent {
 
   handleReloadData(): void {
     this.loadTimeControlRecords();
+  }
+
+  handleDetails(timeControl: TimeControlRecordResponse): void {
+    const url = urlReplaceParams(SiteUrls.timeControlRecords.details, { id: timeControl.id });
+    this.router.navigateByUrl(url);
   }
 
   handleCloseTimeControl(timeControl: TimeControlRecordResponse): void {

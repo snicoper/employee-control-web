@@ -1,5 +1,5 @@
 <aw-view-base>
-  <aw-view-header [breadcrumb]="breadcrumb">Tiempos de empleados</aw-view-header>
+  <aw-view-header [breadcrumb]="breadcrumb">Registro de tiempos</aw-view-header>
 
   <aw-card>
     <!-- toolbar -->
@@ -32,7 +32,7 @@
       @if (apiResult) {
         <tbody awTbody>
           @for (timeControl of apiResult.items; track timeControl) {
-            <tr>
+            <tr (click)="handleDetails(timeControl)" class="cursor-pointer">
               <td>{{ timeControl.firstName }}</td>
               <td>{{ timeControl.lastName }}</td>
               <td>

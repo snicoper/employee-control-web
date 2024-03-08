@@ -58,7 +58,8 @@ export const SiteUrls = {
 
   timeControlRecords: {
     home: '/time-control-record',
-    create: '/time-control-record/create'
+    create: '/time-control-record/create',
+    details: '/time-control-record/:id/details'
   },
 
   timeControl: {
