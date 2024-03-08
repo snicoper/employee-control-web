@@ -59,6 +59,9 @@ export class CategoryAbsenceEditComponent {
         next: () => {
           this.toastrService.success('Tarea editada con éxito.');
           this.router.navigateByUrl(SiteUrls.categoryAbsence.list);
+        },
+        error: (error) => {
+          this.badRequest = error.error;
         }
       });
   }

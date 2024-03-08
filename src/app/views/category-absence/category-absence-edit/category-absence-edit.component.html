@@ -6,6 +6,7 @@
     @if (categoryAbsence) {
       <form (ngSubmit)="handleSubmit()" [formGroup]="form">
         <aw-non-field-errors [badRequest]="badRequest" />
+
         @if (form.get("description")?.value) {
           <div class="my-3">
             <aw-badge
@@ -25,6 +26,7 @@
             label="Descripción" />
         </div>
         <!-- end description -->
+
         <!-- active -->
         <div class="mb-2">
           <aw-form-checkbox
@@ -36,6 +38,7 @@
             label="Activo" />
         </div>
         <!-- end active -->
+
         <div class="d-flex">
           <!-- background -->
           <div class="mb-2">
@@ -48,6 +51,7 @@
               label="Color de fondo" />
           </div>
           <!-- end background -->
+
           <!-- color -->
           <div class="mb-2 ms-5">
             <aw-form-color
@@ -60,6 +64,7 @@
           </div>
           <!-- end color -->
         </div>
+
         <aw-btn-back cssClass="btn btn-primary mt-2" />
         <aw-btn-loading
           [loading]="loadingForm"
