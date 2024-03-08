@@ -14,10 +14,10 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 
 @Component({
-  selector: 'aw-company-settings-edit',
-  templateUrl: './company-settings-edit.component.html'
+  selector: 'aw-company-settings-update',
+  templateUrl: './company-settings-update.component.html'
 })
-export class CompanySettingsEditComponent {
+export class CompanySettingsUpdateComponent {
   private readonly currentCompanySettingsService = inject(CurrentCompanySettingsService);
   private readonly companySettingsApiService = inject(CompanySettingsApiService);
   private readonly fb = inject(FormBuilder);
@@ -73,7 +73,7 @@ export class CompanySettingsEditComponent {
   private setBreadcrumb(): void {
     this.breadcrumb
       .add('Configuración', SiteUrls.companySettings.details)
-      .add('Editar', SiteUrls.companySettings.edit, '', false);
+      .add('Editar', SiteUrls.companySettings.update, '', false);
   }
 
   private setNowWithOriginalTimezone(): void {

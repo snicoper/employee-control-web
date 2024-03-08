@@ -16,7 +16,7 @@ import { SimpleGeolocationService } from '@aw/services/simple-geolocation.servic
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { TimeControlRecordEditComponent } from '../time-control-record-edit/time-control-record-edit.component';
+import { TimeControlRecordUpdateComponent } from '../time-control-record-update/time-control-record-update.component';
 import { TimeControlRecordResponse } from './time-contol-record-esponse.model';
 import { timeControlRecordListTableHeaders } from './time-control-record-list-table-header';
 
@@ -80,7 +80,7 @@ export class TimeControlRecordListComponent {
       }
     };
 
-    this.bsModalRef = this.bsModalService.show(TimeControlRecordEditComponent, initialState);
+    this.bsModalRef = this.bsModalService.show(TimeControlRecordUpdateComponent, initialState);
     this.bsModalRef.content.saveForm.subscribe({
       next: (result: boolean) => {
         if (result) {

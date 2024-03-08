@@ -12,10 +12,10 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 
 @Component({
-  selector: 'aw-company-task-edit',
-  templateUrl: './company-task-edit.component.html'
+  selector: 'aw-company-task-update',
+  templateUrl: './company-task-update.component.html'
 })
-export class CompanyTaskEditComponent {
+export class CompanyTaskUpdateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
@@ -69,7 +69,7 @@ export class CompanyTaskEditComponent {
     this.breadcrumb
       .add('Tareas', SiteUrls.companyTasks.list)
       .add('Detalles', this.urlCompanyTaskDetails)
-      .add('Editar', SiteUrls.companyTasks.edit, '', false);
+      .add('Editar', SiteUrls.companyTasks.update, '', false);
   }
 
   private buildForm(): void {

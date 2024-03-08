@@ -12,10 +12,10 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 
 @Component({
-  selector: 'aw-category-absence-edit',
-  templateUrl: './category-absence-edit.component.html'
+  selector: 'aw-category-absence-update',
+  templateUrl: './category-absence-update.component.html'
 })
-export class CategoryAbsenceEditComponent {
+export class CategoryAbsenceUpdateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
@@ -69,7 +69,7 @@ export class CategoryAbsenceEditComponent {
   private setBreadcrumb(): void {
     this.breadcrumb
       .add('Ausencias', SiteUrls.categoryAbsences.list)
-      .add('Editar ausencia', SiteUrls.categoryAbsences.edit, '', false);
+      .add('Editar ausencia', SiteUrls.categoryAbsences.update, '', false);
   }
 
   private buildForm(): void {

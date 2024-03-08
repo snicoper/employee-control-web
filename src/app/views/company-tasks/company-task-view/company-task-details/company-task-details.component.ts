@@ -28,7 +28,7 @@ export class CompanyTaskDetailsComponent implements OnDestroy {
   siteUrls = SiteUrls;
 
   get urlToEdit(): string {
-    return urlReplaceParams(SiteUrls.companyTasks.edit, { id: this.companyTaskId });
+    return urlReplaceParams(SiteUrls.companyTasks.update, { id: this.companyTaskId });
   }
 
   ngOnDestroy(): void {

@@ -15,8 +15,8 @@ import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { AwPipesModule } from '@aw/pipes/pipes.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DepartmentCreateComponent } from './department-create/department-create.component';
-import { DepartmentEditComponent } from './department-edit/department-edit.component';
 import { DepartmentListComponent } from './department-list/department-list.component';
+import { DepartmentUpdateComponent } from './department-update/department-update.component';
 import { DepartmentAddUsersComponent } from './department-view/department-add-users/department-add-users.component';
 import { DepartmentDetailsComponent } from './department-view/department-details/department-details.component';
 import { DepartmentSelectedService } from './department-view/department-selected.service';
@@ -28,7 +28,7 @@ import { DepartmentRoutingModule } from './departments-routing.module';
   declarations: [
     DepartmentCreateComponent,
     DepartmentListComponent,
-    DepartmentEditComponent,
+    DepartmentUpdateComponent,
     DepartmentViewComponent,
     DepartmentDetailsComponent,
     DepartmentUsersComponent,

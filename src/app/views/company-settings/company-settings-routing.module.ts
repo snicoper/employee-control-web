@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompanySettingsDetailsComponent } from './company-settings-details/company-settings-details.component';
-import { CompanySettingsEditComponent } from './company-settings-edit/company-settings-edit.component';
+import { CompanySettingsUpdateComponent } from './company-settings-update/company-settings-update.component';
 
 const routes: Routes = [
   {
@@ -10,8 +10,8 @@ const routes: Routes = [
     data: { title: 'Configuración de empresa' }
   },
   {
-    path: 'edit',
-    component: CompanySettingsEditComponent,
+    path: 'update',
+    component: CompanySettingsUpdateComponent,
     data: { title: 'Editar configuración de empresa' }
   }
 ];

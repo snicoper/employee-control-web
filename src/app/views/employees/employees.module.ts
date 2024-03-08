@@ -19,11 +19,11 @@ import { AwPipesModule } from '@aw/pipes/pipes.module';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmployeeInviteComponent } from './employee-invite/employee-invite.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeSettingsDetailsComponent } from './employee-settings/employee-settings-details/employee-settings-details.component';
 import { EmployeeSettingsEditComponent } from './employee-settings/employee-settings-edit/employee-settings-edit.component';
+import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 import { EmployeeDepartmentsComponent } from './employee-view/employee-departments/employee-departments.component';
 import { EmployeeDetailsComponent } from './employee-view/employee-details/employee-details.component';
 import { EmployeeRolesEditComponent } from './employee-view/employee-details/employee-roles-edit/employee-roles-edit.component';
@@ -39,7 +39,7 @@ import { EmployeesRoutingModule } from './employees-routing.module';
     EmployeeInviteComponent,
     EmployeeViewComponent,
     EmployeeDetailsComponent,
-    EmployeeEditComponent,
+    EmployeeUpdateComponent,
     EmployeeTasksComponent,
     EmployeeTimeControlComponent,
     EmployeeRolesEditComponent,

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmployeeInviteComponent } from './employee-invite/employee-invite.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeSettingsDetailsComponent } from './employee-settings/employee-settings-details/employee-settings-details.component';
 import { EmployeeSettingsEditComponent } from './employee-settings/employee-settings-edit/employee-settings-edit.component';
+import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 import { EmployeeViewComponent } from './employee-view/employee-view.component';
 
 const routes: Routes = [
@@ -34,8 +34,8 @@ const routes: Routes = [
     data: { title: 'Detalles de empleado' }
   },
   {
-    path: ':id/edit',
-    component: EmployeeEditComponent,
+    path: ':id/update',
+    component: EmployeeUpdateComponent,
     data: { title: 'Editar empleado' }
   }
 ];

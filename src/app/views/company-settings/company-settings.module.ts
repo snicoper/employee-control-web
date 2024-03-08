@@ -9,11 +9,11 @@ import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwTooltipsModule } from '@aw/components/tooltips/aw-tooltips.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { CompanySettingsDetailsComponent } from './company-settings-details/company-settings-details.component';
-import { CompanySettingsEditComponent } from './company-settings-edit/company-settings-edit.component';
 import { CompanySettingsRoutingModule } from './company-settings-routing.module';
+import { CompanySettingsUpdateComponent } from './company-settings-update/company-settings-update.component';
 
 @NgModule({
-  declarations: [CompanySettingsDetailsComponent, CompanySettingsEditComponent],
+  declarations: [CompanySettingsDetailsComponent, CompanySettingsUpdateComponent],
   imports: [
     CommonModule,
     CompanySettingsRoutingModule,

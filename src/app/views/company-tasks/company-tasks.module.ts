@@ -15,8 +15,8 @@ import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { AwPipesModule } from '@aw/pipes/pipes.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CompanyTaskCreateComponent } from './company-task-create/company-task-create.component';
-import { CompanyTaskEditComponent } from './company-task-edit/company-task-edit.component';
 import { CompanyTaskListComponent } from './company-task-list/company-task-list.component';
+import { CompanyTaskUpdateComponent } from './company-task-update/company-task-update.component';
 import { CompanyTaskAddUsersComponent } from './company-task-view/company-task-add-users/company-task-add-users.component';
 import { CompanyTaskDetailsComponent } from './company-task-view/company-task-details/company-task-details.component';
 import { CompanyTaskSelectedService } from './company-task-view/company-task-selected.service';
@@ -30,7 +30,7 @@ import { CompanyTaskRoutingModule } from './company-tasks-routing.module';
     CompanyTaskViewComponent,
     CompanyTaskCreateComponent,
     CompanyTaskDetailsComponent,
-    CompanyTaskEditComponent,
+    CompanyTaskUpdateComponent,
     CompanyTaskUsersComponent,
     CompanyTaskAddUsersComponent
   ],

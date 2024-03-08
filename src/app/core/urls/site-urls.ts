@@ -10,7 +10,7 @@ export const SiteUrls = {
   categoryAbsences: {
     list: '/category-absence',
     create: '/category-absence/create',
-    edit: '/category-absence/{id}/edit'
+    update: '/category-absence/{id}/update'
   },
 
   accounts: {
@@ -22,30 +22,30 @@ export const SiteUrls = {
 
   companySettings: {
     details: '/company-setting/details',
-    edit: '/company-setting/edit'
+    update: '/company-setting/update'
   },
 
   companyTasks: {
     list: '/task',
     details: '/task/{id}',
     create: '/task/create',
-    edit: '/task/{id}/edit'
+    update: '/task/{id}/update'
   },
 
   departments: {
     list: '/department',
     details: '/department/{id}',
     create: '/department/create',
-    edit: '/department/{id}/edit'
+    update: '/department/{id}/update'
   },
 
   employees: {
     list: '/employee',
     details: '/employee/{id}',
-    edit: '/employee/{id}/edit',
+    update: '/employee/{id}/update',
     invite: '/employee/invite',
     settings: '/employee/settings',
-    settingsEdit: '/employee/settings/edit'
+    settingsEdit: '/employee/settings/update'
   },
 
   dashboard: {

@@ -14,10 +14,10 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 
 @Component({
-  selector: 'aw-employee-edit',
-  templateUrl: './employee-edit.component.html'
+  selector: 'aw-employee-update',
+  templateUrl: './employee-update.component.html'
 })
-export class EmployeeEditComponent {
+export class EmployeeUpdateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
@@ -81,7 +81,7 @@ export class EmployeeEditComponent {
     this.breadcrumb
       .add('Empleados', SiteUrls.employees.list)
       .add('Detalles', this.urlEmployeeDetails)
-      .add('Editar', SiteUrls.employees.edit, '', false);
+      .add('Editar', SiteUrls.employees.update, '', false);
   }
 
   private buildForm(): void {

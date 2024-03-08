@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoryAbsenceCreateComponent } from './category-absence-create/category-absence-create.component';
-import { CategoryAbsenceEditComponent } from './category-absence-edit/category-absence-edit.component';
 import { CategoryAbsenceListComponent } from './category-absence-list/category-absence-list.component';
+import { CategoryAbsenceUpdateComponent } from './category-absence-update/category-absence-update.component';
 
 const routes: Routes = [
   {
@@ -16,8 +16,8 @@ const routes: Routes = [
     data: { title: 'Crear categoría de ausencias' }
   },
   {
-    path: ':id/edit',
-    component: CategoryAbsenceEditComponent,
+    path: ':id/update',
+    component: CategoryAbsenceUpdateComponent,
     data: { title: 'Actualizar categoría de ausencias' }
   }
 ];

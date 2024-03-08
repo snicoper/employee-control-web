@@ -25,7 +25,7 @@ export class DepartmentDetailsComponent implements OnDestroy {
   siteUrls = SiteUrls;
 
   get urlToEdit(): string {
-    return urlReplaceParams(SiteUrls.departments.edit, { id: this.departmentId });
+    return urlReplaceParams(SiteUrls.departments.update, { id: this.departmentId });
   }
 
   ngOnDestroy(): void {

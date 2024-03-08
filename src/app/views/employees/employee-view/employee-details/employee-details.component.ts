@@ -49,7 +49,7 @@ export class EmployeeDetailsComponent implements OnDestroy {
 
   /** Url para editar empleado. */
   get urlToEdit(): string {
-    return urlReplaceParams(SiteUrls.employees.edit, { id: this.employeeSelected()?.id as string });
+    return urlReplaceParams(SiteUrls.employees.update, { id: this.employeeSelected()?.id as string });
   }
 
   /** Limpiar el empleado seleccionado. */

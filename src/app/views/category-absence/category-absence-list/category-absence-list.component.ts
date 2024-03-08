@@ -44,7 +44,7 @@ export class CategoryAbsenceListComponent {
   }
 
   handleEdit(categoryAbsence: CategoryAbsence): void {
-    const url = urlReplaceParams(SiteUrls.categoryAbsences.edit, { id: categoryAbsence.id });
+    const url = urlReplaceParams(SiteUrls.categoryAbsences.update, { id: categoryAbsence.id });
     this.router.navigateByUrl(url);
   }
 

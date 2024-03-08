@@ -12,10 +12,10 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 
 @Component({
-  selector: 'aw-department-edit',
-  templateUrl: './department-edit.component.html'
+  selector: 'aw-department-update',
+  templateUrl: './department-update.component.html'
 })
-export class DepartmentEditComponent {
+export class DepartmentUpdateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
@@ -69,7 +69,7 @@ export class DepartmentEditComponent {
     this.breadcrumb
       .add('Departamentos', SiteUrls.departments.list)
       .add('Detalles', this.urlDepartmentDetails)
-      .add('Editar', SiteUrls.departments.edit, '', false);
+      .add('Editar', SiteUrls.departments.update, '', false);
   }
 
   private buildForm(): void {

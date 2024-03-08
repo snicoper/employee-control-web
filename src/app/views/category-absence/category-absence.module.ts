@@ -11,12 +11,12 @@ import { AwTablesModule } from '@aw/components/tables/aw-tables.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { AwPipesModule } from '@aw/pipes/pipes.module';
 import { CategoryAbsenceCreateComponent } from './category-absence-create/category-absence-create.component';
-import { CategoryAbsenceEditComponent } from './category-absence-edit/category-absence-edit.component';
 import { CategoryAbsenceListComponent } from './category-absence-list/category-absence-list.component';
 import { CategoryAbsenceRoutingModule } from './category-absence-routing.module';
+import { CategoryAbsenceUpdateComponent } from './category-absence-update/category-absence-update.component';
 
 @NgModule({
-  declarations: [CategoryAbsenceListComponent, CategoryAbsenceCreateComponent, CategoryAbsenceEditComponent],
+  declarations: [CategoryAbsenceListComponent, CategoryAbsenceCreateComponent, CategoryAbsenceUpdateComponent],
   imports: [
     CommonModule,
     FormsModule,
