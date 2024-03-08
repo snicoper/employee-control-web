@@ -12,8 +12,8 @@ import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { AwPipesModule } from '@aw/pipes/pipes.module';
 import { CategoryAbsenceCreateComponent } from './category-absence-create/category-absence-create.component';
 import { CategoryAbsenceListComponent } from './category-absence-list/category-absence-list.component';
-import { CategoryAbsenceRoutingModule } from './category-absence-routing.module';
 import { CategoryAbsenceUpdateComponent } from './category-absence-update/category-absence-update.component';
+import { CategoryAbsencesRoutingModule } from './category-absences-routing.module';
 
 @NgModule({
   declarations: [CategoryAbsenceListComponent, CategoryAbsenceCreateComponent, CategoryAbsenceUpdateComponent],
@@ -21,7 +21,7 @@ import { CategoryAbsenceUpdateComponent } from './category-absence-update/catego
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    CategoryAbsenceRoutingModule,
+    CategoryAbsencesRoutingModule,
     AwCardsModule,
     AwViewsModule,
     AwFormsModule,
@@ -33,4 +33,4 @@ import { CategoryAbsenceUpdateComponent } from './category-absence-update/catego
     AwColorsModule
   ]
 })
-export class CategoryAbsenceModule {}
+export class CategoryAbsencesModule {}
