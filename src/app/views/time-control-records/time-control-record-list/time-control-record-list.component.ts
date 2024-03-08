@@ -14,10 +14,9 @@ import { ClosedBy } from '@aw/models/entities/types/closed-by.model';
 import { TimeControlApiService } from '@aw/services/api/_index';
 import { JwtService } from '@aw/services/jwt.service';
 import { SimpleGeolocationService } from '@aw/services/simple-geolocation.service';
-import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { TimeControlRecordUpdateComponent } from '../time-control-record-update/time-control-record-update.component';
 import { TimeControlRecordResponse } from './time-contol-record-esponse.model';
 import { timeControlRecordListTableHeaders } from './time-control-record-list-table-header';
 
@@ -29,7 +28,6 @@ export class TimeControlRecordListComponent {
   private readonly timeControlApiService = inject(TimeControlApiService);
   private readonly jwtService = inject(JwtService);
   private readonly simpleGeolocationService = inject(SimpleGeolocationService);
-  private readonly bsModalService = inject(BsModalService);
   private readonly toastrService = inject(ToastrService);
   private readonly router = inject(Router);
 
@@ -80,23 +78,9 @@ export class TimeControlRecordListComponent {
     this.loadTimeControlRecords();
   }
 
-  handleTimeControlModalEdit(timeControl: TimeControlRecordResponse): void {
-    const initialState: ModalOptions = {
-      keyboard: false,
-      class: 'modal-lg',
-      initialState: {
-        timeControlId: timeControl.id
-      }
-    };
-
-    this.bsModalRef = this.bsModalService.show(TimeControlRecordUpdateComponent, initialState);
-    this.bsModalRef.content.saveForm.subscribe({
-      next: (result: boolean) => {
-        if (result) {
-          this.loadTimeControlRecords();
-        }
-      }
-    });
+  handleTimeControlUpdate(timeControl: TimeControlRecordResponse): void {
+    const url = urlReplaceParams(SiteUrls.timeControlRecords.update, { id: timeControl.id });
+    this.router.navigateByUrl(url);
   }
 
   handleReloadData(): void {
