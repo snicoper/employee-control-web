@@ -10,8 +10,8 @@
   <div class="modal-body">
     @if (timeControl) {
       <form (ngSubmit)="handleSubmit()" [formGroup]="form">
-        <!-- timeStart y timeFinish -->
-        <div class="mb-2 d-flex">
+        <div class="mb-2 d-flex justify-content-between">
+          <!-- timeStart -->
           <div>
             <aw-form-datepicker
               [badRequest]="badRequest"
@@ -20,7 +20,9 @@
               fieldName="dateStart"
               formControlName="dateStart"
               label="Inicio" />
+
             <div class="mt-3"></div>
+
             <aw-form-timepicker
               [badRequest]="badRequest"
               [form]="form"
@@ -29,7 +31,10 @@
               formControlName="timeStart"
               label="" />
           </div>
-          <div class="ms-auto">
+          <!-- end timeStart -->
+
+          <!-- timeFinish -->
+          <div>
             <aw-form-datepicker
               [badRequest]="badRequest"
               [form]="form"
@@ -37,7 +42,9 @@
               fieldName="dateFinish"
               formControlName="dateFinish"
               label="Final" />
+
             <div class="mt-3"></div>
+
             <aw-form-timepicker
               [badRequest]="badRequest"
               [form]="form"
@@ -46,13 +53,15 @@
               formControlName="timeFinish"
               label="" />
           </div>
-          <!-- end timeStart y timeFinish -->
+          <!-- end timeFinish -->
         </div>
+
         <!-- footer -->
         <div class="modal-footer">
           <button (click)="handleClose()" class="btn btn-secondary" data-bs-dismiss="modal" type="button">
             Cerrar
           </button>
+
           <aw-btn-loading
             [btnType]="btnType.submit"
             [loading]="loadingForm"
