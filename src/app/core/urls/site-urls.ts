@@ -21,7 +21,7 @@ export const SiteUrls = {
   },
 
   companySettings: {
-    details: '/company-setting/details',
+    details: '/company-setting',
     update: '/company-setting/update'
   },
 
@@ -58,8 +58,8 @@ export const SiteUrls = {
 
   timeControlRecords: {
     home: '/time-control-record',
-    create: '/time-control-record/create',
-    details: '/time-control-record/:id/details'
+    details: '/time-control-record/{id}',
+    create: '/time-control-record/create'
   },
 
   timeControl: {

@@ -3,19 +3,24 @@
 
   <aw-card>
     <!-- toolbar -->
-    <div class="d-flex mb-2">
-      <span class="me-auto">
+    <div class="d-flex mb-2 justify-content-between">
+      <div>
         <a [routerLink]="siteUrls.timeControlRecords.create" class="btn btn-sm btn-outline-success">
           <span class="fa-regular fa-clock"></span> Añadir tiempo
         </a>
-      </span>
+      </div>
 
-      <span>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary">Tiempos abiertos</button>
+        <button type="button" class="btn btn-outline-primary">Tiempos cerrados</button>
+      </div>
+
+      <div>
         <aw-table-input-search
           (clickClean)="handleClickClean($event)"
           [apiResult]="apiResult"
           [tableHeaderConfig]="tableHeaderConfig" />
-      </span>
+      </div>
     </div>
     <!-- end toolbar -->
 
@@ -32,7 +37,7 @@
       @if (apiResult) {
         <tbody awTbody>
           @for (timeControl of apiResult.items; track timeControl) {
-            <tr (click)="handleDetails(timeControl)" class="cursor-pointer">
+            <tr class="cursor-pointer">
               <td>{{ timeControl.firstName }}</td>
               <td>{{ timeControl.lastName }}</td>
               <td>

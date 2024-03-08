@@ -16,7 +16,7 @@ export const routes: Routes = [
     data: { title: 'Añadir un registro de tiempo' }
   },
   {
-    path: ':id/details',
+    path: ':id',
     component: TimeControlRecordDetailsComponent,
     data: { title: 'Detalles de registro de tiempo' }
   }
