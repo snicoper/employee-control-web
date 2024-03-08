@@ -44,12 +44,12 @@ export class CategoryAbsenceListComponent {
   }
 
   handleEdit(categoryAbsence: CategoryAbsence): void {
-    const url = urlReplaceParams(SiteUrls.categoryAbsence.edit, { id: categoryAbsence.id });
+    const url = urlReplaceParams(SiteUrls.categoryAbsences.edit, { id: categoryAbsence.id });
     this.router.navigateByUrl(url);
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Ausencias', SiteUrls.categoryAbsence.list, '', false);
+    this.breadcrumb.add('Ausencias', SiteUrls.categoryAbsences.list, '', false);
   }
 
   private configureTableHeaders(): void {

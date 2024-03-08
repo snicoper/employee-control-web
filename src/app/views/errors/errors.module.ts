@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { AwButtonsModule } from '@aw/components/buttons/aw-buttons.module';
 import { AwCardsModule } from '@aw/components/cards/aw-cards.module';
 import { AwViewsModule } from '@aw/components/views/aw-views.module';
 import { Error403Component } from './error403/error403.component';
@@ -8,6 +9,6 @@ import { ErrorsRoutingModule } from './errors-routing.module';
 
 @NgModule({
   declarations: [Error403Component, Error404Component],
-  imports: [CommonModule, ErrorsRoutingModule, AwCardsModule, AwViewsModule]
+  imports: [CommonModule, ErrorsRoutingModule, AwCardsModule, AwViewsModule, AwButtonsModule]
 })
 export class ErrorsModule {}

@@ -57,7 +57,7 @@ export class CategoryAbsenceCreateComponent {
       .subscribe({
         next: () => {
           this.toastrService.success('Ausencia creada con éxito');
-          this.router.navigateByUrl(SiteUrls.categoryAbsence.list);
+          this.router.navigateByUrl(SiteUrls.categoryAbsences.list);
         },
         error: (error: HttpErrorResponse) => {
           this.badRequest = error.error;
@@ -67,8 +67,8 @@ export class CategoryAbsenceCreateComponent {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Ausencias', SiteUrls.categoryAbsence.list)
-      .add('Crear ausencia', SiteUrls.categoryAbsence.create, '', false);
+      .add('Ausencias', SiteUrls.categoryAbsences.list)
+      .add('Crear ausencia', SiteUrls.categoryAbsences.create, '', false);
   }
 
   private buildForm(): void {

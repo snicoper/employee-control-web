@@ -51,8 +51,8 @@ export const sidebarMenu: SidebarMenu[] = [
         active: false
       },
       {
-        title: 'Categorías de ausencias',
-        link: SiteUrls.categoryAbsence.list,
+        title: 'Ausencias',
+        link: SiteUrls.categoryAbsences.list,
         active: false,
         requiredRole: Roles.enterpriseStaff
       },

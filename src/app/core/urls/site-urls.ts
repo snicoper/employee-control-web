@@ -7,45 +7,45 @@ export const SiteUrls = {
     logout: '/auth/logout'
   },
 
-  categoryAbsence: {
-    list: '/category-absences',
-    create: '/category-absences/create',
-    edit: '/category-absences/{id}/edit'
+  categoryAbsences: {
+    list: '/category-absence',
+    create: '/category-absence/create',
+    edit: '/category-absence/{id}/edit'
   },
 
   accounts: {
     register: '/accounts/register',
-    registerSuccess: '/accounts/register-success',
-    registerValidate: '/accounts/register-validate',
-    recoveryPassword: '/accounts/recovery-password'
+    registerSuccess: '/account/register-success',
+    registerValidate: '/account/register-validate',
+    recoveryPassword: '/account/recovery-password'
   },
 
   companySettings: {
-    details: '/company-settings/details',
-    edit: '/company-settings/edit'
+    details: '/company-setting/details',
+    edit: '/company-setting/edit'
   },
 
   companyTasks: {
-    list: '/tasks',
-    details: '/tasks/{id}',
-    create: '/tasks/create',
-    edit: '/tasks/{id}/edit'
+    list: '/task',
+    details: '/task/{id}',
+    create: '/task/create',
+    edit: '/task/{id}/edit'
   },
 
   departments: {
-    list: '/departments',
-    details: '/departments/{id}',
-    create: '/departments/create',
-    edit: '/departments/{id}/edit'
+    list: '/department',
+    details: '/department/{id}',
+    create: '/department/create',
+    edit: '/department/{id}/edit'
   },
 
   employees: {
-    list: '/employees',
-    details: '/employees/{id}',
-    edit: '/employees/{id}/edit',
-    invite: '/employees/invite',
-    settings: '/employees/settings',
-    settingsEdit: '/employees/settings/edit'
+    list: '/employee',
+    details: '/employee/{id}',
+    edit: '/employee/{id}/edit',
+    invite: '/employee/invite',
+    settings: '/employee/settings',
+    settingsEdit: '/employee/settings/edit'
   },
 
   dashboard: {
@@ -53,12 +53,12 @@ export const SiteUrls = {
   },
 
   tests: {
-    homeTests: '/tests'
+    homeTests: '/test'
   },
 
   timeControlRecords: {
-    home: '/time-control-records',
-    create: '/time-control-records/create'
+    home: '/time-control-record',
+    create: '/time-control-record/create'
   },
 
   timeControl: {
@@ -66,7 +66,7 @@ export const SiteUrls = {
   },
 
   errors: {
-    forbidden: '/errors/403',
-    notFound: '/errors/404'
+    forbidden: '/error/403',
+    notFound: '/error/404'
   }
 };

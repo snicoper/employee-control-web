@@ -58,7 +58,7 @@ export class CategoryAbsenceEditComponent {
       .subscribe({
         next: () => {
           this.toastrService.success('Tarea editada con éxito.');
-          this.router.navigateByUrl(SiteUrls.categoryAbsence.list);
+          this.router.navigateByUrl(SiteUrls.categoryAbsences.list);
         },
         error: (error) => {
           this.badRequest = error.error;
@@ -68,8 +68,8 @@ export class CategoryAbsenceEditComponent {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Ausencias', SiteUrls.categoryAbsence.list)
-      .add('Editar ausencia', SiteUrls.categoryAbsence.edit, '', false);
+      .add('Ausencias', SiteUrls.categoryAbsences.list)
+      .add('Editar ausencia', SiteUrls.categoryAbsences.edit, '', false);
   }
 
   private buildForm(): void {
