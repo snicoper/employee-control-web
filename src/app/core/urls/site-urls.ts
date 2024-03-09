@@ -2,6 +2,13 @@
 export const SiteUrls = {
   home: '/',
 
+  accounts: {
+    register: '/accounts/register',
+    registerSuccess: '/account/register-success',
+    registerValidate: '/account/register-validate',
+    recoveryPassword: '/account/recovery-password'
+  },
+
   auth: {
     login: '/auth/login',
     logout: '/auth/logout'
@@ -11,13 +18,6 @@ export const SiteUrls = {
     list: '/category-absence',
     create: '/category-absence/create',
     update: '/category-absence/{id}/update'
-  },
-
-  accounts: {
-    register: '/accounts/register',
-    registerSuccess: '/account/register-success',
-    registerValidate: '/account/register-validate',
-    recoveryPassword: '/account/recovery-password'
   },
 
   companySettings: {
@@ -30,6 +30,10 @@ export const SiteUrls = {
     details: '/task/{id}',
     create: '/task/create',
     update: '/task/{id}/update'
+  },
+
+  dashboard: {
+    dashboard: '/dashboard'
   },
 
   departments: {
@@ -52,8 +56,13 @@ export const SiteUrls = {
     settingsEdit: '/employee/settings/update'
   },
 
-  dashboard: {
-    dashboard: '/dashboard'
+  errors: {
+    forbidden: '/error/403',
+    notFound: '/error/404'
+  },
+
+  manageHolidays: {
+    home: '/manage-holiday'
   },
 
   tests: {
@@ -68,10 +77,5 @@ export const SiteUrls = {
 
   timeControl: {
     home: '/time-control'
-  },
-
-  errors: {
-    forbidden: '/error/403',
-    notFound: '/error/404'
   }
 };
