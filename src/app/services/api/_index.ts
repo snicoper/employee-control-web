@@ -6,6 +6,7 @@ export { CompaniesApiService } from './companies-api.service';
 export { CompanySettingsApiService } from './company-settings-api.service';
 export { CompanyTaskApiService } from './company-task-api.service';
 export { DepartmentApiService } from './department-api.service';
+export { EmployeeHolidaysApiService } from './employee-holidays-api.service';
 export { EmployeesApiService } from './employees-api.service';
 export { IdentityRolesApiService } from './identity-roles-api.service';
 export { TimeControlApiService } from './time-control-api.service';

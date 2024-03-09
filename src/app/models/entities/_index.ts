@@ -2,6 +2,7 @@ export { CategoryAbsence } from './categoty-absence.model';
 export { CompanyTask } from './company-task.model';
 export { Company } from './company.model';
 export { Department } from './department.model';
+export { EmployeeHoliday } from './employee-holiday.model';
 export { EmployeeSettings } from './employee-settings.model';
 export { TimeControl } from './time-control.model';
 export { UserRole } from './user-role.model';

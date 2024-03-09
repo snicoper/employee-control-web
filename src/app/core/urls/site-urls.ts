@@ -39,6 +39,10 @@ export const SiteUrls = {
     update: '/department/{id}/update'
   },
 
+  employeeHolidays: {
+    home: '/employee-holiday'
+  },
+
   employees: {
     list: '/employee',
     details: '/employee/{id}',
