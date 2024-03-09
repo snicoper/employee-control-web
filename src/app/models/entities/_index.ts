@@ -8,3 +8,4 @@ export { EmployeeSettings } from './employee-settings.model';
 export { TimeControl } from './time-control.model';
 export { UserRole } from './user-role.model';
 export { User } from './user.model';
+export { WorkDays } from './work-days.model';
