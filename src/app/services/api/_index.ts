@@ -3,6 +3,7 @@ export { AdminAccountsApiService } from './admin-accounts-api.service';
 export { AuthApiService } from './auth-api.service';
 export { CategoryAbsencesApiService } from './category-absences-api.service';
 export { CompaniesApiService } from './companies-api.service';
+export { CompanyHolidaysApiService } from './company-holidays-api.service';
 export { CompanySettingsApiService } from './company-settings-api.service';
 export { CompanyTaskApiService } from './company-task-api.service';
 export { DepartmentApiService } from './department-api.service';

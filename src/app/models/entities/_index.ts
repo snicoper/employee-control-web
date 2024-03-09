@@ -1,4 +1,5 @@
 export { CategoryAbsence } from './categoty-absence.model';
+export { CompanyHoliday } from './company-holiday.model';
 export { CompanyTask } from './company-task.model';
 export { Company } from './company.model';
 export { Department } from './department.model';
