@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CalendarDay } from './calendar-day.model';
+import { CalendarDay } from '@aw/components/year-calendar/month-calendar/calendar-day.model';
 
 @Component({
   selector: 'aw-month-calendar',
@@ -35,6 +35,7 @@ export class MonthCalendarComponent implements OnInit {
     this.currentYear = this.date.getFullYear();
     this.currentMonth = this.date.getMonth();
     this.currentDate = `${this.months[this.currentMonth]} ${this.currentYear}`;
+
     this.composeCalendarDays();
   }
 
@@ -68,6 +69,7 @@ export class MonthCalendarComponent implements OnInit {
     // Bucle para agregar las fechas del mes actual.
     for (let i = 1; i <= lastDate; i++) {
       const date = new Date(this.currentYear, this.currentMonth, i);
+
       const isToday =
         new Date(this.currentYear, this.currentMonth, i).getTime() ===
         new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();

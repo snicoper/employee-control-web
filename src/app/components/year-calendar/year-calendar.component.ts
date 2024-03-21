@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CalendarDay } from './month-calendar/calendar-day.model';
 
 @Component({
   selector: 'aw-year-calendar',
@@ -8,7 +7,6 @@ import { CalendarDay } from './month-calendar/calendar-day.model';
 })
 export class YearCalendarComponent implements OnInit {
   @Input({ required: true }) year = new Date().getFullYear();
-  @Input() calendarDays: CalendarDay[] = [];
 
   monthsInYear: Date[] = [];
 
