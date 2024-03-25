@@ -9,22 +9,22 @@ const routes: Routes = [
   {
     path: '',
     component: CompanyTaskListComponent,
-    data: { title: 'Lista de tareas' }
+    title: 'Lista de tareas'
   },
   {
     path: 'create',
     component: CompanyTaskCreateComponent,
-    data: { title: 'Crear nueva tareas' }
+    title: 'Crear nueva tareas'
   },
   {
     path: ':id',
     component: CompanyTaskViewComponent,
-    data: { title: 'Detalles de tarea' }
+    title: 'Detalles de tarea'
   },
   {
     path: ':id/update',
     component: CompanyTaskUpdateComponent,
-    data: { title: 'Editar tarea' }
+    title: 'Editar tarea'
   }
 ];
 

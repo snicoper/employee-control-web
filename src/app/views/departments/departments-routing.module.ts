@@ -9,22 +9,22 @@ const routes: Routes = [
   {
     path: '',
     component: DepartmentListComponent,
-    data: { title: 'Lista de departamentos' }
+    title: 'Lista de departamentos'
   },
   {
     path: 'create',
     component: DepartmentCreateComponent,
-    data: { title: 'Crea departamento' }
+    title: 'Crea departamento'
   },
   {
     path: ':id',
     component: DepartmentViewComponent,
-    data: { title: 'Detalles departamento' }
+    title: 'Detalles departamento'
   },
   {
     path: ':id/update',
     component: DepartmentUpdateComponent,
-    data: { title: 'Editar departamento' }
+    title: 'Editar departamento'
   }
 ];
 

@@ -6,7 +6,7 @@ export const routes: Routes = [
   {
     path: '',
     component: ManageHolidaysComponent,
-    data: { title: 'Días festivos' }
+    title: 'Días festivos'
   }
 ];
 

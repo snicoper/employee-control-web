@@ -7,12 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: CompanySettingsDetailsComponent,
-    data: { title: 'Configuración de empresa' }
+    title: 'Configuración de empresa'
   },
   {
     path: 'update',
     component: CompanySettingsUpdateComponent,
-    data: { title: 'Editar configuración de empresa' }
+    title: 'Editar configuración de empresa'
   }
 ];
 

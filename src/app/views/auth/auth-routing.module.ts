@@ -7,12 +7,12 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    data: { title: 'Inicio de sesión' }
+    title: 'Inicio de sesión'
   },
   {
     path: 'logout',
     component: LogoutComponent,
-    data: { title: 'Cerrar sesión' }
+    title: 'Cerrar sesión'
   },
   {
     path: '**',

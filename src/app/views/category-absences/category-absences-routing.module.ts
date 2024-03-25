@@ -8,17 +8,17 @@ const routes: Routes = [
   {
     path: '',
     component: CategoryAbsenceListComponent,
-    data: { title: 'Categoría de ausencias' }
+    title: 'Categoría de ausencias'
   },
   {
     path: 'create',
     component: CategoryAbsenceCreateComponent,
-    data: { title: 'Crear categoría de ausencias' }
+    title: 'Crear categoría de ausencias'
   },
   {
     path: ':id/update',
     component: CategoryAbsenceUpdateComponent,
-    data: { title: 'Actualizar categoría de ausencias' }
+    title: 'Actualizar categoría de ausencias'
   }
 ];
 

@@ -8,7 +8,8 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    data: { title: 'Inicio', roles: [Roles.employee] },
+    title: 'Inicio',
+    data: { roles: [Roles.employee] },
     canActivate: [AuthGuard]
   }
 ];

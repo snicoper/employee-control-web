@@ -19,8 +19,8 @@ export class ViewTitleComponent implements OnInit {
   ngOnInit(): void {
     if (this.pageTitle) {
       this.setTitle(this.pageTitle);
-    } else if ('title' in this.route.snapshot.data) {
-      this.setTitle(this.route.snapshot.data['title']);
+    } else if ('title' in this.route.snapshot) {
+      this.setTitle(this.route.snapshot.title);
     } else {
       this.setTitle();
     }

@@ -6,7 +6,7 @@ export const routes: Routes = [
   {
     path: '',
     component: TimesControlComponent,
-    data: { title: 'Control de tiempos' }
+    title: 'Control de tiempos'
   }
 ];
 

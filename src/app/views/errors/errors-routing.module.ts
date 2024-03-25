@@ -7,12 +7,12 @@ const routes: Routes = [
   {
     path: '403',
     component: Error403Component,
-    data: { title: 'Sin autorización' }
+    title: 'Sin autorización'
   },
   {
     path: '404',
     component: Error404Component,
-    data: { title: 'Página no encontrada' }
+    title: 'Página no encontrada'
   }
 ];
 

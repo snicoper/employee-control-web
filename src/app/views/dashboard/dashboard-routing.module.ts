@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
-    data: { title: 'Panel de usuario' }
+    title: 'Panel de usuario'
   }
 ];
 

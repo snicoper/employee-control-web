@@ -5,7 +5,8 @@ import { HomeTestComponent } from './home-test/home-test.component';
 export const routes: Routes = [
   {
     path: '',
-    component: HomeTestComponent
+    component: HomeTestComponent,
+    title: 'Tests'
   }
 ];
 

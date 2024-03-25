@@ -11,32 +11,32 @@ const routes: Routes = [
   {
     path: '',
     component: EmployeeListComponent,
-    data: { title: 'Lista de empleados' }
+    title: 'Lista de empleados'
   },
   {
     path: 'invite',
     component: EmployeeInviteComponent,
-    data: { title: 'Invitar a empleado' }
+    title: 'Invitar a empleado'
   },
   {
     path: 'settings',
     component: EmployeeSettingsDetailsComponent,
-    data: { title: 'Configuración de usuario' }
+    title: 'Configuración de usuario'
   },
   {
     path: 'settings/edit',
     component: EmployeeSettingsEditComponent,
-    data: { title: 'Editar configuración de usuario' }
+    title: 'Editar configuración de usuario'
   },
   {
     path: ':id',
     component: EmployeeViewComponent,
-    data: { title: 'Detalles de empleado' }
+    title: 'Detalles de empleado'
   },
   {
     path: ':id/update',
     component: EmployeeUpdateComponent,
-    data: { title: 'Editar empleado' }
+    title: 'Editar empleado'
   }
 ];
 

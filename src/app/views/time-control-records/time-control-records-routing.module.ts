@@ -8,17 +8,17 @@ export const routes: Routes = [
   {
     path: '',
     component: TimeControlRecordListComponent,
-    data: { title: 'Registro de tiempos' }
+    title: 'Registro de tiempos'
   },
   {
     path: 'create',
     component: TimeControlRecordCreateComponent,
-    data: { title: 'Añadir un registro de tiempo' }
+    title: 'Añadir un registro de tiempo'
   },
   {
     path: ':id/update',
     component: TimeControlRecordUpdateComponent,
-    data: { title: 'Actualizar un registro de tiempo' }
+    title: 'Actualizar un registro de tiempo'
   }
 ];
 
