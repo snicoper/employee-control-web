@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { RecoveryPasswordChangeComponent } from './recovery-password-change/recovery-password-change.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { RegisterSuccessComponent } from './register-success/register-success.component';
 import { RegisterValidateComponent } from './register-validate/register-validate.component';
 import { RegisterComponent } from './register/register.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
@@ -33,9 +32,3 @@ const routes: Routes = [
     title: 'Cambiar contraseña olvidada'
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class AccountsRoutingModule {}

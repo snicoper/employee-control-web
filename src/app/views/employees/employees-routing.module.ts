@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { EmployeeInviteComponent } from './employee-invite/employee-invite.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeSettingsDetailsComponent } from './employee-settings/employee-settings-details/employee-settings-details.component';
@@ -7,7 +6,7 @@ import { EmployeeSettingsEditComponent } from './employee-settings/employee-sett
 import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 import { EmployeeViewComponent } from './employee-view/employee-view.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: EmployeeListComponent,
@@ -39,9 +38,3 @@ const routes: Routes = [
     title: 'Editar empleado'
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class EmployeesRoutingModule {}
