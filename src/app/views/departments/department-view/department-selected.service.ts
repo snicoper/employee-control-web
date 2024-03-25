@@ -5,7 +5,7 @@ import { Department } from '@aw/models/entities/department.model';
 import { DepartmentApiService } from '@aw/services/api/_index';
 import { finalize } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DepartmentSelectedService {
   private readonly departmentApiService = inject(DepartmentApiService);
 

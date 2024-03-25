@@ -130,6 +130,13 @@ export class TimeControlRecordUpdateComponent implements OnInit {
       0
     );
 
+    // Comprobar si start es menor a end.
+    if (start > end) {
+      this.form.get('timeFinish')?.setErrors({ noFutureDate: true });
+
+      return timeControl;
+    }
+
     timeControl.id = this.timeControlId;
     timeControl.start = start.toISOString();
     timeControl.finish = end.toISOString();
@@ -180,10 +187,7 @@ export class TimeControlRecordUpdateComponent implements OnInit {
         timeFinish: [endWithOffset, []]
       },
       {
-        validators: [
-          CustomValidation.dateStartGreaterThanFinish('dateStart', 'dateFinish'),
-          CustomValidation.dateStartGreaterThanFinish('timeStart', 'timeFinish')
-        ]
+        validators: [CustomValidation.dateStartGreaterThanFinish('dateStart', 'dateFinish')]
       }
     );
   }
