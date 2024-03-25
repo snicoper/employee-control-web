@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbCollection } from '@aw/components/breadcrumb/breadcrumb-collection';
 import { SiteUrls } from '@aw/core/urls/_index';
 import { TimeState } from '@aw/models/entities/types/_index';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CardComponent } from '../../../components/cards/card/card.component';
 import { DotDangerComponent } from '../../../components/colors/dot-danger/dot-danger.component';
@@ -30,7 +31,8 @@ import { EmployeeTimeControlComponent } from './employee-time-control/employee-t
     EmployeeDepartmentsComponent,
     EmployeeTasksComponent,
     EmployeeTimeControlComponent
-  ]
+  ],
+  providers: [BsModalService]
 })
 export class EmployeeViewComponent {
   private readonly route = inject(ActivatedRoute);
