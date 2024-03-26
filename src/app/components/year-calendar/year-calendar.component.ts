@@ -10,7 +10,7 @@ import { MonthCalendarComponent } from './month-calendar/month-calendar.componen
 })
 export class YearCalendarComponent implements OnInit {
   @Input({ required: true }) year = new Date().getFullYear();
-  @Input() calendarDays: CalendarDay[] = [];
+  @Input() calendarDayEvents: CalendarDay[] = [];
 
   monthsInYear: Date[] = [];
 

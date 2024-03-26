@@ -19,7 +19,6 @@ export class MonthCalendarComponent implements OnInit {
 
   calendarDays: CalendarDay[] = [];
   currentDate = '';
-
   weeks = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   months = [
     'January',
@@ -75,9 +74,12 @@ export class MonthCalendarComponent implements OnInit {
     for (let i = 1; i <= lastDate; i++) {
       const date = new Date(this.currentYear, this.currentMonth, i);
       const isToday = date.getTime() === new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
-      const background = isToday ? '#6332c5' : '';
+      const backgroundToday = isToday ? '#6332c5' : '';
 
-      this.calendarDays.push({ date: date, day: i, isToday: isToday, inactive: false, background: background });
+      // const dayEvent = this.calendarDayEvents.find((cde) => cde.date?.getTime() === date.getTime());
+      // const background = dayEvent ? dayEvent.background : backgroundToday;
+
+      this.calendarDays.push({ date: date, day: i, isToday: isToday, inactive: false, background: backgroundToday });
     }
 
     // Bucle para agregar las primeras fechas del próximo mes.

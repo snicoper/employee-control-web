@@ -1,0 +1,54 @@
+@if (weekDays && !loadingWorkDays) {
+  <div class="btn-group">
+    <button
+      (click)="handleClickDay(weekDays.monday)"
+      [ngClass]="{ 'btn-success': workDays?.monday, 'btn-danger': !workDays?.monday }"
+      class="btn btn-sm">
+      Lunes
+    </button>
+
+    <button
+      (click)="handleClickDay(weekDays.tuesday)"
+      [ngClass]="{ 'btn-success': workDays?.tuesday, 'btn-danger': !workDays?.tuesday }"
+      class="btn btn-sm">
+      Martes
+    </button>
+
+    <button
+      (click)="handleClickDay(weekDays.wednesday)"
+      [ngClass]="{ 'btn-success': workDays?.wednesday, 'btn-danger': !workDays?.wednesday }"
+      class="btn btn-sm">
+      Miércoles
+    </button>
+
+    <button
+      (click)="handleClickDay(weekDays.thursday)"
+      [ngClass]="{ 'btn-success': workDays?.thursday, 'btn-danger': !workDays?.thursday }"
+      class="btn btn-sm">
+      Jueves
+    </button>
+
+    <button
+      (click)="handleClickDay(weekDays.friday)"
+      [ngClass]="{ 'btn-success': workDays?.friday, 'btn-danger': !workDays?.friday }"
+      class="btn btn-sm">
+      Viernes
+    </button>
+
+    <button
+      (click)="handleClickDay(weekDays.saturday)"
+      [ngClass]="{ 'btn-success': workDays?.saturday, 'btn-danger': !workDays?.saturday }"
+      class="btn btn-sm">
+      Sábado
+    </button>
+
+    <button
+      (click)="handleClickDay(weekDays.sunday)"
+      [ngClass]="{ 'btn-success': workDays?.sunday, 'btn-danger': !workDays?.sunday }"
+      class="btn btn-sm">
+      Domingo
+    </button>
+  </div>
+} @else {
+  <aw-spinner [loading]="loadingWorkDays" />
+}
