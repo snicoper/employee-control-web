@@ -6,8 +6,8 @@ import { SpinnerComponent } from '../../../components/spinner/spinner.component'
 import { WeekDays } from '../../../core/types/_index';
 import { ApiUrls } from '../../../core/urls/_index';
 import { ResultResponse } from '../../../models/_index';
-import { WorkDays } from '../../../models/entities/_index';
-import { WorkDaysApiService } from '../../../services/api/_index';
+import { WorkingDaysWeek } from '../../../models/entities/working-days-week.model';
+import { WorkingDaysWeekApiService } from '../../../services/api/_index';
 import { CurrentCompanyEmployeeService } from '../../../services/states/_index';
 import { urlReplaceParams } from './../../../core/utils/common-utils';
 
@@ -19,13 +19,13 @@ import { urlReplaceParams } from './../../../core/utils/common-utils';
 })
 export class WorkingDaysWeekComponent {
   private readonly currentCompanyEmployeeService = inject(CurrentCompanyEmployeeService);
-  private readonly workDaysApiService = inject(WorkDaysApiService);
+  private readonly workingDaysWeekApiService = inject(WorkingDaysWeekApiService);
   private readonly toastrService = inject(ToastrService);
 
-  @Output() workDaysEmitter = new EventEmitter<WorkDays>();
+  @Output() workingDaysWeekEmitter = new EventEmitter<WorkingDaysWeek>();
 
-  loadingWorkDays = false;
-  workDays: WorkDays | undefined;
+  loadingWorkingDaysWeek = false;
+  workingDaysWeek: WorkingDaysWeek | undefined;
   weekDays = WeekDays;
 
   constructor() {
@@ -33,31 +33,31 @@ export class WorkingDaysWeekComponent {
   }
 
   handleClickDay(weekDay: WeekDays): void {
-    if (!this.workDays) {
+    if (!this.workingDaysWeek) {
       return;
     }
 
     switch (weekDay) {
       case WeekDays.monday:
-        this.workDays.monday = !this.workDays?.monday;
+        this.workingDaysWeek.monday = !this.workingDaysWeek?.monday;
         break;
       case WeekDays.tuesday:
-        this.workDays.tuesday = !this.workDays?.tuesday;
+        this.workingDaysWeek.tuesday = !this.workingDaysWeek?.tuesday;
         break;
       case WeekDays.wednesday:
-        this.workDays.wednesday = !this.workDays?.wednesday;
+        this.workingDaysWeek.wednesday = !this.workingDaysWeek?.wednesday;
         break;
       case WeekDays.thursday:
-        this.workDays.thursday = !this.workDays?.thursday;
+        this.workingDaysWeek.thursday = !this.workingDaysWeek?.thursday;
         break;
       case WeekDays.friday:
-        this.workDays.friday = !this.workDays?.friday;
+        this.workingDaysWeek.friday = !this.workingDaysWeek?.friday;
         break;
       case WeekDays.saturday:
-        this.workDays.saturday = !this.workDays?.saturday;
+        this.workingDaysWeek.saturday = !this.workingDaysWeek?.saturday;
         break;
       case WeekDays.sunday:
-        this.workDays.sunday = !this.workDays?.sunday;
+        this.workingDaysWeek.sunday = !this.workingDaysWeek?.sunday;
         break;
     }
 
@@ -65,41 +65,41 @@ export class WorkingDaysWeekComponent {
   }
 
   private loadWorkDays(): void {
-    this.loadingWorkDays = true;
+    this.loadingWorkingDaysWeek = true;
 
     const url = urlReplaceParams(ApiUrls.workingDaysWeek.getWorkingDaysWeekByCompanyId, {
       companyId: this.currentCompanyEmployeeService.getValue()?.id as string
     });
 
-    this.workDaysApiService
-      .get<WorkDays>(url)
-      .pipe(finalize(() => (this.loadingWorkDays = false)))
+    this.workingDaysWeekApiService
+      .get<WorkingDaysWeek>(url)
+      .pipe(finalize(() => (this.loadingWorkingDaysWeek = false)))
       .subscribe({
-        next: (result: WorkDays) => {
-          this.workDays = result;
-          this.workDaysEmitter.emit(this.workDays);
+        next: (result: WorkingDaysWeek) => {
+          this.workingDaysWeek = result;
+          this.workingDaysWeekEmitter.emit(this.workingDaysWeek);
         }
       });
   }
 
   private updateWorkDays(): void {
-    if (!this.workDays) {
+    if (!this.workingDaysWeek) {
       return;
     }
 
-    this.loadingWorkDays = true;
-    const url = urlReplaceParams(ApiUrls.workingDaysWeek.updateWorkingDaysWeek, { id: this.workDays.id });
+    this.loadingWorkingDaysWeek = true;
+    const url = urlReplaceParams(ApiUrls.workingDaysWeek.updateWorkingDaysWeek, { id: this.workingDaysWeek.id });
 
-    this.workDaysApiService
-      .put<WorkDays, ResultResponse>(this.workDays, url)
-      .pipe(finalize(() => (this.loadingWorkDays = false)))
+    this.workingDaysWeekApiService
+      .put<WorkingDaysWeek, ResultResponse>(this.workingDaysWeek, url)
+      .pipe(finalize(() => (this.loadingWorkingDaysWeek = false)))
       .subscribe({
         next: (result: ResultResponse) => {
           if (!result.succeeded) {
             this.toastrService.error('Error al actualizar día laborable.');
           }
 
-          this.workDaysEmitter.emit(this.workDays);
+          this.workingDaysWeekEmitter.emit(this.workingDaysWeek);
         },
         error: () => {
           this.toastrService.error('Error al actualizar día laborable.');

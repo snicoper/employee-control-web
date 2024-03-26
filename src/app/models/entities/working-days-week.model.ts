@@ -1,6 +1,6 @@
 import { Company } from './company.model';
 
-export interface WorkDays {
+export interface WorkingDaysWeek {
   id: string;
   monday: boolean;
   tuesday: boolean;
