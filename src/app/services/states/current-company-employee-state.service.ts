@@ -6,7 +6,7 @@ import { JwtService } from '../jwt.service';
 
 /** Compañía actual del usuario. */
 @Injectable({ providedIn: 'root' })
-export class CurrentCompanyEmployeeService {
+export class CurrentCompanyEmployeeStateService {
   private readonly companiesApiService = inject(CompaniesApiService);
   private readonly jwtService = inject(JwtService);
 

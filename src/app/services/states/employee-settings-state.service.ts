@@ -6,7 +6,7 @@ import { EmployeeSettings } from '../../models/entities/_index';
 import { EmployeesApiService } from '../api/employees-api.service';
 
 @Injectable({ providedIn: 'root' })
-export class EmployeeSettingsService {
+export class EmployeeSettingsStateService {
   private readonly localizationService = inject(LocalizationService);
   private readonly employeesApiService = inject(EmployeesApiService);
 

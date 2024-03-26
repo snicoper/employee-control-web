@@ -8,7 +8,7 @@ import { JwtService } from '../jwt.service';
 
 /** Settings de la compañía actual. */
 @Injectable({ providedIn: 'root' })
-export class CurrentCompanySettingsService {
+export class CurrentCompanySettingsStateService {
   private readonly companySettingsApiService = inject(CompanySettingsApiService);
   private readonly jwtService = inject(JwtService);
 

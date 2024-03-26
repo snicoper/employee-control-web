@@ -8,7 +8,7 @@ import { ApiUrls } from '../../../core/urls/_index';
 import { ResultResponse } from '../../../models/_index';
 import { WorkingDaysWeek } from '../../../models/entities/working-days-week.model';
 import { WorkingDaysWeekApiService } from '../../../services/api/_index';
-import { CurrentCompanyEmployeeService } from '../../../services/states/_index';
+import { CurrentCompanyEmployeeStateService } from '../../../services/states/_index';
 import { urlReplaceParams } from './../../../core/utils/common-utils';
 
 @Component({
@@ -18,7 +18,7 @@ import { urlReplaceParams } from './../../../core/utils/common-utils';
   imports: [NgClass, SpinnerComponent]
 })
 export class WorkingDaysWeekComponent {
-  private readonly currentCompanyEmployeeService = inject(CurrentCompanyEmployeeService);
+  private readonly currentCompanyEmployeeStateService = inject(CurrentCompanyEmployeeStateService);
   private readonly workingDaysWeekApiService = inject(WorkingDaysWeekApiService);
   private readonly toastrService = inject(ToastrService);
 
@@ -68,7 +68,7 @@ export class WorkingDaysWeekComponent {
     this.loadingWorkingDaysWeek = true;
 
     const url = urlReplaceParams(ApiUrls.workingDaysWeek.getWorkingDaysWeekByCompanyId, {
-      companyId: this.currentCompanyEmployeeService.getValue()?.id as string
+      companyId: this.currentCompanyEmployeeStateService.getValue()?.id as string
     });
 
     this.workingDaysWeekApiService
