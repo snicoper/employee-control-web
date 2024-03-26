@@ -145,6 +145,7 @@ export class TimesControlComponent {
     const dateSelected = DateTime.fromJSDate(this.dateSelected);
     const startDate = dateSelected.startOf('month');
     const endDate = dateSelected.endOf('month');
+
     const url = urlReplaceParams(ApiUrls.timeControl.getTimeControlRangeByEmployeeId, {
       employeeId: this.jwtService.getSid(),
       from: startDate.toUTC().toString(),
