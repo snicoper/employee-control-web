@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { AuthService, ThemeColorService, UserStatesService } from '@aw/services/_index';
+import { AuthService, ThemeColorService, UserStatesService } from '../../services/_index';
 import { LocalizationService } from '../features/localizations/_index';
 
 /** Configuración inicial de la aplicación. */
