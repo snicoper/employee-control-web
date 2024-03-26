@@ -3,14 +3,15 @@ import { ApiUrls } from '../../core/urls/_index';
 import { CurrentCompanyEmployeeResponse } from '../../models/_index';
 import { CompaniesApiService } from '../api/companies-api.service';
 import { JwtService } from '../jwt.service';
+import { StateService } from './state.service';
 
 /** Compañía actual del usuario. */
 @Injectable({ providedIn: 'root' })
-export class CurrentCompanyEmployeeStateService {
+export class CurrentCompanyEmployeeStateService implements StateService<CurrentCompanyEmployeeResponse | null> {
   private readonly companiesApiService = inject(CompaniesApiService);
   private readonly jwtService = inject(JwtService);
 
-  private readonly currentCompanyEmployeeResponse$ = signal<CurrentCompanyEmployeeResponse | null>(null);
+  private readonly currentCompanyEmployee$ = signal<CurrentCompanyEmployeeResponse | null>(null);
 
   refresh(): void {
     // Si no esta autenticado, no obtener CompanyByCurrentUser.
@@ -20,20 +21,20 @@ export class CurrentCompanyEmployeeStateService {
 
     this.companiesApiService.get<CurrentCompanyEmployeeResponse>(ApiUrls.companies.getCompanyByCurrentUser).subscribe({
       next: (result: CurrentCompanyEmployeeResponse) => {
-        this.currentCompanyEmployeeResponse$.set(result);
+        this.currentCompanyEmployee$.set(result);
       }
     });
   }
 
   getValue(): CurrentCompanyEmployeeResponse | null {
-    return this.currentCompanyEmployeeResponse$();
+    return this.currentCompanyEmployee$();
   }
 
   setValue(entity: CurrentCompanyEmployeeResponse | null): void {
-    this.currentCompanyEmployeeResponse$.set(entity);
+    this.currentCompanyEmployee$.set(entity);
   }
 
   clean(): void {
-    this.currentCompanyEmployeeResponse$.set(null);
+    this.currentCompanyEmployee$.set(null);
   }
 }

@@ -4,9 +4,10 @@ import { LocalizationService } from '../../core/features/localizations/_index';
 import { ApiUrls } from '../../core/urls/_index';
 import { EmployeeSettings } from '../../models/entities/_index';
 import { EmployeesApiService } from '../api/employees-api.service';
+import { StateService } from './state.service';
 
 @Injectable({ providedIn: 'root' })
-export class EmployeeSettingsStateService {
+export class EmployeeSettingsStateService implements StateService<EmployeeSettings | null> {
   private readonly localizationService = inject(LocalizationService);
   private readonly employeesApiService = inject(EmployeesApiService);
 
@@ -24,7 +25,7 @@ export class EmployeeSettingsStateService {
     this.employeeSettings$.set(null);
   }
 
-  getCurrentValue(): EmployeeSettings | null {
+  getValue(): EmployeeSettings | null {
     return this.employeeSettings$();
   }
 

@@ -5,10 +5,11 @@ import { urlReplaceParams } from '../../core/utils/_index';
 import { CompanySettings } from '../../models/entities/company-settings.model';
 import { CompanySettingsApiService } from '../api/company-settings-api.service';
 import { JwtService } from '../jwt.service';
+import { StateService } from './state.service';
 
 /** Settings de la compañía actual. */
 @Injectable({ providedIn: 'root' })
-export class CurrentCompanySettingsStateService {
+export class CurrentCompanySettingsStateService implements StateService<CompanySettings | null> {
   private readonly companySettingsApiService = inject(CompanySettingsApiService);
   private readonly jwtService = inject(JwtService);
 
@@ -22,7 +23,7 @@ export class CurrentCompanySettingsStateService {
     this.loadCompanySettings();
   }
 
-  getCompanySettingsValue(): CompanySettings | null {
+  getValue(): CompanySettings | null {
     return this.companySettings$();
   }
 

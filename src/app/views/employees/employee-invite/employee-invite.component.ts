@@ -96,7 +96,7 @@ export class EmployeeInviteComponent {
   }
 
   private buildForm(): void {
-    const companySettings = this.currentCompanySettingsStateService.getCompanySettingsValue();
+    const companySettings = this.currentCompanySettingsStateService.getValue();
 
     this.form = this.fb.group({
       firstName: ['', [Validators.required]],
