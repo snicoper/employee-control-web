@@ -26,6 +26,11 @@ export class CurrentTimeControlStateService {
     return this.currentTimeControl$();
   }
 
+  clean(): void {
+    this.loadingCurrentTimeControl$.set(false);
+    this.currentTimeControl$.set(null);
+  }
+
   private loadCurrentTimeControl(): void {
     this.loadingCurrentTimeControl$.set(true);
 

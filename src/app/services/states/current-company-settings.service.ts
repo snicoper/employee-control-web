@@ -26,6 +26,11 @@ export class CurrentCompanySettingsService {
     return this.companySettings$();
   }
 
+  clean(): void {
+    this.loadingCompanySettings$.set(false);
+    this.companySettings$.set(null);
+  }
+
   private loadCompanySettings(): void {
     this.loadingCompanySettings$.set(true);
     const url = urlReplaceParams(ApiUrls.companySettings.getCompanySettingsByCompanyId, {

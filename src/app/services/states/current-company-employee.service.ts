@@ -32,4 +32,8 @@ export class CurrentCompanyEmployeeService {
   setValue(entity: CurrentCompanyEmployeeResponse | null): void {
     this.currentCompanyEmployeeResponse$.set(entity);
   }
+
+  clean(): void {
+    this.currentCompanyEmployeeResponse$.set(null);
+  }
 }
