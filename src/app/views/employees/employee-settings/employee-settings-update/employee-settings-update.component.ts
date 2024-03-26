@@ -21,8 +21,8 @@ import { ViewBaseComponent } from '../../../../components/views/view-base/view-b
 import { ViewHeaderComponent } from '../../../../components/views/view-header/view-header.component';
 
 @Component({
-  selector: 'aw-employee-settings-edit',
-  templateUrl: './employee-settings-edit.component.html',
+  selector: 'aw-employee-settings-update',
+  templateUrl: './employee-settings-update.component.html',
   standalone: true,
   imports: [
     ViewBaseComponent,
@@ -35,7 +35,7 @@ import { ViewHeaderComponent } from '../../../../components/views/view-header/vi
     BtnLoadingComponent
   ]
 })
-export class EmployeeSettingsEditComponent {
+export class EmployeeSettingsUpdateComponent {
   private readonly employeeSettingsService = inject(EmployeeSettingsService);
   private readonly employeesApiService = inject(EmployeesApiService);
   private readonly fb = inject(FormBuilder);
@@ -93,7 +93,7 @@ export class EmployeeSettingsEditComponent {
   private setBreadcrumb(): void {
     this.breadcrumb
       .add('Configuración de empleado', SiteUrls.employees.settings)
-      .add('Editar', SiteUrls.employees.settingsEdit, '', false);
+      .add('Editar', SiteUrls.employees.settingsUpdate, '', false);
   }
 
   private setNowWithOriginalTimezone(): void {

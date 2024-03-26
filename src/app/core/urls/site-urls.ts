@@ -53,7 +53,7 @@ export const SiteUrls = {
     update: '/employees/{id}/update',
     invite: '/employees/invite',
     settings: '/employees/settings',
-    settingsEdit: '/employees/settings/update'
+    settingsUpdate: '/employees/settings/update'
   },
 
   errors: {
