@@ -48,8 +48,8 @@ export abstract class DatetimeUtils {
     return `${minutes}m`;
   }
 
-  static getWeekDaysFromYear(year: number, weekDay: number): DateTime[] {
-    const datesResult: DateTime[] = [];
+  static getWeekDaysFromYear(year: number, weekDay: number): Date[] {
+    const result: Date[] = [];
     const start = DateTime.fromObject({ year: year, month: 1, day: 1 });
     const end = DateTime.fromObject({ year: year, month: 12, day: 31 });
 
@@ -59,12 +59,12 @@ export abstract class DatetimeUtils {
       const d = subInt.start;
 
       if (d && d?.weekday === weekDay) {
-        datesResult.push(d);
+        result.push(d.toJSDate());
       }
 
       return d?.weekday === weekDay ? days + 1 : days;
     }, 0);
 
-    return datesResult;
+    return result;
   }
 }
