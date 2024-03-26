@@ -38,7 +38,7 @@ export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek
     this.workingDaysWeek$.set(null);
   }
 
-  updateDayWeek(weekDay: WeekDays): void {
+  updateWeekDay(weekDay: WeekDays): void {
     const workingDaysWeek = this.getValue() as WorkingDaysWeek;
 
     switch (weekDay) {

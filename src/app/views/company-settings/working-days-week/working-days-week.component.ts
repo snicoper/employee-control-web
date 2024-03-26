@@ -26,6 +26,6 @@ export class WorkingDaysWeekComponent {
       return;
     }
 
-    this.workingDaysWeekStateService.updateDayWeek(weekDay);
+    this.workingDaysWeekStateService.updateWeekDay(weekDay);
   }
 }
