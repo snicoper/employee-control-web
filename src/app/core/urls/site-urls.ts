@@ -15,21 +15,21 @@ export const SiteUrls = {
   },
 
   categoryAbsences: {
-    list: '/category-absence',
-    create: '/category-absence/create',
-    update: '/category-absence/{id}/update'
+    list: '/category-absences',
+    create: '/category-absences/create',
+    update: '/category-absences/{id}/update'
   },
 
   companySettings: {
-    details: '/company-setting',
-    update: '/company-setting/update'
+    details: '/company-settings',
+    update: '/company-settings/update'
   },
 
   companyTasks: {
-    list: '/task',
-    details: '/task/{id}',
-    create: '/task/create',
-    update: '/task/{id}/update'
+    list: '/tasks',
+    details: '/tasks/{id}',
+    create: '/tasks/create',
+    update: '/tasks/{id}/update'
   },
 
   dashboard: {
@@ -37,45 +37,45 @@ export const SiteUrls = {
   },
 
   departments: {
-    list: '/department',
-    details: '/department/{id}',
-    create: '/department/create',
-    update: '/department/{id}/update'
+    list: '/departments',
+    details: '/departments/{id}',
+    create: '/departments/create',
+    update: '/departments/{id}/update'
   },
 
   employeeHolidays: {
-    home: '/employee-holiday'
+    home: '/employee-holidays'
   },
 
   employees: {
-    list: '/employee',
-    details: '/employee/{id}',
-    update: '/employee/{id}/update',
-    invite: '/employee/invite',
-    settings: '/employee/settings',
-    settingsEdit: '/employee/settings/update'
+    list: '/employees',
+    details: '/employees/{id}',
+    update: '/employees/{id}/update',
+    invite: '/employees/invite',
+    settings: '/employees/settings',
+    settingsEdit: '/employees/settings/update'
   },
 
   errors: {
-    forbidden: '/error/403',
-    notFound: '/error/404'
+    forbidden: '/errors/403',
+    notFound: '/errors/404'
   },
 
   manageHolidays: {
-    home: '/manage-holiday'
+    home: '/manage-holidays'
   },
 
   tests: {
-    homeTests: '/test'
+    homeTests: '/tests'
   },
 
   timeControlRecords: {
-    home: '/time-control-record',
-    create: '/time-control-record/create',
-    update: '/time-control-record/{id}/update'
+    home: '/time-control-records',
+    create: '/time-control-records/create',
+    update: '/time-control-records/{id}/update'
   },
 
   timeControl: {
-    home: '/time-control'
+    home: '/times-control'
   }
 };
