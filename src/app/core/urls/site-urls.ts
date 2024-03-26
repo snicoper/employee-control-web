@@ -4,9 +4,9 @@ export const SiteUrls = {
 
   accounts: {
     register: '/accounts/register',
-    registerSuccess: '/account/register-success',
-    registerValidate: '/account/register-validate',
-    recoveryPassword: '/account/recovery-password'
+    registerSuccess: '/accounts/register-success',
+    registerValidate: '/accounts/register-validate',
+    recoveryPassword: '/accounts/recovery-password'
   },
 
   auth: {
@@ -75,7 +75,7 @@ export const SiteUrls = {
     update: '/time-control-records/{id}/update'
   },
 
-  timeControl: {
+  timesControl: {
     home: '/times-control'
   }
 };

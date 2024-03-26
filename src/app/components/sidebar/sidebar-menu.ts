@@ -83,7 +83,7 @@ export const sidebarMenu: SidebarMenu[] = [
       },
       {
         title: 'Control de tiempo',
-        link: SiteUrls.timeControl.home,
+        link: SiteUrls.timesControl.home,
         active: false
       }
     ]
