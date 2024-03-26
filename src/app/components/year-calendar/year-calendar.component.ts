@@ -4,7 +4,6 @@ import { MonthCalendarComponent } from './month-calendar/month-calendar.componen
 @Component({
   selector: 'aw-year-calendar',
   templateUrl: './year-calendar.component.html',
-  styleUrl: './year-calendar.component.scss',
   standalone: true,
   imports: [MonthCalendarComponent]
 })

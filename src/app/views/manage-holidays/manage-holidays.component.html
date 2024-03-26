@@ -2,7 +2,8 @@
   <aw-view-header>Gestión de días festivos</aw-view-header>
 
   <aw-card>
-    <aw-company-holidays />
-    <aw-work-days />
+    <aw-working-days-week (workDaysEmitter)="handleWorkDays($event)" />
+
+    <aw-year-calendar [year]="2024" />
   </aw-card>
 </aw-view-base>
