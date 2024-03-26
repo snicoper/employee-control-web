@@ -67,7 +67,7 @@ export class WorkingDaysWeekComponent {
   private loadWorkDays(): void {
     this.loadingWorkDays = true;
 
-    const url = urlReplaceParams(ApiUrls.workDays.getWorkDaysByCompanyId, {
+    const url = urlReplaceParams(ApiUrls.workingDaysWeek.getWorkingDaysWeekByCompanyId, {
       companyId: this.currentCompanyEmployeeService.getValue()?.id as string
     });
 
@@ -88,7 +88,7 @@ export class WorkingDaysWeekComponent {
     }
 
     this.loadingWorkDays = true;
-    const url = urlReplaceParams(ApiUrls.workDays.updateWorkDays, { id: this.workDays.id });
+    const url = urlReplaceParams(ApiUrls.workingDaysWeek.updateWorkingDaysWeek, { id: this.workDays.id });
 
     this.workDaysApiService
       .put<WorkDays, ResultResponse>(this.workDays, url)

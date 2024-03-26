@@ -76,9 +76,6 @@ export class MonthCalendarComponent implements OnInit {
       const isToday = date.getTime() === new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
       const backgroundToday = isToday ? '#6332c5' : '';
 
-      // const dayEvent = this.calendarDayEvents.find((cde) => cde.date?.getTime() === date.getTime());
-      // const background = dayEvent ? dayEvent.background : backgroundToday;
-
       this.calendarDays.push({ date: date, day: i, isToday: isToday, inactive: false, background: backgroundToday });
     }
 
