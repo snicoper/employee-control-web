@@ -8,6 +8,7 @@ import { CardComponent } from '../../components/cards/card/card.component';
 import { DotDangerComponent } from '../../components/colors/dot-danger/dot-danger.component';
 import { DotSuccessComponent } from '../../components/colors/dot-success/dot-success.component';
 import { ProgressStackedCollection } from '../../components/progress/progress-stacked/progress-stacked-collection';
+import { ProgressStackedItem } from '../../components/progress/progress-stacked/progress-stacked-item.model';
 import { TimeControlProgressComponent } from '../../components/progress/time-control-progress/time-control-progress.component';
 import { MonthSelectorComponent } from '../../components/selectors/month-selector/month-selector.component';
 import { ViewBaseComponent } from '../../components/views/view-base/view-base.component';
@@ -135,6 +136,10 @@ export class TimesControlComponent {
           }
         }
       });
+  }
+
+  handleClickProgress(progressStackedItem: ProgressStackedItem): void {
+    // Manejar click.
   }
 
   /** Obtener lista de tiempos en el mes/año seleccionado. */
