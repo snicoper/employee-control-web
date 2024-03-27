@@ -71,7 +71,8 @@ const routes: Routes = [
     path: 'times-control',
     data: { roles: [Roles.employee] },
     canActivate: [AuthGuard],
-    loadChildren: () => import('./views/times-control/times-control-routing.module').then((m) => m.routes)
+    loadChildren: () =>
+      import('./views/times-control-progress/times-control-progress-routing.module').then((m) => m.routes)
   },
   {
     path: '**',

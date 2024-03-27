@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { TimesControlComponent } from './times-control.component';
+import { TimesControlProgressComponent } from './times-control-progress.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: TimesControlComponent,
+    component: TimesControlProgressComponent,
     title: 'Control de tiempos'
   }
 ];

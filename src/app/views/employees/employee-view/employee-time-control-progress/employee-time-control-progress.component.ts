@@ -12,12 +12,12 @@ import { TimeControlApiService } from '../../../../services/api/_index';
 import { EmployeeSelectedService } from '../employee-selected.service';
 
 @Component({
-  selector: 'aw-employee-time-control',
-  templateUrl: './employee-time-control.component.html',
+  selector: 'aw-employee-time-control-progress',
+  templateUrl: './employee-time-control-progress.component.html',
   standalone: true,
   imports: [MonthSelectorComponent, TimeControlProgressComponent]
 })
-export class EmployeeTimeControlComponent {
+export class EmployeeTimeControlProgressComponent {
   private readonly timeControlApiService = inject(TimeControlApiService);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
 

@@ -25,11 +25,11 @@ import { JwtService } from '../../services/_index';
 import { TimeControlApiService } from '../../services/api/_index';
 import { SimpleGeolocationService } from '../../services/simple-geolocation.service';
 import { CurrentTimeControlStateService } from '../../services/states/_index';
-import { TimeControlChangeStateRequest } from './time-control-change-state.request.model';
+import { TimeControlProgressChangeStateRequest } from './time-control-progress-change-state.request.model';
 
 @Component({
-  selector: 'aw-times-control',
-  templateUrl: './times-control.component.html',
+  selector: 'aw-times-control-progress',
+  templateUrl: './times-control-progress.component.html',
   standalone: true,
   imports: [
     ViewBaseComponent,
@@ -43,7 +43,7 @@ import { TimeControlChangeStateRequest } from './time-control-change-state.reque
     DatetimeFormatPipe
   ]
 })
-export class TimesControlComponent {
+export class TimesControlProgressComponent {
   private readonly timeControlApiService = inject(TimeControlApiService);
   private readonly jwtService = inject(JwtService);
   private readonly toastrService = inject(ToastrService);
@@ -87,7 +87,7 @@ export class TimesControlComponent {
   /** Abrir tiempo de actividad. */
   handleTimeStart(): void {
     this.loadingTimeState = true;
-    const data: TimeControlChangeStateRequest = {
+    const data: TimeControlProgressChangeStateRequest = {
       employeeId: this.jwtService.getSid(),
       deviceType: this.employeeDeviceType,
       latitude: this.latitude,
@@ -95,7 +95,7 @@ export class TimesControlComponent {
     };
 
     this.timeControlApiService
-      .post<TimeControlChangeStateRequest, ResultResponse>(data, ApiUrls.timeControl.startTimeControl)
+      .post<TimeControlProgressChangeStateRequest, ResultResponse>(data, ApiUrls.timeControl.startTimeControl)
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
         next: (result: ResultResponse) => {
@@ -114,7 +114,7 @@ export class TimesControlComponent {
   /** Cerrar tiempo de actividad. */
   handleTimeFinished(): void {
     this.loadingTimeState = true;
-    const data: TimeControlChangeStateRequest = {
+    const data: TimeControlProgressChangeStateRequest = {
       employeeId: this.jwtService.getSid(),
       deviceType: this.employeeDeviceType,
       latitude: this.latitude,
@@ -122,7 +122,7 @@ export class TimesControlComponent {
     };
 
     this.timeControlApiService
-      .post<TimeControlChangeStateRequest, ResultResponse>(data, ApiUrls.timeControl.finishTimeControl)
+      .post<TimeControlProgressChangeStateRequest, ResultResponse>(data, ApiUrls.timeControl.finishTimeControl)
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
         next: (result: ResultResponse) => {
