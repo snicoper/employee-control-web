@@ -118,6 +118,12 @@ export class TimeControlRecordListComponent {
     this.loadTimeControlRecords();
   }
 
+  handleDetailsTimeControl(timeControl: TimeControlRecordResponse): void {
+    const url = urlReplaceParams(SiteUrls.timeControlRecords.details, { id: timeControl.id });
+
+    this.router.navigateByUrl(url);
+  }
+
   handleCloseTimeControl(timeControl: TimeControlRecordResponse): void {
     this.loadingTimeState = true;
     const data = { timeControlId: timeControl.id };
