@@ -1,4 +1,4 @@
-import { Roles } from '../../core/types/_index';
+import { Roles } from '../../../core/types/_index';
 
 export enum SidebarMenuTypes {
   header = 'header',

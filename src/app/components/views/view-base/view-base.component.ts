@@ -3,7 +3,7 @@ import { Component, Input, OnInit, computed, inject } from '@angular/core';
 import { LayoutService } from '../../../services/_index';
 import { FooterComponent } from '../../footer/footer.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
-import { SidebarComponent } from '../../sidebar/sidebar.component';
+import { SidebarComponent } from '../../sidebars/sidebar-menu/sidebar.component';
 import { ViewTitleComponent } from '../view-title/view-title.component';
 
 @Component({

@@ -3,10 +3,10 @@ import { NgClass } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgScrollbar } from 'ngx-scrollbar';
-import { RequiredRoleDirective } from '../../directives/required-role.directive';
-import { TimeState } from '../../models/entities/types/_index';
-import { JwtService } from '../../services/_index';
-import { CurrentCompanyEmployeeStateService, CurrentTimeControlStateService } from '../../services/states/_index';
+import { RequiredRoleDirective } from '../../../directives/required-role.directive';
+import { TimeState } from '../../../models/entities/types/_index';
+import { JwtService } from '../../../services/_index';
+import { CurrentCompanyEmployeeStateService, CurrentTimeControlStateService } from '../../../services/states/_index';
 import { SidebarMenu, SidebarMenuTypes } from './sidebar-menu-types.model';
 import { SidebarService } from './sidebar.service';
 
