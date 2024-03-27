@@ -45,7 +45,7 @@ export class SidebarComponent {
   }
 
   get companyName(): string {
-    return this.currentCompanyEmployeeStateService.getValue()?.name as string;
+    return this.currentCompanyEmployeeStateService.get()?.name as string;
   }
 
   toggle(currentMenu: SidebarMenu): void {

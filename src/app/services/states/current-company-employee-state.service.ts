@@ -26,11 +26,11 @@ export class CurrentCompanyEmployeeStateService implements StateService<CurrentC
     });
   }
 
-  getValue(): CurrentCompanyEmployeeResponse | null {
+  get(): CurrentCompanyEmployeeResponse | null {
     return this.currentCompanyEmployee$();
   }
 
-  setValue(entity: CurrentCompanyEmployeeResponse | null): void {
+  set(entity: CurrentCompanyEmployeeResponse | null): void {
     this.currentCompanyEmployee$.set(entity);
   }
 
