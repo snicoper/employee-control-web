@@ -4,7 +4,6 @@ import { LayoutService } from '../../../services/_index';
 import { FooterComponent } from '../../footer/footer.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { SidebarComponent } from '../../sidebars/sidebar-menu/sidebar.component';
-import { SidebarToolbarComponent } from '../../sidebars/sidebar-toolbar/sidebar-toolbar.component';
 import { ViewTitleComponent } from '../view-title/view-title.component';
 
 @Component({
@@ -12,7 +11,7 @@ import { ViewTitleComponent } from '../view-title/view-title.component';
   templateUrl: './view-base.component.html',
   styleUrls: ['./view-base.component.scss'],
   standalone: true,
-  imports: [ViewTitleComponent, NgClass, SidebarComponent, SidebarToolbarComponent, NavbarComponent, FooterComponent]
+  imports: [ViewTitleComponent, NgClass, SidebarComponent, NavbarComponent, FooterComponent]
 })
 export class ViewBaseComponent implements OnInit {
   private readonly layoutService = inject(LayoutService);

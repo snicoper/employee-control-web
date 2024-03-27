@@ -4,7 +4,6 @@ import { Injectable, signal } from '@angular/core';
 export class LayoutService {
   readonly navbarState$ = signal(true);
   readonly sidebarMenuState$ = signal(true);
-  readonly sidebarToolbarState$ = signal(true);
   readonly footerState$ = signal(true);
 
   toggleNavbarState(): void {
@@ -13,10 +12,6 @@ export class LayoutService {
 
   toggleSidebarState(): void {
     this.sidebarMenuState$.update((value) => !value);
-  }
-
-  toggleSidebarToolbarState(): void {
-    this.sidebarToolbarState$.update((value) => !value);
   }
 
   toggleFooterState(): void {
