@@ -4,6 +4,7 @@ import { LayoutService } from '../../../services/_index';
 import { FooterComponent } from '../../footer/footer.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { SidebarComponent } from '../../sidebars/sidebar-menu/sidebar.component';
+import { SidebarToolbarComponent } from '../../sidebars/sidebar-toolbar/sidebar-toolbar.component';
 import { ViewTitleComponent } from '../view-title/view-title.component';
 
 @Component({
@@ -11,7 +12,7 @@ import { ViewTitleComponent } from '../view-title/view-title.component';
   templateUrl: './view-base.component.html',
   styleUrls: ['./view-base.component.scss'],
   standalone: true,
-  imports: [ViewTitleComponent, NgClass, SidebarComponent, NavbarComponent, FooterComponent]
+  imports: [ViewTitleComponent, NgClass, SidebarComponent, SidebarToolbarComponent, NavbarComponent, FooterComponent]
 })
 export class ViewBaseComponent implements OnInit {
   private readonly layoutService = inject(LayoutService);
@@ -25,12 +26,12 @@ export class ViewBaseComponent implements OnInit {
   @Input() footerState = true;
 
   readonly navbarState$ = computed(() => this.layoutService.navbarState$());
-  readonly sidebarState$ = computed(() => this.layoutService.sidebarState$());
+  readonly sidebarMenuState$ = computed(() => this.layoutService.sidebarMenuState$());
   readonly footerState$ = computed(() => this.layoutService.footerState$());
 
   ngOnInit(): void {
     this.layoutService.navbarState$.set(this.navbarState);
-    this.layoutService.sidebarState$.set(this.sidebarState);
+    this.layoutService.sidebarMenuState$.set(this.sidebarState);
     this.layoutService.footerState$.set(this.footerState);
   }
 }
