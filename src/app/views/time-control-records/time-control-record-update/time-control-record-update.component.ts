@@ -95,8 +95,11 @@ export class TimeControlRecordUpdateComponent implements OnInit {
   }
 
   private setBreadcrumb(): void {
+    const urlDetails = urlReplaceParams(SiteUrls.timeControlRecords.details, { id: this.timeControlId });
+
     this.breadcrumb
       .add('Registro de tiempos', SiteUrls.timeControlRecords.home)
+      .add('Detalles de tiempo', urlDetails, '')
       .add('Actualizar tiempo', SiteUrls.timeControlRecords.update, '', false);
   }
 
