@@ -91,6 +91,7 @@ export const ApiUrls = {
     getTimesControlByCompanyIdPaginated: '/times-control/companies/{companyId}/from/{from}/to/{to}/paginated',
     getTimesControlByEmployeeIdPaginated: '/times-control/employees/{employeeId}/from/{from}/to/{to}/paginated',
     getTimeControlById: '/times-control/{id}',
+    getTimeControlWithEmployeeById: '/times-control/{id}/employees',
     getCurrentStateTimeControl: '/times-control/employees/{employeeId}/time-state',
     getTimeControlRangeByEmployeeId: '/times-control/employees/{employeeId}/from/{from}/to/{to}',
     getTimeStateOpenByEmployeeId: '/times-control/employees/{employeeId}/time-state-open',
