@@ -78,11 +78,15 @@
               </td>
               <td>
                 @if (timeControl.timeState === timeState.open) {
-                  <aw-dot-success />
+                  <span awTooltip title="Abierto">
+                    <aw-dot-success />
+                  </span>
                 }
 
                 @if (timeControl.timeState === timeState.close) {
-                  <aw-dot-danger />
+                  <span awTooltip title="Cerrado">
+                    <aw-dot-danger />
+                  </span>
                 }
               </td>
               <td>
@@ -96,7 +100,10 @@
               </td>
               <td>
                 @if (timeControl.incidence) {
-                  <span class="fa-solid fa-triangle-exclamation text-danger"></span>
+                  <span
+                    awTooltip
+                    [title]="timeControl.incidenceDescription"
+                    class="fa-solid fa-triangle-exclamation text-danger"></span>
                 } @else {
                   <span>&nbsp;</span>
                 }

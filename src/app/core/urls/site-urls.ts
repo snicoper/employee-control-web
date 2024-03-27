@@ -68,7 +68,7 @@ export const SiteUrls = {
     update: '/time-control-records/{id}/update'
   },
 
-  timesControl: {
-    home: '/times-control'
+  timesControlProgress: {
+    home: '/times-control-progress'
   }
 };
