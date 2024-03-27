@@ -102,6 +102,7 @@ export class TimeControlProgressStacked {
 
   /**
    * Obtener el css dependiendo del estado del tiempo.
+   * Si tiene incidencia abierta, sobre-escribe el estado.
    *
    * @param time Un TimeResponse.
    * @returns String con la clase css según estado.
