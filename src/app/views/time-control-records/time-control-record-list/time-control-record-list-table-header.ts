@@ -53,7 +53,7 @@ export const timeControlRecordListTableHeaders: TableHeaderField[] = [
   },
 
   {
-    field: 'incidences',
+    field: 'incidence',
     text: 'Incidencias',
     sortable: true,
     orderType: OrderTypes.none,

@@ -107,6 +107,10 @@ export class TimeControlProgressStacked {
    * @returns String con la clase css según estado.
    */
   private getCssClassByTimeState(time: TimeResponse): string {
+    if (time.incidence) {
+      return 'bg-danger';
+    }
+
     switch (time.closedBy) {
       case ClosedBy.unclosed:
         return 'bg-primary';
