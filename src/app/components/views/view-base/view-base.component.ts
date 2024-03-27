@@ -22,7 +22,7 @@ export class ViewBaseComponent implements OnInit {
   @Input() pageTitle = '';
 
   @Input() navbarState = true;
-  @Input() sidebarState = true;
+  @Input() sidebarMenuState = true;
   @Input() footerState = true;
 
   readonly navbarState$ = computed(() => this.layoutService.navbarState$());
@@ -31,7 +31,7 @@ export class ViewBaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.layoutService.navbarState$.set(this.navbarState);
-    this.layoutService.sidebarMenuState$.set(this.sidebarState);
+    this.layoutService.sidebarMenuState$.set(this.sidebarMenuState);
     this.layoutService.footerState$.set(this.footerState);
   }
 }
