@@ -95,6 +95,13 @@
                 }
               </td>
               <td>
+                @if (timeControl.incidence) {
+                  <span class="fa-solid fa-triangle-exclamation text-danger"></span>
+                } @else {
+                  <span>&nbsp;</span>
+                }
+              </td>
+              <td>
                 <span class="d-flex justify-content-end btn-actions">
                   <span
                     (click)="handleDetailsTimeControl(timeControl)"

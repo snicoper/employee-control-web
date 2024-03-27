@@ -29,7 +29,7 @@ import { DurationToTimePipe } from '../../../pipes/duration-to-time.pipe';
 import { JwtService } from '../../../services/_index';
 import { TimeControlApiService } from '../../../services/api/_index';
 import { SimpleGeolocationService } from '../../../services/simple-geolocation.service';
-import { TimeControlRecordResponse } from './time-contol-record-esponse.model';
+import { TimeControlRecordResponse } from './time-contol-record-response.model';
 import { timeControlRecordListTableHeaders } from './time-control-record-list-table-header';
 
 @Component({

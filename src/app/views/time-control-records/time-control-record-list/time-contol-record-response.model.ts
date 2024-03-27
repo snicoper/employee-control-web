@@ -3,6 +3,7 @@ export interface TimeControlRecordResponse {
   userId: string;
   firstName: string;
   lastName: string;
+  incidence: boolean;
   start: string;
   finish: string;
   closedBy: number;
