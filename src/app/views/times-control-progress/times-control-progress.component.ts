@@ -1,5 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { DateTime } from 'luxon';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
@@ -25,6 +26,7 @@ import { JwtService } from '../../services/_index';
 import { TimeControlApiService } from '../../services/api/_index';
 import { SimpleGeolocationService } from '../../services/simple-geolocation.service';
 import { CurrentTimeControlStateService } from '../../services/states/_index';
+import { TimeControlIncidenceCreateComponent } from './time-control-incidence-create/time-control-incidence-create.component';
 import { TimeControlProgressChangeStateRequest } from './time-control-progress-change-state.request.model';
 
 @Component({
@@ -41,7 +43,8 @@ import { TimeControlProgressChangeStateRequest } from './time-control-progress-c
     BtnLoadingComponent,
     TimeControlProgressComponent,
     DatetimeFormatPipe
-  ]
+  ],
+  providers: [BsModalService]
 })
 export class TimesControlProgressComponent {
   private readonly timeControlApiService = inject(TimeControlApiService);
@@ -50,6 +53,7 @@ export class TimesControlProgressComponent {
   private readonly currentTimeControlStateService = inject(CurrentTimeControlStateService);
   private readonly deviceDetectorService = inject(DeviceDetectorService);
   private readonly simpleGeolocationService = inject(SimpleGeolocationService);
+  private readonly bsModalService = inject(BsModalService);
 
   readonly currentTimeControl = computed(() => this.currentTimeControlStateService.currentTimeControl());
 
@@ -63,6 +67,7 @@ export class TimesControlProgressComponent {
   timeTotalInMonth = '';
   latitude: number | undefined;
   longitude: number | undefined;
+  bsModalRef?: BsModalRef;
 
   constructor() {
     this.loadTimesControlRange();
@@ -139,7 +144,19 @@ export class TimesControlProgressComponent {
   }
 
   handleClickProgress(progressStackedItem: ProgressStackedItem): void {
-    // Manejar click.
+    const initialState: ModalOptions = {
+      class: 'modal-lg',
+      initialState: {
+        timeControlId: progressStackedItem.id
+      }
+    };
+
+    this.bsModalRef = this.bsModalService.show(TimeControlIncidenceCreateComponent, initialState);
+    this.bsModalRef.content?.hasSubmit.subscribe({
+      next: () => {
+        this.loadTimesControlRange();
+      }
+    });
   }
 
   /** Obtener lista de tiempos en el mes/año seleccionado. */
