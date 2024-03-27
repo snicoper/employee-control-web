@@ -170,7 +170,7 @@ export class TimeControlRecordListComponent {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Registro de tiempos', SiteUrls.timesControl.home, '', false);
+    this.breadcrumb.add('Registro de tiempos', SiteUrls.timeControlRecords.home, '', false);
   }
 
   private loadTimeControlRecords(): void {
