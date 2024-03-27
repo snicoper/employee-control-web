@@ -90,10 +90,16 @@ export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek
   }
 
   private loadWorkingDaysWeek(): void {
+    const companyId = this.currentCompanyEmployeeStateService.get()?.id as string;
+
+    if (!companyId) {
+      return;
+    }
+
     this.loadingWorkingDaysWeek$.set(true);
 
     const url = urlReplaceParams(ApiUrls.workingDaysWeek.getWorkingDaysWeekByCompanyId, {
-      companyId: this.currentCompanyEmployeeStateService.get()?.id as string
+      companyId: companyId
     });
 
     this.workingDaysWeekApiService

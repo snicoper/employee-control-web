@@ -14,7 +14,7 @@ export class CurrentCompanyEmployeeStateService implements StateService<CurrentC
   private readonly currentCompanyEmployee$ = signal<CurrentCompanyEmployeeResponse | null>(null);
 
   refresh(): void {
-    // Si no esta autenticado, no obtener CompanyByCurrentUser.
+    // Si no esta autenticado, no obtener CurrentCompanyEmployeeResponse.
     if (!this.jwtService.getCompanyId()) {
       return;
     }
