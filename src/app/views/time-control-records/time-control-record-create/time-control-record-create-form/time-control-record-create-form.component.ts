@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component, OnInit, computed, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,6 +16,7 @@ import { SiteUrls } from '../../../../core/urls/site-urls';
 import { CustomValidators } from '../../../../core/validators/custom-validators-form';
 import { BadRequest } from '../../../../models/bad-request';
 import { deviceToDeviceType } from '../../../../models/entities/types/device-type.model';
+import { TimeState } from '../../../../models/entities/types/time-state.model';
 import { TimeControlApiService } from '../../../../services/api/time-control-api.service';
 import { TimeControlRecordCreateRequest } from '../time-control-record-create-request.model';
 import { TimeControlRecordCreateService } from '../time-control-record-create.service';
@@ -24,6 +26,7 @@ import { TimeControlRecordCreateService } from '../time-control-record-create.se
   templateUrl: './time-control-record-create-form.component.html',
   standalone: true,
   imports: [
+    NgClass,
     ReactiveFormsModule,
     FormDatepickerComponent,
     FormTimePickerComponent,
@@ -46,9 +49,40 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
   loadingForm = false;
   submitted = false;
   btnType = BtnType;
+  formAddFinishTimes = false;
 
   ngOnInit(): void {
     this.buildForm();
+  }
+
+  /** Validaciones dinámicas dependiendo de si finaliza o no el tiempo. */
+  handleToggleFinishDateAndTime(): void {
+    const dateFinishControl = this.form.get('dateFinish');
+    const timeFinishControl = this.form.get('timeFinish');
+
+    if (this.formAddFinishTimes) {
+      this.formAddFinishTimes = false;
+
+      dateFinishControl?.enable();
+      dateFinishControl?.setValidators([Validators.required, CustomValidators.noFutureDate]);
+
+      timeFinishControl?.enable();
+      timeFinishControl?.setValidators([Validators.required]);
+
+      this.form.addValidators([CustomValidators.dateStartGreaterThanFinish('dateStart', 'dateFinish')]);
+    } else {
+      this.formAddFinishTimes = true;
+
+      dateFinishControl?.disable();
+      dateFinishControl?.setValidators([]);
+
+      timeFinishControl?.disable();
+      timeFinishControl?.setValidators([]);
+
+      this.form.removeValidators([]);
+    }
+
+    this.form.updateValueAndValidity();
   }
 
   handleSubmit(): void {
@@ -62,8 +96,8 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
     timeControl.userId = this.employeeSelected()?.id as string;
     timeControl.deviceType = deviceToDeviceType(this.deviceDetectorService.getDeviceInfo().deviceType);
 
-    // No permitir fecha/hora mayor a la actual.
-    if (new Date() < new Date(timeControl.finish)) {
+    // No permitir fecha/hora mayor a la actual en caso de añadir tiempo de finalización.
+    if (this.formAddFinishTimes && new Date() < new Date(timeControl.finish)) {
       this.form.get('timeFinish')?.setErrors({ noFutureDate: true });
 
       return;
@@ -114,15 +148,16 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
       0
     );
 
-    // Comprobar si start es menor a end.
-    if (start > end) {
+    // Comprobar si start es menor a end si se inserta tiempos de finalización.
+    if (this.formAddFinishTimes && start > end) {
       this.form.get('timeFinish')?.setErrors({ noFutureDate: true });
 
       return timeControl;
     }
 
     timeControl.start = start.toISOString();
-    timeControl.finish = end.toISOString();
+    timeControl.finish = this.formAddFinishTimes ? end.toISOString() : timeControl.start;
+    timeControl.timeState = this.formAddFinishTimes ? TimeState.open : TimeState.close;
 
     return timeControl;
   }
@@ -135,7 +170,7 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
     const dtOffset = DateTime.local().offset;
     const offsetDiff = offset + dtOffset;
 
-    const startWithOffset = new Date(
+    const nowWithOffsets = new Date(
       start.getFullYear(),
       start.getMonth(),
       start.getDate(),
@@ -144,16 +179,15 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
       0
     );
 
-    this.form = this.fb.group(
-      {
-        dateStart: [startWithOffset, [Validators.required, CustomValidators.noFutureDate]],
-        dateFinish: [startWithOffset, [Validators.required, CustomValidators.noFutureDate]],
-        timeStart: [startWithOffset, [Validators.required]],
-        timeFinish: ['', [Validators.required]]
-      },
-      {
-        validators: [CustomValidators.dateStartGreaterThanFinish('dateStart', 'dateFinish')]
-      }
-    );
+    // Las validaciones de tiempos de cierre son dinámicos.
+    // @see: this.handleToggleFinishDateAndTime().
+    this.form = this.fb.group({
+      dateStart: [nowWithOffsets, [Validators.required, CustomValidators.noFutureDate]],
+      timeStart: [nowWithOffsets, [Validators.required]],
+      dateFinish: [nowWithOffsets],
+      timeFinish: [nowWithOffsets]
+    });
+
+    this.handleToggleFinishDateAndTime();
   }
 }
