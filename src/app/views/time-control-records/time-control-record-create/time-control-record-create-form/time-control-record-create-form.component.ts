@@ -11,7 +11,7 @@ import { BtnType } from '../../../../components/buttons/btn-loading/btn-loading.
 import { FormDatepickerComponent } from '../../../../components/forms/inputs/form-datepicker/form-datepicker.component';
 import { FormTimePickerComponent } from '../../../../components/forms/inputs/form-timepicker/form-timepicker.component';
 import { ApiUrls, SiteUrls } from '../../../../core/urls/_index';
-import { CustomValidation } from '../../../../core/validators/_index';
+import { CustomValidators } from '../../../../core/validators/_index';
 import { BadRequest } from '../../../../models/_index';
 import { deviceToDeviceType } from '../../../../models/entities/types/_index';
 import { TimeControlApiService } from '../../../../services/api/_index';
@@ -146,13 +146,13 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
 
     this.form = this.fb.group(
       {
-        dateStart: [startWithOffset, [Validators.required, CustomValidation.noFutureDate]],
-        dateFinish: [startWithOffset, [Validators.required, CustomValidation.noFutureDate]],
+        dateStart: [startWithOffset, [Validators.required, CustomValidators.noFutureDate]],
+        dateFinish: [startWithOffset, [Validators.required, CustomValidators.noFutureDate]],
         timeStart: [startWithOffset, [Validators.required]],
         timeFinish: ['', [Validators.required]]
       },
       {
-        validators: [CustomValidation.dateStartGreaterThanFinish('dateStart', 'dateFinish')]
+        validators: [CustomValidators.dateStartGreaterThanFinish('dateStart', 'dateFinish')]
       }
     );
   }

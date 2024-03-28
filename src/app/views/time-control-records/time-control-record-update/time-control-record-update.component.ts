@@ -17,7 +17,7 @@ import { ViewBaseComponent } from '../../../components/views/view-base/view-base
 import { ViewHeaderComponent } from '../../../components/views/view-header/view-header.component';
 import { ApiUrls, SiteUrls } from '../../../core/urls/_index';
 import { urlReplaceParams } from '../../../core/utils/_index';
-import { CustomValidation } from '../../../core/validators/_index';
+import { CustomValidators } from '../../../core/validators/_index';
 import { BadRequest, ResultResponse } from '../../../models/_index';
 import { TimeControl } from '../../../models/entities/_index';
 import { TimeControlApiService } from '../../../services/api/_index';
@@ -186,14 +186,14 @@ export class TimeControlRecordUpdateComponent implements OnInit {
 
     this.form = this.fb.group(
       {
-        dateStart: [startWithOffset, [Validators.required, CustomValidation.noFutureDate]],
-        dateFinish: [endWithOffset, [Validators.required, CustomValidation.noFutureDate]],
+        dateStart: [startWithOffset, [Validators.required, CustomValidators.noFutureDate]],
+        dateFinish: [endWithOffset, [Validators.required, CustomValidators.noFutureDate]],
         timeStart: [startWithOffset, [Validators.required]],
         timeFinish: [endWithOffset, []],
         closeIncidence: [false]
       },
       {
-        validators: [CustomValidation.dateStartGreaterThanFinish('dateStart', 'dateFinish')]
+        validators: [CustomValidators.dateStartGreaterThanFinish('dateStart', 'dateFinish')]
       }
     );
   }

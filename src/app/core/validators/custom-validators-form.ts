@@ -1,7 +1,7 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DateTime } from 'luxon';
 
-export abstract class CustomValidation {
+export abstract class CustomValidators {
   /** Custom validator para comprobar que una fecha sea menor a otra. */
   static readonly dateStartGreaterThanFinish = (controlName: string, checkControlName: string): ValidatorFn => {
     return (controls: AbstractControl): ValidationErrors | null => {
