@@ -1,4 +1,6 @@
-import { ClosedBy, DeviceType, TimeState } from '../../../models/entities/types/_index';
+import { ClosedBy } from '../../../models/entities/types/closed-by.model';
+import { DeviceType } from '../../../models/entities/types/device-type.model';
+import { TimeState } from '../../../models/entities/types/time-state.model';
 
 export interface TimeControlRecordDetailsResponse {
   id: string;

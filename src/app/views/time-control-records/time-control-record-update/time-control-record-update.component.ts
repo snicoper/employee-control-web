@@ -15,12 +15,14 @@ import { FormDatepickerComponent } from '../../../components/forms/inputs/form-d
 import { FormTimePickerComponent } from '../../../components/forms/inputs/form-timepicker/form-timepicker.component';
 import { ViewBaseComponent } from '../../../components/views/view-base/view-base.component';
 import { ViewHeaderComponent } from '../../../components/views/view-header/view-header.component';
-import { ApiUrls, SiteUrls } from '../../../core/urls/_index';
-import { urlReplaceParams } from '../../../core/utils/_index';
-import { CustomValidators } from '../../../core/validators/_index';
-import { BadRequest, ResultResponse } from '../../../models/_index';
-import { TimeControl } from '../../../models/entities/_index';
-import { TimeControlApiService } from '../../../services/api/_index';
+import { ApiUrls } from '../../../core/urls/api-urls';
+import { SiteUrls } from '../../../core/urls/site-urls';
+import { urlReplaceParams } from '../../../core/utils/common-utils';
+import { CustomValidators } from '../../../core/validators/custom-validators-form';
+import { BadRequest } from '../../../models/bad-request';
+import { TimeControl } from '../../../models/entities/time-control.model';
+import { ResultResponse } from '../../../models/result-response.model';
+import { TimeControlApiService } from '../../../services/api/time-control-api.service';
 import { TimeControlRecordRequest } from './time-control-record-request';
 
 @Component({

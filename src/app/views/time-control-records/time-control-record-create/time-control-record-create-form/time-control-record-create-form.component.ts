@@ -10,11 +10,12 @@ import { BtnLoadingComponent } from '../../../../components/buttons/btn-loading/
 import { BtnType } from '../../../../components/buttons/btn-loading/btn-loading.type';
 import { FormDatepickerComponent } from '../../../../components/forms/inputs/form-datepicker/form-datepicker.component';
 import { FormTimePickerComponent } from '../../../../components/forms/inputs/form-timepicker/form-timepicker.component';
-import { ApiUrls, SiteUrls } from '../../../../core/urls/_index';
-import { CustomValidators } from '../../../../core/validators/_index';
-import { BadRequest } from '../../../../models/_index';
-import { deviceToDeviceType } from '../../../../models/entities/types/_index';
-import { TimeControlApiService } from '../../../../services/api/_index';
+import { ApiUrls } from '../../../../core/urls/api-urls';
+import { SiteUrls } from '../../../../core/urls/site-urls';
+import { CustomValidators } from '../../../../core/validators/custom-validators-form';
+import { BadRequest } from '../../../../models/bad-request';
+import { deviceToDeviceType } from '../../../../models/entities/types/device-type.model';
+import { TimeControlApiService } from '../../../../services/api/time-control-api.service';
 import { TimeControlRecordCreateRequest } from '../time-control-record-create-request.model';
 import { TimeControlRecordCreateService } from '../time-control-record-create.service';
 

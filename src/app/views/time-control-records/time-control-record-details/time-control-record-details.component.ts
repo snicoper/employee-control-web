@@ -10,15 +10,20 @@ import { DotSuccessComponent } from '../../../components/colors/dot-success/dot-
 import { SpinnerComponent } from '../../../components/spinner/spinner.component';
 import { ViewBaseComponent } from '../../../components/views/view-base/view-base.component';
 import { ViewHeaderComponent } from '../../../components/views/view-header/view-header.component';
-import { logError } from '../../../core/errors/_index';
-import { ApiUrls, SiteUrls } from '../../../core/urls/_index';
-import { urlReplaceParams } from '../../../core/utils/_index';
+import { logError } from '../../../core/errors/log-messages';
+import { ApiUrls } from '../../../core/urls/api-urls';
+import { SiteUrls } from '../../../core/urls/site-urls';
+import { urlReplaceParams } from '../../../core/utils/common-utils';
 import { TooltipDirective } from '../../../directives/tooltip.directive';
-import { ResultResponse } from '../../../models/_index';
-import { ClosedBy, TimeState } from '../../../models/entities/types/_index';
-import { ClosedByPipe, DatetimePipe, DeviceTypePipe, DurationToTimePipe } from '../../../pipes/_index';
-import { SimpleGeolocationService } from '../../../services/_index';
-import { TimeControlApiService } from '../../../services/api/_index';
+import { ClosedBy } from '../../../models/entities/types/closed-by.model';
+import { TimeState } from '../../../models/entities/types/time-state.model';
+import { ResultResponse } from '../../../models/result-response.model';
+import { ClosedByPipe } from '../../../pipes/closed-by.pipe';
+import { DatetimePipe } from '../../../pipes/datetime.pipe';
+import { DeviceTypePipe } from '../../../pipes/device-type.pipe';
+import { DurationToTimePipe } from '../../../pipes/duration-to-time.pipe';
+import { TimeControlApiService } from '../../../services/api/time-control-api.service';
+import { SimpleGeolocationService } from '../../../services/simple-geolocation.service';
 import { TimeControlRecordDetailsResponse } from './time-control-record-details-response.model';
 
 @Component({
