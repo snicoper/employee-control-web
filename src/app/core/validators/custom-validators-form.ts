@@ -12,6 +12,8 @@ export abstract class CustomValidators {
       const finish = DateTime.fromJSDate(new Date(checkControl?.value));
 
       if (start.valueOf() > finish.valueOf()) {
+        checkControl?.setErrors({ startGreaterThanFinish: true });
+
         return { startGreaterThanFinish: true };
       }
 
@@ -26,6 +28,8 @@ export abstract class CustomValidators {
       const checkControl = controls.get(controlConfirmPassword);
 
       if (control?.value !== checkControl?.value) {
+        checkControl?.setErrors({ noPasswordMatch: true });
+
         return { noPasswordMatch: true };
       }
 
