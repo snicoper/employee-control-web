@@ -3,18 +3,16 @@ import { DateTime } from 'luxon';
 
 export abstract class CustomValidators {
   /** Comprobar que una fecha sea menor a otra. */
-  static readonly dateStartGreaterThanFinish = (controlName: string, checkControlName: string): ValidatorFn => {
+  static readonly dateStartGreaterThanFinish = (controlDateStart: string, controlDateFinish: string): ValidatorFn => {
     return (controls: AbstractControl): ValidationErrors | null => {
-      const control = controls.get(controlName);
-      const checkControl = controls.get(checkControlName);
+      const control = controls.get(controlDateStart);
+      const checkControl = controls.get(controlDateFinish);
 
       const start = DateTime.fromJSDate(new Date(control?.value));
       const finish = DateTime.fromJSDate(new Date(checkControl?.value));
 
       if (start.valueOf() > finish.valueOf()) {
-        checkControl?.setErrors({ startGreaterThanFinish: true });
-      } else {
-        checkControl?.setErrors(null);
+        return { startGreaterThanFinish: true };
       }
 
       return null;
@@ -22,15 +20,13 @@ export abstract class CustomValidators {
   };
 
   /** Contraseñas iguales. */
-  static readonly passwordMustMatch = (controlName: string, checkControlName: string): ValidatorFn => {
+  static readonly passwordMustMatch = (controlPassword: string, controlConfirmPassword: string): ValidatorFn => {
     return (controls: AbstractControl): ValidationErrors | null => {
-      const control = controls.get(controlName);
-      const checkControl = controls.get(checkControlName);
+      const control = controls.get(controlPassword);
+      const checkControl = controls.get(controlConfirmPassword);
 
       if (control?.value !== checkControl?.value) {
-        checkControl?.setErrors({ noPasswordMatch: true });
-      } else {
-        checkControl?.setErrors(null);
+        return { noPasswordMatch: true };
       }
 
       return null;
@@ -38,50 +34,35 @@ export abstract class CustomValidators {
   };
 
   /** El valor ha de ser un color hexadecimal. */
-  static readonly colorHexadecimal = (controlName: string): ValidatorFn => {
-    return (controls: AbstractControl): ValidationErrors | null => {
-      const control = controls.get(controlName);
-      const match = /^#[0-9A-F]{6}$/i.test(control?.value);
+  static readonly colorHexadecimal = (control: AbstractControl): ValidationErrors | null => {
+    const match = /^#[0-9A-F]{6}$/i.test(control?.value);
 
-      if (match) {
-        control?.setErrors(null);
-      } else {
-        control?.setErrors({ colorHexadecimal: true });
-      }
+    if (!match) {
+      return { colorHexadecimal: true };
+    }
 
-      return null;
-    };
+    return null;
   };
 
   /** No permite fechas futuras. */
-  static readonly noFutureDate = (controlName: string): ValidatorFn => {
-    return (controls: AbstractControl): ValidationErrors | null => {
-      const control = controls.get(controlName);
-      const value = DateTime.fromJSDate(new Date(control?.value));
+  static readonly noFutureDate = (control: AbstractControl): ValidationErrors | null => {
+    const value = DateTime.fromJSDate(new Date(control?.value));
 
-      if (value.toMillis() > DateTime.local().toMillis()) {
-        control?.setErrors({ noFutureDate: true });
-      } else {
-        control?.setErrors(null);
-      }
+    if (value.toMillis() > DateTime.local().toMillis()) {
+      return { noFutureDate: true };
+    }
 
-      return null;
-    };
+    return null;
   };
 
-  /** Validación de un array con un valor > 0 */
-  static readonly minLengthArray = (controlName: string): ValidatorFn => {
-    return (controls: AbstractControl): ValidationErrors | null => {
-      const control = controls.get(controlName);
-      const values = control?.value;
+  /** Validación de un array con un valor > 0.*/
+  static readonly minLengthArray = (control: AbstractControl): ValidationErrors | null => {
+    const values = control?.value;
 
-      if (values && values.length > 0) {
-        control?.setErrors(null);
-      } else {
-        control?.setErrors({ required: true });
-      }
+    if (!values) {
+      return { required: true };
+    }
 
-      return null;
-    };
+    return null;
   };
 }
