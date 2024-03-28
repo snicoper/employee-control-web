@@ -127,7 +127,7 @@ export class TimesControlProgressComponent {
     };
 
     this.timeControlApiService
-      .post<TimeControlProgressChangeStateRequest, ResultResponse>(data, ApiUrls.timeControl.finishTimeControl)
+      .put<TimeControlProgressChangeStateRequest, ResultResponse>(data, ApiUrls.timeControl.finishTimeControl)
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
         next: (result: ResultResponse) => {

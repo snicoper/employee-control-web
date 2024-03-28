@@ -12,7 +12,7 @@ import { FormDatepickerComponent } from '../../../../components/forms/inputs/for
 import { FormTimePickerComponent } from '../../../../components/forms/inputs/form-timepicker/form-timepicker.component';
 import { ApiUrls, SiteUrls } from '../../../../core/urls/_index';
 import { CustomValidation } from '../../../../core/validators/_index';
-import { BadRequest, ResultResponse } from '../../../../models/_index';
+import { BadRequest } from '../../../../models/_index';
 import { deviceToDeviceType } from '../../../../models/entities/types/_index';
 import { TimeControlApiService } from '../../../../services/api/_index';
 import { TimeControlRecordCreateRequest } from '../time-control-record-create-request.model';
@@ -73,7 +73,7 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
     this.loadingForm = true;
 
     this.timeControlApiService
-      .post<TimeControlRecordCreateRequest, ResultResponse>(timeControl, ApiUrls.timeControl.createTimeControl)
+      .post<TimeControlRecordCreateRequest, string>(timeControl, ApiUrls.timeControl.createTimeControl)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
         next: () => {

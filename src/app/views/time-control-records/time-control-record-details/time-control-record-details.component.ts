@@ -107,7 +107,7 @@ export class TimeControlRecordDetailsComponent implements OnInit {
     const data = { timeControlId: timeControl.id };
 
     this.timeControlApiService
-      .post<typeof data, ResultResponse>(data, ApiUrls.timeControl.finishTimeControlByStaff)
+      .put<typeof data, ResultResponse>(data, ApiUrls.timeControl.finishTimeControlByStaff)
       .pipe(finalize(() => (this.loadingTimeControl = false)))
       .subscribe({
         next: (result: ResultResponse) => {

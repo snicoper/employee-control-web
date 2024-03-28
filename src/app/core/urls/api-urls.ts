@@ -97,9 +97,9 @@ export const ApiUrls = {
     getTimeStateOpenByEmployeeId: '/times-control/employees/{employeeId}/time-state-open',
     createTimeControl: '/times-control',
     startTimeControl: '/times-control/start',
+    updateTimeControl: '/times-control/{id}',
     finishTimeControl: '/times-control/finish',
     finishTimeControlByStaff: '/times-control/finish/staff',
-    updateTimeControl: '/times-control/{id}',
     createIncidence: '/times-control/{id}/create-incidence',
     deleteTimeControl: '/times-control/{id}'
   },
