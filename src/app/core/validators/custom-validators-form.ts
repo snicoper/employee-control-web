@@ -2,7 +2,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DateTime } from 'luxon';
 
 export abstract class CustomValidators {
-  /** Custom validator para comprobar que una fecha sea menor a otra. */
+  /** Comprobar que una fecha sea menor a otra. */
   static readonly dateStartGreaterThanFinish = (controlName: string, checkControlName: string): ValidatorFn => {
     return (controls: AbstractControl): ValidationErrors | null => {
       const control = controls.get(controlName);
@@ -21,7 +21,7 @@ export abstract class CustomValidators {
     };
   };
 
-  /** Validación contraseñas iguales. */
+  /** Contraseñas iguales. */
   static readonly passwordMustMatch = (controlName: string, checkControlName: string): ValidatorFn => {
     return (controls: AbstractControl): ValidationErrors | null => {
       const control = controls.get(controlName);
@@ -37,7 +37,7 @@ export abstract class CustomValidators {
     };
   };
 
-  /** Validación valor sea un color hexadecimal. */
+  /** El valor ha de ser un color hexadecimal. */
   static readonly colorHexadecimal = (controlName: string): ValidatorFn => {
     return (controls: AbstractControl): ValidationErrors | null => {
       const control = controls.get(controlName);
@@ -53,6 +53,7 @@ export abstract class CustomValidators {
     };
   };
 
+  /** No permite fechas futuras. */
   static readonly noFutureDate = (controlName: string): ValidatorFn => {
     return (controls: AbstractControl): ValidationErrors | null => {
       const control = controls.get(controlName);
@@ -68,7 +69,7 @@ export abstract class CustomValidators {
     };
   };
 
-  /** Validación de un array con un valor x. */
+  /** Validación de un array con un valor > 0 */
   static readonly minLengthArray = (controlName: string): ValidatorFn => {
     return (controls: AbstractControl): ValidationErrors | null => {
       const control = controls.get(controlName);
