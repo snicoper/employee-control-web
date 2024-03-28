@@ -18,7 +18,11 @@
         @if (timeControl && !loadingTimeControl) {
           <tr>
             <td>Empleado</td>
-            <td>{{ timeControl.firstName }} {{ timeControl.lastName }}</td>
+            <td>
+              <span (click)="handleNavigateToEmployee(timeControl.userId)" class="navigate-employee">
+                {{ timeControl.firstName }} {{ timeControl.lastName }}
+              </span>
+            </td>
           </tr>
           <tr>
             <td>Hora de inicio</td>
