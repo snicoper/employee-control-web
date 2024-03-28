@@ -1,5 +1,5 @@
 import { Component, OnInit, computed, inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DateTime } from 'luxon';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -23,7 +23,6 @@ import { TimeControlRecordCreateService } from '../time-control-record-create.se
   templateUrl: './time-control-record-create-form.component.html',
   standalone: true,
   imports: [
-    FormsModule,
     ReactiveFormsModule,
     FormDatepickerComponent,
     FormTimePickerComponent,
