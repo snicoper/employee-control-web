@@ -107,7 +107,10 @@ export class CompanySettingsUpdateComponent {
   private buildForm(): void {
     this.form = this.fb.group({
       timezone: [this.companySettings()?.timezone, [Validators.required]],
-      maximumDailyWorkHours: [this.companySettings()?.maximumDailyWorkHours, [Validators.required, Validators.max(24)]]
+      maximumDailyWorkHours: [
+        this.companySettings()?.maximumDailyWorkHours,
+        [Validators.required, Validators.max(24), Validators.min(1)]
+      ]
     });
   }
 
