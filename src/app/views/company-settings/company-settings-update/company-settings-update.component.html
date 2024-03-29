@@ -5,6 +5,19 @@
     <form (ngSubmit)="handleSubmit()" [formGroup]="form">
       <!-- timezone -->
       <div class="mb-2">
+        <aw-form-input
+          [badRequest]="badRequest"
+          [form]="form"
+          [submitted]="submitted"
+          [inputType]="formInputTypes.integer"
+          fieldName="maximumDailyWorkHours"
+          formControlName="maximumDailyWorkHours"
+          label="Horas diarias de trabajo" />
+
+        <span class="small text-muted">Horas máximas al día continuadas por los empleados</span>
+
+        <div class="mt-3"></div>
+
         <aw-form-timezone
           [badRequest]="badRequest"
           [form]="form"

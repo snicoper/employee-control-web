@@ -13,13 +13,6 @@
         @if (!loadingCompanySettings()) {
           <tr>
             <th>
-              Zona horaria
-              <aw-tooltip-info content="Zona horaria de la compañía" cssClass="text-info"></aw-tooltip-info>
-            </th>
-            <td>{{ companySettings()?.timezone }} - {{ nowWithTimezone }}</td>
-          </tr>
-          <tr>
-            <th>
               Días laborables
               <aw-tooltip-info
                 content="Días por defecto considerados laborables"
@@ -28,6 +21,22 @@
             <td>
               <aw-working-days-week />
             </td>
+          </tr>
+          <tr>
+            <th>
+              Zona horaria
+              <aw-tooltip-info content="Zona horaria de la compañía" cssClass="text-info"></aw-tooltip-info>
+            </th>
+            <td>{{ companySettings()?.timezone }} - {{ nowWithTimezone }}</td>
+          </tr>
+          <tr>
+            <th>
+              Horas diarias de trabajo
+              <aw-tooltip-info
+                content="Horas máximas al día continuadas por los empleados"
+                cssClass="text-info"></aw-tooltip-info>
+            </th>
+            <td>{{ companySettings()?.maximumDailyWorkHours }} horas</td>
           </tr>
         }
         <!-- end details -->

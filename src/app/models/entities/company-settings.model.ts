@@ -4,5 +4,6 @@ export interface CompanySettings {
   id: string;
   companyId: string;
   timezone: string;
+  maximumDailyWorkHours: number;
   company: Company;
 }
