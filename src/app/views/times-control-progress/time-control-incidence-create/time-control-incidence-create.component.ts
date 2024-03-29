@@ -4,11 +4,14 @@ import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
 import { BtnLoadingComponent } from '../../../components/buttons/btn-loading/btn-loading.component';
 import { FormTextareaComponent } from '../../../components/forms/inputs/form-textarea/form-textarea.component';
+import { SpinnerComponent } from '../../../components/spinner/spinner.component';
 import { ApiUrls } from '../../../core/urls/api-urls';
 import { urlReplaceParams } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
+import { TimeControl } from '../../../models/entities/time-control.model';
 import { ResultResponse } from '../../../models/result-response.model';
 import { TimeControlApiService } from '../../../services/api/time-control-api.service';
 import { TimeControlIncidenceCreateRequest } from './time-control-incidence-create-request.model';
@@ -16,7 +19,7 @@ import { TimeControlIncidenceCreateRequest } from './time-control-incidence-crea
 @Component({
   selector: 'aw-time-control-incidence-create',
   standalone: true,
-  imports: [NgClass, FormsModule, ReactiveFormsModule, FormTextareaComponent, BtnLoadingComponent],
+  imports: [NgClass, FormsModule, ReactiveFormsModule, FormTextareaComponent, BtnLoadingComponent, SpinnerComponent],
   templateUrl: './time-control-incidence-create.component.html'
 })
 export class TimeControlIncidenceCreateComponent implements OnInit {
@@ -24,7 +27,7 @@ export class TimeControlIncidenceCreateComponent implements OnInit {
   private readonly timeControlApiService = inject(TimeControlApiService);
   private readonly toastrService = inject(ToastrService);
 
-  readonly bsModalRef = inject(BsModalRef);
+  private readonly bsModalRef = inject(BsModalRef);
 
   @Input({ required: true }) timeControlId!: string;
 
@@ -34,10 +37,14 @@ export class TimeControlIncidenceCreateComponent implements OnInit {
   badRequest: BadRequest | undefined;
   loadingForm = false;
   submitted = false;
+  incidenceDescriptionDisabled = false;
   incidenceMaxCharacters = 256;
   incidenceCharacters = 0;
+  timeControl!: TimeControl;
+  loadingTimeControl = false;
 
   ngOnInit(): void {
+    this.loadTimeControl();
     this.buildForm();
   }
 
@@ -77,7 +84,28 @@ export class TimeControlIncidenceCreateComponent implements OnInit {
 
   private buildForm(): void {
     this.form = this.fb.group({
-      incidenceDescription: ['', [Validators.required, Validators.maxLength(this.incidenceMaxCharacters)]]
+      incidenceDescription: [
+        this.timeControl.incidenceDescription,
+        [Validators.required, Validators.maxLength(this.incidenceMaxCharacters)]
+      ]
     });
+  }
+
+  private loadTimeControl(): void {
+    this.loadingTimeControl = true;
+    const url = urlReplaceParams(ApiUrls.timeControl.getTimeControlById, { id: this.timeControlId });
+
+    this.timeControlApiService
+      .get<TimeControl>(url)
+      .pipe(finalize(() => (this.loadingTimeControl = false)))
+      .subscribe({
+        next: (result: TimeControl) => {
+          this.timeControl = result;
+          this.incidenceCharacters = result.incidenceDescription?.length ?? 0;
+          this.incidenceDescriptionDisabled = this.timeControl.incidence;
+
+          this.buildForm();
+        }
+      });
   }
 }

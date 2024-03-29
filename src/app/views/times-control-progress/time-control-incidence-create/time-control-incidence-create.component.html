@@ -2,12 +2,7 @@
   <!-- header -->
   <div class="modal-header">
     <h5 class="modal-title">Crear incidencia</h5>
-    <button
-      (click)="bsModalRef.hide()"
-      aria-label="Close"
-      class="btn-close"
-      data-bs-dismiss="modal"
-      type="button"></button>
+    <button (click)="handleClose()" aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
   </div>
   <!-- end header -->
 
@@ -15,40 +10,46 @@
   <div class="modal-body">
     <div class="row">
       <form (ngSubmit)="handleSubmit()" [formGroup]="form">
-        <div class="col">
-          <!-- incidenceDescription -->
-          <aw-form-textarea
-            (keyup)="handleIncidenceCharacters()"
-            [badRequest]="badRequest"
-            [form]="form"
-            [submitted]="submitted"
-            fieldName="incidenceDescription"
-            formControlName="incidenceDescription"
-            label="Descripción" />
+        @if (timeControl) {
+          <div class="col">
+            <!-- incidenceDescription -->
+            <aw-form-textarea
+              (keyup)="handleIncidenceCharacters()"
+              [badRequest]="badRequest"
+              [form]="form"
+              [submitted]="submitted"
+              [isDisabled]="incidenceDescriptionDisabled"
+              fieldName="incidenceDescription"
+              formControlName="incidenceDescription"
+              label="Descripción" />
 
-          <span
-            [ngClass]="{
-              'text-muted': incidenceCharacters <= incidenceMaxCharacters,
-              'text-danger': incidenceCharacters > incidenceMaxCharacters
-            }"
-            class="small">
-            {{ incidenceCharacters }}/{{ incidenceMaxCharacters }}
-          </span>
-          <!-- end incidenceDescription -->
-        </div>
+            <span
+              [ngClass]="{
+                'text-muted': incidenceCharacters <= incidenceMaxCharacters,
+                'text-danger': incidenceCharacters > incidenceMaxCharacters
+              }"
+              class="small">
+              {{ incidenceCharacters }}/{{ incidenceMaxCharacters }}
+            </span>
+            <!-- end incidenceDescription -->
+          </div>
 
-        <div class="mt-2">
-          <button (click)="handleClose()" class="btn btn-secondary" data-bs-dismiss="modal" type="button">
-            Cerrar
-          </button>
+          <div class="mt-2">
+            <button (click)="handleClose()" class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+              Cerrar
+            </button>
 
-          <aw-btn-loading
-            [loading]="loadingForm"
-            btnClass="btn btn-success ms-2"
-            btnIcon="fa-regular fa-floppy-disk"
-            btnText="Crear incidencia"
-            spinnerLoadingText="Creando" />
-        </div>
+            <aw-btn-loading
+              [loading]="loadingForm"
+              [disabled]="incidenceDescriptionDisabled"
+              btnClass="btn btn-success ms-2"
+              btnIcon="fa-regular fa-floppy-disk"
+              btnText="Crear incidencia"
+              spinnerLoadingText="Creando" />
+          </div>
+        } @else {
+          <aw-spinner [loading]="loadingTimeControl" />
+        }
       </form>
     </div>
   </div>
