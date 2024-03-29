@@ -3,11 +3,11 @@ import { finalize } from 'rxjs';
 import { Roles } from '../../../core/types/roles';
 import { ApiUrls } from '../../../core/urls/api-urls';
 import { urlReplaceParams } from '../../../core/utils/common-utils';
-import { CurrentTimeControlResponse } from '../../../models/current-time-control-response.model';
 import { UserRole } from '../../../models/entities/user-role.model';
 import { User } from '../../../models/entities/user.model';
 import { EmployeesApiService } from '../../../services/api/employees-api.service';
 import { TimeControlApiService } from '../../../services/api/time-control-api.service';
+import { CurrentTimeControlResponse } from '../../../states/models/current-time-control-response.model';
 
 /**
  * Empleado seleccionado desde la lista (employee-list).

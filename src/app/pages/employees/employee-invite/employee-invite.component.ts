@@ -20,7 +20,7 @@ import { urlReplaceParams } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { EmployeesApiService } from '../../../services/api/employees-api.service';
 import { JwtService } from '../../../services/jwt.service';
-import { CurrentCompanySettingsStateService } from '../../../services/states/current-company-settings-state.service';
+import { CurrentCompanySettingsStateService } from '../../../states/services/current-company-settings-state.service';
 import { InviteEmployeeRequest } from './employee-invite-request.model';
 
 @Component({

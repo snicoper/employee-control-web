@@ -27,8 +27,8 @@ import { DatetimeFormatPipe } from '../../pipes/datetime-format.pipe';
 import { TimeControlApiService } from '../../services/api/time-control-api.service';
 import { JwtService } from '../../services/jwt.service';
 import { SimpleGeolocationService } from '../../services/simple-geolocation.service';
-import { CurrentCompanySettingsStateService } from '../../services/states/current-company-settings-state.service';
-import { CurrentTimeControlStateService } from '../../services/states/current-time-control-state.service';
+import { CurrentCompanySettingsStateService } from '../../states/services/current-company-settings-state.service';
+import { CurrentTimeControlStateService } from '../../states/services/current-time-control-state.service';
 import { TimeControlIncidenceCreateComponent } from './time-control-incidence-create/time-control-incidence-create.component';
 import { TimeControlProgressChangeStateRequest } from './time-control-progress-change-state.request.model';
 

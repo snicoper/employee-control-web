@@ -9,7 +9,7 @@ import { TooltipInfoComponent } from '../../../../components/tooltips/tooltip-in
 import { ViewBaseComponent } from '../../../../components/views/view-base/view-base.component';
 import { ViewHeaderComponent } from '../../../../components/views/view-header/view-header.component';
 import { SiteUrls } from '../../../../core/urls/site-urls';
-import { EmployeeSettingsStateService } from '../../../../services/states/employee-settings-state.service';
+import { EmployeeSettingsStateService } from '../../../../states/services/employee-settings-state.service';
 
 @Component({
   selector: 'aw-employee-settings-details',
