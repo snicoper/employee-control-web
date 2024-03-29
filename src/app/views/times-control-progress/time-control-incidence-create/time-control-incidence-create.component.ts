@@ -23,7 +23,7 @@ import { TimeControlIncidenceCreateRequest } from './time-control-incidence-crea
   templateUrl: './time-control-incidence-create.component.html'
 })
 export class TimeControlIncidenceCreateComponent implements OnInit {
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly timeControlApiService = inject(TimeControlApiService);
   private readonly toastrService = inject(ToastrService);
 
@@ -31,9 +31,9 @@ export class TimeControlIncidenceCreateComponent implements OnInit {
 
   @Input({ required: true }) timeControlId!: string;
 
-  @Output() hasSubmit = new EventEmitter<boolean>();
+  @Output() hasSubmit = new EventEmitter<void>();
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   loadingForm = false;
   submitted = false;
@@ -45,7 +45,6 @@ export class TimeControlIncidenceCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTimeControl();
-    this.buildForm();
   }
 
   handleClose(): void {
@@ -72,7 +71,7 @@ export class TimeControlIncidenceCreateComponent implements OnInit {
         next: (result: ResultResponse) => {
           if (result.succeeded) {
             this.toastrService.success('Incidencia creada con éxito');
-            this.hasSubmit.emit(true);
+            this.hasSubmit.emit();
             this.bsModalRef.hide();
           }
         },
@@ -83,7 +82,7 @@ export class TimeControlIncidenceCreateComponent implements OnInit {
   }
 
   private buildForm(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       incidenceDescription: [
         this.timeControl.incidenceDescription,
         [Validators.required, Validators.maxLength(this.incidenceMaxCharacters)]

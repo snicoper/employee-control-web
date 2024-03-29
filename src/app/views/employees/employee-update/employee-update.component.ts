@@ -44,7 +44,7 @@ import { EmployeesApiService } from '../../../services/api/employees-api.service
 export class EmployeeUpdateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly employeesApiService = inject(EmployeesApiService);
   private readonly toastrService = inject(ToastrService);
 
@@ -53,7 +53,7 @@ export class EmployeeUpdateComponent {
   readonly breadcrumb = new BreadcrumbCollection();
   readonly employeeId: string;
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   formTypes = FormInputTypes;
   loadingEmployee = false;
@@ -109,7 +109,7 @@ export class EmployeeUpdateComponent {
   }
 
   private buildForm(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       firstName: [this.employee?.firstName, [Validators.required]],
       lastName: [this.employee?.lastName, [Validators.required]],
       email: [this.employee?.email, [Validators.email, Validators.required]],

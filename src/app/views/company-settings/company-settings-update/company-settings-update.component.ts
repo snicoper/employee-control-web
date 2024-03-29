@@ -43,7 +43,7 @@ import { CurrentCompanySettingsStateService } from '../../../services/states/cur
 export class CompanySettingsUpdateComponent {
   private readonly currentCompanySettingsStateService = inject(CurrentCompanySettingsStateService);
   private readonly companySettingsApiService = inject(CompanySettingsApiService);
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly toastrService = inject(ToastrService);
   private readonly router = inject(Router);
 
@@ -51,7 +51,7 @@ export class CompanySettingsUpdateComponent {
 
   readonly breadcrumb = new BreadcrumbCollection();
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   loadingForm = false;
   submitted = false;
@@ -107,7 +107,7 @@ export class CompanySettingsUpdateComponent {
   }
 
   private buildForm(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       timezone: [this.companySettings()?.timezone, [Validators.required]],
       maximumDailyWorkHours: [
         this.companySettings()?.maximumDailyWorkHours,

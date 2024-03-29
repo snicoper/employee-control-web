@@ -43,7 +43,7 @@ import { DepartmentApiService } from '../../../services/api/department-api.servi
 export class DepartmentUpdateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly departmentApiService = inject(DepartmentApiService);
   private readonly toastrService = inject(ToastrService);
 
@@ -51,7 +51,7 @@ export class DepartmentUpdateComponent {
   readonly departmentId: string;
   readonly urlDepartmentDetails: string;
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   loadingDepartment = false;
   loadingForm = false;
@@ -98,7 +98,7 @@ export class DepartmentUpdateComponent {
   }
 
   private buildForm(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       name: [this.department?.name, [Validators.required]],
       background: [this.department?.background, [Validators.required]],
       color: [this.department?.color, [Validators.required]],

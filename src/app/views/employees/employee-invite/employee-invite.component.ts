@@ -41,7 +41,7 @@ import { InviteEmployeeRequest } from './employee-invite-request.model';
   ]
 })
 export class EmployeeInviteComponent {
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly employeesApiService = inject(EmployeesApiService);
   private readonly jwtService = inject(JwtService);
   private readonly toastrService = inject(ToastrService);
@@ -50,7 +50,7 @@ export class EmployeeInviteComponent {
 
   readonly breadcrumb = new BreadcrumbCollection();
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   formInputTypes = FormInputTypes;
   submitted = false;
@@ -99,7 +99,7 @@ export class EmployeeInviteComponent {
   private buildForm(): void {
     const companySettings = this.currentCompanySettingsStateService.get();
 
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.email, Validators.required]],

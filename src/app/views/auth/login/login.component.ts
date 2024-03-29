@@ -35,14 +35,14 @@ import { LoginResponse } from './login-response.model';
   ]
 })
 export class LoginComponent {
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly authApiService = inject(AuthApiService);
   private readonly userStatesService = inject(UserStatesService);
   private readonly jwtService = inject(JwtService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   submitted = false;
   invalidLogin = false;
@@ -91,7 +91,7 @@ export class LoginComponent {
   }
 
   private buildForm(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });

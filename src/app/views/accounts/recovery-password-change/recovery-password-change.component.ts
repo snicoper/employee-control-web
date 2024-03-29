@@ -34,13 +34,13 @@ import { RecoveryPasswordChangeRequest } from './recovery-password-change-reques
   ]
 })
 export class RecoveryPasswordChangeComponent {
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly accountsApiService = inject(AccountsApiService);
   private readonly toastrService = inject(ToastrService);
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   formInputTypes = FormInputTypes;
   siteUrls = SiteUrls;
@@ -98,7 +98,7 @@ export class RecoveryPasswordChangeComponent {
   }
 
   private buildForm(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]]
     });

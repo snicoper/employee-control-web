@@ -42,7 +42,7 @@ import { DepartmentCreateResponse } from './department-create-response.model';
   ]
 })
 export class DepartmentCreateComponent {
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly departmentApiService = inject(DepartmentApiService);
   private readonly jwtService = inject(JwtService);
   private readonly toastrService = inject(ToastrService);
@@ -50,7 +50,7 @@ export class DepartmentCreateComponent {
 
   breadcrumb = new BreadcrumbCollection();
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   submitted = false;
   loading = false;
@@ -93,7 +93,7 @@ export class DepartmentCreateComponent {
   }
 
   private buildForm(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       name: ['', Validators.required],
       background: [getRandomColorHexadecimal(), Validators.required],
       color: [getRandomColorHexadecimal(), Validators.required]

@@ -38,7 +38,7 @@ import { EmployeeSettingsStateService } from '../../../../services/states/employ
 export class EmployeeSettingsUpdateComponent {
   private readonly employeeSettingsStateService = inject(EmployeeSettingsStateService);
   private readonly employeesApiService = inject(EmployeesApiService);
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly toastrService = inject(ToastrService);
   private readonly router = inject(Router);
 
@@ -46,7 +46,7 @@ export class EmployeeSettingsUpdateComponent {
 
   readonly breadcrumb = new BreadcrumbCollection();
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   loadingForm = false;
   submitted = false;
@@ -103,7 +103,7 @@ export class EmployeeSettingsUpdateComponent {
   }
 
   private buildForm(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       timezone: [this.employeeSettings()?.timezone, [Validators.required]]
     });
   }

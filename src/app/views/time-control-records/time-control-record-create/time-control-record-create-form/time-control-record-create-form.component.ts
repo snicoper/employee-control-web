@@ -35,7 +35,7 @@ import { TimeControlRecordCreateService } from '../time-control-record-create.se
   ]
 })
 export class TimeControlRecordCreateFormComponent implements OnInit {
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly toastrService = inject(ToastrService);
   private readonly timeControlApiService = inject(TimeControlApiService);
@@ -44,7 +44,7 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
 
   readonly employeeSelected = computed(() => this.timeControlRecordCreateService.employeeSelected());
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   loadingForm = false;
   submitted = false;
@@ -181,7 +181,7 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
 
     // Las validaciones de tiempos de cierre son dinámicos.
     // @see: this.handleToggleFinishDateAndTime().
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       dateStart: [nowWithOffsets, [Validators.required, CustomValidators.noFutureDate]],
       timeStart: [nowWithOffsets, [Validators.required]],
       dateFinish: [nowWithOffsets],

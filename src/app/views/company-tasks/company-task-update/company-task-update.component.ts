@@ -43,7 +43,7 @@ import { CompanyTaskApiService } from '../../../services/api/company-task-api.se
 export class CompanyTaskUpdateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly companyTaskApiService = inject(CompanyTaskApiService);
   private readonly toastrService = inject(ToastrService);
 
@@ -51,7 +51,7 @@ export class CompanyTaskUpdateComponent {
   readonly companyTaskId: string;
   readonly urlCompanyTaskDetails: string;
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   loadingCompanyTask = false;
   loadingForm = false;
@@ -98,7 +98,7 @@ export class CompanyTaskUpdateComponent {
   }
 
   private buildForm(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       name: [this.companyTask?.name, [Validators.required]],
       background: [this.companyTask?.background, [Validators.required]],
       color: [this.companyTask?.color, [Validators.required]],

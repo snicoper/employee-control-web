@@ -33,10 +33,10 @@ import { RecoveryPasswordRequest } from './recovery-password-request.model';
   ]
 })
 export class RecoveryPasswordComponent {
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly accountsApiService = inject(AccountsApiService);
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   formInputTypes = FormInputTypes;
   siteUrls = SiteUrls;
@@ -73,7 +73,7 @@ export class RecoveryPasswordComponent {
   }
 
   private buildForm(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       email: ['', [Validators.email, Validators.required]]
     });
   }

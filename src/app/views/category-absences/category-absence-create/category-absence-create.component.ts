@@ -41,7 +41,7 @@ import { CategoryAbsenceCreateRequest } from './category-absence-create-request.
   ]
 })
 export class CategoryAbsenceCreateComponent {
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly categoryAbsencesApiService = inject(CategoryAbsencesApiService);
   private readonly jwtService = inject(JwtService);
   private readonly toastrService = inject(ToastrService);
@@ -49,7 +49,7 @@ export class CategoryAbsenceCreateComponent {
 
   readonly breadcrumb = new BreadcrumbCollection();
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   submitted = false;
   loading = false;
@@ -95,7 +95,7 @@ export class CategoryAbsenceCreateComponent {
   }
 
   private buildForm(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       description: ['', [Validators.required]],
       background: [getRandomColorHexadecimal(), [Validators.required]],
       color: [getRandomColorHexadecimal(), [Validators.required]]

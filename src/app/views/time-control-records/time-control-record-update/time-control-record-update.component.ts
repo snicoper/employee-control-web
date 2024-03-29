@@ -45,13 +45,13 @@ import { TimeControlRecordRequest } from './time-control-record-request';
 export class TimeControlRecordUpdateComponent implements OnInit {
   private readonly timeControlApiService = inject(TimeControlApiService);
   private readonly toastrService = inject(ToastrService);
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
   readonly breadcrumb = new BreadcrumbCollection();
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   loadingForm = false;
   submitted = false;
@@ -186,7 +186,7 @@ export class TimeControlRecordUpdateComponent implements OnInit {
       0
     );
 
-    this.form = this.fb.group(
+    this.form = this.formBuilder.group(
       {
         dateStart: [startWithOffset, [Validators.required, CustomValidators.noFutureDate]],
         dateFinish: [endWithOffset, [Validators.required, CustomValidators.noFutureDate]],

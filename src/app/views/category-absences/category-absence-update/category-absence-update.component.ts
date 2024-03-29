@@ -44,14 +44,14 @@ import { CategoryAbsencesApiService } from '../../../services/api/category-absen
 export class CategoryAbsenceUpdateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly toastrService = inject(ToastrService);
   private readonly categoryAbsencesApiService = inject(CategoryAbsencesApiService);
 
   readonly breadcrumb = new BreadcrumbCollection();
   readonly categoryAbsenceId: string;
 
-  form: FormGroup = this.fb.group({});
+  form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   loadingCategoryAbsence = false;
   loadingForm = false;
@@ -99,7 +99,7 @@ export class CategoryAbsenceUpdateComponent {
   }
 
   private buildForm(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       description: [this.categoryAbsence?.description, [Validators.required]],
       background: [this.categoryAbsence?.background, [Validators.required]],
       color: [this.categoryAbsence?.color, [Validators.required]],
