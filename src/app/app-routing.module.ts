@@ -6,7 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./views/home/home-routing.module').then((m) => m.routes)
+    loadChildren: () => import('./views/dashboard/dashboard-routing.module').then((m) => m.routes)
   },
   {
     path: 'accounts',
@@ -54,12 +54,6 @@ const routes: Routes = [
   {
     path: 'errors',
     loadChildren: () => import('./views/errors/errors-routing.module').then((m) => m.routes)
-  },
-  {
-    path: 'tests',
-    data: { roles: [Roles.enterpriseAdmin] },
-    canActivate: [AuthGuard],
-    loadChildren: () => import('./views/tests/tests-routing.module').then((m) => m.routes)
   },
   {
     path: 'time-control-records',

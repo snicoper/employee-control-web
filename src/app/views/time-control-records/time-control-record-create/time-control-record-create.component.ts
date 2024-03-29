@@ -41,7 +41,7 @@ export class TimeControlRecordCreateComponent implements OnDestroy {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Registro de tiempos', SiteUrls.timeControlRecords.home)
+      .add('Registro de tiempos', SiteUrls.timeControlRecords.list)
       .add('Añadir tiempo', SiteUrls.timeControlRecords.create, '', false);
   }
 }

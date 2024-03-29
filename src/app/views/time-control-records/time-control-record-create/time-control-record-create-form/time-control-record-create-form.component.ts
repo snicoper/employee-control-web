@@ -112,7 +112,7 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
       .subscribe({
         next: () => {
           this.toastrService.success('Tiempo creado con éxito.');
-          this.router.navigateByUrl(SiteUrls.timeControlRecords.home);
+          this.router.navigateByUrl(SiteUrls.timeControlRecords.list);
         }
       });
   }

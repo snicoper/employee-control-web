@@ -104,7 +104,7 @@ export class TimeControlRecordDetailsComponent implements OnInit {
       next: (result: ResultResponse) => {
         if (result.succeeded) {
           this.toastrService.success('Tiempo eliminado con éxito.');
-          this.router.navigateByUrl(SiteUrls.timeControlRecords.home);
+          this.router.navigateByUrl(SiteUrls.timeControlRecords.list);
         } else {
           this.toastrService.error('Ha ocurrido un error al eliminar el tiempo.');
           logError(result.errors.join());
@@ -137,7 +137,7 @@ export class TimeControlRecordDetailsComponent implements OnInit {
     const urlDetails = urlReplaceParams(SiteUrls.timeControlRecords.details, { id: this.timeControlId });
 
     this.breadcrumb
-      .add('Registro de tiempos', SiteUrls.timeControlRecords.home, '')
+      .add('Registro de tiempos', SiteUrls.timeControlRecords.list, '')
       .add('Detalles de tiempo', urlDetails, '', false);
   }
 

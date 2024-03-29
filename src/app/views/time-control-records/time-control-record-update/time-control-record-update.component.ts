@@ -91,7 +91,7 @@ export class TimeControlRecordUpdateComponent implements OnInit {
       .subscribe({
         next: () => {
           this.toastrService.success('Tiempo actualizado con éxito.');
-          this.router.navigateByUrl(SiteUrls.timeControlRecords.home);
+          this.router.navigateByUrl(SiteUrls.timeControlRecords.list);
         }
       });
   }
@@ -100,7 +100,7 @@ export class TimeControlRecordUpdateComponent implements OnInit {
     const urlDetails = urlReplaceParams(SiteUrls.timeControlRecords.details, { id: this.timeControlId });
 
     this.breadcrumb
-      .add('Registro de tiempos', SiteUrls.timeControlRecords.home)
+      .add('Registro de tiempos', SiteUrls.timeControlRecords.list)
       .add('Detalles de tiempo', urlDetails, '')
       .add('Actualizar tiempo', SiteUrls.timeControlRecords.update, '', false);
   }
