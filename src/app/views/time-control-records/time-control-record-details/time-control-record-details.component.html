@@ -5,9 +5,7 @@
     <aw-card>
       <h4>Incidencia</h4>
 
-      <div class="alert alert-danger">
-        {{ timeControl?.incidenceDescription }}
-      </div>
+      <div class="alert alert-warning nl2br">{{ timeControl?.incidenceDescription }}</div>
     </aw-card>
     <div class="mt-4"></div>
   }
@@ -101,6 +99,10 @@
     </table>
 
     <div class="mt-4">
+      @if (timeControl?.timeState === timeState.open) {
+        <div class="text-danger mb-4">*Para editar o eliminar es necesario finalizar el tiempo.</div>
+      }
+
       <aw-btn-back />
 
       @if (timeControl) {
