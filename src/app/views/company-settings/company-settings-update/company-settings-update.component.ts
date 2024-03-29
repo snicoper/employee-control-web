@@ -113,6 +113,7 @@ export class CompanySettingsUpdateComponent {
         this.companySettings()?.maximumDailyWorkHours,
         [Validators.required, Validators.max(24), Validators.min(1)]
       ],
+      weeklyWorkingHours: [this.companySettings()?.weeklyWorkingHours, [Validators.required, Validators.min(1)]],
       geolocationRequired: [this.companySettings()?.geolocationRequired]
     });
   }
