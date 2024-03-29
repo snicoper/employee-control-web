@@ -29,7 +29,7 @@
       <div class="small text-muted">Tiempo total: {{ timeTotalInMonth }}</div>
 
       <!-- button state -->
-      @if (companyGeolocationRequired && geolocationIsAvailable()) {
+      @if (!companyGeolocationRequired || (companyGeolocationRequired && geolocationIsAvailable())) {
         <div>
           @if (currentTimeControl()?.timeState === timeStates.open) {
             <aw-btn-loading
