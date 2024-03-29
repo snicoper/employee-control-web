@@ -12,39 +12,39 @@
         <!-- details -->
         @if (!loadingCompanySettings()) {
           <tr>
-            <th>
+            <td>
               Días laborables
               <aw-tooltip-info
                 content="Días por defecto considerados laborables"
                 cssClass="text-info"></aw-tooltip-info>
-            </th>
+            </td>
             <td>
               <aw-working-days-week />
             </td>
           </tr>
           <tr>
-            <th>
+            <td>
               Zona horaria
               <aw-tooltip-info content="Zona horaria de la compañía" cssClass="text-info"></aw-tooltip-info>
-            </th>
+            </td>
             <td>{{ companySettings()?.timezone }} - {{ nowWithTimezone }}</td>
           </tr>
           <tr>
-            <th>
+            <td>
               Horas diarias de trabajo
               <aw-tooltip-info
                 content="Horas máximas al día continuadas por los empleados"
                 cssClass="text-info"></aw-tooltip-info>
-            </th>
+            </td>
             <td>{{ companySettings()?.maximumDailyWorkHours }} horas</td>
           </tr>
           <tr>
-            <th>
-              Geolocalizacion requerida
+            <td>
+              Geolocalización requerida
               <aw-tooltip-info
                 content="Para iniciar un tiempo, requiere por parte del empleado aceptar la geolocalización"
                 cssClass="text-info"></aw-tooltip-info>
-            </th>
+            </td>
             <td>
               <span
                 awTooltip
