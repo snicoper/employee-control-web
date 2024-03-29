@@ -9,6 +9,7 @@ import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-
 import { BtnBackComponent } from '../../../components/buttons/btn-back/btn-back.component';
 import { BtnLoadingComponent } from '../../../components/buttons/btn-loading/btn-loading.component';
 import { CardComponent } from '../../../components/cards/card/card.component';
+import { FormCheckboxComponent } from '../../../components/forms/inputs/form-checkbox/form-checkbox.component';
 import { FormInputComponent } from '../../../components/forms/inputs/form-input/form-input.component';
 import { FormTimezoneComponent } from '../../../components/forms/inputs/form-timezone/form-timezone.component';
 import { ViewBaseComponent } from '../../../components/views/view-base/view-base.component';
@@ -34,6 +35,7 @@ import { CurrentCompanySettingsStateService } from '../../../services/states/cur
     ReactiveFormsModule,
     FormTimezoneComponent,
     FormInputComponent,
+    FormCheckboxComponent,
     BtnBackComponent,
     BtnLoadingComponent
   ]
@@ -110,7 +112,8 @@ export class CompanySettingsUpdateComponent {
       maximumDailyWorkHours: [
         this.companySettings()?.maximumDailyWorkHours,
         [Validators.required, Validators.max(24), Validators.min(1)]
-      ]
+      ],
+      geolocationRequired: [this.companySettings()?.geolocationRequired]
     });
   }
 

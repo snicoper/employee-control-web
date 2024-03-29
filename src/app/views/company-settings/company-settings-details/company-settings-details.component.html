@@ -38,6 +38,20 @@
             </th>
             <td>{{ companySettings()?.maximumDailyWorkHours }} horas</td>
           </tr>
+          <tr>
+            <th>
+              Geolocalizacion requerida
+              <aw-tooltip-info
+                content="Para iniciar un tiempo, requiere por parte del empleado aceptar la geolocalización"
+                cssClass="text-info"></aw-tooltip-info>
+            </th>
+            <td>
+              <span
+                awTooltip
+                [title]="requiredGeolocation"
+                [innerHTML]="companySettings()?.geolocationRequired | boolToIcon"></span>
+            </td>
+          </tr>
         }
         <!-- end details -->
 
