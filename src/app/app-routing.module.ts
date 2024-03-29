@@ -57,7 +57,7 @@ const routes: Routes = [
   },
   {
     path: 'time-control-records',
-    data: { roles: [Roles.enterpriseStaff] },
+    data: { roles: [Roles.humanResources] },
     canActivate: [AuthGuard],
     loadChildren: () => import('./views/time-control-records/time-control-records-routing.module').then((m) => m.routes)
   },
