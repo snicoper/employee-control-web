@@ -133,6 +133,20 @@ export class TimeControlRecordDetailsComponent implements OnInit {
       });
   }
 
+  handleCloseIncidence(): void {
+    const url = urlReplaceParams(ApiUrls.timeControl.closeIncidence, { id: this.timeControlId });
+    const data = { id: this.timeControlId };
+
+    this.timeControlApiService.put<typeof data, ResultResponse>(data, url).subscribe({
+      next: (result: ResultResponse) => {
+        if (result.succeeded) {
+          this.toastrService.success('Incidencia cerrada con éxito.');
+          this.loadTimeControl();
+        }
+      }
+    });
+  }
+
   private setBreadcrumb(): void {
     const urlDetails = urlReplaceParams(SiteUrls.timeControlRecords.details, { id: this.timeControlId });
 

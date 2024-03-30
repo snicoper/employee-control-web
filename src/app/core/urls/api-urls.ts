@@ -98,6 +98,7 @@ export const ApiUrls = {
     createTimeControl: '/times-control',
     startTimeControl: '/times-control/start',
     updateTimeControl: '/times-control/{id}',
+    closeIncidence: '/times-control/{id}/close-incidence',
     finishTimeControl: '/times-control/finish',
     finishTimeControlByStaff: '/times-control/finish/staff',
     createIncidence: '/times-control/{id}/create-incidence',
