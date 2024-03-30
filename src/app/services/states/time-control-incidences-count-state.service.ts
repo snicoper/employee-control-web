@@ -6,6 +6,10 @@ import { TimeControlIncidencesCountStateResponse } from '../../models/states/tim
 import { TimeControlApiService } from '../api/time-control-api.service';
 import { StateService } from './state.service';
 
+/**
+ * Estado de notificaciones de incidencias de TimeControl.
+ * Utiliza SignalR para obtener notificaciones en tiempo real.
+ */
 @Injectable({ providedIn: 'root' })
 export class TimeControlIncidencesCountStateService implements StateService<number> {
   private readonly timeControlApiService = inject(TimeControlApiService);
