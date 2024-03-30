@@ -11,7 +11,7 @@ import { TooltipInfoComponent } from '../../../components/tooltips/tooltip-info/
 import { SiteUrls } from '../../../core/urls/site-urls';
 import { TooltipDirective } from '../../../directives/tooltip.directive';
 import { BoolToIconPipe } from '../../../pipes/bool-to-icon.pipe';
-import { CurrentCompanySettingsStateService } from '../../../services/states/current-company-settings-state.service';
+import { CompanySettingsStateService } from '../../../services/states/company-settings-state.service';
 import { WorkingDaysWeekComponent } from './working-days-week/working-days-week.component';
 
 @Component({
@@ -31,10 +31,10 @@ import { WorkingDaysWeekComponent } from './working-days-week/working-days-week.
   ]
 })
 export class CompanySettingsDetailsComponent {
-  private readonly currentCompanySettingsStateService = inject(CurrentCompanySettingsStateService);
+  private readonly companySettingsStateService = inject(CompanySettingsStateService);
 
-  readonly companySettings = computed(() => this.currentCompanySettingsStateService.companySettings());
-  readonly loadingCompanySettings = computed(() => this.currentCompanySettingsStateService.loadingCompanySettings());
+  readonly companySettings = computed(() => this.companySettingsStateService.companySettings());
+  readonly loadingCompanySettings = computed(() => this.companySettingsStateService.loadingCompanySettings());
 
   readonly breadcrumb = new BreadcrumbCollection();
   nowWithTimezone = '';

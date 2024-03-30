@@ -27,8 +27,8 @@ import { DatetimeFormatPipe } from '../../pipes/datetime-format.pipe';
 import { TimeControlApiService } from '../../services/api/time-control-api.service';
 import { JwtService } from '../../services/jwt.service';
 import { SimpleGeolocationService } from '../../services/simple-geolocation.service';
-import { CurrentCompanySettingsStateService } from '../../services/states/current-company-settings-state.service';
-import { CurrentTimeControlStateService } from '../../services/states/current-time-control-state.service';
+import { CompanySettingsStateService } from '../../services/states/company-settings-state.service';
+import { TimeControlStateService } from '../../services/states/time-control-state.service';
 import { TimeControlIncidenceCreateComponent } from './time-control-incidence-create/time-control-incidence-create.component';
 import { TimeControlProgressChangeStateRequest } from './time-control-progress-change-state.request.model';
 
@@ -53,13 +53,13 @@ export class TimesControlProgressComponent {
   private readonly timeControlApiService = inject(TimeControlApiService);
   private readonly jwtService = inject(JwtService);
   private readonly toastrService = inject(ToastrService);
-  private readonly currentTimeControlStateService = inject(CurrentTimeControlStateService);
-  private readonly currentCompanySettingsStateService = inject(CurrentCompanySettingsStateService);
+  private readonly timeControlStateService = inject(TimeControlStateService);
+  private readonly companySettingsStateService = inject(CompanySettingsStateService);
   private readonly deviceDetectorService = inject(DeviceDetectorService);
   private readonly simpleGeolocationService = inject(SimpleGeolocationService);
   private readonly bsModalService = inject(BsModalService);
 
-  readonly currentTimeControl = computed(() => this.currentTimeControlStateService.currentTimeControl());
+  readonly currentTimeControl = computed(() => this.timeControlStateService.timeControl());
   readonly geolocationIsAvailable = computed(() => this.simpleGeolocationService.geolocationIsAvailable());
 
   private readonly employeeDeviceType: DeviceType;
@@ -76,7 +76,7 @@ export class TimesControlProgressComponent {
   companyGeolocationRequired = false;
 
   constructor() {
-    this.companyGeolocationRequired = this.currentCompanySettingsStateService.companySettings()
+    this.companyGeolocationRequired = this.companySettingsStateService.companySettings()
       ?.geolocationRequired as boolean;
 
     this.loadTimesControlRange();
@@ -114,7 +114,7 @@ export class TimesControlProgressComponent {
       .subscribe({
         next: (result: ResultResponse) => {
           if (result.succeeded && this.currentTimeControl !== undefined) {
-            this.currentTimeControlStateService.refresh();
+            this.timeControlStateService.refresh();
             this.loadTimesControlRange();
             this.toastrService.success('Tiempo iniciado con éxito.');
           } else {
@@ -141,7 +141,7 @@ export class TimesControlProgressComponent {
       .subscribe({
         next: (result: ResultResponse) => {
           if (result.succeeded && this.currentTimeControl !== undefined) {
-            this.currentTimeControlStateService.refresh();
+            this.timeControlStateService.refresh();
             this.loadTimesControlRange();
             this.toastrService.success('Tiempo finalizado con éxito.');
           } else {

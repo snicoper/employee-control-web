@@ -7,7 +7,7 @@ import { StateService } from './state.service';
 
 /** Settings de la compañía actual. */
 @Injectable({ providedIn: 'root' })
-export class CurrentCompanySettingsStateService implements StateService<CompanySettings | null> {
+export class CompanySettingsStateService implements StateService<CompanySettings | null> {
   private readonly companySettingsApiService = inject(CompanySettingsApiService);
 
   private readonly companySettings$ = signal<CompanySettings | null>(null);
