@@ -1,11 +1,5 @@
 /** URLs en la API. */
 export const ApiUrls = {
-  admin: {
-    accounts: {
-      getAdminAccountsPaginated: '/admin/accounts/paginated'
-    }
-  },
-
   auth: {
     login: '/auth/login',
     refreshToken: '/auth/refresh-token'
