@@ -2,9 +2,9 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { finalize } from 'rxjs';
 import { ApiUrls } from '../../core/urls/api-urls';
 import { urlReplaceParams } from '../../core/utils/common-utils';
-import { TimeControlApiService } from '../../services/api/time-control-api.service';
-import { JwtService } from '../../services/jwt.service';
-import { CurrentTimeControlResponse } from '../models/current-time-control-response.model';
+import { CurrentTimeControlResponse } from '../../models/states/current-time-control-response.model';
+import { TimeControlApiService } from '../api/time-control-api.service';
+import { JwtService } from '../jwt.service';
 import { StateService } from './state.service';
 
 /** Estado del usuario activo. */

@@ -11,7 +11,7 @@ import { TooltipInfoComponent } from '../../../components/tooltips/tooltip-info/
 import { SiteUrls } from '../../../core/urls/site-urls';
 import { TooltipDirective } from '../../../directives/tooltip.directive';
 import { BoolToIconPipe } from '../../../pipes/bool-to-icon.pipe';
-import { CurrentCompanySettingsStateService } from '../../../states/services/current-company-settings-state.service';
+import { CurrentCompanySettingsStateService } from '../../../services/states/current-company-settings-state.service';
 import { WorkingDaysWeekComponent } from './working-days-week/working-days-week.component';
 
 @Component({

@@ -2,7 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { finalize } from 'rxjs';
 import { ApiUrls } from '../../core/urls/api-urls';
 import { CompanySettings } from '../../models/entities/company-settings.model';
-import { CompanySettingsApiService } from '../../services/api/company-settings-api.service';
+import { CompanySettingsApiService } from '../api/company-settings-api.service';
 import { StateService } from './state.service';
 
 /** Settings de la compañía actual. */

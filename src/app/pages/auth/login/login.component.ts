@@ -14,7 +14,7 @@ import { SiteUrls } from '../../../core/urls/site-urls';
 import { BadRequest } from '../../../models/bad-request';
 import { AuthApiService } from '../../../services/api/auth-api.service';
 import { JwtService } from '../../../services/jwt.service';
-import { UserStatesService } from '../../../services/user-states.service';
+import { UserStatesService } from '../../../services/states/user-states.service';
 import { LoginRequest } from './login-request.model';
 import { LoginResponse } from './login-response.model';
 

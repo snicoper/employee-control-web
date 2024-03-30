@@ -18,7 +18,7 @@ import { urlReplaceParams } from '../../../../core/utils/common-utils';
 import { BadRequest } from '../../../../models/bad-request';
 import { EmployeeSettings } from '../../../../models/entities/employee-settings.model';
 import { EmployeesApiService } from '../../../../services/api/employees-api.service';
-import { EmployeeSettingsStateService } from '../../../../states/services/employee-settings-state.service';
+import { EmployeeSettingsStateService } from '../../../../services/states/employee-settings-state.service';
 
 @Component({
   selector: 'aw-employee-settings-update',

@@ -21,7 +21,7 @@ import { BadRequest } from '../../../models/bad-request';
 import { CompanySettings } from '../../../models/entities/company-settings.model';
 import { ResultResponse } from '../../../models/result-response.model';
 import { CompanySettingsApiService } from '../../../services/api/company-settings-api.service';
-import { CurrentCompanySettingsStateService } from '../../../states/services/current-company-settings-state.service';
+import { CurrentCompanySettingsStateService } from '../../../services/states/current-company-settings-state.service';
 
 @Component({
   selector: 'aw-company-settings-update',

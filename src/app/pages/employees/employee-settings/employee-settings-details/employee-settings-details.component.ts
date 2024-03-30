@@ -9,7 +9,7 @@ import { PageHeaderComponent } from '../../../../components/pages/page-header/pa
 import { TableLoadingComponent } from '../../../../components/tables/table-loading/table-loading.component';
 import { TooltipInfoComponent } from '../../../../components/tooltips/tooltip-info/tooltip-info.component';
 import { SiteUrls } from '../../../../core/urls/site-urls';
-import { EmployeeSettingsStateService } from '../../../../states/services/employee-settings-state.service';
+import { EmployeeSettingsStateService } from '../../../../services/states/employee-settings-state.service';
 
 @Component({
   selector: 'aw-employee-settings-details',

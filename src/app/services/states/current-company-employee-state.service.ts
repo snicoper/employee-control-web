@@ -1,8 +1,8 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { ApiUrls } from '../../core/urls/api-urls';
-import { CompaniesApiService } from '../../services/api/companies-api.service';
-import { JwtService } from '../../services/jwt.service';
-import { CurrentCompanyEmployeeResponse } from '../models/current-company-employee-response.model';
+import { CurrentCompanyEmployeeResponse } from '../../models/states/current-company-employee-response.model';
+import { CompaniesApiService } from '../api/companies-api.service';
+import { JwtService } from '../jwt.service';
 import { StateService } from './state.service';
 
 /** Compañía actual del usuario. */

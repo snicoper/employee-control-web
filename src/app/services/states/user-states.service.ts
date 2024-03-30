@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { CurrentCompanyEmployeeStateService } from '../states/services/current-company-employee-state.service';
-import { CurrentCompanySettingsStateService } from '../states/services/current-company-settings-state.service';
-import { CurrentTimeControlStateService } from '../states/services/current-time-control-state.service';
-import { EmployeeSettingsStateService } from '../states/services/employee-settings-state.service';
+import { CurrentCompanyEmployeeStateService } from './current-company-employee-state.service';
+import { CurrentCompanySettingsStateService } from './current-company-settings-state.service';
+import { CurrentTimeControlStateService } from './current-time-control-state.service';
+import { EmployeeSettingsStateService } from './employee-settings-state.service';
+import { TimeControlIncidencesCountStateService } from './time-control-incidences-count-state.service';
 
 /** Maneja estados de un usuario al hacer login o logout. */
 @Injectable({ providedIn: 'root' })
@@ -11,6 +12,7 @@ export class UserStatesService {
   private readonly currentCompanySettingsStateService = inject(CurrentCompanySettingsStateService);
   private readonly currentTimeControlStateService = inject(CurrentTimeControlStateService);
   private readonly employeeSettingsStateService = inject(EmployeeSettingsStateService);
+  private readonly timeControlIncidencesCountStateService = inject(TimeControlIncidencesCountStateService);
 
   /** Carga estados del usuario. */
   load(): void {
@@ -18,6 +20,7 @@ export class UserStatesService {
     this.currentCompanySettingsStateService.refresh();
     this.currentTimeControlStateService.refresh();
     this.employeeSettingsStateService.refresh();
+    this.timeControlIncidencesCountStateService.refresh();
   }
 
   /** Elimina estados del usuario. */
@@ -26,5 +29,6 @@ export class UserStatesService {
     this.currentCompanySettingsStateService.clean();
     this.currentTimeControlStateService.clean();
     this.employeeSettingsStateService.clean();
+    this.timeControlIncidencesCountStateService.clean();
   }
 }
