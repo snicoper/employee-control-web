@@ -1,9 +1,9 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { HubConnectionBuilder } from '@microsoft/signalr';
-import { AppEnvironments } from '../../core/config/app-environments';
+import { HubNames } from '../../core/types/hub-names';
 import { ApiUrls } from '../../core/urls/api-urls';
 import { TimeControlIncidencesCountStateResponse } from '../../models/states/time-control-incidences-count-state-response.model';
 import { TimeControlApiService } from '../api/time-control-api.service';
+import { SignalRService } from '../signalr.service';
 import { StateService } from './state.service';
 
 /**
@@ -13,9 +13,9 @@ import { StateService } from './state.service';
 @Injectable({ providedIn: 'root' })
 export class TimeControlIncidencesCountStateService implements StateService<number> {
   private readonly timeControlApiService = inject(TimeControlApiService);
+  private readonly signalRService = inject(SignalRService);
 
   private readonly incidences$ = signal(0);
-  private readonly hubConnectionBuilder = new HubConnectionBuilder();
 
   readonly incidences = computed(() => this.incidences$());
 
@@ -46,12 +46,8 @@ export class TimeControlIncidencesCountStateService implements StateService<numb
   }
 
   private addListener(): void {
-    const hubConnection = this.hubConnectionBuilder.withUrl(AppEnvironments.baseHubUrl).build();
-
-    hubConnection.on('NotificationTimeControlIncidenceHub', () => {
+    this.signalRService.hubConnection.on(HubNames.timeControlIncidences, () => {
       this.refresh();
     });
-
-    hubConnection.start();
   }
 }

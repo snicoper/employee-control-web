@@ -51,7 +51,7 @@
       </ul>
       <div>
         <!-- incidences -->
-        <span class="me-3">
+        <span [awRequiredRole]="roles.enterpriseStaff" class="me-3">
           Incidencias
           @if (timeControlIncidencesCount()) {
             <span class="badge text-bg-danger">{{ timeControlIncidencesCount() }}</span>
