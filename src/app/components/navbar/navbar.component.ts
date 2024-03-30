@@ -7,6 +7,7 @@ import { SiteUrls } from '../../core/urls/site-urls';
 import { AuthService } from '../../services/auth.service';
 import { JwtService } from '../../services/jwt.service';
 import { LayoutService } from '../../services/layout.service';
+import { TimeControlIncidencesCountStateService } from '../../services/states/time-control-incidences-count-state.service';
 import { ThemeColorService } from '../../services/theme-color.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class NavbarComponent {
   private readonly layoutService = inject(LayoutService);
   private readonly router = inject(Router);
   private readonly themeColorService = inject(ThemeColorService);
+  private readonly timeControlIncidencesCountStateService = inject(TimeControlIncidencesCountStateService);
 
   readonly userName = this.jwtService.getName();
   readonly siteName = AppEnvironments.siteName;
@@ -30,6 +32,7 @@ export class NavbarComponent {
   readonly sidebarMenuState$ = computed(() => this.layoutService.sidebarMenuState$());
   readonly authState$ = computed(() => this.authService.authValue$);
   readonly theme = computed(() => this.themeColorService.theme());
+  readonly timeControlIncidencesCount = computed(() => this.timeControlIncidencesCountStateService.incidences());
 
   themeColors = ThemeColors;
 

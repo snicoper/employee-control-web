@@ -28,7 +28,7 @@ import { TimeControlApiService } from '../../services/api/time-control-api.servi
 import { JwtService } from '../../services/jwt.service';
 import { SimpleGeolocationService } from '../../services/simple-geolocation.service';
 import { CompanySettingsStateService } from '../../services/states/company-settings-state.service';
-import { TimeControlStateService } from '../../services/states/time-control-state.service';
+import { UserTimeControlStateService } from '../../services/states/user-time-control-state.service';
 import { TimeControlIncidenceCreateComponent } from './time-control-incidence-create/time-control-incidence-create.component';
 import { TimeControlProgressChangeStateRequest } from './time-control-progress-change-state.request.model';
 
@@ -53,13 +53,13 @@ export class TimesControlProgressComponent {
   private readonly timeControlApiService = inject(TimeControlApiService);
   private readonly jwtService = inject(JwtService);
   private readonly toastrService = inject(ToastrService);
-  private readonly timeControlStateService = inject(TimeControlStateService);
+  private readonly userTimeControlStateService = inject(UserTimeControlStateService);
   private readonly companySettingsStateService = inject(CompanySettingsStateService);
   private readonly deviceDetectorService = inject(DeviceDetectorService);
   private readonly simpleGeolocationService = inject(SimpleGeolocationService);
   private readonly bsModalService = inject(BsModalService);
 
-  readonly currentTimeControl = computed(() => this.timeControlStateService.timeControl());
+  readonly currentTimeControl = computed(() => this.userTimeControlStateService.timeControl());
   readonly geolocationIsAvailable = computed(() => this.simpleGeolocationService.geolocationIsAvailable());
 
   private readonly employeeDeviceType: DeviceType;
@@ -114,7 +114,7 @@ export class TimesControlProgressComponent {
       .subscribe({
         next: (result: ResultResponse) => {
           if (result.succeeded && this.currentTimeControl !== undefined) {
-            this.timeControlStateService.refresh();
+            this.userTimeControlStateService.refresh();
             this.loadTimesControlRange();
             this.toastrService.success('Tiempo iniciado con éxito.');
           } else {
@@ -141,7 +141,7 @@ export class TimesControlProgressComponent {
       .subscribe({
         next: (result: ResultResponse) => {
           if (result.succeeded && this.currentTimeControl !== undefined) {
-            this.timeControlStateService.refresh();
+            this.userTimeControlStateService.refresh();
             this.loadTimesControlRange();
             this.toastrService.success('Tiempo finalizado con éxito.');
           } else {

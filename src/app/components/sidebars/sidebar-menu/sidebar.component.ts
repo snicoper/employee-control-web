@@ -7,7 +7,7 @@ import { RequiredRoleDirective } from '../../../directives/required-role.directi
 import { TimeState } from '../../../models/entities/types/time-state.model';
 import { JwtService } from '../../../services/jwt.service';
 import { CompanyEmployeeStateService } from '../../../services/states/company-employee-state.service';
-import { TimeControlStateService } from '../../../services/states/time-control-state.service';
+import { UserTimeControlStateService } from '../../../services/states/user-time-control-state.service';
 import { SidebarMenu, SidebarMenuTypes } from './sidebar-menu-types.model';
 import { SidebarService } from './sidebar.service';
 
@@ -29,9 +29,9 @@ export class SidebarComponent {
   private readonly jwtService = inject(JwtService);
   private readonly sidebarService = inject(SidebarService);
   private readonly companyEmployeeStateService = inject(CompanyEmployeeStateService);
-  private readonly timeControlStateService = inject(TimeControlStateService);
+  private readonly userTimeControlStateService = inject(UserTimeControlStateService);
 
-  readonly currentTimeControl = computed(() => this.timeControlStateService.timeControl());
+  readonly currentTimeControl = computed(() => this.userTimeControlStateService.timeControl());
 
   readonly sidebarMenus: SidebarMenu[];
   readonly sidebarMenuTypes = SidebarMenuTypes;

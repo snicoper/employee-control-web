@@ -9,7 +9,7 @@ import { StateService } from './state.service';
 
 /** Estado del usuario activo. */
 @Injectable({ providedIn: 'root' })
-export class TimeControlStateService implements StateService<TimeControlStateResponse | null> {
+export class UserTimeControlStateService implements StateService<TimeControlStateResponse | null> {
   private readonly jwtService = inject(JwtService);
   private readonly timeControlApiService = inject(TimeControlApiService);
 
