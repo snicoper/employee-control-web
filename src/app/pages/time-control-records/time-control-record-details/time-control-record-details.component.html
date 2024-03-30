@@ -1,5 +1,5 @@
-<aw-view-base>
-  <aw-view-header [breadcrumb]="breadcrumb">Detalles de tiempo</aw-view-header>
+<aw-page-base>
+  <aw-page-header [breadcrumb]="breadcrumb">Detalles de tiempo</aw-page-header>
 
   @if (timeControl?.incidence) {
     <aw-card>
@@ -133,4 +133,4 @@
       <div class="alert alert-success nl2br">{{ timeControl?.incidenceDescription }}</div>
     </aw-card>
   }
-</aw-view-base>
+</aw-page-base>

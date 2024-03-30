@@ -8,12 +8,12 @@ import { BtnLoadingComponent } from '../../components/buttons/btn-loading/btn-lo
 import { CardComponent } from '../../components/cards/card/card.component';
 import { DotDangerComponent } from '../../components/colors/dot-danger/dot-danger.component';
 import { DotSuccessComponent } from '../../components/colors/dot-success/dot-success.component';
+import { PageBaseComponent } from '../../components/pages/page-base/page-base.component';
+import { PageHeaderComponent } from '../../components/pages/page-header/page-header.component';
 import { ProgressStackedCollection } from '../../components/progress/progress-stacked/progress-stacked-collection';
 import { ProgressStackedItem } from '../../components/progress/progress-stacked/progress-stacked-item.model';
 import { TimeControlProgressComponent } from '../../components/progress/time-control-progress/time-control-progress.component';
 import { MonthSelectorComponent } from '../../components/selectors/month-selector/month-selector.component';
-import { ViewBaseComponent } from '../../components/views/view-base/view-base.component';
-import { ViewHeaderComponent } from '../../components/views/view-header/view-header.component';
 import { logError } from '../../core/errors/log-messages';
 import { TimeControlProgressStacked } from '../../core/features/times-control/time-control-group';
 import { TimeControlGroupResponse } from '../../core/features/times-control/times-control-response.model';
@@ -37,8 +37,8 @@ import { TimeControlProgressChangeStateRequest } from './time-control-progress-c
   templateUrl: './times-control-progress.component.html',
   standalone: true,
   imports: [
-    ViewBaseComponent,
-    ViewHeaderComponent,
+    PageBaseComponent,
+    PageHeaderComponent,
     CardComponent,
     MonthSelectorComponent,
     DotSuccessComponent,

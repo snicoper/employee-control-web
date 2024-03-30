@@ -7,7 +7,7 @@ import { BtnLoadingComponent } from '../../../components/buttons/btn-loading/btn
 import { CardComponent } from '../../../components/cards/card/card.component';
 import { NonFieldErrorsComponent } from '../../../components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormFloatingComponent } from '../../../components/forms/inputs/form-floating/form-floating.component';
-import { ViewBaseComponent } from '../../../components/views/view-base/view-base.component';
+import { PageBaseComponent } from '../../../components/pages/page-base/page-base.component';
 import { FormInputTypes } from '../../../core/types/form-input-types';
 import { ApiUrls } from '../../../core/urls/api-urls';
 import { SiteUrls } from '../../../core/urls/site-urls';
@@ -24,7 +24,7 @@ import { LoginResponse } from './login-response.model';
   styleUrls: ['./login.component.scss'],
   standalone: true,
   imports: [
-    ViewBaseComponent,
+    PageBaseComponent,
     CardComponent,
     FormsModule,
     ReactiveFormsModule,
