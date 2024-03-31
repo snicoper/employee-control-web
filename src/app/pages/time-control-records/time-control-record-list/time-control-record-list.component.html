@@ -30,7 +30,10 @@
 
       <!-- date range filter -->
       <div>
-        <aw-date-range-selector (dateRangeValueChange)="handleDateRangeValueChange($event)" />
+        <aw-date-range-selector
+          (dateRangeValueChange)="handleDateRangeValueChange($event)"
+          (clickIcon)="handleClickIconDateRange()"
+          [isDisabled]="!filterDateRange" />
       </div>
       <!-- date range filter -->
 

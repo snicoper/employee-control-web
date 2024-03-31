@@ -16,12 +16,14 @@ export class DateRangeSelectorComponent {
   private readonly bsLocaleService = inject(BsLocaleService);
   private readonly localizationService = inject(LocalizationService);
 
+  @Input() enableClickIcon = true;
   @Input() rangeValue = [new Date(), new Date()];
   @Input() maxDate = new Date();
   @Input() isDisabled = false;
   @Input() bsConfig: Partial<BsDatepickerConfig>;
 
   @Output() dateRangeValueChange = new EventEmitter<(Date | undefined)[] | undefined>();
+  @Output() clickIcon = new EventEmitter<void>();
 
   constructor() {
     // Locale BsDatepicker.
@@ -39,5 +41,9 @@ export class DateRangeSelectorComponent {
 
   handleChangeValue(value: (Date | undefined)[] | undefined): void {
     this.dateRangeValueChange.emit(value);
+  }
+
+  handleClickIcon(): void {
+    this.clickIcon.emit();
   }
 }

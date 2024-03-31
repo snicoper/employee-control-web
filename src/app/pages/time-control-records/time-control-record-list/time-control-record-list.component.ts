@@ -81,6 +81,7 @@ export class TimeControlRecordListComponent {
   loadingTimeState = false;
   bsModalRef?: BsModalRef;
   filterOpenTimesValue = false;
+  filterDateRange = true;
 
   constructor() {
     this.apiResult.addOrder('start', OrderTypes.ascending, 1);
@@ -183,6 +184,11 @@ export class TimeControlRecordListComponent {
     }
   }
 
+  handleClickIconDateRange(): void {
+    this.filterDateRange = !this.filterDateRange;
+    this.loadTimeControlRecords();
+  }
+
   private configureTableHeaders(): void {
     this.tableHeaderConfig.addHeaders(timeControlRecordListTableHeaders);
   }
@@ -193,8 +199,13 @@ export class TimeControlRecordListComponent {
 
   private loadTimeControlRecords(): void {
     this.loading = false;
-    const from = DateTime.fromJSDate(this.from).startOf('day').toUTC().toString();
-    const to = DateTime.fromJSDate(this.to).endOf('day').toUTC().toString();
+    let from = 'null';
+    let to = 'null';
+
+    if (this.filterDateRange) {
+      from = DateTime.fromJSDate(this.from).startOf('day').toUTC().toString();
+      to = DateTime.fromJSDate(this.to).endOf('day').toUTC().toString();
+    }
 
     const url = urlReplaceParams(ApiUrls.timeControl.getTimesControlByRangePaginated, {
       from: from,
