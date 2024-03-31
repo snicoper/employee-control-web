@@ -189,6 +189,11 @@ export class TimeControlRecordListComponent {
     this.loadTimeControlRecords();
   }
 
+  handleNavigateEmployeeDetails(timeControl: TimeControlRecordResponse): void {
+    const url = urlReplaceParams(this.siteUrls.employees.details, { id: timeControl.userId });
+    this.router.navigateByUrl(url);
+  }
+
   private configureTableHeaders(): void {
     this.tableHeaderConfig.addHeaders(timeControlRecordListTableHeaders);
   }

@@ -62,8 +62,12 @@
         <tbody awTbody>
           @for (timeControl of apiResult.items; track timeControl) {
             <tr>
-              <td>{{ timeControl.firstName }}</td>
-              <td>{{ timeControl.lastName }}</td>
+              <td (click)="handleNavigateEmployeeDetails(timeControl)" class="cursor-pointer">
+                {{ timeControl.firstName }}
+              </td>
+              <td (click)="handleNavigateEmployeeDetails(timeControl)" class="cursor-pointer">
+                {{ timeControl.lastName }}
+              </td>
               <td>
                 <span [innerHTML]="timeControl.deviceTypeStart | deviceType"></span>
                 {{ timeControl.start | datetime }}
