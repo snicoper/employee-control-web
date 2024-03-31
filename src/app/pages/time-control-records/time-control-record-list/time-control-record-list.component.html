@@ -4,30 +4,44 @@
   <aw-card>
     <!-- toolbar -->
     <div class="d-flex mb-2 justify-content-between">
+      <!-- button add time -->
       <div>
         <a [routerLink]="siteUrls.timeControlRecords.create" class="btn btn-sm btn-outline-success">
           <span class="fa-regular fa-clock"></span> Añadir tiempo
         </a>
       </div>
+      <!-- end button add time -->
 
-      <button
-        (click)="handleFilterOpenTimesChange()"
-        [ngClass]="{ 'btn-primary': filterOpenTimesValue, 'btn-outline-primary': !filterOpenTimesValue }"
-        type="button"
-        class="btn btn-sm">
-        @if (filterOpenTimesValue) {
-          <span class="fa-regular fa-hourglass-half"></span> Todos los tiempos
-        } @else {
-          <span class="fa-regular fa-hourglass-half"></span> Tiempos abiertos
-        }
-      </button>
+      <!-- filter open times -->
+      <div>
+        <button
+          (click)="handleFilterOpenTimesChange()"
+          [ngClass]="{ 'btn-primary': filterOpenTimesValue, 'btn-outline-primary': !filterOpenTimesValue }"
+          type="button"
+          class="btn btn-sm">
+          @if (filterOpenTimesValue) {
+            <span class="fa-regular fa-hourglass-half"></span> Todos los tiempos
+          } @else {
+            <span class="fa-regular fa-hourglass-half"></span> Tiempos abiertos
+          }
+        </button>
+      </div>
+      <!-- filter open times -->
 
+      <!-- date range filter -->
+      <div>
+        <aw-date-range-selector (dateRangeValueChange)="handleDateRangeValueChange($event)" />
+      </div>
+      <!-- date range filter -->
+
+      <!-- input filter -->
       <div>
         <aw-table-input-search
           (clickClean)="handleClickClean($event)"
           [apiResult]="apiResult"
           [tableHeaderConfig]="tableHeaderConfig" />
       </div>
+      <!-- input filter -->
     </div>
     <!-- end toolbar -->
 

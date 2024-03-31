@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { DateTime } from 'luxon';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
@@ -11,6 +12,7 @@ import { DotSuccessComponent } from '../../../components/colors/dot-success/dot-
 import { PageBaseComponent } from '../../../components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../components/pages/page-header/page-header.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { DateRangeSelectorComponent } from '../../../components/selectors/date-range-selector/date-range-selector.component';
 import { TableHeaderComponent } from '../../../components/tables/table-header/table-header.component';
 import { TableHeaderConfig } from '../../../components/tables/table-header/table-header.config';
 import { TableInputSearchComponent } from '../../../components/tables/table-input-search/table-input-search.component';
@@ -41,11 +43,11 @@ import { timeControlRecordListTableHeaders } from './time-control-record-list-ta
   templateUrl: './time-control-record-list.component.html',
   standalone: true,
   imports: [
+    NgClass,
+    RouterLink,
     PageBaseComponent,
     PageHeaderComponent,
     CardComponent,
-    RouterLink,
-    NgClass,
     TableInputSearchComponent,
     TableComponent,
     TableHeaderComponent,
@@ -53,6 +55,7 @@ import { timeControlRecordListTableHeaders } from './time-control-record-list-ta
     DotSuccessComponent,
     DotDangerComponent,
     PaginationComponent,
+    DateRangeSelectorComponent,
     DatetimePipe,
     ClosedByPipe,
     DurationToTimePipe,
@@ -73,8 +76,8 @@ export class TimeControlRecordListComponent {
   siteUrls = SiteUrls;
   timeState = TimeState;
   closedBy = ClosedBy;
-  from?: Date | string = 'null';
-  to?: Date | string = 'null';
+  from: Date = new Date();
+  to: Date = new Date();
   loadingTimeState = false;
   bsModalRef?: BsModalRef;
   filterOpenTimesValue = false;
@@ -168,6 +171,18 @@ export class TimeControlRecordListComponent {
     this.handleReloadData();
   }
 
+  handleDateRangeValueChange(value: (Date | undefined)[] | undefined): void {
+    this.from = new Date();
+    this.to = new Date();
+
+    if (value && value.length === 2) {
+      this.from = value[0] as Date;
+      this.to = value[1] as Date;
+
+      this.loadTimeControlRecords();
+    }
+  }
+
   private configureTableHeaders(): void {
     this.tableHeaderConfig.addHeaders(timeControlRecordListTableHeaders);
   }
@@ -178,9 +193,12 @@ export class TimeControlRecordListComponent {
 
   private loadTimeControlRecords(): void {
     this.loading = false;
+    const from = DateTime.fromJSDate(this.from).startOf('day').toUTC().toString();
+    const to = DateTime.fromJSDate(this.to).endOf('day').toUTC().toString();
+
     const url = urlReplaceParams(ApiUrls.timeControl.getTimesControlByRangePaginated, {
-      from: this.from as string,
-      to: this.to as string
+      from: from,
+      to: to
     });
 
     this.apiResult = ApiResult.clone(this.apiResult);

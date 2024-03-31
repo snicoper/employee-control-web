@@ -1,0 +1,11 @@
+<div class="d-flex">
+  <input
+    (bsValueChange)="handleChangeValue($event)"
+    [(ngModel)]="rangeValue"
+    [bsConfig]="bsConfig"
+    [maxDate]="maxDate"
+    [isDisabled]="disabled"
+    bsDaterangepicker
+    class="form-control" />
+  <span class="fa-regular fa-calendar ms-2"></span>
+</div>
