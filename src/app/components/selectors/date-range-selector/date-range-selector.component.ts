@@ -16,10 +16,9 @@ export class DateRangeSelectorComponent {
   private readonly bsLocaleService = inject(BsLocaleService);
   private readonly localizationService = inject(LocalizationService);
 
-  @Input() startValue = new Date();
-  @Input() rangeValue: Date[] = [];
+  @Input() rangeValue = [new Date(), new Date()];
   @Input() maxDate = new Date();
-  @Input() disabled = false;
+  @Input() isDisabled = false;
   @Input() bsConfig: Partial<BsDatepickerConfig>;
 
   @Output() dateRangeValueChange = new EventEmitter<(Date | undefined)[] | undefined>();
@@ -36,8 +35,6 @@ export class DateRangeSelectorComponent {
       adaptivePosition: true,
       selectWeekDateRange: true
     };
-
-    this.rangeValue = [this.startValue, this.maxDate];
   }
 
   handleChangeValue(value: (Date | undefined)[] | undefined): void {
