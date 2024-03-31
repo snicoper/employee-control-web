@@ -2,7 +2,6 @@ import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { DateTime } from 'luxon';
-import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-collection';
@@ -79,8 +78,10 @@ export class TimeControlRecordListComponent {
   from: Date = new Date();
   to: Date = new Date();
   loadingTimeState = false;
-  bsModalRef?: BsModalRef;
+
+  /** Custom filters. */
   filterOpenTimesValue = false;
+  filterIncidences = false;
   filterDateRange = true;
 
   constructor() {
@@ -112,7 +113,15 @@ export class TimeControlRecordListComponent {
 
   handleFilterOpenTimesChange(): void {
     this.filterOpenTimesValue = !this.filterOpenTimesValue;
-    this.handleClickClean(this.apiResult);
+    this.filterIncidences = false;
+
+    this.loadTimeControlRecords();
+  }
+
+  handleFilterIncidencesChange(): void {
+    this.filterIncidences = !this.filterIncidences;
+    this.filterOpenTimesValue = false;
+
     this.loadTimeControlRecords();
   }
 
@@ -211,9 +220,22 @@ export class TimeControlRecordListComponent {
       to: this.filterDateRange ? DateTime.fromJSDate(this.to).endOf('day').toUTC().toString() : 'null'
     });
 
-    this.apiResult = ApiResult.clone(this.apiResult);
+    // Filtros.
+    this.apiResult = ApiResult.clone<TimeControlRecordResponse>(this.apiResult);
+    this.updateFilters();
 
-    // Filtro timeState.
+    this.timeControlApiService
+      .getPaginated<TimeControlRecordResponse>(this.apiResult, url)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (result: ApiResult<TimeControlRecordResponse>) => {
+          this.apiResult = result;
+        }
+      });
+  }
+
+  private updateFilters(): void {
+    this.apiResult.removeFilterByPropertyName('incidence');
     this.apiResult.removeFilterByPropertyName('timeState');
 
     if (this.filterOpenTimesValue) {
@@ -225,13 +247,13 @@ export class TimeControlRecordListComponent {
       );
     }
 
-    this.timeControlApiService
-      .getPaginated<TimeControlRecordResponse>(this.apiResult, url)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: (result: ApiResult<TimeControlRecordResponse>) => {
-          this.apiResult = result;
-        }
-      });
+    if (this.filterIncidences) {
+      this.apiResult.addFilter(
+        'incidence',
+        RelationalOperators.equalTo,
+        this.filterIncidences ? 'true' : 'false',
+        this.apiResult.filters.length === 0 ? LogicalOperators.none : LogicalOperators.and
+      );
+    }
   }
 }

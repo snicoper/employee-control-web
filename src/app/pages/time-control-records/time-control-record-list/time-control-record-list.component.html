@@ -12,21 +12,27 @@
       </div>
       <!-- end button add time -->
 
-      <!-- filter open times -->
-      <div>
+      <div class="btn-group">
+        <!-- filter open times -->
         <button
           (click)="handleFilterOpenTimesChange()"
           [ngClass]="{ 'btn-primary': filterOpenTimesValue, 'btn-outline-primary': !filterOpenTimesValue }"
           type="button"
           class="btn btn-sm">
-          @if (filterOpenTimesValue) {
-            <span class="fa-regular fa-hourglass-half"></span> Todos los tiempos
-          } @else {
-            <span class="fa-regular fa-hourglass-half"></span> Tiempos abiertos
-          }
+          <span class="fa-regular fa-hourglass-half"></span> Tiempos abiertos
         </button>
+        <!-- filter open times -->
+
+        <!-- filter incidences -->
+        <button
+          (click)="handleFilterIncidencesChange()"
+          [ngClass]="{ 'btn-primary': filterIncidences, 'btn-outline-primary': !filterIncidences }"
+          type="button"
+          class="btn btn-sm">
+          <i class="fa-solid fa-triangle-exclamation"></i> Incidencias
+        </button>
+        <!-- end filter incidences -->
       </div>
-      <!-- filter open times -->
 
       <!-- date range filter -->
       <div>

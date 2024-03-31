@@ -25,6 +25,9 @@ export class DateRangeSelectorComponent {
   @Output() dateRangeValueChange = new EventEmitter<(Date | undefined)[] | undefined>();
   @Output() clickIcon = new EventEmitter<void>();
 
+  /** Evitar el primer emit en handleChangeValue().  */
+  private firstChange = true;
+
   constructor() {
     // Locale BsDatepicker.
     const localeNgxBootstrap = LocalizationUtils.mapLocaleToNgxBootstrap(this.localizationService.getLocaleValue());
@@ -40,7 +43,11 @@ export class DateRangeSelectorComponent {
   }
 
   handleChangeValue(value: (Date | undefined)[] | undefined): void {
-    this.dateRangeValueChange.emit(value);
+    if (this.firstChange) {
+      this.firstChange = false;
+    } else {
+      this.dateRangeValueChange.emit(value);
+    }
   }
 
   handleClickIcon(): void {
