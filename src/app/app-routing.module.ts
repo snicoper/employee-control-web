@@ -23,6 +23,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/category-absences/category-absences-routing.module').then((m) => m.routes)
   },
   {
+    path: 'company-holidays-manage',
+    data: { roles: [Roles.humanResources] },
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/company-holidays-manage/company-holidays-manage-routing.module').then((m) => m.routes)
+  },
+  {
     path: 'company-settings',
     data: { roles: [Roles.humanResources] },
     canActivate: [AuthGuard],
