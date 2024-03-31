@@ -21,7 +21,7 @@ export class MonthCalendarComponent implements OnInit {
 
   calendarDays: CalendarDay[] = [];
   currentDate = '';
-  weeks = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  weeks = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do'];
   months = [
     'January',
     'February',
@@ -46,6 +46,10 @@ export class MonthCalendarComponent implements OnInit {
   }
 
   handleCalendarDayClick(calendarDay: CalendarDay): void {
+    if (calendarDay.inactive) {
+      return;
+    }
+
     this.calendarDayClick.emit(calendarDay);
   }
 

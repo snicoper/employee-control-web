@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 import { PageBaseComponent } from '../../components/pages/page-base/page-base.component';
 import { CalendarDay } from '../../components/year-calendar/month-calendar/calendar-day.model';
 import { YearCalendarComponent } from '../../components/year-calendar/year-calendar.component';
@@ -10,7 +11,7 @@ import { WorkingDaysWeekStateService } from '../../services/states/working-days-
   selector: 'aw-dashboard',
   templateUrl: './dashboard.component.html',
   standalone: true,
-  imports: [PageBaseComponent, YearCalendarComponent]
+  imports: [PopoverModule, PageBaseComponent, YearCalendarComponent]
 })
 export class DashboardComponent {
   private readonly workingDaysWeekStateService = inject(WorkingDaysWeekStateService);
@@ -24,9 +25,7 @@ export class DashboardComponent {
     this.getNonWorkingDays();
   }
 
-  handleCalendarDayClick(calendarDay: CalendarDay): void {
-    console.log(calendarDay);
-  }
+  handleCalendarDayClick(calendarDay: CalendarDay): void {}
 
   /** Obtener días no laborables de la empresa de año actual. */
   private getNonWorkingDays(): void {
@@ -74,14 +73,12 @@ export class DashboardComponent {
         date: date,
         inactive: false,
         isToday: false,
-        background: '#af7d7d'
+        description: 'Día no laborable',
+        background: '#581845',
+        color: '#ffffff'
       } as CalendarDay;
 
       this.calendarDayEvents.push(calendarDayEvent);
     });
-
-    console.log(daysResult);
   }
-
-  private toCalendarDayEvents(): void {}
 }

@@ -1,4 +1,4 @@
-<div class="card-container">
+<div class="card-container shadow">
   <aw-card>
     <div class="calendar-container">
       <div class="calendar-header">
@@ -17,7 +17,10 @@
             <li
               (click)="handleCalendarDayClick(calendarDay)"
               [ngClass]="{ inactive: calendarDay.inactive, active: calendarDay.isToday }">
-              <span [ngStyle]="{ background: calendarDay.background, color: calendarDay.color }" class="calendar-day">
+              <span
+                [ngClass]="{ 'day-event': calendarDay.background || calendarDay.inactive }"
+                [ngStyle]="{ background: calendarDay.background, color: calendarDay.color }"
+                class="calendar-day">
                 @if (calendarDay.day < 10) {
                   &nbsp;{{ calendarDay.day }}&nbsp;
                 } @else {
