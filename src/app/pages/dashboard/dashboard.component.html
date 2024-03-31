@@ -1,3 +1,6 @@
 <aw-page-base>
-  <p>dashboard works!</p>
+  <aw-year-calendar
+    (calendarDayClick)="handleCalendarDayClick($event)"
+    [year]="year"
+    [calendarDayEvents]="calendarDayEvents" />
 </aw-page-base>

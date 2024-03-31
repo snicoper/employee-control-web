@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CalendarDay } from './month-calendar/calendar-day.model';
 import { MonthCalendarComponent } from './month-calendar/month-calendar.component';
 
@@ -12,12 +12,22 @@ export class YearCalendarComponent implements OnInit {
   @Input({ required: true }) year = new Date().getFullYear();
   @Input() calendarDayEvents: CalendarDay[] = [];
 
-  monthsInYear: Date[] = [];
+  @Output() calendarDayClick = new EventEmitter<CalendarDay>();
+
+  monthDatesInYear: Date[] = [];
 
   ngOnInit(): void {
+    this.composeDaysInMonth();
+  }
+
+  handleCalendarDayClick(calendarDay: CalendarDay): void {
+    this.calendarDayClick.emit(calendarDay);
+  }
+
+  private composeDaysInMonth(): void {
     for (let i = 0; i < 12; i++) {
       const date = new Date(this.year, i);
-      this.monthsInYear.push(date);
+      this.monthDatesInYear.push(date);
     }
   }
 }
