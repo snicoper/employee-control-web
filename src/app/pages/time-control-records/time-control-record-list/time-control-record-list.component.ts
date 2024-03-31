@@ -204,20 +204,16 @@ export class TimeControlRecordListComponent {
 
   private loadTimeControlRecords(): void {
     this.loading = false;
-    let from = 'null';
-    let to = 'null';
 
-    if (this.filterDateRange) {
-      from = DateTime.fromJSDate(this.from).startOf('day').toUTC().toString();
-      to = DateTime.fromJSDate(this.to).endOf('day').toUTC().toString();
-    }
-
+    // Filtro date range, requiere 'null' en caso de estar desactivado.
     const url = urlReplaceParams(ApiUrls.timeControl.getTimesControlByRangePaginated, {
-      from: from,
-      to: to
+      from: this.filterDateRange ? DateTime.fromJSDate(this.from).startOf('day').toUTC().toString() : 'null',
+      to: this.filterDateRange ? DateTime.fromJSDate(this.to).endOf('day').toUTC().toString() : 'null'
     });
 
     this.apiResult = ApiResult.clone(this.apiResult);
+
+    // Filtro timeState.
     this.apiResult.removeFilterByPropertyName('timeState');
 
     if (this.filterOpenTimesValue) {
