@@ -82,6 +82,7 @@ export class DateRangeSelectorComponent {
     this.rangeValue = [newStart.toJSDate(), newFinish.toJSDate()];
   }
 
+  /** Obtener en días la diferencia del rango de fechas. */
   private getIntervalDays(): number {
     const start = DateTime.fromJSDate(this.rangeValue[0]).startOf('day');
     const finish = DateTime.fromJSDate(this.rangeValue[1]).endOf('day');

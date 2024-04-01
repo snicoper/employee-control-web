@@ -82,7 +82,7 @@ export class TimeControlRecordListComponent {
   /** Custom filters. */
   filterOpenTimesValue = false;
   filterIncidences = false;
-  filterDateRange = true;
+  filterStateDateRange = true;
 
   constructor() {
     this.apiResult.addOrder('start', OrderTypes.ascending, 1);
@@ -193,8 +193,8 @@ export class TimeControlRecordListComponent {
     }
   }
 
-  handleClickIconDateRange(): void {
-    this.filterDateRange = !this.filterDateRange;
+  handleState(): void {
+    this.filterStateDateRange = !this.filterStateDateRange;
     this.loadTimeControlRecords();
   }
 
@@ -216,8 +216,8 @@ export class TimeControlRecordListComponent {
 
     // Filtro date range, requiere 'null' en caso de estar desactivado.
     const url = urlReplaceParams(ApiUrls.timeControl.getTimesControlByRangePaginated, {
-      from: this.filterDateRange ? DateTime.fromJSDate(this.from).startOf('day').toUTC().toString() : 'null',
-      to: this.filterDateRange ? DateTime.fromJSDate(this.to).endOf('day').toUTC().toString() : 'null'
+      from: this.filterStateDateRange ? DateTime.fromJSDate(this.from).startOf('day').toUTC().toString() : 'null',
+      to: this.filterStateDateRange ? DateTime.fromJSDate(this.to).endOf('day').toUTC().toString() : 'null'
     });
 
     // Filtros.
