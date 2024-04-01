@@ -40,6 +40,8 @@ export class DateRangeSelectorComponent {
       adaptivePosition: true,
       selectWeekDateRange: true
     };
+
+    this.rangeValue[0].setDate(this.rangeValue[0].getDate() - 7);
   }
 
   handleChangeValue(value: (Date | undefined)[] | undefined): void {
