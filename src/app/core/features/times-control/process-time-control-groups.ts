@@ -59,9 +59,9 @@ export class ProcessTimeControlGroups {
       if (timeControlFirstDayOfMonth < firstDayOfMonth) {
         timeControlGroup.times.forEach((time) => {
           const timeStart = DateTime.fromJSDate(new Date(time.start));
-          const currentDay = DateTime.fromJSDate(this.date);
+          const currentStartDay = DateTime.fromJSDate(this.date).startOf('day');
 
-          if (timeStart < currentDay && nextTimeControlGroup) {
+          if (timeStart < currentStartDay && nextTimeControlGroup) {
             const copyTime = Object.assign({} as TimeResponse, time);
             copyTime.start = DateTime.fromJSDate(this.date).startOf('day').toJSDate();
             nextTimeControlGroup.times.unshift(copyTime);
