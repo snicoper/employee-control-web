@@ -110,7 +110,7 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
 
     // Resta offset respecto a la zona horaria del usuario.
     const offset = dateStart.getTimezoneOffset();
-    const dtOffset = DateTime.local().offset;
+    const dtOffset = DateTime.fromJSDate(dateStart).offset;
     const offsetDiff = offset + dtOffset;
 
     const start = new Date(
@@ -150,7 +150,7 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
 
     // Añade offset respecto a la zona horaria del usuario.
     const offset = start.getTimezoneOffset();
-    const dtOffset = DateTime.local().offset;
+    const dtOffset = DateTime.fromJSDate(start).offset;
     const offsetDiff = offset + dtOffset;
 
     const nowWithOffsets = new Date(
