@@ -76,4 +76,58 @@ export abstract class DatetimeUtils {
 
     return result;
   }
+
+  /**
+   * Incrementa el offset de DateTime y Date a una fecha y hora pasada.
+   * Si se omite time, el offset se incrementa a date.
+   *
+   * @param date Fecha a incrementar offset.
+   * @param time Fecha/hora a incrementar offset.
+   * @returns Nueva fecha añadido el offset.
+   */
+  static dateIncrementOffset(date: Date, time?: Date): Date {
+    const offset = date.getTimezoneOffset();
+    const dtOffset = DateTime.fromJSDate(date).offset;
+    const offsetDiff = offset + dtOffset;
+
+    time = time ?? date;
+
+    const newDate = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      time.getHours(),
+      time.getMinutes() + offsetDiff,
+      0
+    );
+
+    return newDate;
+  }
+
+  /**
+   * Decrementa el offset de DateTime y Date a una fecha y hora pasada.
+   * Si se omite time, el offset se decrementa a date.
+   *
+   * @param date Fecha a decrementar offset.
+   * @param time Fecha/hora a decrementar offset.
+   * @returns Nueva fecha el offset decrementado.
+   */
+  static dateDecrementOffset(date: Date, time?: Date): Date {
+    const offset = date.getTimezoneOffset();
+    const dtOffset = DateTime.fromJSDate(date).offset;
+    const offsetDiff = offset + dtOffset;
+
+    time = time ?? date;
+
+    const newDate = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      time.getHours(),
+      time.getMinutes() - offsetDiff,
+      0
+    );
+
+    return newDate;
+  }
 }

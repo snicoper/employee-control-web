@@ -2,7 +2,6 @@ import { NgClass } from '@angular/common';
 import { Component, OnInit, computed, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DateTime } from 'luxon';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
@@ -13,6 +12,7 @@ import { FormDatepickerComponent } from '../../../../components/forms/inputs/for
 import { FormTimePickerComponent } from '../../../../components/forms/inputs/form-timepicker/form-timepicker.component';
 import { ApiUrls } from '../../../../core/urls/api-urls';
 import { SiteUrls } from '../../../../core/urls/site-urls';
+import { DatetimeUtils } from '../../../../core/utils/datetime-utils';
 import { CustomValidators } from '../../../../core/validators/custom-validators-form';
 import { BadRequest } from '../../../../models/bad-request';
 import { deviceToDeviceType } from '../../../../models/entities/types/device-type.model';
@@ -109,27 +109,8 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
     const timeFinish = new Date(this.form.get('timeFinish')?.value);
 
     // Resta offset respecto a la zona horaria del usuario.
-    const offset = dateStart.getTimezoneOffset();
-    const dtOffset = DateTime.fromJSDate(dateStart).offset;
-    const offsetDiff = offset + dtOffset;
-
-    const start = new Date(
-      dateStart.getFullYear(),
-      dateStart.getMonth(),
-      dateStart.getDate(),
-      timeStart.getHours(),
-      timeStart.getMinutes() - offsetDiff,
-      0
-    );
-
-    const end = new Date(
-      dateFinish.getFullYear(),
-      dateFinish.getMonth(),
-      dateFinish.getDate(),
-      timeFinish.getHours(),
-      timeFinish.getMinutes() - offsetDiff,
-      0
-    );
+    const start = DatetimeUtils.dateDecrementOffset(dateStart, timeStart);
+    const end = DatetimeUtils.dateDecrementOffset(dateFinish, timeFinish);
 
     // Comprobar si start es menor a end si se inserta tiempos de finalización.
     if (this.formAddFinishTimes && start > end) {
@@ -149,18 +130,7 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
     const start = new Date();
 
     // Añade offset respecto a la zona horaria del usuario.
-    const offset = start.getTimezoneOffset();
-    const dtOffset = DateTime.fromJSDate(start).offset;
-    const offsetDiff = offset + dtOffset;
-
-    const nowWithOffsets = new Date(
-      start.getFullYear(),
-      start.getMonth(),
-      start.getDate(),
-      start.getHours(),
-      start.getMinutes() + offsetDiff,
-      0
-    );
+    const nowWithOffsets = DatetimeUtils.dateIncrementOffset(start);
 
     // Las validaciones de tiempos de cierre son dinámicos.
     // @see: this.handleToggleFinishDateAndTime().

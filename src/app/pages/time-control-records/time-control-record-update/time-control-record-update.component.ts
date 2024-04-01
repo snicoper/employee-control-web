@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-collection';
@@ -19,6 +18,7 @@ import { SpinnerComponent } from '../../../components/spinner/spinner.component'
 import { ApiUrls } from '../../../core/urls/api-urls';
 import { SiteUrls } from '../../../core/urls/site-urls';
 import { urlReplaceParams } from '../../../core/utils/common-utils';
+import { DatetimeUtils } from '../../../core/utils/datetime-utils';
 import { CustomValidators } from '../../../core/validators/custom-validators-form';
 import { BadRequest } from '../../../models/bad-request';
 import { TimeControl } from '../../../models/entities/time-control.model';
@@ -116,27 +116,8 @@ export class TimeControlRecordUpdateComponent implements OnInit {
     const timeFinish = new Date(this.form.get('timeFinish')?.value);
 
     // Resta offset respecto a la zona horaria del usuario.
-    const offset = dateStart.getTimezoneOffset();
-    const dtOffset = DateTime.fromJSDate(dateStart).offset;
-    const offsetDiff = offset + dtOffset;
-
-    const start = new Date(
-      dateStart.getFullYear(),
-      dateStart.getMonth(),
-      dateStart.getDate(),
-      timeStart.getHours(),
-      timeStart.getMinutes() - offsetDiff,
-      0
-    );
-
-    const end = new Date(
-      dateFinish.getFullYear(),
-      dateFinish.getMonth(),
-      dateFinish.getDate(),
-      timeFinish.getHours(),
-      timeFinish.getMinutes() - offsetDiff,
-      0
-    );
+    const start = DatetimeUtils.dateDecrementOffset(dateStart, timeStart);
+    const end = DatetimeUtils.dateDecrementOffset(dateFinish, timeFinish);
 
     // Comprobar si start es menor a end.
     if (start > end) {
@@ -166,27 +147,8 @@ export class TimeControlRecordUpdateComponent implements OnInit {
     }
 
     // Añade offset respecto a la zona horaria del usuario.
-    const offset = start.getTimezoneOffset();
-    const dtOffset = DateTime.fromJSDate(start).offset;
-    const offsetDiff = offset + dtOffset;
-
-    const startWithOffset = new Date(
-      start.getFullYear(),
-      start.getMonth(),
-      start.getDate(),
-      start.getHours(),
-      start.getMinutes() + offsetDiff,
-      0
-    );
-
-    const endWithOffset = new Date(
-      finish.getFullYear(),
-      finish.getMonth(),
-      finish.getDate(),
-      finish.getHours(),
-      finish.getMinutes() + offsetDiff,
-      0
-    );
+    const startWithOffset = DatetimeUtils.dateIncrementOffset(start);
+    const endWithOffset = DatetimeUtils.dateIncrementOffset(finish);
 
     this.form = this.formBuilder.group(
       {
