@@ -190,7 +190,6 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
     timeFinishControl?.setValidators([Validators.required]);
 
     this.form.addValidators([CustomValidators.dateStartGreaterThanFinish('dateStart', 'dateFinish')]);
-
     this.form.updateValueAndValidity();
   }
 
