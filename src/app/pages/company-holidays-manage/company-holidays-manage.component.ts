@@ -29,6 +29,7 @@ export class CompanyHolidaysManageComponent {
     this.getNonWorkingDays();
   }
 
+  // eslint-disable-next-line
   handleCalendarDayClick(calendarDay: CalendarDay): void {}
 
   /** Obtener días no laborables de la empresa de año actual. */
