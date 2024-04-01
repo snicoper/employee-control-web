@@ -19,8 +19,8 @@ export class ProcessTimeControlGroups {
   private groupEndDay: DateTime;
 
   constructor(timeControlGroups: TimeControlGroupResponse[], date: Date) {
-    this.timeControlGroups = timeControlGroups;
     this.date = date;
+    this.timeControlGroups = this.fixTimeControlGroups(timeControlGroups);
     this.groupStartDay = DateTime.local();
     this.groupEndDay = DateTime.local();
   }
@@ -36,6 +36,41 @@ export class ProcessTimeControlGroups {
     this.timeControlGroups.forEach((timeControlGroup) => this.processTimeControlGroup(timeControlGroup));
 
     return this.timeControlGroupsResult;
+  }
+
+  /**
+   * Revisar el day y dayTitle en los grupos para corregir los valores.
+   *
+   * El backend crea los grupos con Title y DayTitle en base Start y al cambiar
+   * de mes puede haber Day y DayTitle en ambos meses.
+   * De esta manera siempre pintara los tiempos iniciados en mes anterior (la parte
+   * del mes actual que corresponda con el periodo Start y Finish).
+   *
+   * @param timeControlGroups Grupo de tiempos a comprobar.
+   * @returns TimeControlGroupResponse[] con el fix.
+   */
+  private fixTimeControlGroups(timeControlGroups: TimeControlGroupResponse[]): TimeControlGroupResponse[] {
+    const firstDayOfMonth = DateTime.fromJSDate(this.date).startOf('month');
+    const nextTimeControlGroup = timeControlGroups.find((tcg) => tcg.day === this.date.getDate());
+
+    timeControlGroups.forEach((timeControlGroup) => {
+      const timeControlFirstDayOfMonth = DateTime.fromISO(timeControlGroup.dayTitle);
+
+      if (timeControlFirstDayOfMonth < firstDayOfMonth) {
+        timeControlGroup.times.forEach((time) => {
+          const timeStart = DateTime.fromJSDate(new Date(time.start));
+          const currentDay = DateTime.fromJSDate(this.date);
+
+          if (timeStart < currentDay && nextTimeControlGroup) {
+            const copyTime = Object.assign({} as TimeResponse, time);
+            copyTime.start = DateTime.fromJSDate(this.date).startOf('day').toJSDate();
+            nextTimeControlGroup.times.unshift(copyTime);
+          }
+        });
+      }
+    });
+
+    return timeControlGroups;
   }
 
   /** Procesa cada TimeControlGroupResponse. */

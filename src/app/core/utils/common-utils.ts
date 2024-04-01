@@ -82,3 +82,16 @@ export const calculatePercent = (total: number, value: number): number => {
 
   return percent;
 };
+
+/**
+ * Obtener un numero menor de 10 con 0 delante como string.
+ * Si es 9, devolverá '09', si es 12, devolverá '12'.
+ *
+ * @param num Numero a comprobar.
+ * @returns El string convertido.
+ */
+export const padNumber = (num: number): string => {
+  const result = num < 10 ? `0${num}` : `${num}`;
+
+  return result;
+};
