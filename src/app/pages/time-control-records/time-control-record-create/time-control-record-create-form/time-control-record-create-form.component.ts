@@ -57,32 +57,15 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
 
   /** Validaciones dinámicas dependiendo de si finaliza o no el tiempo. */
   handleToggleFinishDateAndTime(): void {
-    const dateFinishControl = this.form.get('dateFinish');
-    const timeFinishControl = this.form.get('timeFinish');
-
     if (this.formAddFinishTimes) {
       this.formAddFinishTimes = false;
 
-      dateFinishControl?.enable();
-      dateFinishControl?.setValidators([Validators.required, CustomValidators.noFutureDate]);
-
-      timeFinishControl?.enable();
-      timeFinishControl?.setValidators([Validators.required]);
-
-      this.form.addValidators([CustomValidators.dateStartGreaterThanFinish('dateStart', 'dateFinish')]);
+      this.deactivateFormFinish();
     } else {
       this.formAddFinishTimes = true;
 
-      dateFinishControl?.disable();
-      dateFinishControl?.setValidators([]);
-
-      timeFinishControl?.disable();
-      timeFinishControl?.setValidators([]);
-
-      this.form.removeValidators([]);
+      this.activateFormFinish();
     }
-
-    this.form.updateValueAndValidity();
   }
 
   handleSubmit(): void {
@@ -157,7 +140,7 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
 
     timeControl.start = start.toISOString();
     timeControl.finish = this.formAddFinishTimes ? end.toISOString() : timeControl.start;
-    timeControl.timeState = this.formAddFinishTimes ? TimeState.open : TimeState.close;
+    timeControl.timeState = this.formAddFinishTimes ? TimeState.close : TimeState.open;
 
     return timeControl;
   }
@@ -188,6 +171,41 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
       timeFinish: [nowWithOffsets]
     });
 
-    this.handleToggleFinishDateAndTime();
+    if (this.formAddFinishTimes) {
+      this.activateFormFinish();
+    } else {
+      this.deactivateFormFinish();
+    }
+  }
+
+  /** Activa campos del form para finalizar tiempos. */
+  private activateFormFinish(): void {
+    const dateFinishControl = this.form.get('dateFinish');
+    const timeFinishControl = this.form.get('timeFinish');
+
+    dateFinishControl?.enable();
+    dateFinishControl?.setValidators([Validators.required, CustomValidators.noFutureDate]);
+
+    timeFinishControl?.enable();
+    timeFinishControl?.setValidators([Validators.required]);
+
+    this.form.addValidators([CustomValidators.dateStartGreaterThanFinish('dateStart', 'dateFinish')]);
+
+    this.form.updateValueAndValidity();
+  }
+
+  /** Desactiva campos del form para finalizar tiempos. */
+  private deactivateFormFinish(): void {
+    const dateFinishControl = this.form.get('dateFinish');
+    const timeFinishControl = this.form.get('timeFinish');
+
+    dateFinishControl?.disable();
+    dateFinishControl?.setValidators([]);
+
+    timeFinishControl?.disable();
+    timeFinishControl?.setValidators([]);
+
+    this.form.removeValidators([]);
+    this.form.updateValueAndValidity();
   }
 }
