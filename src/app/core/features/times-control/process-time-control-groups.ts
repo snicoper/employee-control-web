@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { logError } from '../../errors/log-messages';
 import { PeriodDatetime } from '../../models/preriod-datetime';
 import { calculatePercent } from '../../utils/common-utils';
 import { DatetimeUtils } from '../../utils/datetime-utils';
@@ -51,20 +52,19 @@ export class ProcessTimeControlGroups {
    */
   private fixTimeControlGroups(timeControlGroups: TimeControlGroupResponse[]): TimeControlGroupResponse[] {
     const firstDayOfMonth = DateTime.fromJSDate(this.date).startOf('month');
-    const nextTimeControlGroup = timeControlGroups.find((tcg) => tcg.day === this.date.getDate());
+    const currentTimeControlGroup = timeControlGroups.find((tcg) => tcg.day === this.date.getDate());
 
     timeControlGroups.forEach((timeControlGroup) => {
-      const timeControlFirstDayOfMonth = DateTime.fromISO(timeControlGroup.dayTitle);
+      const timeControlDayOfMonth = DateTime.fromISO(timeControlGroup.dayTitle);
 
-      if (timeControlFirstDayOfMonth < firstDayOfMonth) {
+      if (timeControlDayOfMonth.endOf('month') < firstDayOfMonth) {
         timeControlGroup.times.forEach((time) => {
           const timeStart = DateTime.fromJSDate(new Date(time.start));
-          const currentStartDay = DateTime.fromJSDate(this.date).startOf('day');
 
-          if (timeStart < currentStartDay && nextTimeControlGroup) {
+          if (timeStart < firstDayOfMonth && currentTimeControlGroup) {
             const copyTime = Object.assign({} as TimeResponse, time);
             copyTime.start = DateTime.fromJSDate(this.date).startOf('day').toJSDate();
-            nextTimeControlGroup.times.unshift(copyTime);
+            currentTimeControlGroup.times.unshift(copyTime);
           }
         });
       }
@@ -284,16 +284,40 @@ export class ProcessTimeControlGroups {
 
   /** Obtener el siguiente TimeControlGroupResponse (por day) al día pasado. */
   private nextTimeControlGroup(index: number): TimeControlGroupResponse | null {
-    const next = index + 1;
-    const item = this.timeControlGroupsResult.find((timeControl) => timeControl.day === next);
+    const currentTimeControlGroup = this.currentTimeControlGroup(index);
+
+    if (!currentTimeControlGroup) {
+      logError('Error al obtener el currentTimeControlGroup.');
+
+      return null;
+    }
+
+    const nextDay = DateTime.fromISO(currentTimeControlGroup.dayTitle)
+      .set({ day: index })
+      .plus({ day: 1 })
+      .toFormat('yyyy-LL-dd');
+
+    const item = this.timeControlGroupsResult.find((timeControl) => timeControl.dayTitle === nextDay);
 
     return item ?? null;
   }
 
   /** Obtener el anterior TimeControlGroupResponse (por day) al día pasado. */
   private prevTimeControlGroup(index: number): TimeControlGroupResponse | null {
-    const next = index - 1;
-    const item = this.timeControlGroupsResult.find((timeControl) => timeControl.day === next);
+    const currentTimeControlGroup = this.currentTimeControlGroup(index);
+
+    if (!currentTimeControlGroup) {
+      logError('Error al obtener el currentTimeControlGroup.');
+
+      return null;
+    }
+
+    const nextDay = DateTime.fromISO(currentTimeControlGroup.dayTitle)
+      .set({ day: index })
+      .minus({ day: 1 })
+      .toFormat('yyyy-LL-dd');
+
+    const item = this.timeControlGroupsResult.find((timeControl) => timeControl.dayTitle === nextDay);
 
     return item ?? null;
   }

@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center">
   <!-- previous -->
   @if (!isDisabled) {
-    <button (click)="handlePreviousRange()" class="btn btn-sm btn-outline-primary">
+    <button (click)="handlePreviousRange()" class="btn btn-sm">
       <span class="fa-solid fa-left-long"></span>
     </button>
   }
@@ -21,21 +21,18 @@
 
   <!-- next -->
   @if (!isDisabled) {
-    <button (click)="handleNextRange()" class="btn btn-sm btn-outline-primary">
+    <button (click)="handleNextRange()" class="btn btn-sm">
       <span class="fa-solid fa-right-long"></span>
     </button>
   }
   <!-- end next -->
 
   <!-- state -->
-  <button
-    (click)="handleToggleState()"
-    [ngClass]="{ 'btn-outline-danger': !isDisabled, 'btn-outline-success': isDisabled }"
-    class="btn btn-sm">
+  <button (click)="handleToggleState()" class="btn btn-sm">
     @if (isDisabled) {
-      <span awTooltip title="Activar filtro" class="fa-regular fa-calendar"></span>
+      <span awTooltip title="Activar filtro de rango" class="fa-regular fa-calendar text-success"></span>
     } @else {
-      <span awTooltip title="Desactivar filtro" class="fa-regular fa-calendar"></span>
+      <span awTooltip title="Desactivar filtro de rango" class="fa-regular fa-calendar text-danger"></span>
     }
   </button>
   <!-- end state -->
