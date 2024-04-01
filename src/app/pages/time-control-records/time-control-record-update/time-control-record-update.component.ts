@@ -70,11 +70,11 @@ export class TimeControlRecordUpdateComponent implements OnInit {
   handleSubmit(): void {
     this.submitted = true;
 
+    const timeControl = this.getFomData();
+
     if (this.form.invalid) {
       return;
     }
-
-    const timeControl = this.getFomData();
 
     // No permitir fecha/hora mayor a la actual.
     if (new Date() < new Date(timeControl.finish)) {
@@ -84,18 +84,7 @@ export class TimeControlRecordUpdateComponent implements OnInit {
     }
 
     // Actualizar tiempo.
-    this.loadingForm = true;
-    const url = urlReplaceParams(ApiUrls.timeControl.updateTimeControl, { id: this.timeControlId });
-
-    this.timeControlApiService
-      .put<TimeControlRecordRequest, ResultResponse>(timeControl, url)
-      .pipe(finalize(() => (this.loadingForm = false)))
-      .subscribe({
-        next: () => {
-          this.toastrService.success('Tiempo actualizado con éxito.');
-          this.router.navigateByUrl(SiteUrls.timeControlRecords.list);
-        }
-      });
+    this.updateTimeControl(timeControl);
   }
 
   private setBreadcrumb(): void {
@@ -152,10 +141,13 @@ export class TimeControlRecordUpdateComponent implements OnInit {
 
     this.form = this.formBuilder.group(
       {
-        dateStart: [startWithOffset, [Validators.required, CustomValidators.noFutureDate]],
-        dateFinish: [endWithOffset, [Validators.required, CustomValidators.noFutureDate]],
+        dateStart: [
+          DatetimeUtils.dateStartOfDay(startWithOffset),
+          [Validators.required, CustomValidators.noFutureDate]
+        ],
+        dateFinish: [DatetimeUtils.dateStartOfDay(endWithOffset), [Validators.required, CustomValidators.noFutureDate]],
         timeStart: [startWithOffset, [Validators.required]],
-        timeFinish: [endWithOffset, []],
+        timeFinish: [endWithOffset],
         closeIncidence: [false]
       },
       {
@@ -177,6 +169,22 @@ export class TimeControlRecordUpdateComponent implements OnInit {
           this.buildForm();
         },
         error: (error: HttpErrorResponse) => (this.badRequest = error.error)
+      });
+  }
+
+  private updateTimeControl(timeControl: TimeControlRecordRequest): void {
+    // Actualizar tiempo.
+    this.loadingForm = true;
+    const url = urlReplaceParams(ApiUrls.timeControl.updateTimeControl, { id: this.timeControlId });
+
+    this.timeControlApiService
+      .put<TimeControlRecordRequest, ResultResponse>(timeControl, url)
+      .pipe(finalize(() => (this.loadingForm = false)))
+      .subscribe({
+        next: () => {
+          this.toastrService.success('Tiempo actualizado con éxito.');
+          this.router.navigateByUrl(SiteUrls.timeControlRecords.list);
+        }
       });
   }
 }

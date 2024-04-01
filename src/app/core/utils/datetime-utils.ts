@@ -130,4 +130,26 @@ export abstract class DatetimeUtils {
 
     return newDate;
   }
+
+  /**
+   * Establecer un Date al inicio del día 00:00:00.
+   *
+   * @param date Fecha a establecer inicio del día.
+   */
+  static dateStartOfDay(date: Date): Date {
+    const newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+    return newDate;
+  }
+
+  /**
+   * Establecer un Date al final del día 23:59:59.
+   *
+   * @param date Fecha a establecer inicio del día.
+   */
+  static dateEndOfDay(date: Date): Date {
+    const newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59);
+
+    return newDate;
+  }
 }
