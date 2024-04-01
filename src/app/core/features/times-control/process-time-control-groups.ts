@@ -58,15 +58,17 @@ export class ProcessTimeControlGroups {
       const timeControlDayOfMonth = DateTime.fromISO(timeControlGroup.dayTitle);
 
       if (timeControlDayOfMonth.endOf('month') < firstDayOfMonth) {
-        timeControlGroup.times.forEach((time) => {
-          const timeStart = DateTime.fromJSDate(new Date(time.start));
+        const lastTime = timeControlGroup.times[timeControlGroup.times.length - 1];
+
+        if (lastTime) {
+          const timeStart = DateTime.fromJSDate(new Date(lastTime.start));
 
           if (timeStart < firstDayOfMonth && currentTimeControlGroup) {
-            const copyTime = Object.assign({} as TimeResponse, time);
+            const copyTime = Object.assign({} as TimeResponse, lastTime);
             copyTime.start = DateTime.fromJSDate(this.date).startOf('day').toJSDate();
             currentTimeControlGroup.times.unshift(copyTime);
           }
-        });
+        }
       }
     });
 
