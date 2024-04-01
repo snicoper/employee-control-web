@@ -232,18 +232,18 @@ export class ProcessTimeControlGroups {
   /** Crea un TimeControlGroupResponse por cada día del mes actual.  */
   private createTimeControlGroupForCurrentMonth(): void {
     const date = DateTime.fromJSDate(this.date);
-    const dateStart = date.startOf('month');
-    const dateEnd = date.endOf('month');
+    const dateStart = date.startOf('month').startOf('day');
+    const dateEnd = date.endOf('month').endOf('day');
 
     DatetimeUtils.dayDateTimeInterval(dateStart, dateEnd).forEach((currentDay) => {
-      const instance = {
+      const timeControlGroupResponse = {
         day: currentDay?.day,
         dayTitle: currentDay?.toFormat('yyyy-LL-dd'),
         totalMinutes: 0,
         times: []
       } as TimeControlGroupResponse;
 
-      this.timeControlGroupsResult.push(instance);
+      this.timeControlGroupsResult.push(timeControlGroupResponse);
     });
   }
 

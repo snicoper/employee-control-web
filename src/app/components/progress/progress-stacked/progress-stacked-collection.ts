@@ -4,25 +4,16 @@ export class ProgressStackedCollection {
   progressStackedItems: ProgressStackedItem[] = [];
   title: string = '';
 
-  addItem(
-    id: string,
-    valueNow: number,
-    valueMin: number,
-    valueMax: number,
-    percent: number,
-    content = '',
-    tooltip = '',
-    background = 'bg-primary'
-  ): this {
+  addItem(progressStackedItem: ProgressStackedItem): this {
     this.progressStackedItems.push({
-      id: id,
-      valueNow: valueNow,
-      valueMin: valueMin,
-      valueMax: valueMax,
-      percent: percent,
-      content: content,
-      tooltip: tooltip,
-      background: background
+      id: progressStackedItem.id,
+      valueNow: progressStackedItem.valueNow,
+      valueMin: progressStackedItem.valueMin,
+      valueMax: progressStackedItem.valueMax,
+      percent: progressStackedItem.percent,
+      content: progressStackedItem.content,
+      tooltip: progressStackedItem.tooltip,
+      background: progressStackedItem.background
     });
 
     return this;

@@ -76,7 +76,16 @@ export class TimeControlProgressStacked {
       const diffPercent = calculatePercent(this.minutesInDay, diffDateTime.minutes);
 
       // Insertar tiempo de inactividad (progressStackedItem).
-      progressStacked.addItem(time.id, currentPercent, 0, 100, diffPercent, '', '', 'bg-transparent');
+      progressStacked.addItem({
+        id: time.id,
+        valueNow: currentPercent,
+        valueMin: 0,
+        valueMax: 100,
+        percent: diffPercent,
+        content: '',
+        tooltip: '',
+        background: 'bg-transparent'
+      });
       currentPercent += diffPercent;
 
       // Insertar tiempo de actividad (progressStackedItem).
@@ -87,7 +96,16 @@ export class TimeControlProgressStacked {
       tooltip += `(${timeDuration})`;
 
       // Añadir item al grupo.
-      progressStacked.addItem(time.id, currentPercent, 0, 100, time.dayPercent, timeDuration, tooltip, background);
+      progressStacked.addItem({
+        id: time.id,
+        valueNow: currentPercent,
+        valueMin: 0,
+        valueMax: 100,
+        percent: time.dayPercent,
+        content: timeDuration,
+        tooltip: tooltip,
+        background: background
+      });
       currentPercent += time.dayPercent;
 
       lastTimeCalculate = DateTime.fromJSDate(new Date(time.finish));

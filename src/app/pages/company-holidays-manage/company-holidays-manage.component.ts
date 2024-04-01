@@ -79,7 +79,10 @@ export class CompanyHolidaysManageComponent {
         isToday: false,
         description: 'Día no laborable',
         background: '#581845',
-        color: '#ffffff'
+        color: '#ffffff',
+        editable: false,
+        removable: false,
+        canAddEvent: false
       } as CalendarDay;
 
       this.calendarDayEvents.push(calendarDayEvent);
