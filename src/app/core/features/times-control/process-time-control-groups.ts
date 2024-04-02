@@ -79,7 +79,7 @@ export class ProcessTimeControlGroups {
    *    |--------| Time.
    */
   private processTimeInRange(time: TimeResponse, period: PeriodDatetime, day: number): void {
-    const currentItemControl = this.currentTimeControlGroup(day);
+    const currentItemControl = this.getTimeControlGroupByDay(day);
 
     if (!currentItemControl) {
       return;
@@ -101,7 +101,7 @@ export class ProcessTimeControlGroups {
    */
   private processOverTime(time: TimeResponse, period: PeriodDatetime, day: number): void {
     const nextTimeControl = this.nextTimeControlGroup(day);
-    const currentItemControl = this.currentTimeControlGroup(day);
+    const currentItemControl = this.getTimeControlGroupByDay(day);
 
     if (!nextTimeControl || !currentItemControl) {
       return;
@@ -152,7 +152,7 @@ export class ProcessTimeControlGroups {
    */
   private processUnderTime(time: TimeResponse, period: PeriodDatetime, day: number): void {
     const prevTimeControl = this.prevTimeControlGroup(day);
-    const currentItemControl = this.currentTimeControlGroup(day);
+    const currentItemControl = this.getTimeControlGroupByDay(day);
 
     if (!prevTimeControl || !currentItemControl) {
       return;
@@ -215,8 +215,8 @@ export class ProcessTimeControlGroups {
   }
 
   /** Obtener el siguiente TimeControlGroupResponse (por day) al día pasado. */
-  private nextTimeControlGroup(index: number): TimeControlGroupResponse | null {
-    const currentTimeControlGroup = this.currentTimeControlGroup(index);
+  private nextTimeControlGroup(day: number): TimeControlGroupResponse | null {
+    const currentTimeControlGroup = this.getTimeControlGroupByDay(day);
 
     if (!currentTimeControlGroup) {
       logError('Error al obtener el currentTimeControlGroup.');
@@ -225,7 +225,7 @@ export class ProcessTimeControlGroups {
     }
 
     const nextDay = DateTime.fromISO(currentTimeControlGroup.dayTitle)
-      .set({ day: index })
+      .set({ day: day })
       .plus({ day: 1 })
       .toFormat('yyyy-LL-dd');
 
@@ -235,8 +235,8 @@ export class ProcessTimeControlGroups {
   }
 
   /** Obtener el anterior TimeControlGroupResponse (por day) al día pasado. */
-  private prevTimeControlGroup(index: number): TimeControlGroupResponse | null {
-    const currentTimeControlGroup = this.currentTimeControlGroup(index);
+  private prevTimeControlGroup(day: number): TimeControlGroupResponse | null {
+    const currentTimeControlGroup = this.getTimeControlGroupByDay(day);
 
     if (!currentTimeControlGroup) {
       logError('Error al obtener el currentTimeControlGroup.');
@@ -245,7 +245,7 @@ export class ProcessTimeControlGroups {
     }
 
     const nextDay = DateTime.fromISO(currentTimeControlGroup.dayTitle)
-      .set({ day: index })
+      .set({ day: day })
       .minus({ day: 1 })
       .toFormat('yyyy-LL-dd');
 
@@ -255,8 +255,8 @@ export class ProcessTimeControlGroups {
   }
 
   /** Obtener el item actual TimeControlGroupResponse. */
-  private currentTimeControlGroup(index: number): TimeControlGroupResponse | null {
-    const item = this.timeControlGroupsResult.find((timeControl) => timeControl.day === index);
+  private getTimeControlGroupByDay(day: number): TimeControlGroupResponse | null {
+    const item = this.timeControlGroupsResult.find((timeControl) => timeControl.day === day);
 
     return item ?? null;
   }
