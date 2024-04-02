@@ -73,19 +73,18 @@ export abstract class DateUtils {
    * @returns Nueva fecha añadido el offset.
    */
   static dateIncrementOffset(date: Date, time?: Date): Date {
-    const offset = date.getTimezoneOffset();
-    const dtOffset = DateTime.fromJSDate(date).offset;
-    const offsetDiff = offset + dtOffset;
-
+    // Lo importante si existe, es el time para obtener los offsets.
     time = time ?? date;
+    const offset = new Date(time).getTimezoneOffset();
+    const dtOffset = DateTime.fromJSDate(time).offset;
+    const offsetDiff = offset + dtOffset;
 
     const newDate = new Date(
       date.getFullYear(),
       date.getMonth(),
       date.getDate(),
       time.getHours(),
-      time.getMinutes() + offsetDiff,
-      0
+      time.getMinutes() + offsetDiff
     );
 
     return newDate;
@@ -100,19 +99,18 @@ export abstract class DateUtils {
    * @returns Nueva fecha el offset decrementado.
    */
   static dateDecrementOffset(date: Date, time?: Date): Date {
-    const offset = date.getTimezoneOffset();
-    const dtOffset = DateTime.fromJSDate(date).offset;
-    const offsetDiff = offset + dtOffset;
-
+    // Lo importante si existe, es el time para obtener los offsets.
     time = time ?? date;
+    const offset = new Date(time).getTimezoneOffset();
+    const dtOffset = DateTime.fromJSDate(time).offset;
+    const offsetDiff = offset + dtOffset;
 
     const newDate = new Date(
       date.getFullYear(),
       date.getMonth(),
       date.getDate(),
       time.getHours(),
-      time.getMinutes() - offsetDiff,
-      0
+      time.getMinutes() - offsetDiff
     );
 
     return newDate;
