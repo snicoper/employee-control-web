@@ -20,10 +20,6 @@ export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek
   readonly workingDaysWeek = computed(() => this.workingDaysWeek$());
   readonly loadingWorkingDaysWeek = computed(() => this.loadingWorkingDaysWeek$());
 
-  constructor() {
-    this.refresh();
-  }
-
   refresh(): void {
     this.loadWorkingDaysWeek();
   }
