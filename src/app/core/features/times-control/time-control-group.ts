@@ -53,8 +53,7 @@ export class TimeControlProgressStacked {
   /**
    * Componer un grupo (día) de TimeControl[].
    *
-   * @param timeControlGroup Un grupo (día) de TimeControl[].
-   * @param nextTimeControlGroup Siguiente elemento timeControlGroup.
+   * @param timeControlGroup Un grupo TimeControlGroupResponse (día) de TimeControl[].
    * @returns ProgressStackedCollection.
    */
   private composeTimeControlGroup(timeControlGroup: TimeControlGroupResponse): ProgressStackedCollection {
