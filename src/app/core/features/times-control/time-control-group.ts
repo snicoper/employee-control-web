@@ -87,7 +87,8 @@ export class TimeControlProgressStacked {
         percent: diffPercent,
         content: '',
         tooltip: '',
-        background: 'bg-transparent'
+        background: 'bg-transparent',
+        selectable: false
       });
       currentPercent += diffPercent;
 
@@ -107,7 +108,8 @@ export class TimeControlProgressStacked {
         percent: time.dayPercent,
         content: timeDuration,
         tooltip: tooltip,
-        background: background
+        background: background,
+        selectable: true
       });
 
       currentPercent += time.dayPercent;
