@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { ProgressStackedCollection } from '../../../components/progress/progress-stacked/progress-stacked-collection';
 import { ClosedBy } from '../../../models/entities/types/closed-by.model';
 import { calculatePercent } from '../../utils/common-utils';
-import { DatetimeUtils } from '../../utils/datetime-utils';
+import { DateUtils } from '../../utils/date-utils';
 import { ProcessTimeControlGroups } from './process-time-control-groups';
 import { TimeControlGroupResponse, TimeResponse } from './times-control-response.model';
 
@@ -90,7 +90,7 @@ export class TimeControlProgressStacked {
 
       // Insertar tiempo de actividad (progressStackedItem).
       const background = this.getCssClassByTimeState(time);
-      const timeDuration = DatetimeUtils.formatMinutesToTime(time.minutes);
+      const timeDuration = DateUtils.formatMinutesToTime(time.minutes);
       let tooltip = `${dateTimeStart.toLocaleString(DateTime.TIME_SIMPLE)} - `;
       tooltip += `${dateTimeEnd.toLocaleString(DateTime.TIME_SIMPLE)} `;
       tooltip += `(${timeDuration})`;
@@ -112,7 +112,7 @@ export class TimeControlProgressStacked {
     });
 
     // Componer el title del ProgressStackedCollection.
-    const totalGroupTime = DatetimeUtils.formatMinutesToTime(totalMinutesInGroup);
+    const totalGroupTime = DateUtils.formatMinutesToTime(totalMinutesInGroup);
     progressStacked.title = DateTime.fromISO(timeControlGroup.dayTitle).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
     progressStacked.title += ` - ${totalGroupTime}`;
 

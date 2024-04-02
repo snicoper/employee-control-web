@@ -7,7 +7,7 @@ import { TimeControlGroupResponse, TimeResponse } from './times-control-response
 
 /**
  * Procesa una respuesta y re-calcula los times según el
- * timezone del usuario..
+ * timezone del usuario.
  */
 export class ProcessTimeControlGroups {
   private readonly timeControlGroups: TimeControlGroupResponse[];
@@ -51,27 +51,6 @@ export class ProcessTimeControlGroups {
    * @returns TimeControlGroupResponse[] con el fix.
    */
   private fixTimeControlGroups(timeControlGroups: TimeControlGroupResponse[]): TimeControlGroupResponse[] {
-    const firstDayOfMonth = DateTime.fromJSDate(this.date).startOf('month');
-    const currentTimeControlGroup = timeControlGroups.find((tcg) => tcg.day === this.date.getDate());
-
-    timeControlGroups.forEach((timeControlGroup) => {
-      const timeControlDayOfMonth = DateTime.fromISO(timeControlGroup.dayTitle);
-
-      if (timeControlDayOfMonth.endOf('month') < firstDayOfMonth) {
-        const lastTime = timeControlGroup.times[timeControlGroup.times.length - 1];
-
-        if (lastTime) {
-          const timeStart = DateTime.fromJSDate(new Date(lastTime.start));
-
-          if (timeStart < firstDayOfMonth && currentTimeControlGroup) {
-            const copyTime = Object.assign({} as TimeResponse, lastTime);
-            copyTime.start = DateTime.fromJSDate(this.date).startOf('day').toJSDate();
-            currentTimeControlGroup.times.unshift(copyTime);
-          }
-        }
-      }
-    });
-
     return timeControlGroups;
   }
 

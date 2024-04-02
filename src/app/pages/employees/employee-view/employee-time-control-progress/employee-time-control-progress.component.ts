@@ -11,7 +11,7 @@ import { TimeControlGroupResponse } from '../../../../core/features/times-contro
 import { ApiUrls } from '../../../../core/urls/api-urls';
 import { SiteUrls } from '../../../../core/urls/site-urls';
 import { urlReplaceParams } from '../../../../core/utils/common-utils';
-import { DatetimeUtils } from '../../../../core/utils/datetime-utils';
+import { DateUtils } from '../../../../core/utils/date-utils';
 import { TimeControlApiService } from '../../../../services/api/time-control-api.service';
 import { EmployeeSelectedService } from '../employee-selected.service';
 
@@ -73,7 +73,7 @@ export class EmployeeTimeControlProgressComponent {
             .filter((group) => group.totalMinutes > 0)
             .reduce((current, next) => current + next.totalMinutes, 0);
 
-          this.timeTotalInMonth = DatetimeUtils.formatMinutesToTime(timeTotal);
+          this.timeTotalInMonth = DateUtils.formatMinutesToTime(timeTotal);
         }
       });
   }

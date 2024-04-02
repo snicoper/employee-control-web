@@ -19,7 +19,7 @@ import { TimeControlProgressStacked } from '../../core/features/times-control/ti
 import { TimeControlGroupResponse } from '../../core/features/times-control/times-control-response.model';
 import { ApiUrls } from '../../core/urls/api-urls';
 import { urlReplaceParams } from '../../core/utils/common-utils';
-import { DatetimeUtils } from '../../core/utils/datetime-utils';
+import { DateUtils } from '../../core/utils/date-utils';
 import { DeviceType, deviceToDeviceType } from '../../models/entities/types/device-type.model';
 import { TimeState } from '../../models/entities/types/time-state.model';
 import { ResultResponse } from '../../models/result-response.model';
@@ -195,7 +195,7 @@ export class TimesControlProgressComponent {
             .filter((group) => group.totalMinutes > 0)
             .reduce((current, next) => current + next.totalMinutes, 0);
 
-          this.timeTotalInMonth = DatetimeUtils.formatMinutesToTime(timeTotal);
+          this.timeTotalInMonth = DateUtils.formatMinutesToTime(timeTotal);
         }
       });
   }

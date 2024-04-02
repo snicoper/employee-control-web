@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import { BsDatepickerConfig, BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { LocalizationUtils } from '../../../core/features/localizations/localization-utils';
 import { LocalizationService } from '../../../core/features/localizations/localization.service';
-import { DatetimeUtils } from '../../../core/utils/datetime-utils';
+import { DateUtils } from '../../../core/utils/date-utils';
 import { TooltipDirective } from '../../../directives/tooltip.directive';
 
 @Component({
@@ -53,7 +53,7 @@ export class DateRangeSelectorComponent {
       return;
     }
 
-    const intervalDays = DatetimeUtils.getIntervalDays(this.rangeValue[0], this.rangeValue[1]);
+    const intervalDays = DateUtils.getIntervalDays(this.rangeValue[0], this.rangeValue[1]);
     const start = DateTime.fromJSDate(this.rangeValue[0]).startOf('day');
     const finish = DateTime.fromJSDate(this.rangeValue[1]).endOf('day');
     const newStart = start.plus({ days: intervalDays });
@@ -67,7 +67,7 @@ export class DateRangeSelectorComponent {
       return;
     }
 
-    const intervalDays = DatetimeUtils.getIntervalDays(this.rangeValue[0], this.rangeValue[1]);
+    const intervalDays = DateUtils.getIntervalDays(this.rangeValue[0], this.rangeValue[1]);
     const start = DateTime.fromJSDate(this.rangeValue[0]).startOf('day');
     const finish = DateTime.fromJSDate(this.rangeValue[1]).endOf('day');
     const newStart = start.minus({ days: intervalDays });

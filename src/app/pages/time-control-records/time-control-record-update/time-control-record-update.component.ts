@@ -18,7 +18,7 @@ import { SpinnerComponent } from '../../../components/spinner/spinner.component'
 import { ApiUrls } from '../../../core/urls/api-urls';
 import { SiteUrls } from '../../../core/urls/site-urls';
 import { urlReplaceParams } from '../../../core/utils/common-utils';
-import { DatetimeUtils } from '../../../core/utils/datetime-utils';
+import { DateUtils } from '../../../core/utils/date-utils';
 import { CustomValidators } from '../../../core/validators/custom-validators-form';
 import { BadRequest } from '../../../models/bad-request';
 import { TimeControl } from '../../../models/entities/time-control.model';
@@ -105,8 +105,8 @@ export class TimeControlRecordUpdateComponent implements OnInit {
     const timeFinish = new Date(this.form.get('timeFinish')?.value);
 
     // Resta offset respecto a la zona horaria del usuario.
-    const start = DatetimeUtils.dateDecrementOffset(dateStart, timeStart);
-    const end = DatetimeUtils.dateDecrementOffset(dateFinish, timeFinish);
+    const start = DateUtils.dateDecrementOffset(dateStart, timeStart);
+    const end = DateUtils.dateDecrementOffset(dateFinish, timeFinish);
 
     // Comprobar si start es menor a end.
     if (start > end) {
@@ -136,16 +136,13 @@ export class TimeControlRecordUpdateComponent implements OnInit {
     }
 
     // Añade offset respecto a la zona horaria del usuario.
-    const startWithOffset = DatetimeUtils.dateIncrementOffset(start);
-    const endWithOffset = DatetimeUtils.dateIncrementOffset(finish);
+    const startWithOffset = DateUtils.dateIncrementOffset(start);
+    const endWithOffset = DateUtils.dateIncrementOffset(finish);
 
     this.form = this.formBuilder.group(
       {
-        dateStart: [
-          DatetimeUtils.dateStartOfDay(startWithOffset),
-          [Validators.required, CustomValidators.noFutureDate]
-        ],
-        dateFinish: [DatetimeUtils.dateStartOfDay(endWithOffset), [Validators.required, CustomValidators.noFutureDate]],
+        dateStart: [DateUtils.dateStartOfDay(startWithOffset), [Validators.required, CustomValidators.noFutureDate]],
+        dateFinish: [DateUtils.dateStartOfDay(endWithOffset), [Validators.required, CustomValidators.noFutureDate]],
         timeStart: [startWithOffset, [Validators.required]],
         timeFinish: [endWithOffset],
         closeIncidence: [false]
