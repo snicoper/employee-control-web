@@ -3,6 +3,7 @@ import { ProgressStackedCollection } from '../../../components/progress/progress
 import { ClosedBy } from '../../../models/entities/types/closed-by.model';
 import { CommonUtils } from '../../utils/common-utils';
 import { DateUtils } from '../../utils/date-utils';
+import { DatetimeUtils } from '../../utils/datetime-utils';
 import { ProcessTimeControlGroups } from './process-time-control-groups';
 import { TimeControlGroupResponse, TimeResponse } from './times-control-response.model';
 
@@ -75,8 +76,8 @@ export class TimeControlProgressStacked {
       const dateTimeEnd = DateTime.fromJSDate(new Date(time.finish));
 
       // Calcular posición del día.
-      const diffDateTime = dateTimeStart.diff(lastTimeCalculate, ['minutes']);
-      const diffPercent = CommonUtils.calculatePercent(this.minutesInDay, diffDateTime.minutes);
+      const diffDateTime = DatetimeUtils.duration(dateTimeStart, lastTimeCalculate);
+      const diffPercent = CommonUtils.calculatePercent(this.minutesInDay, diffDateTime);
 
       // Insertar tiempo de inactividad (progressStackedItem).
       progressStacked.addItem({
