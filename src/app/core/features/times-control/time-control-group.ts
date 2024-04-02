@@ -6,6 +6,9 @@ import { DateUtils } from '../../utils/date-utils';
 import { ProcessTimeControlGroups } from './process-time-control-groups';
 import { TimeControlGroupResponse, TimeResponse } from './times-control-response.model';
 
+/**
+ * Genera una lista de ProgressStackedCollection a partir de una lista de TimeControlGroupResponse.
+ */
 export class TimeControlProgressStacked {
   private readonly timeControlGroups: TimeControlGroupResponse[];
   private readonly progressStackedCollections: ProgressStackedCollection[];
@@ -28,7 +31,7 @@ export class TimeControlProgressStacked {
   }
 
   /**
-   * Componer rango de tiempos para su representación
+   * Componer rango de tiempos para su representación.
    *
    * @param timeControlGroups Grupo de timeControl.
    * @returns ProgressStackedCollection[].
@@ -37,7 +40,6 @@ export class TimeControlProgressStacked {
     const progressStackedCollections: ProgressStackedCollection[] = [];
 
     timeControlGroups.forEach((timeControlGroup: TimeControlGroupResponse) => {
-      // Obtener el siguiente timeControlGroup para insertar tiempos superiores a 23:59:59.
       const progressStackedCollection = this.composeTimeControlGroup(timeControlGroup);
 
       progressStackedCollections.push(progressStackedCollection);
@@ -106,8 +108,8 @@ export class TimeControlProgressStacked {
         tooltip: tooltip,
         background: background
       });
-      currentPercent += time.dayPercent;
 
+      currentPercent += time.dayPercent;
       lastTimeCalculate = DateTime.fromJSDate(new Date(time.finish));
     });
 

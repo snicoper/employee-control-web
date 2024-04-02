@@ -12,15 +12,15 @@ import { TimeControlGroupResponse, TimeResponse } from './times-control-response
 export class ProcessTimeControlGroups {
   private readonly timeControlGroups: TimeControlGroupResponse[];
   private readonly timeControlGroupsResult: TimeControlGroupResponse[] = [];
-  private readonly date: Date;
+  private readonly date: DateTime;
   private readonly minutesInDay = 60 * 24;
 
-  // TimeControlGroupResponse hora de inicio y final del día.
+  // TimeControlGroupResponse hora de inicio y final del día en el grupo.
   private groupStartDay: DateTime;
   private groupEndDay: DateTime;
 
   constructor(timeControlGroups: TimeControlGroupResponse[], date: Date) {
-    this.date = date;
+    this.date = DateTime.fromJSDate(date);
     this.timeControlGroups = this.fixTimeControlGroups(timeControlGroups);
     this.groupStartDay = DateTime.local();
     this.groupEndDay = DateTime.local();
@@ -56,7 +56,7 @@ export class ProcessTimeControlGroups {
 
   /** Procesa cada TimeControlGroupResponse. */
   private processTimeControlGroup(timeControlGroup: TimeControlGroupResponse): void {
-    this.groupStartDay = DateTime.fromISO(timeControlGroup.dayTitle).startOf('day');
+    this.groupStartDay = DateTime.fromJSDate(new Date(timeControlGroup.dayTitle)).startOf('day');
     this.groupEndDay = this.groupStartDay.endOf('day');
 
     this.processTimesInTimeControl(timeControlGroup.times, timeControlGroup.day);
@@ -247,9 +247,8 @@ export class ProcessTimeControlGroups {
 
   /** Crea un TimeControlGroupResponse por cada día del mes actual.  */
   private createTimeControlGroupForCurrentMonth(): void {
-    const date = DateTime.fromJSDate(this.date);
-    const dateStart = date.startOf('month').startOf('day');
-    const dateEnd = date.endOf('month').endOf('day');
+    const dateStart = this.date.startOf('month').startOf('day');
+    const dateEnd = this.date.endOf('month').endOf('day');
 
     DatetimeUtils.dayDateTimeInterval(dateStart, dateEnd).forEach((currentDay) => {
       const timeControlGroupResponse = {

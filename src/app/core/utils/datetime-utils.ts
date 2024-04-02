@@ -13,4 +13,17 @@ export abstract class DatetimeUtils {
       .splitBy({ day: 1 })
       .map((date: Interval) => date.start);
   }
+
+  /**
+   * Obtener en minutos la diferencia entre dos DateTime.
+   *
+   * @param start DateTime de inicio.
+   * @param end DateTime final.
+   * @returns Diferencia en minutos de las fechas pasadas.
+   */
+  static duration(start: DateTime, end: DateTime): number {
+    const result = end.diff(start, ['minutes']).minutes;
+
+    return Math.abs(Math.round(result));
+  }
 }

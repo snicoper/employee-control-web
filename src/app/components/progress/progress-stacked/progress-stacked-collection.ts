@@ -2,7 +2,7 @@ import { ProgressStackedItem } from './progress-stacked-item.model';
 
 export class ProgressStackedCollection {
   progressStackedItems: ProgressStackedItem[] = [];
-  title: string = '';
+  title = '';
 
   addItem(progressStackedItem: ProgressStackedItem): this {
     this.progressStackedItems.push({
@@ -17,9 +17,5 @@ export class ProgressStackedCollection {
     });
 
     return this;
-  }
-
-  addTitle(title: string): void {
-    this.title = title;
   }
 }

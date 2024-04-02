@@ -57,8 +57,8 @@ export class EmployeeTimeControlProgressComponent {
     const endDate = dateSelected.endOf('month');
     const url = urlReplaceParams(ApiUrls.timeControl.getTimeControlRangeByEmployeeId, {
       employeeId: this.employeeSelected()?.id.toString() as string,
-      from: startDate.toUTC().toString(),
-      to: endDate.toUTC().toString()
+      from: startDate.toJSDate().toISOString(),
+      to: endDate.toJSDate().toISOString()
     });
 
     this.timeControlApiService
