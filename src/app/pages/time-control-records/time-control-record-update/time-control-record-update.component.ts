@@ -17,7 +17,7 @@ import { PageHeaderComponent } from '../../../components/pages/page-header/page-
 import { SpinnerComponent } from '../../../components/spinner/spinner.component';
 import { ApiUrls } from '../../../core/urls/api-urls';
 import { SiteUrls } from '../../../core/urls/site-urls';
-import { urlReplaceParams } from '../../../core/utils/common-utils';
+import { CommonUtils } from '../../../core/utils/common-utils';
 import { DateUtils } from '../../../core/utils/date-utils';
 import { CustomValidators } from '../../../core/validators/custom-validators-form';
 import { BadRequest } from '../../../models/bad-request';
@@ -88,7 +88,7 @@ export class TimeControlRecordUpdateComponent implements OnInit {
   }
 
   private setBreadcrumb(): void {
-    const urlDetails = urlReplaceParams(SiteUrls.timeControlRecords.details, { id: this.timeControlId });
+    const urlDetails = CommonUtils.urlReplaceParams(SiteUrls.timeControlRecords.details, { id: this.timeControlId });
 
     this.breadcrumb
       .add('Registro de tiempos', SiteUrls.timeControlRecords.list)
@@ -116,8 +116,8 @@ export class TimeControlRecordUpdateComponent implements OnInit {
     }
 
     timeControl.id = this.timeControlId;
-    timeControl.start = start.toISOString();
-    timeControl.finish = end.toISOString();
+    timeControl.start = DateUtils.toISOString(start);
+    timeControl.finish = DateUtils.toISOString(end);
     timeControl.closeIncidence = this.form.get('closeIncidence')?.value as boolean;
 
     return timeControl;
@@ -155,7 +155,7 @@ export class TimeControlRecordUpdateComponent implements OnInit {
 
   private loadTimeControl(): void {
     this.loadingForm = true;
-    const url = urlReplaceParams(ApiUrls.timeControl.getTimeControlById, { id: this.timeControlId });
+    const url = CommonUtils.urlReplaceParams(ApiUrls.timeControl.getTimeControlById, { id: this.timeControlId });
 
     this.timeControlApiService
       .get<TimeControl>(url)
@@ -172,7 +172,7 @@ export class TimeControlRecordUpdateComponent implements OnInit {
   private updateTimeControl(timeControl: TimeControlRecordRequest): void {
     // Actualizar tiempo.
     this.loadingForm = true;
-    const url = urlReplaceParams(ApiUrls.timeControl.updateTimeControl, { id: this.timeControlId });
+    const url = CommonUtils.urlReplaceParams(ApiUrls.timeControl.updateTimeControl, { id: this.timeControlId });
 
     this.timeControlApiService
       .put<TimeControlRecordRequest, ResultResponse>(timeControl, url)

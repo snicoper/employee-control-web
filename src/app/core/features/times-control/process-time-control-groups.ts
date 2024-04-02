@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { logError } from '../../errors/log-messages';
 import { PeriodDatetime } from '../../models/preriod-datetime';
-import { calculatePercent } from '../../utils/common-utils';
+import { CommonUtils } from '../../utils/common-utils';
 import { DatetimeUtils } from '../../utils/datetime-utils';
 import { TimeControlGroupResponse, TimeResponse } from './times-control-response.model';
 
@@ -271,7 +271,7 @@ export class ProcessTimeControlGroups {
       timeState: time.timeState,
       closedBy: time.closedBy,
       minutes: minutes,
-      dayPercent: calculatePercent(this.minutesInDay, minutes)
+      dayPercent: CommonUtils.calculatePercent(this.minutesInDay, minutes)
     } as TimeResponse;
 
     return timeResponse;

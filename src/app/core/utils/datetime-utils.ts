@@ -26,4 +26,14 @@ export abstract class DatetimeUtils {
 
     return Math.abs(Math.round(result));
   }
+
+  /**
+   * Obtener un DateTime como string UTC.
+   *
+   * @param dateTime DateTime a obtener como UTC.
+   * @returns Un string con la hora pasada en UTC.
+   */
+  static toISOString(dateTime: DateTime): string {
+    return dateTime.toUTC().toString();
+  }
 }

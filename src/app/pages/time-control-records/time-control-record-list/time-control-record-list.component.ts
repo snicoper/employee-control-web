@@ -23,7 +23,8 @@ import { OrderTypes } from '../../../core/features/api-result/types/order-type';
 import { RelationalOperators } from '../../../core/features/api-result/types/relational-operator';
 import { ApiUrls } from '../../../core/urls/api-urls';
 import { SiteUrls } from '../../../core/urls/site-urls';
-import { urlReplaceParams } from '../../../core/utils/common-utils';
+import { CommonUtils } from '../../../core/utils/common-utils';
+import { DatetimeUtils } from '../../../core/utils/datetime-utils';
 import { TooltipDirective } from '../../../directives/tooltip.directive';
 import { ClosedBy } from '../../../models/entities/types/closed-by.model';
 import { TimeState } from '../../../models/entities/types/time-state.model';
@@ -128,7 +129,7 @@ export class TimeControlRecordListComponent {
   }
 
   handleTimeControlUpdate(timeControl: TimeControlRecordResponse): void {
-    const url = urlReplaceParams(SiteUrls.timeControlRecords.update, { id: timeControl.id });
+    const url = CommonUtils.urlReplaceParams(SiteUrls.timeControlRecords.update, { id: timeControl.id });
     this.router.navigateByUrl(url);
   }
 
@@ -137,7 +138,7 @@ export class TimeControlRecordListComponent {
   }
 
   handleDetailsTimeControl(timeControl: TimeControlRecordResponse): void {
-    const url = urlReplaceParams(SiteUrls.timeControlRecords.details, { id: timeControl.id });
+    const url = CommonUtils.urlReplaceParams(SiteUrls.timeControlRecords.details, { id: timeControl.id });
 
     this.router.navigateByUrl(url);
   }
@@ -163,7 +164,7 @@ export class TimeControlRecordListComponent {
   }
 
   handleDeleteTimeControl(timeControl: TimeControlRecordResponse): void {
-    const url = urlReplaceParams(ApiUrls.timeControl.deleteTimeControl, { id: timeControl.id });
+    const url = CommonUtils.urlReplaceParams(ApiUrls.timeControl.deleteTimeControl, { id: timeControl.id });
 
     this.timeControlApiService.delete<ResultResponse>(url).subscribe({
       next: (result: ResultResponse) => {
@@ -201,7 +202,7 @@ export class TimeControlRecordListComponent {
   }
 
   handleNavigateEmployeeDetails(timeControl: TimeControlRecordResponse): void {
-    const url = urlReplaceParams(this.siteUrls.employees.details, { id: timeControl.userId });
+    const url = CommonUtils.urlReplaceParams(this.siteUrls.employees.details, { id: timeControl.userId });
     this.router.navigateByUrl(url);
   }
 
@@ -218,9 +219,11 @@ export class TimeControlRecordListComponent {
     this.loading = false;
 
     // Filtro date range, requiere 'null' en caso de estar desactivado.
-    const url = urlReplaceParams(ApiUrls.timeControl.getTimesControlByRangePaginated, {
-      from: this.filterStateDateRange ? DateTime.fromJSDate(this.from).startOf('day').toJSDate().toISOString() : 'null',
-      to: this.filterStateDateRange ? DateTime.fromJSDate(this.to).endOf('day').toJSDate().toISOString() : 'null'
+    const url = CommonUtils.urlReplaceParams(ApiUrls.timeControl.getTimesControlByRangePaginated, {
+      from: this.filterStateDateRange
+        ? DatetimeUtils.toISOString(DateTime.fromJSDate(this.from).startOf('day'))
+        : 'null',
+      to: this.filterStateDateRange ? DatetimeUtils.toISOString(DateTime.fromJSDate(this.to).endOf('day')) : 'null'
     });
 
     // Filtros.

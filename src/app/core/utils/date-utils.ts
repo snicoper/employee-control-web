@@ -155,4 +155,14 @@ export abstract class DateUtils {
 
     return newDate;
   }
+
+  /**
+   * Obtener un Date como string UTC.
+   *
+   * @param date Date a obtener como UTC.
+   * @returns Un string con la hora pasada en UTC.
+   */
+  static toISOString(date: Date): string {
+    return date.toISOString();
+  }
 }

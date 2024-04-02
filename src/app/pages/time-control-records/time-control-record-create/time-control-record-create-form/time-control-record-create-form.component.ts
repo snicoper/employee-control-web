@@ -119,8 +119,8 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
       return timeControl;
     }
 
-    timeControl.start = start.toISOString();
-    timeControl.finish = this.formAddFinishTimes ? end.toISOString() : timeControl.start;
+    timeControl.start = DateUtils.toISOString(start);
+    timeControl.finish = this.formAddFinishTimes ? DateUtils.toISOString(end) : timeControl.start;
     timeControl.timeState = this.formAddFinishTimes ? TimeState.close : TimeState.open;
 
     return timeControl;

@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { ProgressStackedCollection } from '../../../components/progress/progress-stacked/progress-stacked-collection';
 import { ClosedBy } from '../../../models/entities/types/closed-by.model';
-import { calculatePercent } from '../../utils/common-utils';
+import { CommonUtils } from '../../utils/common-utils';
 import { DateUtils } from '../../utils/date-utils';
 import { ProcessTimeControlGroups } from './process-time-control-groups';
 import { TimeControlGroupResponse, TimeResponse } from './times-control-response.model';
@@ -76,7 +76,7 @@ export class TimeControlProgressStacked {
 
       // Calcular posición del día.
       const diffDateTime = dateTimeStart.diff(lastTimeCalculate, ['minutes']);
-      const diffPercent = calculatePercent(this.minutesInDay, diffDateTime.minutes);
+      const diffPercent = CommonUtils.calculatePercent(this.minutesInDay, diffDateTime.minutes);
 
       // Insertar tiempo de inactividad (progressStackedItem).
       progressStacked.addItem({

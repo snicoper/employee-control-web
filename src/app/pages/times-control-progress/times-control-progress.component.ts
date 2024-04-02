@@ -19,8 +19,9 @@ import { logError } from '../../core/errors/log-messages';
 import { TimeControlProgressStacked } from '../../core/features/times-control/time-control-group';
 import { TimeControlGroupResponse } from '../../core/features/times-control/times-control-response.model';
 import { ApiUrls } from '../../core/urls/api-urls';
-import { urlReplaceParams } from '../../core/utils/common-utils';
+import { CommonUtils } from '../../core/utils/common-utils';
 import { DateUtils } from '../../core/utils/date-utils';
+import { DatetimeUtils } from '../../core/utils/datetime-utils';
 import { DeviceType, deviceToDeviceType } from '../../models/entities/types/device-type.model';
 import { TimeState } from '../../models/entities/types/time-state.model';
 import { ResultResponse } from '../../models/result-response.model';
@@ -179,10 +180,10 @@ export class TimesControlProgressComponent {
     const startDate = dateSelected.startOf('month');
     const endDate = dateSelected.endOf('month');
 
-    const url = urlReplaceParams(ApiUrls.timeControl.getTimeControlRangeByEmployeeId, {
+    const url = CommonUtils.urlReplaceParams(ApiUrls.timeControl.getTimeControlRangeByEmployeeId, {
       employeeId: this.jwtService.getSid(),
-      from: startDate.toJSDate().toISOString(),
-      to: endDate.toJSDate().toISOString()
+      from: DatetimeUtils.toISOString(startDate),
+      to: DatetimeUtils.toISOString(endDate)
     });
 
     this.timeControlApiService.get<TimeControlGroupResponse[]>(url).subscribe({
