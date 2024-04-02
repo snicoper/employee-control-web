@@ -13,7 +13,7 @@ export class ProcessTimeControlGroups {
   private readonly timeControlGroups: TimeControlGroupResponse[];
   private readonly timeControlGroupsResult: TimeControlGroupResponse[] = [];
   private readonly date: DateTime;
-  private readonly minutesInDay = 60 * 24;
+  private readonly minutesInDay: number;
 
   // TimeControlGroupResponse hora de inicio y final del día en el grupo.
   private groupStartDay: DateTime;
@@ -21,6 +21,7 @@ export class ProcessTimeControlGroups {
 
   constructor(timeControlGroups: TimeControlGroupResponse[], date: Date) {
     this.date = DateTime.fromJSDate(date);
+    this.minutesInDay = 60 * 24;
     this.timeControlGroups = this.fixTimeControlGroups(timeControlGroups);
     this.groupStartDay = DateTime.local();
     this.groupEndDay = DateTime.local();

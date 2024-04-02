@@ -12,13 +12,14 @@ import { TimeControlGroupResponse, TimeResponse } from './times-control-response
 export class TimeControlProgressStacked {
   private readonly timeControlGroups: TimeControlGroupResponse[];
   private readonly progressStackedCollections: ProgressStackedCollection[];
-  private readonly minutesInDay = 60 * 24;
+  private readonly minutesInDay: number;
 
   constructor(timeControlGroups: TimeControlGroupResponse[], date: Date) {
-    const processTimeControlGroups = new ProcessTimeControlGroups(timeControlGroups, date);
-
-    this.timeControlGroups = processTimeControlGroups.process();
+    this.minutesInDay = 60 * 24;
     this.progressStackedCollections = [];
+
+    const processTimeControlGroups = new ProcessTimeControlGroups(timeControlGroups, date);
+    this.timeControlGroups = processTimeControlGroups.process();
   }
 
   /** Compone una lista de TimeControlGroupResponse[] a ProgressStackedCollection[]. */
