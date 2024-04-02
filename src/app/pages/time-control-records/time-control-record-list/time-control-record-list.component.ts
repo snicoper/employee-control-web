@@ -89,7 +89,9 @@ export class TimeControlRecordListComponent {
 
     this.configureTableHeaders();
     this.setBreadcrumb();
-    this.loadTimeControlRecords();
+
+    // El seteo de datos, el componente aw-date-range-selector hará un emit y cargara los datos.
+    this.from.setDate(this.from.getDate() - 7);
   }
 
   getStartOpenStreetMapLink(timeControl: TimeControlRecordResponse): string | null {
@@ -211,13 +213,14 @@ export class TimeControlRecordListComponent {
     this.breadcrumb.add('Registro de tiempos', SiteUrls.timeControlRecords.list, '', false);
   }
 
+  /** La primera carga la hace el emit de date-range-selector al setear datos. */
   private loadTimeControlRecords(): void {
     this.loading = false;
 
     // Filtro date range, requiere 'null' en caso de estar desactivado.
     const url = urlReplaceParams(ApiUrls.timeControl.getTimesControlByRangePaginated, {
-      from: this.filterStateDateRange ? DateTime.fromJSDate(this.from).startOf('day').toUTC().toString() : 'null',
-      to: this.filterStateDateRange ? DateTime.fromJSDate(this.to).endOf('day').toUTC().toString() : 'null'
+      from: this.filterStateDateRange ? DateTime.fromJSDate(this.from).startOf('day').toJSDate().toISOString() : 'null',
+      to: this.filterStateDateRange ? DateTime.fromJSDate(this.to).endOf('day').toJSDate().toISOString() : 'null'
     });
 
     // Filtros.

@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
 import { BsDatepickerConfig, BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { LocalizationUtils } from '../../../core/features/localizations/localization-utils';
 import { LocalizationService } from '../../../core/features/localizations/localization.service';
+import { DatetimeUtils } from '../../../core/utils/datetime-utils';
 import { TooltipDirective } from '../../../directives/tooltip.directive';
 
 @Component({
@@ -17,16 +18,13 @@ export class DateRangeSelectorComponent {
   private readonly bsLocaleService = inject(BsLocaleService);
   private readonly localizationService = inject(LocalizationService);
 
-  @Input() rangeValue = [new Date(), new Date()];
+  @Input({ required: true }) rangeValue = [new Date(), new Date()];
   @Input() maxDate = new Date();
   @Input() isDisabled = false;
   @Input() bsConfig: Partial<BsDatepickerConfig>;
 
   @Output() dateRangeValueChange = new EventEmitter<(Date | undefined)[] | undefined>();
   @Output() changeState = new EventEmitter<void>();
-
-  /** Evitar el primer emit en handleChangeValue().  */
-  private firstChange = true;
 
   constructor() {
     // Locale BsDatepicker.
@@ -40,16 +38,10 @@ export class DateRangeSelectorComponent {
       adaptivePosition: true,
       selectWeekDateRange: true
     };
-
-    this.rangeValue[0].setDate(this.rangeValue[0].getDate() - 7);
   }
 
   handleChangeValue(value: (Date | undefined)[] | undefined): void {
-    if (this.firstChange) {
-      this.firstChange = false;
-    } else {
-      this.dateRangeValueChange.emit(value);
-    }
+    this.dateRangeValueChange.emit(value);
   }
 
   handleToggleState(): void {
@@ -61,7 +53,7 @@ export class DateRangeSelectorComponent {
       return;
     }
 
-    const intervalDays = this.getIntervalDays();
+    const intervalDays = DatetimeUtils.getIntervalDays(this.rangeValue[0], this.rangeValue[1]);
     const start = DateTime.fromJSDate(this.rangeValue[0]).startOf('day');
     const finish = DateTime.fromJSDate(this.rangeValue[1]).endOf('day');
     const newStart = start.plus({ days: intervalDays });
@@ -75,22 +67,12 @@ export class DateRangeSelectorComponent {
       return;
     }
 
-    const intervalDays = this.getIntervalDays();
+    const intervalDays = DatetimeUtils.getIntervalDays(this.rangeValue[0], this.rangeValue[1]);
     const start = DateTime.fromJSDate(this.rangeValue[0]).startOf('day');
     const finish = DateTime.fromJSDate(this.rangeValue[1]).endOf('day');
     const newStart = start.minus({ days: intervalDays });
     const newFinish = finish.minus({ days: intervalDays });
 
     this.rangeValue = [newStart.toJSDate(), newFinish.toJSDate()];
-  }
-
-  /** Obtener en días la diferencia del rango de fechas. */
-  private getIntervalDays(): number {
-    const start = DateTime.fromJSDate(this.rangeValue[0]).startOf('day');
-    const finish = DateTime.fromJSDate(this.rangeValue[1]).endOf('day');
-    const diff = finish.diff(start, ['day']);
-    const daysInterval = Math.ceil(diff.days);
-
-    return daysInterval;
   }
 }

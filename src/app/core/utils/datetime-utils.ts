@@ -132,6 +132,22 @@ export abstract class DatetimeUtils {
   }
 
   /**
+   * Calcular días de diferencia entre 2 fechas.
+   *
+   * @param start Fecha de inicio.
+   * @param end Fecha Final.
+   * @returns Diferencia entre las 2 fechas en días.
+   */
+  static getIntervalDays(start: Date, end: Date): number {
+    const dateStart = DateTime.fromJSDate(start).startOf('day');
+    const dateEnd = DateTime.fromJSDate(end).endOf('day');
+    const diff = dateEnd.diff(dateStart, ['day']);
+    const daysInterval = Math.ceil(diff.days);
+
+    return daysInterval;
+  }
+
+  /**
    * Establecer un Date al inicio del día 00:00:00.
    *
    * @param date Fecha a establecer inicio del día.

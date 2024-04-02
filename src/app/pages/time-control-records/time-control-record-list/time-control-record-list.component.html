@@ -39,6 +39,7 @@
         <aw-date-range-selector
           (dateRangeValueChange)="handleDateRangeValueChange($event)"
           (changeState)="handleState()"
+          [rangeValue]="[from, to]"
           [isDisabled]="!filterStateDateRange" />
       </div>
       <!-- date range filter -->
