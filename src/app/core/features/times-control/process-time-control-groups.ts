@@ -87,7 +87,7 @@ export class ProcessTimeControlGroups {
 
     // |-------------------| Current day.
     //    |----------| Time.
-    const newTime = this.createTimeResponse(time, period.start.toJSDate(), period.end.toJSDate(), period.duration());
+    const newTime = this.createTimeResponse(time, period.start, period.end, period.duration());
 
     currentItemControl.totalMinutes += period.duration();
     currentItemControl.times.push(newTime);
@@ -111,12 +111,7 @@ export class ProcessTimeControlGroups {
     // |---------------| Current day.
     //                    |--------| Time.
     if (period.start.day > day) {
-      const newOverTime1 = this.createTimeResponse(
-        time,
-        period.start.toJSDate(),
-        period.end.toJSDate(),
-        period.duration()
-      );
+      const newOverTime1 = this.createTimeResponse(time, period.start, period.end, period.duration());
 
       nextTimeControl.totalMinutes += period.duration();
       nextTimeControl.times.push(newOverTime1);
@@ -134,8 +129,8 @@ export class ProcessTimeControlGroups {
     // Día siguiente desde las 00:00.00.
     const newOverTime2 = this.createTimeResponse(
       time,
-      period.end.startOf('day').toJSDate(),
-      period.end.startOf('day').plus({ minutes: duration }).toJSDate(),
+      period.end.startOf('day'),
+      period.end.startOf('day').plus({ minutes: duration }),
       duration
     );
 
@@ -143,12 +138,7 @@ export class ProcessTimeControlGroups {
     nextTimeControl.times.unshift(newOverTime2);
 
     // Día actual hasta las 23:59:59.
-    const newTime = this.createTimeResponse(
-      time,
-      period.start.toJSDate(),
-      period.start.endOf('day').toJSDate(),
-      diffMidnight
-    );
+    const newTime = this.createTimeResponse(time, period.start, period.start.endOf('day'), diffMidnight);
 
     currentItemControl.totalMinutes += diffMidnight;
     currentItemControl.times.push(newTime);
@@ -172,12 +162,7 @@ export class ProcessTimeControlGroups {
     //               |---------------------| Current day.
     // |---------| Time.
     if (period.end.day < day) {
-      const newUnderTime1 = this.createTimeResponse(
-        time,
-        period.start.toJSDate(),
-        period.end.toJSDate(),
-        period.duration()
-      );
+      const newUnderTime1 = this.createTimeResponse(time, period.start, period.end, period.duration());
 
       prevTimeControl.totalMinutes += period.duration();
       prevTimeControl.times.push(newUnderTime1);
@@ -193,12 +178,7 @@ export class ProcessTimeControlGroups {
     // Día anterior hasta las 00:00.00.
     //            |-----------------------| Current day.
     //        |--------| Time.
-    const newUnderTime = this.createTimeResponse(
-      time,
-      period.start.toJSDate(),
-      period.end.endOf('day').toJSDate(),
-      duration
-    );
+    const newUnderTime = this.createTimeResponse(time, period.start, period.end.endOf('day'), duration);
 
     prevTimeControl.totalMinutes += duration;
     prevTimeControl.times.push(newUnderTime);
@@ -208,8 +188,8 @@ export class ProcessTimeControlGroups {
     // |--------| Time.
     const newTime = this.createTimeResponse(
       time,
-      period.start.startOf('day').toJSDate(),
-      period.start.plus(duration).toJSDate(),
+      period.start.startOf('day'),
+      period.start.plus(duration),
       diffMidnight
     );
 
@@ -282,11 +262,11 @@ export class ProcessTimeControlGroups {
   }
 
   /** Crea un nuevo TimeControl con los tiempos calculados. */
-  private createTimeResponse(time: TimeResponse, start: Date, finish: Date, minutes: number): TimeResponse {
+  private createTimeResponse(time: TimeResponse, start: DateTime, finish: DateTime, minutes: number): TimeResponse {
     const timeResponse = {
       id: time.id,
-      start: start,
-      finish: finish,
+      start: start.toJSDate(),
+      finish: finish.toJSDate(),
       incidence: time.incidence,
       timeState: time.timeState,
       closedBy: time.closedBy,
