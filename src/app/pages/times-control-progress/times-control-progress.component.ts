@@ -102,6 +102,7 @@ export class TimesControlProgressComponent {
   /** Abrir tiempo de actividad. */
   handleTimeStart(): void {
     this.loadingTimeState = true;
+
     const data: TimeControlProgressChangeStateRequest = {
       employeeId: this.jwtService.getSid(),
       deviceType: this.employeeDeviceType,

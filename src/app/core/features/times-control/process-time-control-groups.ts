@@ -15,16 +15,10 @@ export class ProcessTimeControlGroups {
   private readonly date: DateTime;
   private readonly minutesInDay: number;
 
-  // TimeControlGroupResponse hora de inicio y final del día en el grupo.
-  private groupStartDay: DateTime;
-  private groupEndDay: DateTime;
-
   constructor(timeControlGroups: TimeControlGroupResponse[], date: Date) {
     this.date = DateTime.fromJSDate(date);
     this.minutesInDay = 60 * 24;
-    this.timeControlGroups = this.fixTimeControlGroups(timeControlGroups);
-    this.groupStartDay = DateTime.local();
-    this.groupEndDay = DateTime.local();
+    this.timeControlGroups = timeControlGroups;
   }
 
   /**
@@ -40,26 +34,8 @@ export class ProcessTimeControlGroups {
     return this.timeControlGroupsResult;
   }
 
-  /**
-   * Revisar el day y dayTitle en los grupos para corregir los valores.
-   *
-   * El backend crea los grupos con Title y DayTitle en base Start y al cambiar
-   * de mes puede haber Day y DayTitle en ambos meses.
-   * De esta manera siempre pintara los tiempos iniciados en mes anterior (la parte
-   * del mes actual que corresponda con el periodo Start y Finish).
-   *
-   * @param timeControlGroups Grupo de tiempos a comprobar.
-   * @returns TimeControlGroupResponse[] con el fix.
-   */
-  private fixTimeControlGroups(timeControlGroups: TimeControlGroupResponse[]): TimeControlGroupResponse[] {
-    return timeControlGroups;
-  }
-
   /** Procesa cada TimeControlGroupResponse. */
   private processTimeControlGroup(timeControlGroup: TimeControlGroupResponse): void {
-    this.groupStartDay = DateTime.fromJSDate(new Date(timeControlGroup.dayTitle)).startOf('day');
-    this.groupEndDay = this.groupStartDay.endOf('day');
-
     this.processTimesInTimeControl(timeControlGroup.times, timeControlGroup.day);
   }
 
@@ -73,12 +49,7 @@ export class ProcessTimeControlGroups {
       // Tiempo dentro del día actual.
       // |----------------| Current day.
       //     |--------| Time.
-      if (
-        period.start.day === this.groupStartDay.day &&
-        period.end.day === this.groupStartDay.day &&
-        period.start.day === this.groupEndDay.day &&
-        period.end.day === this.groupEndDay.day
-      ) {
+      if (period.start.day === day && period.end.day === day && period.start.day === day && period.end.day === day) {
         this.processTimeInRange(time, period, day);
 
         return;
@@ -87,7 +58,7 @@ export class ProcessTimeControlGroups {
       // Comprobar los tiempos anteriores a las 00:00:00.
       //      |----------------| Current day.
       // |--------| Time.
-      if (period.start.day < this.groupStartDay.day) {
+      if (period.start.day < day && period.end.day === day) {
         this.processUnderTime(time, period, day);
 
         return;
@@ -96,7 +67,7 @@ export class ProcessTimeControlGroups {
       // Tiempos que al menos el final supera al día actual.
       // |----------------| Current day.
       //             |--------| Time.
-      if (period.end.day > this.groupEndDay.day) {
+      if (period.end.day > day && period.start.day === day) {
         this.processOverTime(time, period, day);
       }
     });
@@ -139,7 +110,7 @@ export class ProcessTimeControlGroups {
     // Comprobar si el inicio también supera el día actual.
     // |---------------| Current day.
     //                    |--------| Time.
-    if (period.start.day > this.groupEndDay.day) {
+    if (period.start.day > day) {
       const newOverTime1 = this.createTimeResponse(
         time,
         period.start.toJSDate(),
@@ -200,7 +171,7 @@ export class ProcessTimeControlGroups {
     // Comprobar si el final también supera el día actual.
     //               |---------------------| Current day.
     // |---------| Time.
-    if (period.end.day < this.groupStartDay.day) {
+    if (period.end.day < day) {
       const newUnderTime1 = this.createTimeResponse(
         time,
         period.start.toJSDate(),
