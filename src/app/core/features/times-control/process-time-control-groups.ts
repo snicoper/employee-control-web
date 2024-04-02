@@ -49,7 +49,7 @@ export class ProcessTimeControlGroups {
       // Tiempo dentro del día actual.
       // |----------------| Current day.
       //     |--------| Time.
-      if (period.start.day === day && period.end.day === day && period.start.day === day && period.end.day === day) {
+      if (period.start.day === day && period.end.day === day) {
         this.processTimeInRange(time, period, day);
 
         return;
