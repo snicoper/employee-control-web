@@ -1,6 +1,7 @@
 import { NgClass, NgStyle } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DateTime, Info } from 'luxon';
+import { TooltipDirective } from '../../../directives/tooltip.directive';
 import { CardComponent } from '../../cards/card/card.component';
 import { SpinnerComponent } from '../../spinner/spinner.component';
 import { CalendarDay } from './calendar-day.model';
@@ -10,7 +11,7 @@ import { CalendarDay } from './calendar-day.model';
   templateUrl: './month-calendar.component.html',
   styleUrl: './month-calendar.component.scss',
   standalone: true,
-  imports: [NgClass, NgStyle, CardComponent, SpinnerComponent]
+  imports: [NgClass, NgStyle, CardComponent, SpinnerComponent, TooltipDirective]
 })
 export class MonthCalendarComponent implements OnInit {
   @Input({ required: true }) date!: DateTime;
@@ -62,8 +63,6 @@ export class MonthCalendarComponent implements OnInit {
         day: monthLastDate - i,
         inactive: true,
         isToday: false,
-        editable: false,
-        removable: false,
         canAddEvent: false
       });
     }
@@ -87,8 +86,6 @@ export class MonthCalendarComponent implements OnInit {
         isToday: isToday,
         inactive: false,
         background: backgroundToday,
-        editable: false,
-        removable: false,
         canAddEvent: true
       });
     }
@@ -104,8 +101,6 @@ export class MonthCalendarComponent implements OnInit {
         day: i - dayEnd + 1,
         isToday: false,
         inactive: true,
-        editable: false,
-        removable: false,
         canAddEvent: false
       });
     }

@@ -19,6 +19,8 @@
                 (click)="handleCalendarDayClick(calendarDay)"
                 [ngClass]="{ inactive: calendarDay.inactive, active: calendarDay.isToday }">
                 <span
+                  awTooltip
+                  [title]="calendarDay.description ?? ''"
                   [ngClass]="{ 'not-editable': !calendarDay.canAddEvent }"
                   [ngStyle]="{ background: calendarDay.background, color: calendarDay.color }"
                   class="calendar-day">

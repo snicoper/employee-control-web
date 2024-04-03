@@ -8,7 +8,5 @@ export interface CalendarDay {
   description?: string;
   background?: string;
   color?: string;
-  editable: boolean;
-  removable: boolean;
   canAddEvent: boolean;
 }
