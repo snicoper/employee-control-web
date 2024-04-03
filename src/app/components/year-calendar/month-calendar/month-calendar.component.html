@@ -6,14 +6,14 @@
       </div>
 
       <div class="calendar-body">
-        @if (!loading) {
-          <ul class="calendar-weekdays">
-            @for (week of weeks; track week) {
-              <li>{{ week }}</li>
-            }
-          </ul>
+        <ul class="calendar-weekdays">
+          @for (week of weeks; track week) {
+            <li>{{ week }}</li>
+          }
+        </ul>
 
-          <ul class="calendar-dates">
+        <ul class="calendar-dates">
+          @if (!loading) {
             @for (calendarDay of calendarDays; track calendarDay) {
               <li
                 (click)="handleCalendarDayClick(calendarDay)"
@@ -32,10 +32,10 @@
                 </span>
               </li>
             }
-          </ul>
-        } @else {
-          <aw-spinner [loading]="loading" [size]="100" />
-        }
+          } @else {
+            <aw-spinner [loading]="loading" [size]="120" />
+          }
+        </ul>
       </div>
     </div>
   </aw-card>
