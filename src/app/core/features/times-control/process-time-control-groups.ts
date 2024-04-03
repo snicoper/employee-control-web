@@ -6,8 +6,7 @@ import { DatetimeUtils } from '../../utils/datetime-utils';
 import { TimeControlGroupResponse, TimeResponse } from './times-control-response.model';
 
 /**
- * Procesa una respuesta y re-calcula los times según el
- * timezone del usuario.
+ * Procesa una respuesta y re-calcula los times según el timezone del usuario.
  */
 export class ProcessTimeControlGroups {
   private readonly timeControlGroups: TimeControlGroupResponse[];
