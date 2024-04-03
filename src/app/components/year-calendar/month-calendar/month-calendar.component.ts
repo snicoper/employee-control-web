@@ -36,16 +36,16 @@ export class MonthCalendarComponent implements OnInit {
   }
 
   private renderCalendar(): void {
-    // Obtener el día de la semana del primer día del mes actual.
+    // Obtener el día de la semana del primer día del mes.
     const dayOne = DateTime.local(this.date.year, this.date.month).startOf('month').weekday;
 
-    // Obtener la última fecha del mes actual.
+    // Obtener el último día del mes.
     const lastDate = DateTime.local(this.date.year, this.date.month).endOf('month').day;
 
     // Obtener el día de semana del último día del mes anterior.
-    const dayEnd = DateTime.local(this.date.year, this.date.month - 1).endOf('month').weekday;
+    const dayEnd = DateTime.local(this.date.year, this.date.month).minus({ month: 1 }).endOf('month').weekday;
 
-    // Obtener la fecha del último día del mes.
+    // Obtener el último día del mes.
     const monthLastDate = DateTime.local(this.date.year, this.date.month).endOf('month').day;
 
     // Fecha de hoy.
@@ -57,7 +57,7 @@ export class MonthCalendarComponent implements OnInit {
     // Bucle para agregar las últimas fechas del mes anterior.
     for (let i = prevDaysWeek; i > 1; i--) {
       this.calendarDays.push({
-        day: monthLastDate - i + 2,
+        day: monthLastDate - i,
         inactive: true,
         isToday: false,
         editable: false,
@@ -91,8 +91,9 @@ export class MonthCalendarComponent implements OnInit {
       });
     }
 
+    // Bucle para agregar las primeras fechas del mes siguiente.
+    // Mostrar 6 filas x 7 días, 42 días al mes..
     for (let i = dayEnd; i < 14; i++) {
-      // Mostrar max. 6 filas x 7 días.
       if (this.calendarDays.length >= 42) {
         break;
       }
