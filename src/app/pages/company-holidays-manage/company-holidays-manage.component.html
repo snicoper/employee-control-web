@@ -1,7 +1,7 @@
 <aw-page-base>
   <aw-year-calendar
     (calendarDayClick)="handleCalendarDayClick($event)"
-    [year]="year"
+    [date]="date"
     [calendarDayEvents]="calendarDayEvents" />
 
   <ng-template #popTemplate let-message="message"> </ng-template>

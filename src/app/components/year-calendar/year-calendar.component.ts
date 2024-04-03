@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DateTime } from 'luxon';
 import { CalendarDay } from './month-calendar/calendar-day.model';
 import { MonthCalendarComponent } from './month-calendar/month-calendar.component';
 
@@ -10,12 +11,12 @@ import { MonthCalendarComponent } from './month-calendar/month-calendar.componen
   imports: [MonthCalendarComponent]
 })
 export class YearCalendarComponent implements OnInit {
-  @Input({ required: true }) year = new Date().getFullYear();
+  @Input({ required: true }) date!: DateTime;
   @Input() calendarDayEvents: CalendarDay[] = [];
 
   @Output() calendarDayClick = new EventEmitter<CalendarDay>();
 
-  monthDatesInYear: Date[] = [];
+  monthDatesInYear: DateTime[] = [];
 
   ngOnInit(): void {
     this.composeDaysInMonth();
@@ -26,9 +27,8 @@ export class YearCalendarComponent implements OnInit {
   }
 
   private composeDaysInMonth(): void {
-    for (let i = 0; i < 12; i++) {
-      const date = new Date(this.year, i);
-      this.monthDatesInYear.push(date);
+    for (let i = 1; i <= 12; i++) {
+      this.monthDatesInYear.push(DateTime.local(this.date.year, i, 1));
     }
   }
 }

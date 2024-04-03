@@ -1,6 +1,8 @@
+import { DateTime } from 'luxon';
+
 export interface CalendarDay {
   day: number;
-  date?: Date;
+  date?: DateTime;
   inactive: boolean;
   isToday: boolean;
   description?: string;
