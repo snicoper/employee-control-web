@@ -25,10 +25,13 @@ export class CompanyHolidaysManageComponent {
   date: DateTime;
   calendarDayEvents: CalendarDay[] = [];
   companyHolidays: CompanyHoliday[] = [];
+  loading = true;
 
   constructor() {
     this.date = DateTime.local();
     this.getNonWorkingDays();
+
+    this.loading = false;
   }
 
   // eslint-disable-next-line

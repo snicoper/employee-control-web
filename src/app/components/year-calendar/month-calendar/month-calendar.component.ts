@@ -2,6 +2,7 @@ import { NgClass, NgStyle } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DateTime, Info } from 'luxon';
 import { CardComponent } from '../../cards/card/card.component';
+import { SpinnerComponent } from '../../spinner/spinner.component';
 import { CalendarDay } from './calendar-day.model';
 
 @Component({
@@ -9,11 +10,12 @@ import { CalendarDay } from './calendar-day.model';
   templateUrl: './month-calendar.component.html',
   styleUrl: './month-calendar.component.scss',
   standalone: true,
-  imports: [CardComponent, NgClass, NgStyle]
+  imports: [NgClass, NgStyle, CardComponent, SpinnerComponent]
 })
 export class MonthCalendarComponent implements OnInit {
   @Input({ required: true }) date!: DateTime;
   @Input() calendarDayEvents: CalendarDay[] = [];
+  @Input({ required: true }) loading = true;
 
   @Output() calendarDayClick = new EventEmitter<CalendarDay>();
 

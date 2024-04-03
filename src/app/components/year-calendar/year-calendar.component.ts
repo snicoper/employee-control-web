@@ -6,13 +6,13 @@ import { MonthCalendarComponent } from './month-calendar/month-calendar.componen
 @Component({
   selector: 'aw-year-calendar',
   templateUrl: './year-calendar.component.html',
-  styleUrl: './year-calendar.component.scss',
   standalone: true,
   imports: [MonthCalendarComponent]
 })
 export class YearCalendarComponent implements OnInit {
   @Input({ required: true }) date!: DateTime;
   @Input() calendarDayEvents: CalendarDay[] = [];
+  @Input({ required: true }) loading = true;
 
   @Output() calendarDayClick = new EventEmitter<CalendarDay>();
 

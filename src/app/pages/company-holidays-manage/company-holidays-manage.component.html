@@ -1,8 +1,11 @@
 <aw-page-base>
-  <aw-year-calendar
-    (calendarDayClick)="handleCalendarDayClick($event)"
-    [date]="date"
-    [calendarDayEvents]="calendarDayEvents" />
+  @if (!loading) {
+    <aw-year-calendar
+      (calendarDayClick)="handleCalendarDayClick($event)"
+      [date]="date"
+      [calendarDayEvents]="calendarDayEvents"
+      [loading]="loading" />
+  }
 
   <ng-template #popTemplate let-message="message"> </ng-template>
   <button type="button" class="btn btn-primary" [popover]="popTemplate" [popoverContext]="">
