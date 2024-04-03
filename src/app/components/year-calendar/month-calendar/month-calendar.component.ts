@@ -54,7 +54,7 @@ export class MonthCalendarComponent implements OnInit {
     // Fecha de hoy.
     const today = DateTime.local().startOf('day');
 
-    // Si tiene 0 días dayOne, rompe el calendario cuando el 1 es Domingo.
+    // Si tiene 0 días dayOne, rompe el calendario cuando el día 1 es Domingo.
     const prevDaysWeek = dayOne === 1 ? 8 : dayOne;
 
     // Bucle para agregar las últimas fechas del mes anterior.
