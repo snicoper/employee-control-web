@@ -1,6 +1,6 @@
 import { NgClass, NgStyle } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DateTime } from 'luxon';
+import { DateTime, Info } from 'luxon';
 import { CardComponent } from '../../cards/card/card.component';
 import { CalendarDay } from './calendar-day.model';
 
@@ -19,7 +19,7 @@ export class MonthCalendarComponent implements OnInit {
 
   calendarDays: CalendarDay[] = [];
   currentDate = '';
-  weeks = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do'];
+  weeks = Info.weekdays('short');
 
   ngOnInit(): void {
     this.currentDate = `${this.date.monthLong} ${this.date.year}`;
