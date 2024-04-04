@@ -12,6 +12,7 @@ import { FormInputComponent } from '../../../components/forms/inputs/form-input/
 import { ApiUrls } from '../../../core/urls/api-urls';
 import { SiteUrls } from '../../../core/urls/site-urls';
 import { DateUtils } from '../../../core/utils/date-utils';
+import { DatetimeUtils } from '../../../core/utils/datetime-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { CompanyHolidaysApiService } from '../../../services/api/company-holidays-api.service';
 import { JwtService } from '../../../services/jwt.service';
@@ -67,25 +68,9 @@ export class CompanyHolidayManageCreateComponent implements OnInit {
 
     const companyHolidayManageCreateRequest = this.form.value as CompanyHolidayManageCreateRequest;
     companyHolidayManageCreateRequest.companyId = this.jwtService.getCompanyId();
-    companyHolidayManageCreateRequest.date = DateUtils.decrementOffset(this.date.startOf('day').toJSDate());
+    companyHolidayManageCreateRequest.date = DatetimeUtils.dateOnly(this.date);
 
-    this.companyHolidaysApiService
-      .post<CompanyHolidayManageCreateRequest, string>(
-        companyHolidayManageCreateRequest,
-        ApiUrls.companyHolidays.createCompanyHoliday
-      )
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: (result: string) => {
-          if (result) {
-            this.toastrService.success('Día festivo creado con éxito.');
-            this.bsModalRef.hide();
-          }
-        },
-        error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error;
-        }
-      });
+    this.createCompanyHoliday(companyHolidayManageCreateRequest);
   }
 
   private buildForm(): void {
@@ -96,5 +81,23 @@ export class CompanyHolidayManageCreateComponent implements OnInit {
       ],
       description: ['', [Validators.required, Validators.max(50)]]
     });
+  }
+
+  private createCompanyHoliday(companyHoliday: CompanyHolidayManageCreateRequest): void {
+    this.companyHolidaysApiService
+      .post<CompanyHolidayManageCreateRequest, string>(companyHoliday, ApiUrls.companyHolidays.createCompanyHoliday)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (result: string) => {
+          if (result) {
+            this.toastrService.success('Día festivo creado con éxito.');
+            this.hasSubmit.emit();
+            this.bsModalRef.hide();
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error;
+        }
+      });
   }
 }

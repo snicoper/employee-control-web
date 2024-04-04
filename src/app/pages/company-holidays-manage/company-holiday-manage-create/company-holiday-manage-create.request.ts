@@ -1,5 +1,5 @@
 export interface CompanyHolidayManageCreateRequest {
-  date: Date;
+  date: string;
   description: string;
   companyId: string;
 }

@@ -56,4 +56,13 @@ export abstract class DatetimeUtils {
 
     return result;
   }
+
+  /**
+   * Obtener solo la fecha de un DateTime como string.
+   *
+   * @param date Fecha y hora a obtener solo el Date.
+   */
+  static dateOnly(date: DateTime | null): string {
+    return date?.toFormat('yyyy-LL-dd') ?? '';
+  }
 }

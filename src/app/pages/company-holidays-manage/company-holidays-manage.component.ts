@@ -65,13 +65,15 @@ export class CompanyHolidaysManageComponent {
     this.bsModalRef = this.bsModalService.show(CompanyHolidayManageCreateComponent, initialState);
     this.bsModalRef.content?.hasSubmit.subscribe({
       next: () => {
-        this.loadCompanyHolidays();
+        this.getNonWorkingDays();
       }
     });
   }
 
   /** Obtener días no laborables de la empresa de año actual. */
   private getNonWorkingDays(): void {
+    this.loading = true;
+
     const workingDaysWeek = this.workingDaysWeekStateService.get();
     const daysResult: DateTime[] = [];
 
