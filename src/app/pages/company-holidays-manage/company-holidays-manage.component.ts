@@ -50,11 +50,15 @@ export class CompanyHolidaysManageComponent {
   }
 
   handleCalendarDayClick(calendarDay: CalendarDay): void {
-    // Se ha de comprobar si es creación o edición.
-    this.calendarDayModalEdit(calendarDay);
+    // Si tiene valor companyHolidayId, es edición.
+    if (calendarDay.companyHolidayId) {
+      // Nothing.
+    } else {
+      this.calendarDayModalCreate(calendarDay);
+    }
   }
 
-  calendarDayModalEdit(calendarDay: CalendarDay): void {
+  calendarDayModalCreate(calendarDay: CalendarDay): void {
     const initialState: ModalOptions = {
       initialState: {
         id: calendarDay.companyHolidayId,
@@ -78,37 +82,37 @@ export class CompanyHolidaysManageComponent {
     const daysResult: DateTime[] = [];
 
     if (!workingDaysWeek?.monday) {
-      const monday = DatetimeUtils.getWeekDaysFromYear(this.date, WeekDays.monday);
+      const monday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.monday);
       daysResult.push(...monday);
     }
 
     if (!workingDaysWeek?.tuesday) {
-      const tuesday = DatetimeUtils.getWeekDaysFromYear(this.date, WeekDays.tuesday);
+      const tuesday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.tuesday);
       daysResult.push(...tuesday);
     }
 
     if (!workingDaysWeek?.wednesday) {
-      const wednesday = DatetimeUtils.getWeekDaysFromYear(this.date, WeekDays.wednesday);
+      const wednesday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.wednesday);
       daysResult.push(...wednesday);
     }
 
     if (!workingDaysWeek?.thursday) {
-      const thursday = DatetimeUtils.getWeekDaysFromYear(this.date, WeekDays.thursday);
+      const thursday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.thursday);
       daysResult.push(...thursday);
     }
 
     if (!workingDaysWeek?.friday) {
-      const friday = DatetimeUtils.getWeekDaysFromYear(this.date, WeekDays.friday);
+      const friday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.friday);
       daysResult.push(...friday);
     }
 
     if (!workingDaysWeek?.saturday) {
-      const saturday = DatetimeUtils.getWeekDaysFromYear(this.date, WeekDays.saturday);
+      const saturday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.saturday);
       daysResult.push(...saturday);
     }
 
     if (!workingDaysWeek?.sunday) {
-      const sunday = DatetimeUtils.getWeekDaysFromYear(this.date, WeekDays.sunday);
+      const sunday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.sunday);
       daysResult.push(...sunday);
     }
 
@@ -147,6 +151,7 @@ export class CompanyHolidaysManageComponent {
       const date = DateTime.fromJSDate(new Date(ch.date));
 
       const calendarDayEvent = {
+        companyHolidayId: ch.id,
         day: date.day,
         date: date,
         inactive: false,

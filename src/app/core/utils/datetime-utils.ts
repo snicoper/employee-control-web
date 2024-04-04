@@ -38,7 +38,7 @@ export abstract class DatetimeUtils {
     return dateTime.toUTC().toString();
   }
 
-  static getWeekDaysFromYear(date: DateTime, weekDay: WeekDays): DateTime[] {
+  static weekDaysFromYear(date: DateTime, weekDay: WeekDays): DateTime[] {
     const result: DateTime[] = [];
     const start = date.startOf('year');
     const end = date.endOf('year');
