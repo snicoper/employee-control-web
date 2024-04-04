@@ -1,7 +1,6 @@
 import { NgClass, NgStyle } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DateTime, Info } from 'luxon';
-import { CalendarColors } from '../../../core/types/calendar-colors';
 import { TooltipDirective } from '../../../directives/tooltip.directive';
 import { CardComponent } from '../../cards/card/card.component';
 import { SpinnerComponent } from '../../spinner/spinner.component';
@@ -70,25 +69,21 @@ export class MonthCalendarComponent implements OnInit {
 
     // Bucle para agregar las eventos del mes actual.
     for (let i = 1; i <= lastDate; i++) {
-      const date = DateTime.local(this.date.year, this.date.month, i);
-      const event = this.calendarDayEvents.find((d) => d.date?.valueOf() === date.startOf('day').valueOf());
+      const date = DateTime.local(this.date.year, this.date.month, i).startOf('day');
+      const isToday = date.valueOf() === today.valueOf();
+      const event = this.calendarDayEvents.find((d) => d.date?.valueOf() === date.valueOf());
 
       if (event) {
+        event.isToday = isToday;
         this.calendarDays.push(event);
         continue;
       }
-
-      const isToday = date.startOf('day').valueOf() === today.valueOf();
-      const backgroundToday = isToday ? CalendarColors.today : '';
-      const color = isToday ? '#ffffff' : '';
 
       this.calendarDays.push({
         date: date,
         day: i,
         isToday: isToday,
         inactive: false,
-        background: backgroundToday,
-        color: color,
         canAddEvent: true
       });
     }

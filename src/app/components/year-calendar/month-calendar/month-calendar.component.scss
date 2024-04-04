@@ -44,6 +44,10 @@ $hover-day-background: cadetblue;
               cursor: default;
             }
           }
+
+          &.today {
+            border: 3px solid #3b44cd;
+          }
         }
       }
 
