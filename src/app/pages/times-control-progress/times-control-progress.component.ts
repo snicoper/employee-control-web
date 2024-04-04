@@ -81,7 +81,7 @@ export class TimesControlProgressComponent {
     this.companyGeolocationRequired = this.companySettingsStateService.companySettings()
       ?.geolocationRequired as boolean;
 
-    this.loadTimesControlRange();
+    this.loadTimesControl();
 
     this.simpleGeolocationService
       .getCurrentPosition()
@@ -97,7 +97,7 @@ export class TimesControlProgressComponent {
 
   handleDateSelected(date: Date): void {
     this.dateSelected = date;
-    this.loadTimesControlRange();
+    this.loadTimesControl();
   }
 
   /** Abrir tiempo de actividad. */
@@ -118,7 +118,7 @@ export class TimesControlProgressComponent {
         next: (result: ResultResponse) => {
           if (result.succeeded && this.currentTimeControl !== undefined) {
             this.userTimeControlStateService.refresh();
-            this.loadTimesControlRange();
+            this.loadTimesControl();
             this.toastrService.success('Tiempo iniciado con éxito.');
           } else {
             this.toastrService.error('Ha ocurrido un error al iniciar el tiempo.');
@@ -145,7 +145,7 @@ export class TimesControlProgressComponent {
         next: (result: ResultResponse) => {
           if (result.succeeded && this.currentTimeControl !== undefined) {
             this.userTimeControlStateService.refresh();
-            this.loadTimesControlRange();
+            this.loadTimesControl();
             this.toastrService.success('Tiempo finalizado con éxito.');
           } else {
             this.toastrService.error('Ha ocurrido un error al iniciar el tiempo.');
@@ -166,13 +166,13 @@ export class TimesControlProgressComponent {
     this.bsModalRef = this.bsModalService.show(TimeControlIncidenceCreateComponent, initialState);
     this.bsModalRef.content?.hasSubmit.subscribe({
       next: () => {
-        this.loadTimesControlRange();
+        this.loadTimesControl();
       }
     });
   }
 
   /** Obtener lista de tiempos en el mes/año seleccionado. */
-  private loadTimesControlRange(): void {
+  private loadTimesControl(): void {
     this.loadingTimeControls = true;
     this.progressStackedCollection = [];
 
