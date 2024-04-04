@@ -14,7 +14,8 @@
           Horas de trabajo: <span class="text-success">{{ workingHoursYear }}</span>
         </span>
       </div>
-      <aw-year-selector />
+
+      <aw-year-selector (changeYearSelected)="handleChangeYearSelected($event)" />
     </div>
   </aw-card>
 

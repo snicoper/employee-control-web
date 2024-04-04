@@ -17,7 +17,7 @@ export class YearSelectorComponent {
 
   @Input() dateSelected = new Date();
 
-  @Output() changeMonthSelected = new EventEmitter<Date>();
+  @Output() changeYearSelected = new EventEmitter<Date>();
 
   bsConfig: Partial<BsDatepickerConfig>;
 
@@ -50,6 +50,6 @@ export class YearSelectorComponent {
   }
 
   handleChange(date: Date): void {
-    this.changeMonthSelected.emit(date);
+    this.changeYearSelected.emit(date);
   }
 }

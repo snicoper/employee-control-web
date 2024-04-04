@@ -59,6 +59,7 @@ export class CompanyHolidaysManageComponent {
   workingHoursYear = 0;
 
   constructor() {
+    this.date = DateTime.local();
     this.initialize();
   }
 
@@ -69,6 +70,11 @@ export class CompanyHolidaysManageComponent {
     } else {
       this.calendarDayModalCreate(calendarDay);
     }
+  }
+
+  handleChangeYearSelected(date: Date): void {
+    this.date = DateTime.fromJSDate(date);
+    this.initialize();
   }
 
   private calendarDayModalCreate(calendarDay: CalendarDay): void {
@@ -210,7 +216,6 @@ export class CompanyHolidaysManageComponent {
   /** Inicializa valores predeterminados e inicia el proceso de calculo. */
   private initialize(): void {
     this.loading = true;
-    this.date = DateTime.local();
     this.workingHoursYear = 0;
     this.workingDaysInWeek = 7;
     this.workingDaysInYear = DateUtils.daysInYear(this.date.year);
