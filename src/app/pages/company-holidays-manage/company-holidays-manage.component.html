@@ -2,11 +2,19 @@
   <aw-page-header>Días festivos</aw-page-header>
 
   <aw-card>
-    <div>
-      <aw-dot [color]="calendarColors.today">&nbsp;</aw-dot> Día actual
-      <aw-dot [color]="calendarColors.notWorkingDay">&nbsp;</aw-dot> Día no laborable
-      <aw-dot [color]="calendarColors.holiday">&nbsp;</aw-dot> Día festivo
-      <span class="ms-3">Horas de trabajo anual: {{ workingHoursYear }}</span>
+    <div class="d-flex">
+      <div class="me-auto">
+        <aw-dot [color]="calendarColors.today">&nbsp;</aw-dot> Día actual
+        <aw-dot [color]="calendarColors.notWorkingDay">&nbsp;</aw-dot> Día no laborable
+        <aw-dot [color]="calendarColors.holiday">&nbsp;</aw-dot> Día festivo
+        <span class="ms-3">
+          <span awTooltip title="Tiempos de vacaciones de empleados no calculados">
+            <span class="fa-solid fa-circle-info small text-info"></span>
+          </span>
+          Horas de trabajo: <span class="text-success">{{ workingHoursYear }}</span>
+        </span>
+      </div>
+      <aw-year-selector />
     </div>
   </aw-card>
 

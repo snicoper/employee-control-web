@@ -6,12 +6,12 @@ import { LocalizationUtils } from '../../../core/features/localizations/localiza
 import { LocalizationService } from '../../../core/features/localizations/localization.service';
 
 @Component({
-  selector: 'aw-month-selector',
-  templateUrl: './month-selector.component.html',
+  selector: 'aw-year-selector',
+  templateUrl: './year-selector.component.html',
   standalone: true,
   imports: [BsDatepickerModule, FormsModule]
 })
-export class MonthSelectorComponent {
+export class YearSelectorComponent {
   private readonly bsLocaleService = inject(BsLocaleService);
   private readonly localizationService = inject(LocalizationService);
 
@@ -26,14 +26,14 @@ export class MonthSelectorComponent {
     const localeNgxBootstrap = LocalizationUtils.mapLocaleToNgxBootstrap(this.localizationService.getLocaleValue());
     this.bsLocaleService.use(localeNgxBootstrap);
 
-    const minMode: BsDatepickerViewMode = 'month';
+    const minMode: BsDatepickerViewMode = 'year';
 
     // Default BsDatepickerConfig.
     this.bsConfig = {
       containerClass: 'theme-default',
-      dateInputFormat: 'MMMM YYYY',
+      dateInputFormat: 'YYYY',
       showTodayButton: true,
-      todayButtonLabel: 'Mes actual',
+      todayButtonLabel: 'Año actual',
       adaptivePosition: true,
       minMode: minMode
     };
@@ -46,7 +46,7 @@ export class MonthSelectorComponent {
       container._store.dispatch(container._actions.select(event.date));
     };
 
-    container.setViewMode('month');
+    container.setViewMode('year');
   }
 
   handleChange(date: Date): void {
