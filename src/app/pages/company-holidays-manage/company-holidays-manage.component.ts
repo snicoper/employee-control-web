@@ -12,9 +12,11 @@ import { CalendarColors } from '../../core/types/calendar-colors';
 import { WeekDays } from '../../core/types/week-days';
 import { ApiUrls } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
+import { DateUtils } from '../../core/utils/date-utils';
 import { DatetimeUtils } from '../../core/utils/datetime-utils';
 import { CompanyHoliday } from '../../models/entities/company-holiday.model';
 import { CompanyHolidaysApiService } from '../../services/api/company-holidays-api.service';
+import { CompanySettingsStateService } from '../../services/states/company-settings-state.service';
 import { WorkingDaysWeekStateService } from '../../services/states/working-days-week-state.service';
 import { CompanyHolidayManageCreateComponent } from './company-holiday-manage-create/company-holiday-manage-create.component';
 
@@ -36,16 +38,24 @@ export class CompanyHolidaysManageComponent {
   private readonly bsModalService = inject(BsModalService);
   private readonly workingDaysWeekStateService = inject(WorkingDaysWeekStateService);
   private readonly companyHolidaysApiService = inject(CompanyHolidaysApiService);
+  private readonly companySettingsStateService = inject(CompanySettingsStateService);
 
   private bsModalRef?: BsModalRef;
-  date: DateTime;
 
+  /** Días de trabajo en el año seleccionado. */
+  private workingDaysInYear: number;
+  /** Días de la semana no laborables. */
+  private workingDaysInWeek = 7;
+
+  date: DateTime;
   calendarDayEvents: CalendarDay[] = [];
   calendarColors = CalendarColors;
   loading = true;
+  workingHoursYear = 0;
 
   constructor() {
     this.date = DateTime.local();
+    this.workingDaysInYear = DateUtils.daysInYear(this.date.year);
     this.getNonWorkingDays();
   }
 
@@ -83,36 +93,50 @@ export class CompanyHolidaysManageComponent {
 
     if (!workingDaysWeek?.monday) {
       const monday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.monday);
+      this.workingDaysInYear -= monday.length;
+      this.workingDaysInWeek -= 1;
       daysResult.push(...monday);
     }
 
     if (!workingDaysWeek?.tuesday) {
       const tuesday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.tuesday);
+      this.workingDaysInYear -= tuesday.length;
+      this.workingDaysInWeek -= 1;
       daysResult.push(...tuesday);
     }
 
     if (!workingDaysWeek?.wednesday) {
       const wednesday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.wednesday);
+      this.workingDaysInYear -= wednesday.length;
+      this.workingDaysInWeek -= 1;
       daysResult.push(...wednesday);
     }
 
     if (!workingDaysWeek?.thursday) {
       const thursday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.thursday);
+      this.workingDaysInYear -= thursday.length;
+      this.workingDaysInWeek -= 1;
       daysResult.push(...thursday);
     }
 
     if (!workingDaysWeek?.friday) {
       const friday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.friday);
+      this.workingDaysInYear -= friday.length;
+      this.workingDaysInWeek -= 1;
       daysResult.push(...friday);
     }
 
     if (!workingDaysWeek?.saturday) {
       const saturday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.saturday);
+      this.workingDaysInYear -= saturday.length;
+      this.workingDaysInWeek -= 1;
       daysResult.push(...saturday);
     }
 
     if (!workingDaysWeek?.sunday) {
       const sunday = DatetimeUtils.weekDaysFromYear(this.date, WeekDays.sunday);
+      this.workingDaysInYear -= sunday.length;
+      this.workingDaysInWeek -= 1;
       daysResult.push(...sunday);
     }
 
@@ -141,6 +165,7 @@ export class CompanyHolidaysManageComponent {
 
     this.companyHolidaysApiService.get<CompanyHoliday[]>(url).subscribe({
       next: (result: CompanyHoliday[]) => {
+        this.workingDaysInYear -= result.length;
         this.parseCompanyHolidays(result);
       }
     });
@@ -148,7 +173,7 @@ export class CompanyHolidaysManageComponent {
 
   private parseCompanyHolidays(companyHolidays: CompanyHoliday[]): void {
     companyHolidays.forEach((ch) => {
-      const date = DateTime.fromJSDate(new Date(ch.date));
+      const date = DateTime.fromISO(String(ch.date));
 
       const calendarDayEvent = {
         companyHolidayId: ch.id,
@@ -164,6 +189,19 @@ export class CompanyHolidaysManageComponent {
 
       this.calendarDayEvents.push(calendarDayEvent);
     });
+
+    this.calculateWorkingHoursYear();
+  }
+
+  private calculateWorkingHoursYear(): void {
+    const dayHours =
+      (this.companySettingsStateService.companySettings()?.weeklyWorkingHours as number) / this.workingDaysInWeek;
+
+    this.workingHoursYear = dayHours * this.workingDaysInYear;
+    this.workingDaysInYear = Math.abs(this.workingDaysInYear);
+
+    // TODO: Falta calcular los días de vacaciones (¿22|23 días * 8 horas?).
+    // this.workingHoursYear -= 8 * 22;
 
     this.loading = false;
   }

@@ -71,9 +71,7 @@ export class MonthCalendarComponent implements OnInit {
     // Bucle para agregar las eventos del mes actual.
     for (let i = 1; i <= lastDate; i++) {
       const date = DateTime.local(this.date.year, this.date.month, i);
-      const event = this.calendarDayEvents.find(
-        (d) => d.date?.startOf('day').valueOf() === date.startOf('day').valueOf()
-      );
+      const event = this.calendarDayEvents.find((d) => d.date?.valueOf() === date.startOf('day').valueOf());
 
       if (event) {
         this.calendarDays.push(event);
