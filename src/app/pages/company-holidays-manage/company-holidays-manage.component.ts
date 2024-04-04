@@ -19,6 +19,7 @@ import { CompanyHolidaysApiService } from '../../services/api/company-holidays-a
 import { CompanySettingsStateService } from '../../services/states/company-settings-state.service';
 import { WorkingDaysWeekStateService } from '../../services/states/working-days-week-state.service';
 import { CompanyHolidayManageCreateComponent } from './company-holiday-manage-create/company-holiday-manage-create.component';
+import { CompanyHolidayManageUpdateComponent } from './company-holiday-manage-update/company-holiday-manage-update.component';
 
 @Component({
   selector: 'aw-company-holidays-manage',
@@ -43,32 +44,30 @@ export class CompanyHolidaysManageComponent {
   private bsModalRef?: BsModalRef;
 
   /** Días de trabajo en el año seleccionado. */
-  private workingDaysInYear: number;
+  private workingDaysInYear!: number;
   /** Días de la semana no laborables. */
-  private workingDaysInWeek = 7;
+  private workingDaysInWeek!: number;
 
-  date: DateTime;
+  date!: DateTime;
   calendarDayEvents: CalendarDay[] = [];
   calendarColors = CalendarColors;
-  loading = true;
+  loading!: boolean;
   workingHoursYear = 0;
 
   constructor() {
-    this.date = DateTime.local();
-    this.workingDaysInYear = DateUtils.daysInYear(this.date.year);
-    this.getNonWorkingDays();
+    this.initialize();
   }
 
   handleCalendarDayClick(calendarDay: CalendarDay): void {
     // Si tiene valor companyHolidayId, es edición.
     if (calendarDay.companyHolidayId) {
-      // Nothing.
+      this.calendarDayModalUpdate(calendarDay);
     } else {
       this.calendarDayModalCreate(calendarDay);
     }
   }
 
-  calendarDayModalCreate(calendarDay: CalendarDay): void {
+  private calendarDayModalCreate(calendarDay: CalendarDay): void {
     const initialState: ModalOptions = {
       initialState: {
         id: calendarDay.companyHolidayId,
@@ -79,15 +78,30 @@ export class CompanyHolidaysManageComponent {
     this.bsModalRef = this.bsModalService.show(CompanyHolidayManageCreateComponent, initialState);
     this.bsModalRef.content?.hasSubmit.subscribe({
       next: () => {
-        this.getNonWorkingDays();
+        this.initialize();
+      }
+    });
+  }
+
+  private calendarDayModalUpdate(calendarDay: CalendarDay): void {
+    const initialState: ModalOptions = {
+      initialState: {
+        companyHolidayId: calendarDay.companyHolidayId,
+        date: calendarDay.date,
+        description: calendarDay.description
+      }
+    };
+
+    this.bsModalRef = this.bsModalService.show(CompanyHolidayManageUpdateComponent, initialState);
+    this.bsModalRef.content?.hasSubmit.subscribe({
+      next: () => {
+        this.initialize();
       }
     });
   }
 
   /** Obtener días no laborables de la empresa de año actual. */
   private getNonWorkingDays(): void {
-    this.loading = true;
-
     const workingDaysWeek = this.workingDaysWeekStateService.get();
     const daysResult: DateTime[] = [];
 
@@ -194,15 +208,22 @@ export class CompanyHolidaysManageComponent {
   }
 
   private calculateWorkingHoursYear(): void {
-    const dayHours =
+    const dailyHours =
       (this.companySettingsStateService.companySettings()?.weeklyWorkingHours as number) / this.workingDaysInWeek;
 
-    this.workingHoursYear = dayHours * this.workingDaysInYear;
-    this.workingDaysInYear = Math.abs(this.workingDaysInYear);
-
-    // TODO: Falta calcular los días de vacaciones (¿22|23 días * 8 horas?).
-    // this.workingHoursYear -= 8 * 22;
-
+    this.workingHoursYear = Math.abs(Math.round(dailyHours * this.workingDaysInYear));
     this.loading = false;
+  }
+
+  /** Inicializa valores predeterminados e inicia el proceso de calculo. */
+  private initialize(): void {
+    this.loading = true;
+    this.date = DateTime.local();
+    this.workingHoursYear = 0;
+    this.workingDaysInWeek = 7;
+    this.workingDaysInYear = DateUtils.daysInYear(this.date.year);
+    this.calendarDayEvents = [];
+
+    this.getNonWorkingDays();
   }
 }

@@ -19,7 +19,9 @@ export const ApiUrls = {
 
   companyHolidays: {
     getCompanyHolidaysByYear: '/company-holidays/year/{year}',
-    createCompanyHoliday: '/company-holidays'
+    createCompanyHoliday: '/company-holidays',
+    updateCompanyHoliday: '/company-holidays/{id}',
+    deleteCompanyHoliday: '/company-holidays/{id}'
   },
 
   categoryAbsences: {

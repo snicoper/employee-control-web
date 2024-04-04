@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DateTime } from 'luxon';
 import { BsModalRef } from 'ngx-bootstrap/modal';
@@ -10,15 +10,15 @@ import { NonFieldErrorsComponent } from '../../../components/forms/errors/non-fi
 import { FormDatepickerComponent } from '../../../components/forms/inputs/form-datepicker/form-datepicker.component';
 import { FormInputComponent } from '../../../components/forms/inputs/form-input/form-input.component';
 import { ApiUrls } from '../../../core/urls/api-urls';
+import { CommonUtils } from '../../../core/utils/common-utils';
 import { DateUtils } from '../../../core/utils/date-utils';
-import { DatetimeUtils } from '../../../core/utils/datetime-utils';
 import { BadRequest } from '../../../models/bad-request';
+import { ResultResponse } from '../../../models/result-response.model';
 import { CompanyHolidaysApiService } from '../../../services/api/company-holidays-api.service';
-import { JwtService } from '../../../services/jwt.service';
-import { CompanyHolidayManageCreateRequest } from './company-holiday-manage-create.request';
+import { CompanyHolidayManageUpdateRequest } from './company-holiday-manage-update.request';
 
 @Component({
-  selector: 'aw-company-holiday-manage-create',
+  selector: 'aw-company-holiday-manage-update',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -28,21 +28,24 @@ import { CompanyHolidayManageCreateRequest } from './company-holiday-manage-crea
     FormDatepickerComponent,
     BtnLoadingComponent
   ],
-  templateUrl: './company-holiday-manage-create.component.html'
+  templateUrl: './company-holiday-manage-update.component.html'
 })
-export class CompanyHolidayManageCreateComponent implements OnInit {
-  @Input({ required: true }) companyHolidayId!: string;
-  @Input({ required: true }) date!: DateTime;
-  @Output() hasSubmit = new EventEmitter<void>();
-  badRequest: BadRequest | undefined;
-  submitted = false;
-  loading = false;
+export class CompanyHolidayManageUpdateComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
-  form: FormGroup = this.formBuilder.group({});
   private readonly bsModalRef = inject(BsModalRef);
   private readonly toastrService = inject(ToastrService);
   private readonly companyHolidaysApiService = inject(CompanyHolidaysApiService);
-  private readonly jwtService = inject(JwtService);
+
+  @Input({ required: true }) companyHolidayId!: string;
+  @Input({ required: true }) date!: DateTime;
+  @Input({ required: true }) description!: string;
+
+  @Output() hasSubmit = new EventEmitter<void>();
+
+  form: FormGroup = this.formBuilder.group({});
+  badRequest: BadRequest | undefined;
+  submitted = false;
+  loading = false;
 
   ngOnInit(): void {
     this.buildForm();
@@ -61,28 +64,45 @@ export class CompanyHolidayManageCreateComponent implements OnInit {
 
     this.loading = true;
 
-    const companyHolidayManageCreateRequest = this.form.value as CompanyHolidayManageCreateRequest;
-    companyHolidayManageCreateRequest.companyId = this.jwtService.getCompanyId();
-    companyHolidayManageCreateRequest.date = DatetimeUtils.dateOnly(this.date);
+    const companyHolidayManageUpdateRequest = this.form.value as CompanyHolidayManageUpdateRequest;
+    companyHolidayManageUpdateRequest.id = this.companyHolidayId;
 
-    this.createCompanyHoliday(companyHolidayManageCreateRequest);
+    this.updateCompanyHoliday(companyHolidayManageUpdateRequest);
+  }
+
+  handleDelete(): void {
+    const url = CommonUtils.urlReplaceParams(ApiUrls.companyHolidays.updateCompanyHoliday, {
+      id: this.companyHolidayId
+    });
+
+    this.companyHolidaysApiService.delete<ResultResponse>(url).subscribe({
+      next: () => {
+        this.toastrService.success('Día festivo eliminado con éxito.');
+        this.hasSubmit.emit();
+        this.bsModalRef.hide();
+      }
+    });
   }
 
   private buildForm(): void {
     this.form = this.formBuilder.group({
       date: [{ value: DateUtils.incrementOffset(this.date.startOf('day').toJSDate()), disabled: true }],
-      description: ['', [Validators.required, Validators.max(50)]]
+      description: [this.description, [Validators.required, Validators.max(50)]]
     });
   }
 
-  private createCompanyHoliday(companyHoliday: CompanyHolidayManageCreateRequest): void {
+  private updateCompanyHoliday(companyHoliday: CompanyHolidayManageUpdateRequest): void {
+    const url = CommonUtils.urlReplaceParams(ApiUrls.companyHolidays.updateCompanyHoliday, {
+      id: this.companyHolidayId
+    });
+
     this.companyHolidaysApiService
-      .post<CompanyHolidayManageCreateRequest, string>(companyHoliday, ApiUrls.companyHolidays.createCompanyHoliday)
+      .put<CompanyHolidayManageUpdateRequest, string>(companyHoliday, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (result: string) => {
           if (result) {
-            this.toastrService.success('Día festivo creado con éxito.');
+            this.toastrService.success('Día festivo actualizado con éxito.');
             this.hasSubmit.emit();
             this.bsModalRef.hide();
           }
