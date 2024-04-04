@@ -1,6 +1,7 @@
 import { NgClass, NgStyle } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DateTime, Info } from 'luxon';
+import { CalendarColors } from '../../../core/types/calendar-colors';
 import { TooltipDirective } from '../../../directives/tooltip.directive';
 import { CardComponent } from '../../cards/card/card.component';
 import { SpinnerComponent } from '../../spinner/spinner.component';
@@ -78,7 +79,8 @@ export class MonthCalendarComponent implements OnInit {
       }
 
       const isToday = date.startOf('day').valueOf() === today.valueOf();
-      const backgroundToday = isToday ? '#6332c5' : '';
+      const backgroundToday = isToday ? CalendarColors.today : '';
+      const color = isToday ? '#ffffff' : '';
 
       this.calendarDays.push({
         date: date,
@@ -86,6 +88,7 @@ export class MonthCalendarComponent implements OnInit {
         isToday: isToday,
         inactive: false,
         background: backgroundToday,
+        color: color,
         canAddEvent: true
       });
     }
