@@ -35,7 +35,9 @@ export abstract class DatetimeUtils {
    * @returns Un string con la hora pasada en UTC.
    */
   static toISOString(dateTime: DateTime): string {
-    return dateTime.toUTC().toString();
+    const result = dateTime.toUTC().toString();
+
+    return result;
   }
 
   static weekDaysFromYear(date: DateTime, weekDay: WeekDays): DateTime[] {
@@ -63,6 +65,8 @@ export abstract class DatetimeUtils {
    * @param date Fecha y hora a obtener solo el Date.
    */
   static dateOnly(date: DateTime | null): string {
-    return date?.toFormat('yyyy-LL-dd') ?? '';
+    const result = date?.toFormat('yyyy-LL-dd') ?? '';
+
+    return result;
   }
 }

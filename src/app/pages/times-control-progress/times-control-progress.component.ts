@@ -176,14 +176,13 @@ export class TimesControlProgressComponent {
     this.loadingTimeControls = true;
     this.progressStackedCollection = [];
 
-    const dateSelected = DateTime.fromJSDate(this.dateSelected);
-    const startDate = dateSelected.startOf('month');
-    const endDate = dateSelected.endOf('month');
+    const startDate = DatetimeUtils.toISOString(DateTime.fromJSDate(this.dateSelected).startOf('month'));
+    const endDate = DatetimeUtils.toISOString(DateTime.fromJSDate(this.dateSelected).endOf('month'));
 
     const url = CommonUtils.urlReplaceParams(ApiUrls.timeControl.getTimeControlRangeByEmployeeId, {
       employeeId: this.jwtService.getSid(),
-      from: DatetimeUtils.toISOString(startDate),
-      to: DatetimeUtils.toISOString(endDate)
+      from: startDate,
+      to: endDate
     });
 
     this.timeControlApiService.get<TimeControlGroupResponse[]>(url).subscribe({

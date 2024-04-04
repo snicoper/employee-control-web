@@ -118,14 +118,14 @@ export class TimeControlRecordListComponent {
     this.filterOpenTimesValue = !this.filterOpenTimesValue;
     this.filterIncidences = false;
 
-    this.loadTimeControlRecords();
+    this.loadTimesControl();
   }
 
   handleFilterIncidencesChange(): void {
     this.filterIncidences = !this.filterIncidences;
     this.filterOpenTimesValue = false;
 
-    this.loadTimeControlRecords();
+    this.loadTimesControl();
   }
 
   handleTimeControlUpdate(timeControl: TimeControlRecordResponse): void {
@@ -134,7 +134,7 @@ export class TimeControlRecordListComponent {
   }
 
   handleReloadData(): void {
-    this.loadTimeControlRecords();
+    this.loadTimesControl();
   }
 
   handleDetailsTimeControl(timeControl: TimeControlRecordResponse): void {
@@ -153,7 +153,7 @@ export class TimeControlRecordListComponent {
       .subscribe({
         next: (result: ResultResponse) => {
           if (result.succeeded) {
-            this.loadTimeControlRecords();
+            this.loadTimesControl();
             this.toastrService.success('Tiempo finalizado con éxito.');
           } else {
             this.toastrService.error('Ha ocurrido un error al iniciar el tiempo.');
@@ -169,7 +169,7 @@ export class TimeControlRecordListComponent {
     this.timeControlApiService.delete<ResultResponse>(url).subscribe({
       next: (result: ResultResponse) => {
         if (result.succeeded) {
-          this.loadTimeControlRecords();
+          this.loadTimesControl();
           this.toastrService.success('Tiempo eliminado con éxito.');
         } else {
           this.toastrService.error('Ha ocurrido un error al eliminar el tiempo.');
@@ -192,13 +192,13 @@ export class TimeControlRecordListComponent {
       this.from = value[0] as Date;
       this.to = value[1] as Date;
 
-      this.loadTimeControlRecords();
+      this.loadTimesControl();
     }
   }
 
   handleState(): void {
     this.filterStateDateRange = !this.filterStateDateRange;
-    this.loadTimeControlRecords();
+    this.loadTimesControl();
   }
 
   handleNavigateEmployeeDetails(timeControl: TimeControlRecordResponse): void {
@@ -215,15 +215,15 @@ export class TimeControlRecordListComponent {
   }
 
   /** La primera carga la hace el emit de date-range-selector al setear datos. */
-  private loadTimeControlRecords(): void {
+  private loadTimesControl(): void {
     this.loading = false;
+    const startDate = DatetimeUtils.toISOString(DateTime.fromJSDate(this.from).startOf('day'));
+    const endDate = DatetimeUtils.toISOString(DateTime.fromJSDate(this.to).endOf('day'));
 
     // Filtro date range, requiere 'null' en caso de estar desactivado.
     const url = CommonUtils.urlReplaceParams(ApiUrls.timeControl.getTimesControlByRangePaginated, {
-      from: this.filterStateDateRange
-        ? DatetimeUtils.toISOString(DateTime.fromJSDate(this.from).startOf('day'))
-        : 'null',
-      to: this.filterStateDateRange ? DatetimeUtils.toISOString(DateTime.fromJSDate(this.to).endOf('day')) : 'null'
+      from: this.filterStateDateRange ? startDate : String(null),
+      to: this.filterStateDateRange ? endDate : String(null)
     });
 
     // Filtros.
