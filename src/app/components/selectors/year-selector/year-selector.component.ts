@@ -16,6 +16,7 @@ export class YearSelectorComponent {
   private readonly localizationService = inject(LocalizationService);
 
   @Input() dateSelected = new Date();
+  @Input() readOnly = false;
 
   @Output() changeYearSelected = new EventEmitter<Date>();
 

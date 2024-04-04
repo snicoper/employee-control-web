@@ -16,6 +16,7 @@ export class MonthSelectorComponent {
   private readonly localizationService = inject(LocalizationService);
 
   @Input() dateSelected = new Date();
+  @Input() readOnly = false;
 
   @Output() changeMonthSelected = new EventEmitter<Date>();
 

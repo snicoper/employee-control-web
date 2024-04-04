@@ -49,7 +49,7 @@ export class CompanyHolidaysManageComponent {
 
   /** Días de trabajo en el año seleccionado. */
   private workingDaysInYear!: number;
-  /** Días de la semana no laborables. */
+  /** Días de la semana laborables. */
   private workingDaysInWeek!: number;
 
   date!: DateTime;
@@ -111,7 +111,7 @@ export class CompanyHolidaysManageComponent {
   }
 
   /** Obtener días no laborables de la empresa de año actual. */
-  private getNonWorkingDays(): void {
+  private parseNonWorkingDays(): void {
     const nonWorkingDaysWeek = this.workingDaysWeekStateService.get();
     const nonWorkingDaysWeekResult: DateTime[] = [];
 
@@ -221,6 +221,6 @@ export class CompanyHolidaysManageComponent {
     this.workingDaysInYear = DateUtils.daysInYear(this.date.year);
     this.calendarDayEvents = [];
 
-    this.getNonWorkingDays();
+    this.parseNonWorkingDays();
   }
 }
