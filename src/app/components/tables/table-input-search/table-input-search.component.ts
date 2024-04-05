@@ -32,8 +32,8 @@ export class TableInputSearchComponent<T> {
 
     this.tableHeaderConfig.headers.forEach((element: TableHeaderField) => {
       if (element.filterable) {
-        const logicalOperator = this.apiResult.filters.length === 0 ? LogicalOperators.none : LogicalOperators.or;
-        this.apiResult.addFilter(element.field, RelationalOperators.contains, this.term, logicalOperator);
+        const logicalOperator = this.apiResult.filters.length === 0 ? LogicalOperators.None : LogicalOperators.Or;
+        this.apiResult.addFilter(element.field, RelationalOperators.Contains, this.term, logicalOperator);
       }
     });
 

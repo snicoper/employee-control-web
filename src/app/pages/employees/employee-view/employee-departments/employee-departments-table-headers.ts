@@ -6,14 +6,14 @@ export const employeeDepartmentsTableHeaders: TableHeaderField[] = [
     field: 'name',
     text: 'Nombre',
     sortable: true,
-    orderType: OrderTypes.none,
+    orderType: OrderTypes.None,
     filterable: true
   },
   {
     field: 'active',
     text: 'Activo',
     sortable: true,
-    orderType: OrderTypes.none,
+    orderType: OrderTypes.None,
     filterable: false
   }
 ];

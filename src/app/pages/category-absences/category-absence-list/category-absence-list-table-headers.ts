@@ -6,35 +6,35 @@ export const categoryAbsenceListTableHeader: TableHeaderField[] = [
     field: 'description',
     text: 'Descripción',
     sortable: true,
-    orderType: OrderTypes.none,
+    orderType: OrderTypes.None,
     filterable: true
   },
   {
     field: 'active',
     text: 'Activa',
     sortable: true,
-    orderType: OrderTypes.none,
+    orderType: OrderTypes.None,
     filterable: false
   },
   {
     field: 'background',
     text: 'Fondo',
     sortable: false,
-    orderType: OrderTypes.none,
+    orderType: OrderTypes.None,
     filterable: false
   },
   {
     field: 'color',
     text: 'Texto',
     sortable: false,
-    orderType: OrderTypes.none,
+    orderType: OrderTypes.None,
     filterable: false
   },
   {
     field: '',
     text: '',
     sortable: false,
-    orderType: OrderTypes.none,
+    orderType: OrderTypes.None,
     filterable: false
   }
 ];

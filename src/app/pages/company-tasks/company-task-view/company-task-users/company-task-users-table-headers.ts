@@ -6,21 +6,21 @@ export const companyTaskUsersTableHeaders: TableHeaderField[] = [
     field: 'firstName',
     text: 'Nombre',
     sortable: true,
-    orderType: OrderTypes.none,
+    orderType: OrderTypes.None,
     filterable: true
   },
   {
     field: 'lastName',
     text: 'Apellidos',
     sortable: true,
-    orderType: OrderTypes.none,
+    orderType: OrderTypes.None,
     filterable: true
   },
   {
     field: 'email',
     text: 'Email',
     sortable: true,
-    orderType: OrderTypes.none,
+    orderType: OrderTypes.None,
     filterable: true
   }
 ];

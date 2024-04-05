@@ -11,7 +11,7 @@ export class ApiResultItemFilter {
     propertyName: string,
     operator: RelationalOperators,
     value: string,
-    logicalOperator = LogicalOperators.none
+    logicalOperator = LogicalOperators.None
   ) {
     this.propertyName = propertyName;
     this.relationalOperator = operator;

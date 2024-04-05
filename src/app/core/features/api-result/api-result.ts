@@ -59,7 +59,7 @@ export class ApiResult<T> {
    * @param concat Tipo de concatenación.
    * @returns ApiResult<T>.
    */
-  addFilter(propertyName: string, operator: RelationalOperators, value: string, concat = LogicalOperators.none): this {
+  addFilter(propertyName: string, operator: RelationalOperators, value: string, concat = LogicalOperators.None): this {
     const filter = new ApiResultItemFilter(propertyName, operator, value, concat);
     this.filters.push(filter);
 
@@ -124,7 +124,7 @@ export class ApiResult<T> {
    * @returns ApiResult<T>.
    */
   addOrder(propertyName: string, orderType: OrderTypes, precedence: number): this {
-    if (orderType !== OrderTypes.none) {
+    if (orderType !== OrderTypes.None) {
       const order = new ApiResultItemOrderBy(propertyName, orderType, precedence);
       this.orders.unshift(order);
     }

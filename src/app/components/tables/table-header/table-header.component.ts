@@ -26,14 +26,14 @@ export class TableHeaderComponent<T> {
     this.removeOrderItemIfExists(header);
 
     switch (header.orderType) {
-      case OrderTypes.none:
-        header.orderType = OrderTypes.ascending;
+      case OrderTypes.None:
+        header.orderType = OrderTypes.Ascending;
         break;
-      case OrderTypes.ascending:
-        header.orderType = OrderTypes.descending;
+      case OrderTypes.Ascending:
+        header.orderType = OrderTypes.Descending;
         break;
       default:
-        header.orderType = OrderTypes.none;
+        header.orderType = OrderTypes.None;
     }
 
     this.updateOrderItem(header);

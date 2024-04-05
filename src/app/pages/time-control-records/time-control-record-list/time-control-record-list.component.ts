@@ -86,7 +86,7 @@ export class TimeControlRecordListComponent {
   filterStateDateRange = true;
 
   constructor() {
-    this.apiResult.addOrder('start', OrderTypes.ascending, 1);
+    this.apiResult.addOrder('start', OrderTypes.Ascending, 1);
 
     this.configureTableHeaders();
     this.setBreadcrumb();
@@ -247,18 +247,18 @@ export class TimeControlRecordListComponent {
     if (this.filterOpenTimesValue) {
       this.apiResult.addFilter(
         'timeState',
-        RelationalOperators.equalTo,
+        RelationalOperators.EqualTo,
         TimeState.Open.toString(),
-        this.apiResult.filters.length === 0 ? LogicalOperators.none : LogicalOperators.and
+        this.apiResult.filters.length === 0 ? LogicalOperators.None : LogicalOperators.And
       );
     }
 
     if (this.filterIncidences) {
       this.apiResult.addFilter(
         'incidence',
-        RelationalOperators.equalTo,
+        RelationalOperators.EqualTo,
         this.filterIncidences ? 'true' : 'false',
-        this.apiResult.filters.length === 0 ? LogicalOperators.none : LogicalOperators.and
+        this.apiResult.filters.length === 0 ? LogicalOperators.None : LogicalOperators.And
       );
     }
   }
