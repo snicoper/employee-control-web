@@ -8,7 +8,7 @@ export const sidebarMenu: SidebarMenu[] = [
     icon: 'fas fa-user-shield',
     active: false,
     type: SidebarMenuTypes.dropdown,
-    requiredRole: Roles.enterpriseAdmin,
+    requiredRole: Roles.Admin,
     submenus: [
       {
         title: 'Panel',
@@ -28,7 +28,7 @@ export const sidebarMenu: SidebarMenu[] = [
         title: 'Configuración',
         link: SiteUrls.companySettings.details,
         active: false,
-        requiredRole: Roles.enterpriseStaff
+        requiredRole: Roles.Staff
       },
       {
         title: 'Empleados',
@@ -49,19 +49,19 @@ export const sidebarMenu: SidebarMenu[] = [
         title: 'Ausencias',
         link: SiteUrls.categoryAbsences.list,
         active: false,
-        requiredRole: Roles.humanResources
+        requiredRole: Roles.HumanResources
       },
       {
         title: 'Registro de tiempos',
         link: SiteUrls.timeControlRecords.list,
         active: false,
-        requiredRole: Roles.humanResources
+        requiredRole: Roles.HumanResources
       },
       {
         title: 'Días festivos',
         link: SiteUrls.companyHolidaysManage.manage,
         active: false,
-        requiredRole: Roles.humanResources
+        requiredRole: Roles.HumanResources
       }
     ]
   },

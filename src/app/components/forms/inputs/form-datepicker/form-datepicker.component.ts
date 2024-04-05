@@ -35,7 +35,7 @@ export class FormDatepickerComponent {
   @Input({ required: true }) fieldName = '';
   @Input() bsConfig: Partial<BsDatepickerConfig>;
   @Input() id: string;
-  @Input() inputType = FormInputTypes.text;
+  @Input() inputType = FormInputTypes.Text;
   @Input() label = '';
   @Input() extraCss = '';
   @Input() placeholder = '';

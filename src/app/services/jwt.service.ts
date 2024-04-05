@@ -32,8 +32,8 @@ export class JwtService {
   private refreshToken = '';
 
   constructor() {
-    const accessToken = this.localStorageService.get(LocalStorageKeys.accessToken);
-    const refreshToken = this.localStorageService.get(LocalStorageKeys.refreshToken);
+    const accessToken = this.localStorageService.get(LocalStorageKeys.AccessToken);
+    const refreshToken = this.localStorageService.get(LocalStorageKeys.RefreshToken);
 
     this.setTokens(accessToken, refreshToken, false);
   }
@@ -48,8 +48,8 @@ export class JwtService {
     this.refreshToken = refreshToken;
 
     if (storeTokens) {
-      this.localStorageService.set(LocalStorageKeys.accessToken, accessToken);
-      this.localStorageService.set(LocalStorageKeys.refreshToken, refreshToken);
+      this.localStorageService.set(LocalStorageKeys.AccessToken, accessToken);
+      this.localStorageService.set(LocalStorageKeys.RefreshToken, refreshToken);
     }
 
     this.authService.setAuthValue(true);
@@ -148,8 +148,8 @@ export class JwtService {
   }
 
   removeTokens(): void {
-    this.localStorageService.remove(LocalStorageKeys.refreshToken);
-    this.localStorageService.remove(LocalStorageKeys.accessToken);
+    this.localStorageService.remove(LocalStorageKeys.RefreshToken);
+    this.localStorageService.remove(LocalStorageKeys.AccessToken);
     this.refreshToken = '';
     this.accessToken = '';
     this.tokenDecode = {};

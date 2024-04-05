@@ -7,20 +7,20 @@ import { LocalStorageService } from './local-storage.service';
 export class ThemeColorService {
   private readonly localStorageService = inject(LocalStorageService);
 
-  private readonly theme$ = signal(ThemeColors.auto);
+  private readonly theme$ = signal(ThemeColors.Auto);
 
   readonly theme = computed(() => this.theme$());
 
-  private colorStorage = ThemeColors.auto;
+  private colorStorage = ThemeColors.Auto;
 
   initialize(): void {
-    this.colorStorage = (this.localStorageService.get(LocalStorageKeys.theme) as ThemeColors) || ThemeColors.auto;
+    this.colorStorage = (this.localStorageService.get(LocalStorageKeys.Theme) as ThemeColors) || ThemeColors.Auto;
 
-    if (this.colorStorage === ThemeColors.auto) {
+    if (this.colorStorage === ThemeColors.Auto) {
       // Establecer el color del sistema.
       this.colorStorage = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? ThemeColors.dark
-        : ThemeColors.light;
+        ? ThemeColors.Dark
+        : ThemeColors.Light;
     }
 
     this.setTheme(this.colorStorage);
@@ -31,13 +31,13 @@ export class ThemeColorService {
   }
 
   toggle(): void {
-    const theme = this.theme$() === ThemeColors.dark ? ThemeColors.light : ThemeColors.dark;
+    const theme = this.theme$() === ThemeColors.Dark ? ThemeColors.Light : ThemeColors.Dark;
     this.setTheme(theme);
   }
 
   setTheme(theme: ThemeColors): void {
     if (!this.colorStorage || theme !== this.theme$()) {
-      this.localStorageService.set(LocalStorageKeys.theme, theme);
+      this.localStorageService.set(LocalStorageKeys.Theme, theme);
     }
 
     document.documentElement.setAttribute('data-bs-theme', theme);

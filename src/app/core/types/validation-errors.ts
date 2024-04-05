@@ -4,8 +4,8 @@
  */
 export enum ValidationErrors {
   /** Errores del formulario. */
-  nonFieldErrors = 'nonFieldErrors',
+  NonFieldErrors = 'nonFieldErrors',
 
   /** Errores de notificación, abrirá un toast. */
-  notificationErrors = 'notificationErrors'
+  NotificationErrors = 'notificationErrors'
 }

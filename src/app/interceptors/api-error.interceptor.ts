@@ -99,8 +99,8 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   private handleBadRequest(errorResponse: HttpErrorResponse): void {
     const errors = errorResponse.error.errors as BadRequestErrors;
 
-    if (Object.hasOwn(errors, ValidationErrors.notificationErrors)) {
-      errors[ValidationErrors.notificationErrors].forEach((error: string) => {
+    if (Object.hasOwn(errors, ValidationErrors.NotificationErrors)) {
+      errors[ValidationErrors.NotificationErrors].forEach((error: string) => {
         this.toastrService.error(error);
       });
     }

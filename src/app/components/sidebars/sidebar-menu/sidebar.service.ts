@@ -32,10 +32,10 @@ export class SidebarService {
   }
 
   private loadFromLocalStorage(): SidebarMenu[] {
-    return this.localStorageService.getParse<SidebarMenu[]>(LocalStorageKeys.sidebar);
+    return this.localStorageService.getParse<SidebarMenu[]>(LocalStorageKeys.Sidebar);
   }
 
   private saveToLocalStorage(): void {
-    this.localStorageService.setObject<SidebarMenu[]>(LocalStorageKeys.sidebar, this.sidebarMenu);
+    this.localStorageService.setObject<SidebarMenu[]>(LocalStorageKeys.Sidebar, this.sidebarMenu);
   }
 }

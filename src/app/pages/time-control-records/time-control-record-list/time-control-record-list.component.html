@@ -88,7 +88,7 @@
               <td>
                 <span [innerHTML]="timeControl.deviceTypeFinish | deviceType"></span>
 
-                @if (timeControl.timeState === timeState.close) {
+                @if (timeControl.timeState === timeState.Close) {
                   {{ timeControl.finish | datetime }}
                   @if (getFinishOpenStreetMapLink(timeControl)) {
                     <a [href]="getFinishOpenStreetMapLink(timeControl)" target="_blank">
@@ -98,20 +98,20 @@
                 }
               </td>
               <td>
-                @if (timeControl.closedBy === closedBy.staff || timeControl.closedBy === closedBy.system) {
+                @if (timeControl.closedBy === closedBy.Staff || timeControl.closedBy === closedBy.System) {
                   <span class="fa-solid fa-exclamation text-danger"></span>
                 }
 
                 {{ timeControl.closedBy | closedBy }}
               </td>
               <td>
-                @if (timeControl.timeState === timeState.open) {
+                @if (timeControl.timeState === timeState.Open) {
                   <span awTooltip title="Abierto">
                     <aw-dot-success />
                   </span>
                 }
 
-                @if (timeControl.timeState === timeState.close) {
+                @if (timeControl.timeState === timeState.Close) {
                   <span awTooltip title="Cerrado">
                     <aw-dot-danger />
                   </span>
@@ -144,7 +144,7 @@
                     class="fa-solid fa-eye cursor-pointer text-info"
                     title="Detalles"></span>
 
-                  @if (timeControl.timeState === timeState.close) {
+                  @if (timeControl.timeState === timeState.Close) {
                     <span
                       (click)="handleTimeControlUpdate(timeControl)"
                       awTooltip
@@ -158,7 +158,7 @@
                       title="Eliminar"></span>
                   }
 
-                  @if (timeControl.timeState === timeState.open) {
+                  @if (timeControl.timeState === timeState.Open) {
                     <span
                       (click)="handleCloseTimeControl(timeControl)"
                       awTooltip

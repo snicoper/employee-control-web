@@ -1,9 +1,9 @@
 export enum FormInputTypes {
-  text = 'text',
-  integer = 'number',
-  password = 'password',
-  email = 'email',
-  radio = 'radio',
-  checkbox = 'checkbox',
-  color = 'color'
+  Text = 'text',
+  Integer = 'number',
+  Password = 'password',
+  Email = 'email',
+  Radio = 'radio',
+  Checkbox = 'checkbox',
+  Color = 'color'
 }

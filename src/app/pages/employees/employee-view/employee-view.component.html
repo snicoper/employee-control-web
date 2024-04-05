@@ -1,11 +1,11 @@
 <aw-page-base>
   <!-- header -->
   <aw-page-header [breadcrumb]="breadcrumb">
-    @if (employeeTimeControlState()?.timeState === timeStates.open) {
+    @if (employeeTimeControlState()?.timeState === timeStates.Open) {
       <aw-dot-success />
     }
 
-    @if (employeeTimeControlState()?.timeState === timeStates.close) {
+    @if (employeeTimeControlState()?.timeState === timeStates.Close) {
       <aw-dot-danger />
     }
 

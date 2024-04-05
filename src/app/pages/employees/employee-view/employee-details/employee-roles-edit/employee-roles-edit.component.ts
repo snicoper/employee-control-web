@@ -26,8 +26,8 @@ export class EmployeeRolesEditComponent {
 
   readonly employeeSelected = computed(() => this.employeeSelectedService.employeeSelected());
 
-  isEnterpriseAdmin = false;
-  isEnterpriseStaff = false;
+  isAdmin = false;
+  isStaff = false;
   isHumanResources = false;
   isEmployee = false;
 
@@ -39,21 +39,21 @@ export class EmployeeRolesEditComponent {
   }
 
   constructor() {
-    this.isEnterpriseAdmin = this.employeeSelectedService.isInRole(Roles.enterpriseAdmin);
-    this.isEnterpriseStaff = this.employeeSelectedService.isInRole(Roles.enterpriseStaff);
-    this.isHumanResources = this.employeeSelectedService.isInRole(Roles.humanResources);
-    this.isEmployee = this.employeeSelectedService.isInRole(Roles.employee);
+    this.isAdmin = this.employeeSelectedService.isInRole(Roles.Admin);
+    this.isStaff = this.employeeSelectedService.isInRole(Roles.Staff);
+    this.isHumanResources = this.employeeSelectedService.isInRole(Roles.HumanResources);
+    this.isEmployee = this.employeeSelectedService.isInRole(Roles.Employee);
   }
 
   /** Los roles son jerárquicos */
   handChangeValue(roleName: string, value: boolean): void {
     // Si desactiva HumanResources, también desactiva EnterpriseStaff.
-    if (Roles.humanResources === roleName && !value && this.isEnterpriseStaff) {
-      this.isEnterpriseStaff = false;
+    if (Roles.HumanResources === roleName && !value && this.isStaff) {
+      this.isStaff = false;
     }
 
-    // Si activa EnterpriseStaff, también activa HumanResources.
-    if (Roles.enterpriseStaff === roleName && value && !this.isHumanResources) {
+    // Si activa Staff, también activa HumanResources.
+    if (Roles.Staff === roleName && value && !this.isHumanResources) {
       this.isHumanResources = true;
     }
   }
@@ -68,19 +68,19 @@ export class EmployeeRolesEditComponent {
     const url = CommonUtils.urlReplaceParams(ApiUrls.employees.updateEmployeeRoles, { id: employeeId });
     const rolesToAdd: EmployeeRolesRequest = { employeeId: employeeId, rolesToAdd: [] };
 
-    if (this.isEnterpriseAdmin) {
-      rolesToAdd.rolesToAdd.push(Roles.enterpriseAdmin);
+    if (this.isAdmin) {
+      rolesToAdd.rolesToAdd.push(Roles.Admin);
     }
 
-    if (this.isEnterpriseStaff) {
-      rolesToAdd.rolesToAdd.push(Roles.enterpriseStaff);
+    if (this.isStaff) {
+      rolesToAdd.rolesToAdd.push(Roles.Staff);
     }
 
     if (this.isHumanResources) {
-      rolesToAdd.rolesToAdd.push(Roles.humanResources);
+      rolesToAdd.rolesToAdd.push(Roles.HumanResources);
     }
 
-    rolesToAdd.rolesToAdd.push(Roles.employee);
+    rolesToAdd.rolesToAdd.push(Roles.Employee);
 
     this.employeesApiService
       .put<EmployeeRolesRequest, ResultResponse>(rolesToAdd, url)

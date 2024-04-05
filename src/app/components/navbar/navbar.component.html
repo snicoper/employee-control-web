@@ -24,7 +24,7 @@
       <div>
         <ul class="navbar-nav">
           <!-- incidences -->
-          <li [awRequiredRole]="roles.enterpriseStaff" class="nav-item">
+          <li [awRequiredRole]="roles.Staff" class="nav-item">
             <a [routerLink]="siteUrls.timeControlRecords.list" class="nav-link">
               Incidencias
 
@@ -43,8 +43,8 @@
               <span
                 (click)="handleChangeTheme()"
                 [ngClass]="{
-                  'fa-solid fa-moon': theme() === themeColors.light,
-                  'fa-regular fa-sun': theme() === themeColors.dark
+                  'fa-solid fa-moon': theme() === themeColors.Light,
+                  'fa-regular fa-sun': theme() === themeColors.Dark
                 }"></span>
             </a>
           </li>

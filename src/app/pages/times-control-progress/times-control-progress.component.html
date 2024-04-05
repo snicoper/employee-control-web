@@ -11,7 +11,7 @@
     <div class="d-flex justify-content-between mt-4">
       <!-- state -->
       <div>
-        @if (currentTimeControl()?.timeState === timeStates.open) {
+        @if (currentTimeControl()?.timeState === timeStates.Open) {
           <aw-dot-success />
 
           <span class="small text-muted">
@@ -19,7 +19,7 @@
           </span>
         }
 
-        @if (currentTimeControl()?.timeState === timeStates.close) {
+        @if (currentTimeControl()?.timeState === timeStates.Close) {
           <aw-dot-danger />
           <span class="small text-muted">El tiempo esta finalizado</span>
         }
@@ -31,7 +31,7 @@
       <!-- button state -->
       @if (!companyGeolocationRequired || (companyGeolocationRequired && geolocationIsAvailable())) {
         <div>
-          @if (currentTimeControl()?.timeState === timeStates.open) {
+          @if (currentTimeControl()?.timeState === timeStates.Open) {
             <aw-btn-loading
               (eventClick)="handleTimeFinished()"
               [loading]="loadingTimeState"
@@ -40,7 +40,7 @@
               btnText="Finalizar" />
           }
 
-          @if (currentTimeControl()?.timeState === timeStates.close) {
+          @if (currentTimeControl()?.timeState === timeStates.Close) {
             <aw-btn-loading
               (eventClick)="handleTimeStart()"
               [loading]="loadingTimeState"

@@ -1,9 +1,9 @@
 export enum DeviceType {
-  unknown = 0,
-  system = 1,
-  desktop = 2,
-  mobile = 3,
-  tablet = 4
+  Unknown = 0,
+  System = 1,
+  Desktop = 2,
+  Mobile = 3,
+  Tablet = 4
 }
 
 /**

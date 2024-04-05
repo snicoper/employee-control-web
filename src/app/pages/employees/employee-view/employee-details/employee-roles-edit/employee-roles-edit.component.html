@@ -14,9 +14,9 @@
 
     <div class="form-check form-switch">
       <input
-        (ngModelChange)="handChangeValue(roles.enterpriseAdmin, $event)"
-        [(ngModel)]="isEnterpriseAdmin"
-        [checked]="isEnterpriseAdmin"
+        (ngModelChange)="handChangeValue(roles.Admin, $event)"
+        [(ngModel)]="isAdmin"
+        [checked]="isAdmin"
         [disabled]="true"
         class="form-check-input"
         id="role-admin"
@@ -27,10 +27,10 @@
 
     <div class="form-check form-switch">
       <input
-        (ngModelChange)="handChangeValue(roles.enterpriseStaff, $event)"
-        [(ngModel)]="isEnterpriseStaff"
-        [checked]="isEnterpriseStaff"
-        [disabled]="isEnterpriseAdmin"
+        (ngModelChange)="handChangeValue(roles.Staff, $event)"
+        [(ngModel)]="isStaff"
+        [checked]="isStaff"
+        [disabled]="isAdmin"
         class="form-check-input"
         id="role-staff"
         role="switch"
@@ -40,10 +40,10 @@
 
     <div class="form-check form-switch">
       <input
-        (ngModelChange)="handChangeValue(roles.humanResources, $event)"
+        (ngModelChange)="handChangeValue(roles.HumanResources, $event)"
         [(ngModel)]="isHumanResources"
         [checked]="isHumanResources"
-        [disabled]="isEnterpriseAdmin"
+        [disabled]="isAdmin"
         class="form-check-input"
         id="role-rrhh"
         role="switch"
@@ -53,7 +53,7 @@
 
     <div class="form-check form-switch">
       <input
-        (ngModelChange)="handChangeValue(roles.employee, $event)"
+        (ngModelChange)="handChangeValue(roles.Employee, $event)"
         [(ngModel)]="isEmployee"
         [checked]="isEmployee"
         [disabled]="true"

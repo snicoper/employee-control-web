@@ -46,7 +46,7 @@ export class TimeControlIncidencesCountStateService implements StateService<numb
   }
 
   private addListener(): void {
-    this.signalRService.hubConnection.on(HubNames.timeControlIncidences, () => {
+    this.signalRService.hubConnection.on(HubNames.TimeControlIncidences, () => {
       this.refresh();
     });
   }

@@ -248,7 +248,7 @@ export class TimeControlRecordListComponent {
       this.apiResult.addFilter(
         'timeState',
         RelationalOperators.equalTo,
-        TimeState.open.toString(),
+        TimeState.Open.toString(),
         this.apiResult.filters.length === 0 ? LogicalOperators.none : LogicalOperators.and
       );
     }

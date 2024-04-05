@@ -16,7 +16,7 @@ export class LocalizationService {
   initialize(locale?: LocalesSupported): void {
     // Precedencia: localStorage -> parámetro -> defaultLocale.
     locale =
-      (this.localStorageService.get(LocalStorageKeys.locale) as LocalesSupported) ??
+      (this.localStorageService.get(LocalStorageKeys.Locale) as LocalesSupported) ??
       locale ??
       DateTime.now().resolvedLocaleOptions().locale;
 
@@ -39,7 +39,7 @@ export class LocalizationService {
   setLocale(locale: LocalesSupported): void {
     this.locale$.set(locale);
     Settings.defaultLocale = this.locale$();
-    this.localStorageService.set(LocalStorageKeys.locale, this.locale$());
+    this.localStorageService.set(LocalStorageKeys.Locale, this.locale$());
 
     // Establecer locale en ngx-bootstrap.
     defineLocale(LocalesSupported.es, esLocale);

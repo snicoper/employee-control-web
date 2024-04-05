@@ -1,3 +1,3 @@
 export enum HubNames {
-  timeControlIncidences = 'TimeControlIncidences'
+  TimeControlIncidences = 'TimeControlIncidences'
 }

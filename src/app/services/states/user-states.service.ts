@@ -32,7 +32,7 @@ export class UserStatesService {
       this.userTimeControlStateService.refresh();
       this.workingDaysWeekStateService.refresh();
 
-      if (this.jwtService.isInRole(Roles.enterpriseStaff)) {
+      if (this.jwtService.isInRole(Roles.Staff)) {
         this.timeControlIncidencesCountStateService.refresh();
       }
 
@@ -50,7 +50,7 @@ export class UserStatesService {
     this.userTimeControlStateService.clean();
     this.workingDaysWeekStateService.clean();
 
-    if (this.jwtService.isInRole(Roles.enterpriseStaff)) {
+    if (this.jwtService.isInRole(Roles.Staff)) {
       this.timeControlIncidencesCountStateService.clean();
     }
   }

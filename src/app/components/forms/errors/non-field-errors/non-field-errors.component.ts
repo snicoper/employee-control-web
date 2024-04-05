@@ -13,10 +13,10 @@ export class NonFieldErrorsComponent {
   validationErrors = ValidationErrors;
 
   get hasErrors(): boolean {
-    return !!this.badRequest?.errors[ValidationErrors.nonFieldErrors];
+    return !!this.badRequest?.errors[ValidationErrors.NonFieldErrors];
   }
 
   getErrors(): string[] | undefined {
-    return this.badRequest?.errors[ValidationErrors.nonFieldErrors];
+    return this.badRequest?.errors[ValidationErrors.NonFieldErrors];
   }
 }

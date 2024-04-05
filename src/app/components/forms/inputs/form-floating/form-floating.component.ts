@@ -28,7 +28,7 @@ export class FormFloatingComponent implements ControlValueAccessor {
   @Input({ required: true }) submitted = false;
   @Input({ required: true }) fieldName = '';
   @Input() id: string;
-  @Input() inputType = FormInputTypes.text;
+  @Input() inputType = FormInputTypes.Text;
   @Input() label = '';
   @Input() extraCss = '';
   @Input() placeholder = '';

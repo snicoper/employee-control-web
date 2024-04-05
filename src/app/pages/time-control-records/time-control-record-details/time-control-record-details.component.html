@@ -42,7 +42,7 @@
             <td>
               <span [innerHTML]="timeControl.deviceTypeFinish | deviceType"></span>
 
-              @if (timeControl.timeState === timeState.close) {
+              @if (timeControl.timeState === timeState.Close) {
                 {{ timeControl.finish | datetime }}
                 @if (getFinishOpenStreetMapLink(timeControl)) {
                   <a [href]="getFinishOpenStreetMapLink(timeControl)" target="_blank">
@@ -55,7 +55,7 @@
           <tr>
             <td>Cerrado por</td>
             <td>
-              @if (timeControl.closedBy === closedBy.staff || timeControl.closedBy === closedBy.system) {
+              @if (timeControl.closedBy === closedBy.Staff || timeControl.closedBy === closedBy.System) {
                 <span class="fa-solid fa-exclamation text-danger"></span>
               }
 
@@ -65,13 +65,13 @@
           <tr>
             <td>Estado del tiempo</td>
             <td>
-              @if (timeControl.timeState === timeState.open) {
+              @if (timeControl.timeState === timeState.Open) {
                 <span awTooltip title="Abierto">
                   <aw-dot-success />
                 </span>
               }
 
-              @if (timeControl.timeState === timeState.close) {
+              @if (timeControl.timeState === timeState.Close) {
                 <span awTooltip title="Cerrado">
                   <aw-dot-danger />
                 </span>
@@ -101,14 +101,14 @@
     </table>
 
     <div class="mt-4">
-      @if (timeControl?.timeState === timeState.open) {
+      @if (timeControl?.timeState === timeState.Open) {
         <div class="text-danger mb-4">*Para editar o eliminar es necesario finalizar el tiempo.</div>
       }
 
       <aw-btn-back />
 
       @if (timeControl) {
-        @if (timeControl.timeState === timeState.open) {
+        @if (timeControl.timeState === timeState.Open) {
           <button (click)="handleTimeControlClose(timeControl)" class="btn btn-warning ms-2">
             <span class="fa-solid fa-lock"></span> Finalizar
           </button>

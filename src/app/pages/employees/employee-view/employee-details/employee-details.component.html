@@ -84,7 +84,7 @@
               </span>
               <!-- edit roles -->
               @if (currentEmployeeId !== employeeSelected()?.id) {
-                <span [awRequiredRole]="roles.enterpriseStaff" class="ms-auto">
+                <span [awRequiredRole]="roles.Staff" class="ms-auto">
                   <button (click)="handleRolesModalEdit()" class="btn btn-sm btn-outline-warning">Editar roles</button>
                 </span>
               }
@@ -95,11 +95,11 @@
         <tr>
           <td>Estado control de tiempos</td>
           <td>
-            @if (employeeTimeControlState()?.timeState === timeStates.open) {
+            @if (employeeTimeControlState()?.timeState === timeStates.Open) {
               <aw-dot-success />
               {{ employeeTimeControlState()?.start | datetime }}
             }
-            @if (employeeTimeControlState()?.timeState === timeStates.close) {
+            @if (employeeTimeControlState()?.timeState === timeStates.Close) {
               <aw-dot-danger />
             }
           </td>

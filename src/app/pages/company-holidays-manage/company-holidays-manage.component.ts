@@ -150,7 +150,7 @@ export class CompanyHolidaysManageComponent {
         inactive: false,
         isToday: false,
         description: 'Día no laborable',
-        background: CalendarColors.notWorkingDay,
+        background: CalendarColors.NotWorkingDay,
         color: '#ffffff',
         canAddEvent: false
       } as CalendarDay;
@@ -194,7 +194,7 @@ export class CompanyHolidaysManageComponent {
         inactive: false,
         isToday: false,
         description: ch.description,
-        background: CalendarColors.holiday,
+        background: CalendarColors.Holiday,
         color: '#ffffff',
         canAddEvent: true
       } as CalendarDay;

@@ -8,13 +8,13 @@ import { DeviceType } from '../models/entities/types/device-type.model';
 export class DeviceTypePipe implements PipeTransform {
   transform(value: DeviceType): string {
     switch (value) {
-      case DeviceType.desktop:
+      case DeviceType.Desktop:
         return '<span class="fa-solid fa-desktop text-warning"></span>';
-      case DeviceType.mobile:
+      case DeviceType.Mobile:
         return '<span class="fa-solid fa-mobile-retro text-warning"></span>';
-      case DeviceType.tablet:
+      case DeviceType.Tablet:
         return '<span class="fa-solid fa-tablet-screen-button text-warning"></span>';
-      case DeviceType.system:
+      case DeviceType.System:
         return '<span class="fa-brands fa-windows text-warning"></span>';
       default:
         return '<span class="fa-solid fa-question text-warning"></span>';

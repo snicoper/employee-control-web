@@ -137,9 +137,9 @@ export class TimeControlProgressStacked {
     }
 
     switch (time.closedBy) {
-      case ClosedBy.unclosed:
+      case ClosedBy.Unclosed:
         return 'bg-primary';
-      case ClosedBy.system:
+      case ClosedBy.System:
         return 'bg-danger';
       default:
         return 'bg-success';
