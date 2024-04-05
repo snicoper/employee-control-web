@@ -1,7 +1,6 @@
-import { NgClass } from '@angular/common';
+import { NgClass, WeekDay } from '@angular/common';
 import { Component, EventEmitter, Output, computed, inject } from '@angular/core';
 import { SpinnerComponent } from '../../../../components/spinner/spinner.component';
-import { WeekDays } from '../../../../core/types/week-days';
 import { WorkingDaysWeek } from '../../../../models/entities/working-days-week.model';
 import { WorkingDaysWeekStateService } from '../../../../services/states/working-days-week-state.service';
 
@@ -19,9 +18,9 @@ export class WorkingDaysWeekComponent {
   loadingWorkingDaysWeek = computed(() => this.workingDaysWeekStateService.loadingWorkingDaysWeek());
   workingDaysWeek = computed(() => this.workingDaysWeekStateService.workingDaysWeek());
 
-  weekDays = WeekDays;
+  weekDay = WeekDay;
 
-  handleClickDay(weekDay: WeekDays): void {
+  handleClickDay(weekDay: WeekDay): void {
     if (!this.workingDaysWeek) {
       return;
     }

@@ -1,3 +1,4 @@
+import { WeekDay } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { DateTime } from 'luxon';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
@@ -10,7 +11,6 @@ import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { CalendarDay } from '../../components/year-calendar/month-calendar/calendar-day.model';
 import { YearCalendarComponent } from '../../components/year-calendar/year-calendar.component';
 import { CalendarColors } from '../../core/types/calendar-colors';
-import { WeekDays } from '../../core/types/week-days';
 import { ApiUrls } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { DateUtils } from '../../core/utils/date-utils';
@@ -116,31 +116,31 @@ export class CompanyHolidaysManageComponent {
     const nonWorkingDaysWeekResult: DateTime[] = [];
 
     if (!nonWorkingDaysWeek?.monday) {
-      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDays.monday));
+      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDay.Monday));
     }
 
     if (!nonWorkingDaysWeek?.tuesday) {
-      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDays.tuesday));
+      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDay.Tuesday));
     }
 
     if (!nonWorkingDaysWeek?.wednesday) {
-      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDays.wednesday));
+      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDay.Wednesday));
     }
 
     if (!nonWorkingDaysWeek?.thursday) {
-      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDays.thursday));
+      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDay.Thursday));
     }
 
     if (!nonWorkingDaysWeek?.friday) {
-      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDays.friday));
+      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDay.Friday));
     }
 
     if (!nonWorkingDaysWeek?.saturday) {
-      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDays.saturday));
+      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDay.Saturday));
     }
 
     if (!nonWorkingDaysWeek?.sunday) {
-      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDays.sunday));
+      nonWorkingDaysWeekResult.push(...this.getWorkingDayWeek(WeekDay.Sunday));
     }
 
     nonWorkingDaysWeekResult.forEach((date: DateTime) => {
@@ -162,7 +162,7 @@ export class CompanyHolidaysManageComponent {
   }
 
   /** Obtener toas las fechas de un año por su week day. */
-  private getWorkingDayWeek(weekDay: WeekDays): DateTime[] {
+  private getWorkingDayWeek(weekDay: WeekDay): DateTime[] {
     const weekDays = DatetimeUtils.weekDaysFromYear(this.date, weekDay);
     this.workingDaysInYear -= weekDays.length;
     this.workingDaysInWeek -= 1;

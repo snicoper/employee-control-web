@@ -1,7 +1,7 @@
+import { WeekDay } from '@angular/common';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { WeekDays } from '../../core/types/week-days';
 import { ApiUrls } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { WorkingDaysWeek } from '../../models/entities/working-days-week.model';
@@ -32,29 +32,29 @@ export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek
     this.workingDaysWeek$.set(null);
   }
 
-  updateWeekDay(weekDay: WeekDays): void {
+  updateWeekDay(weekDay: WeekDay): void {
     const workingDaysWeek = this.get() as WorkingDaysWeek;
 
     switch (weekDay) {
-      case WeekDays.monday:
+      case WeekDay.Monday:
         workingDaysWeek.monday = !workingDaysWeek.monday;
         break;
-      case WeekDays.tuesday:
+      case WeekDay.Tuesday:
         workingDaysWeek.tuesday = !workingDaysWeek.tuesday;
         break;
-      case WeekDays.wednesday:
+      case WeekDay.Wednesday:
         workingDaysWeek.wednesday = !workingDaysWeek.wednesday;
         break;
-      case WeekDays.thursday:
+      case WeekDay.Thursday:
         workingDaysWeek.thursday = !workingDaysWeek.thursday;
         break;
-      case WeekDays.friday:
+      case WeekDay.Friday:
         workingDaysWeek.friday = !workingDaysWeek.friday;
         break;
-      case WeekDays.saturday:
+      case WeekDay.Saturday:
         workingDaysWeek.saturday = !workingDaysWeek.saturday;
         break;
-      case WeekDays.sunday:
+      case WeekDay.Sunday:
         workingDaysWeek.sunday = !workingDaysWeek.sunday;
         break;
     }

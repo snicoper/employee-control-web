@@ -1,5 +1,5 @@
+import { WeekDay } from '@angular/common';
 import { DateTime, Interval } from 'luxon';
-import { WeekDays } from '../types/week-days';
 
 export abstract class DateUtils {
   /**
@@ -45,7 +45,7 @@ export abstract class DateUtils {
    * @param weekDay Numero del día de la semana a obtener (1-7).
    * @returns Array<Date> con los fechas del día de la semana del año concreto.
    */
-  static weekDaysFromYear(year: number, weekDay: WeekDays): Date[] {
+  static weekDaysFromYear(year: number, weekDay: WeekDay): Date[] {
     const result: Date[] = [];
     const start = DateTime.fromObject({ year: year, month: 1, day: 1 });
     const end = DateTime.fromObject({ year: year, month: 12, day: 31 });
