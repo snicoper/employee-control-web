@@ -1,9 +1,3 @@
-<!-- title -->
-@if (showPageTitle) {
-  <aw-page-title [pageTitle]="pageTitle" />
-}
-<!-- end title -->
-
 <div [ngClass]="{ toggled: !sidebarMenuState$() }" class="page-wrapper">
   <!-- sidebar -->
   @if (sidebarMenuState$()) {

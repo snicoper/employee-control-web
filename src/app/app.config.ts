@@ -2,6 +2,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { APP_INITIALIZER, ApplicationConfig, ErrorHandler, importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { TitleStrategy } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppConfig } from './core/config/app-config';
@@ -9,6 +10,7 @@ import { GlobalErrorHandler } from './core/errors/global-error-handler';
 import { ApiErrorInterceptor } from './interceptors/api-error.interceptor';
 import { ApiResultInterceptor } from './interceptors/api-result.interceptor';
 import { ApiInterceptor } from './interceptors/api.interceptor';
+import { TemplatePageTitleStrategyService } from './services/template-page-title-strategy.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,6 +35,7 @@ export const appConfig: ApplicationConfig = {
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ApiResultInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true },
+    { provide: TitleStrategy, useClass: TemplatePageTitleStrategyService },
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi())
   ]

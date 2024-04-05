@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import { AppEnvironments } from '../core/config/app-environments';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class SignalRService {
   private readonly hubConnectionBuilder;
 

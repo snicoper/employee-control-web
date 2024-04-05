@@ -4,14 +4,13 @@ import { LayoutService } from '../../../services/layout.service';
 import { FooterComponent } from '../../footer/footer.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { SidebarComponent } from '../../sidebars/sidebar-menu/sidebar.component';
-import { PageTitleComponent } from '../page-title/view-title.component';
 
 @Component({
   selector: 'aw-page-base',
   templateUrl: './page-base.component.html',
   styleUrls: ['./page-base.component.scss'],
   standalone: true,
-  imports: [PageTitleComponent, NgClass, SidebarComponent, NavbarComponent, FooterComponent]
+  imports: [NgClass, SidebarComponent, NavbarComponent, FooterComponent]
 })
 export class PageBaseComponent implements OnInit {
   private readonly layoutService = inject(LayoutService);
