@@ -1,7 +1,7 @@
-import { WeekDay } from '@angular/common';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
+import { WeekDay } from '../../core/types/week-day';
 import { ApiUrls } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { WorkingDaysWeek } from '../../models/entities/working-days-week.model';

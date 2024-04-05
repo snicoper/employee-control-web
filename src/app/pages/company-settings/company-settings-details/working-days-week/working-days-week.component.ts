@@ -1,6 +1,7 @@
-import { NgClass, WeekDay } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Output, computed, inject } from '@angular/core';
 import { SpinnerComponent } from '../../../../components/spinner/spinner.component';
+import { WeekDay } from '../../../../core/types/week-day';
 import { WorkingDaysWeek } from '../../../../models/entities/working-days-week.model';
 import { WorkingDaysWeekStateService } from '../../../../services/states/working-days-week-state.service';
 

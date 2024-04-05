@@ -1,4 +1,3 @@
-import { WeekDay } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { DateTime } from 'luxon';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
@@ -11,6 +10,7 @@ import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { CalendarDay } from '../../components/year-calendar/month-calendar/calendar-day.model';
 import { YearCalendarComponent } from '../../components/year-calendar/year-calendar.component';
 import { CalendarColors } from '../../core/types/calendar-colors';
+import { WeekDay } from '../../core/types/week-day';
 import { ApiUrls } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { DateUtils } from '../../core/utils/date-utils';

@@ -1,5 +1,5 @@
-import { WeekDay } from '@angular/common';
 import { DateTime, Interval } from 'luxon';
+import { WeekDay } from '../types/week-day';
 
 export abstract class DatetimeUtils {
   /**
