@@ -16,9 +16,6 @@ export class PageBaseComponent implements OnInit {
   private readonly layoutService = inject(LayoutService);
 
   @Input() cssContent = 'container-fluid';
-  @Input() showPageTitle = true;
-  @Input() pageTitle = '';
-
   @Input() navbarState = true;
   @Input() sidebarMenuState = true;
   @Input() footerState = true;

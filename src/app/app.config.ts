@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { TitleStrategy } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.routes';
 import { AppConfig } from './core/config/app-config';
 import { GlobalErrorHandler } from './core/errors/global-error-handler';
 import { ApiErrorInterceptor } from './interceptors/api-error.interceptor';
