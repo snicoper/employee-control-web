@@ -1,5 +1,5 @@
 /** Operadores lógicos. */
-export enum LogicalOperators {
+export enum LogicalOperator {
   None = ' ',
   And = 'and',
   Or = 'or'

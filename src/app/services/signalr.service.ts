@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HubConnectionBuilder } from '@microsoft/signalr';
-import { AppEnvironments } from '../core/config/app-environments';
+import { AppEnvironment } from '../core/config/app-environment';
 
 @Injectable({ providedIn: 'root' })
 export class SignalRService {
@@ -10,7 +10,7 @@ export class SignalRService {
 
   constructor() {
     this.hubConnectionBuilder = new HubConnectionBuilder();
-    this.hubConnection = this.hubConnectionBuilder.withUrl(AppEnvironments.baseHubUrl).build();
+    this.hubConnection = this.hubConnectionBuilder.withUrl(AppEnvironment.baseHubUrl).build();
   }
 
   start(): void {

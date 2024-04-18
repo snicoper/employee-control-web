@@ -1,18 +1,18 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { WeekDay } from '../../core/types/week-day';
-import { ApiUrls } from '../../core/urls/api-urls';
+import { ApiUrl } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { WorkingDaysWeek } from '../../models/entities/working-days-week.model';
 import { ResultResponse } from '../../models/result-response.model';
 import { WorkingDaysWeekApiService } from '../api/working-days-week-api.service';
+import { SnackBarService } from '../snackbar.service';
 import { StateService } from './state.service';
 
 @Injectable({ providedIn: 'root' })
 export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek | null> {
   private readonly workingDaysWeekApiService = inject(WorkingDaysWeekApiService);
-  private readonly toastrService = inject(ToastrService);
+  private readonly snackBarService = inject(SnackBarService);
 
   private readonly workingDaysWeek$ = signal<WorkingDaysWeek | null>(null);
   private readonly loadingWorkingDaysWeek$ = signal(false);
@@ -64,7 +64,7 @@ export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek
 
   private updateWorkingDaysWeek(workingDaysWeek: WorkingDaysWeek): void {
     this.loadingWorkingDaysWeek$.set(true);
-    const url = CommonUtils.urlReplaceParams(ApiUrls.workingDaysWeek.updateWorkingDaysWeek, {
+    const url = CommonUtils.urlReplaceParams(ApiUrl.workingDaysWeek.updateWorkingDaysWeek, {
       id: this.get()?.id as string
     });
 
@@ -74,13 +74,13 @@ export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek
       .subscribe({
         next: (result: ResultResponse) => {
           if (!result.succeeded) {
-            this.toastrService.error('Error al actualizar día laborable.');
+            this.snackBarService.error('Error al actualizar día laborable.');
           }
 
           this.workingDaysWeek$.set(workingDaysWeek);
         },
         error: () => {
-          this.toastrService.error('Error al actualizar día laborable.');
+          this.snackBarService.error('Error al actualizar día laborable.');
         }
       });
   }
@@ -89,7 +89,7 @@ export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek
     this.loadingWorkingDaysWeek$.set(true);
 
     this.workingDaysWeekApiService
-      .get<WorkingDaysWeek>(ApiUrls.workingDaysWeek.getWorkingDaysWeek)
+      .get<WorkingDaysWeek>(ApiUrl.workingDaysWeek.getWorkingDaysWeek)
       .pipe(finalize(() => this.loadingWorkingDaysWeek$.set(false)))
       .subscribe({
         next: (result: WorkingDaysWeek) => {

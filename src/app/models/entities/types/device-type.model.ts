@@ -1,3 +1,5 @@
+import { CommonUtils } from '../../../core/utils/common-utils';
+
 export enum DeviceType {
   Unknown = 0,
   System = 1,
@@ -13,5 +15,5 @@ export enum DeviceType {
  * @returns DeviceType.
  */
 export const deviceToDeviceType = (device: string): DeviceType => {
-  return DeviceType[device as keyof typeof DeviceType];
+  return DeviceType[CommonUtils.ucFirst(device) as keyof typeof DeviceType];
 };

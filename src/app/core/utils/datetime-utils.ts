@@ -1,7 +1,7 @@
 import { DateTime, Interval } from 'luxon';
 import { WeekDay } from '../types/week-day';
 
-export abstract class DatetimeUtils {
+export abstract class DateTimeUtils {
   /**
    * Obtener un array con un intervalo de días desde start a end con DateTime.
    *
@@ -9,7 +9,7 @@ export abstract class DatetimeUtils {
    * @param end Fecha final.
    * @returns Un array de DateTime con el intervalo de días.
    */
-  static dayDateTimeInterval(start: DateTime, end: DateTime): (DateTime | null)[] {
+  static dayDateTimeInterval(start: DateTime, end: DateTime): Array<DateTime | null> {
     return Interval.fromDateTimes(start.startOf('day'), end.endOf('day'))
       .splitBy({ day: 1 })
       .map((date: Interval) => date.start);
@@ -40,8 +40,8 @@ export abstract class DatetimeUtils {
     return result;
   }
 
-  static weekDaysFromYear(date: DateTime, weekDay: WeekDay): DateTime[] {
-    const result: DateTime[] = [];
+  static weekDaysFromYear(date: DateTime, weekDay: WeekDay): Array<DateTime> {
+    const result: Array<DateTime> = [];
     const start = date.startOf('year');
     const end = date.endOf('year');
 

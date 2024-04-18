@@ -1,5 +1,5 @@
 /** Operadores relacionales. */
-export enum RelationalOperators {
+export enum RelationalOperator {
   EqualTo = 'eq',
   NotEqualTo = 'ne',
   GreaterThan = 'gt',

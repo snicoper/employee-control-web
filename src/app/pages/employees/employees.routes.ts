@@ -22,6 +22,7 @@ export const routes: Routes = [
     component: EmployeeSettingsDetailsComponent,
     title: 'Configuración de usuario'
   },
+
   {
     path: 'settings/update',
     component: EmployeeSettingsUpdateComponent,

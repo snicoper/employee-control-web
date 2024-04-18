@@ -10,11 +10,10 @@ export const routes: Routes = [
     component: TimeControlRecordListComponent,
     title: 'Registro de tiempos'
   },
-
   {
     path: ':id/details',
     component: TimeControlRecordDetailsComponent,
-    title: 'Detalles de registro de tiempo'
+    title: 'Detalles de un registro de tiempo'
   },
   {
     path: 'create',

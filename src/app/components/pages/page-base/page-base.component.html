@@ -1,27 +1,11 @@
-<div [ngClass]="{ toggled: !sidebarMenuState$() }" class="page-wrapper">
-  <!-- sidebar -->
-  @if (sidebarMenuState$()) {
-    <aw-sidebar />
-  }
-  <!-- end sidebar -->
+<!-- navbar -->
+<nav>
+  <aw-navbar (changeSidenavState)="handleToggleSidenavState()" />
+</nav>
 
-  <main class="page-content">
-    <!-- navbar -->
-    @if (navbarState$()) {
-      <aw-navbar />
-    }
-    <!-- end navbar -->
-
-    <!-- page content -->
-    <div [ngClass]="cssContent" class="main-content pt-2 fade-in-fast">
-      <ng-content />
-    </div>
-    <!-- end page content -->
-
-    <!-- footer -->
-    @if (footerState$()) {
-      <aw-footer [cssContent]="cssContent" />
-    }
-    <!-- end footer -->
-  </main>
-</div>
+<!-- sidebar and content -->
+<section>
+  <aw-sidenav [sidenavState]="sidenavState">
+    <ng-content />
+  </aw-sidenav>
+</section>

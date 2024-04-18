@@ -1,16 +1,16 @@
 import { Routes } from '@angular/router';
-import { Error403Component } from './error403/error403.component';
-import { Error404Component } from './error404/error404.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 export const routes: Routes = [
   {
     path: '403',
-    component: Error403Component,
+    component: ForbiddenComponent,
     title: 'Sin autorización'
   },
   {
     path: '404',
-    component: Error404Component,
+    component: NotFoundComponent,
     title: 'Página no encontrada'
   }
 ];

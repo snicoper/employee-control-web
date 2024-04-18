@@ -9,8 +9,8 @@ export abstract class DateUtils {
    * @param end Fecha final.
    * @returns Un array de Date con el intervalo de días.
    */
-  static dayDateInterval(start: Date, end: Date): Date[] {
-    const daysInterval = [];
+  static dayDateInterval(start: Date, end: Date): Array<Date> {
+    const daysInterval: Array<Date> = [];
 
     for (let d = start; d <= end; d.setDate(d.getDate() + 1)) {
       daysInterval.push(new Date(d));
@@ -46,7 +46,7 @@ export abstract class DateUtils {
    * @returns Array<Date> con los fechas del día de la semana del año concreto.
    */
   static weekDaysFromYear(year: number, weekDay: WeekDay): Date[] {
-    const result: Date[] = [];
+    const result: Array<Date> = [];
     const start = DateTime.fromObject({ year: year, month: 1, day: 1 });
     const end = DateTime.fromObject({ year: year, month: 12, day: 31 });
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
-import { AppEnvironments } from '../core/config/app-environments';
+import { AppEnvironment } from '../core/config/app-environment';
 
 @Injectable({ providedIn: 'root' })
 export class TemplatePageTitleStrategyService extends TitleStrategy {
@@ -13,7 +13,7 @@ export class TemplatePageTitleStrategyService extends TitleStrategy {
     const title = this.buildTitle(routerState);
 
     if (title !== undefined) {
-      this.title.setTitle(`${AppEnvironments.siteName} | ${title}`);
+      this.title.setTitle(`${AppEnvironment.siteName} | ${title}`);
     }
   }
 }
