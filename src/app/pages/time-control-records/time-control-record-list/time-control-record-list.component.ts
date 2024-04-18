@@ -107,7 +107,6 @@ export class TimeControlRecordListComponent {
 
   constructor() {
     this.apiResult.addOrder('start', OrderType.Ascending);
-
     this.setBreadcrumb();
 
     const end = DateTime.local();

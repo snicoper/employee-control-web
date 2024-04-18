@@ -16,7 +16,12 @@
     </span>
   </button>
 
-  <button mat-icon-button>
-    <mat-icon>share</mat-icon>
+  <button
+    mat-flat-button
+    [matBadge]="timeControlIncidencesCount()"
+    [matBadgeColor]="timeControlIncidencesCount() > 0 ? 'warn' : 'primary'"
+    [awRequiredRole]="role.Staff"
+    [routerLink]="siteUrl.timeControlRecords.list">
+    Incidencias
   </button>
 </mat-toolbar>
