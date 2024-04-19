@@ -12,6 +12,7 @@ import { CalendarEvent } from '../../../components/year-calendar-view/calendar-e
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
+import { ResultResponse } from '../../../models/result-response.model';
 import { CompanyHolidaysApiService } from '../../../services/api/company-holidays-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { CompanyHolidayManageUpdateRequest } from './company-holiday-manage-update.request';
@@ -58,6 +59,19 @@ export class CompanyHolidayUpdateComponent implements OnInit {
     const companyHolidayManageCreateRequest = this.form.value as CompanyHolidayManageUpdateRequest;
     companyHolidayManageCreateRequest.id = this.dialogData.calendarEvent.id as string;
     this.updateCompanyHoliday(companyHolidayManageCreateRequest);
+  }
+
+  handleDelete(): void {
+    const url = CommonUtils.urlReplaceParams(ApiUrl.companyHolidays.updateCompanyHoliday, {
+      id: this.dialogData.calendarEvent.id as string
+    });
+
+    this.companyHolidaysApiService.delete<ResultResponse>(url).subscribe({
+      next: () => {
+        this.snackBarService.success('Día festivo eliminado con éxito.');
+        this.dialogRef.close();
+      }
+    });
   }
 
   private buildForm(): void {

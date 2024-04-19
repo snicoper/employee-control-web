@@ -1,4 +1,4 @@
-import { Component, OnInit, input, output } from '@angular/core';
+import { Component, effect, input, output } from '@angular/core';
 import { DateTime } from 'luxon';
 import { CalendarEvent } from './calendar-event.model';
 import { MonthCalendarViewComponent } from './month-calendar-view/month-calendar-view.component';
@@ -10,7 +10,7 @@ import { MonthCalendarViewComponent } from './month-calendar-view/month-calendar
   standalone: true,
   imports: [MonthCalendarViewComponent]
 })
-export class YearCalendarViewComponent implements OnInit {
+export class YearCalendarViewComponent {
   yearSelected = input.required<number>();
   calendarEvents = input.required<Array<CalendarEvent>>();
   loading = input.required<boolean>();
@@ -19,8 +19,8 @@ export class YearCalendarViewComponent implements OnInit {
 
   selectedDates: Array<DateTime> = [];
 
-  ngOnInit(): void {
-    this.composeDaysInMonth();
+  constructor() {
+    this.loadListeners();
   }
 
   handleSelectChange(calendarEvent: CalendarEvent): void {
@@ -28,8 +28,16 @@ export class YearCalendarViewComponent implements OnInit {
   }
 
   private composeDaysInMonth(): void {
+    this.selectedDates = [];
+
     for (let i = 1; i <= 12; i++) {
       this.selectedDates.push(DateTime.local(this.yearSelected(), i, 1));
     }
+  }
+
+  private loadListeners(): void {
+    effect(() => {
+      this.composeDaysInMonth();
+    });
   }
 }

@@ -1,3 +1,5 @@
+@import "variables";
+
 .calendar {
   width: 325px;
   margin: 0 5px 5px 0;
@@ -16,7 +18,7 @@
 
 /** Día marcado como no laborable. */
 ::ng-deep .not-working-day {
-  background-color: #581845 !important;
+  background-color: $aw-not-working-day !important;
   border-radius: 20px !important;
 
   .mat-calendar-body-cell-content {
@@ -26,7 +28,7 @@
 
 /** Día marcado festivo de empresa. */
 ::ng-deep .company-holiday {
-  background-color: #75af77 !important;
+  background-color: $aw-company-holiday !important;
   border-radius: 100% !important;
 
   .mat-calendar-body-cell-content {
@@ -36,7 +38,7 @@
 
 /** Día marcado como festivo de empleado. */
 ::ng-deep .employee-holiday {
-  background-color: #75af77 !important;
+  background-color: $aw-employee-holiday !important;
   border-radius: 20px !important;
 
   .mat-calendar-body-cell-content {

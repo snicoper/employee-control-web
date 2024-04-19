@@ -1,8 +1,13 @@
 import { Component, inject } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DateTime } from 'luxon';
 import { PageBaseComponent } from '../../components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../components/pages/page-header/page-header.component';
+import { YearSelectorComponent } from '../../components/selectors/year-selector/year-selector.component';
 import { CalendarClassColor } from '../../components/year-calendar-view/calendar-class-color';
 import { CalendarEvent } from '../../components/year-calendar-view/calendar-event.model';
 import { YearCalendarViewComponent } from '../../components/year-calendar-view/year-calendar-view.component';
@@ -12,6 +17,7 @@ import { CommonUtils } from '../../core/utils/common-utils';
 import { DateTimeUtils } from '../../core/utils/datetime-utils';
 import { CompanyHoliday } from '../../models/entities/company-holiday.model';
 import { CompanyHolidaysApiService } from '../../services/api/company-holidays-api.service';
+import { CompanySettingsStateService } from '../../services/states/company-settings-state.service';
 import { WorkingDaysWeekStateService } from '../../services/states/working-days-week-state.service';
 import { CompanyHolidayCreateComponent } from './company-holiday-create/company-holiday-create.component';
 import { CompanyHolidayUpdateComponent } from './company-holiday-update/company-holiday-update.component';
@@ -21,11 +27,21 @@ import { CompanyHolidayUpdateComponent } from './company-holiday-update/company-
   templateUrl: './company-holidays-manage.component.html',
   styleUrl: './company-holidays-manage.component.scss',
   standalone: true,
-  imports: [PageBaseComponent, PageHeaderComponent, YearCalendarViewComponent]
+  imports: [
+    MatCardModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    PageBaseComponent,
+    PageHeaderComponent,
+    YearCalendarViewComponent,
+    YearSelectorComponent
+  ]
 })
 export class CompanyHolidaysManageComponent {
   private readonly workingDaysWeekStateService = inject(WorkingDaysWeekStateService);
   private readonly companyHolidaysApiService = inject(CompanyHolidaysApiService);
+  private readonly companySettingsStateService = inject(CompanySettingsStateService);
   private readonly matDialog = inject(MatDialog);
 
   /** Días de trabajo en el año seleccionado. */
@@ -39,7 +55,12 @@ export class CompanyHolidaysManageComponent {
   workingHoursYear = 0;
 
   constructor() {
-    this.parseNonWorkingDays();
+    this.initialize();
+  }
+
+  handleYearSelectorChange(year: DateTime): void {
+    this.yearSelected = year;
+    this.initialize();
   }
 
   handleSelectChange(calendarEvent: CalendarEvent): void {
@@ -56,8 +77,7 @@ export class CompanyHolidaysManageComponent {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.loading = true;
-      this.parseNonWorkingDays();
+      this.initialize();
     });
   }
 
@@ -67,15 +87,12 @@ export class CompanyHolidaysManageComponent {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.loading = true;
-      this.parseNonWorkingDays();
+      this.initialize();
     });
   }
 
   /** Obtener días no laborables de la empresa de año actual. */
   private parseNonWorkingDays(): void {
-    this.loading = true;
-    this.calendarEvents = [];
     const nonWorkingDaysWeek = this.workingDaysWeekStateService.get();
     const nonWorkingDaysWeekResult: Array<DateTime> = [];
 
@@ -149,6 +166,8 @@ export class CompanyHolidaysManageComponent {
       this.calendarEvents.push(calendarDayEvent);
     });
 
+    this.calculateWorkingHoursYear();
+
     this.loading = false;
   }
 
@@ -159,5 +178,25 @@ export class CompanyHolidaysManageComponent {
     this.workingDaysInWeek -= 1;
 
     return weekDays;
+  }
+
+  /** Calcular horas de trabajo, no aplica vacaciones de empleado u otros días libres. */
+  private calculateWorkingHoursYear(): void {
+    const dailyHours =
+      (this.companySettingsStateService.companySettings()?.weeklyWorkingHours as number) / this.workingDaysInWeek;
+
+    this.workingHoursYear = Math.abs(Math.round(dailyHours * this.workingDaysInYear));
+    this.loading = false;
+  }
+
+  /** Inicializa cálculos y obtención de datos. */
+  private initialize(): void {
+    this.loading = true;
+    this.calendarEvents = [];
+    this.workingHoursYear = 0;
+    this.workingDaysInWeek = 7;
+    this.workingDaysInYear = this.yearSelected.daysInYear;
+
+    this.parseNonWorkingDays();
   }
 }
