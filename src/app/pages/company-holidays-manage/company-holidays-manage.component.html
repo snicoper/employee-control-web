@@ -1,0 +1,9 @@
+<aw-page-base>
+  <aw-page-header>Gestionar días de vacaciones</aw-page-header>
+
+  <aw-year-calendar-view
+    (selectedChange)="handleSelectChange($event)"
+    [yearSelected]="yearSelected.year"
+    [calendarEvents]="calendarEvents"
+    [loading]="loading" />
+</aw-page-base>
