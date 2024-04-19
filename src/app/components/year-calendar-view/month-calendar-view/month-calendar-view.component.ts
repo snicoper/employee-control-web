@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild, effect, input, output } from '@angular/core';
+import { Component, OnInit, ViewChild, input, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import {
   MatCalendar,
@@ -37,8 +37,6 @@ export class MonthCalendarViewComponent implements OnInit {
   ngOnInit(): void {
     this.selected = this.selectedDate();
     this.title = CommonUtils.ucFirst(this.selected.toFormat('LLLL yyyy'));
-
-    this.loadListeners();
   }
 
   dateClass: MatCalendarCellClassFunction<DateTime> = (
@@ -49,7 +47,7 @@ export class MonthCalendarViewComponent implements OnInit {
       const calendarEvent = this.findCalendarEvent(cellDate);
 
       if (calendarEvent) {
-        return calendarEvent.cssClass;
+        return `${calendarEvent.cssClass} custom-event`;
       }
     }
 
@@ -80,12 +78,6 @@ export class MonthCalendarViewComponent implements OnInit {
       description: '',
       selectable: true,
       cssClass: CalendarClassColor.None
-    });
-  }
-
-  private loadListeners(): void {
-    effect(() => {
-      this.calendar.updateTodaysDate();
     });
   }
 
