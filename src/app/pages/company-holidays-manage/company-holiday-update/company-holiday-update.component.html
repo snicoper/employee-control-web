@@ -3,7 +3,7 @@
   <mat-divider />
   <mat-dialog-content>
     <form [formGroup]="form">
-      <!-- day -->
+      <!-- date -->
       <aw-form-datepicker
         [badRequest]="badRequest"
         [form]="form"
@@ -29,14 +29,20 @@
 
   <mat-dialog-actions>
     <div>
-      <button mat-flat-button mat-dialog-close color="accent" class="me-2"><mat-icon>close</mat-icon> Cerrar</button>
+      <button class="me-2" color="accent" mat-dialog-close mat-flat-button>
+        <mat-icon>close</mat-icon>
+        Cerrar
+      </button>
       <aw-btn-loading
+        (eventClick)="handleSubmit()"
         [loading]="loadingForm"
-        icon="save"
         btnText="Añadir festivo"
         class="me-2"
-        (eventClick)="handleSubmit()" />
-      <button mat-flat-button color="warn" (click)="handleDelete()"><mat-icon>delete</mat-icon> Eliminar</button>
+        icon="save" />
+      <button (click)="handleDelete()" color="warn" mat-flat-button>
+        <mat-icon>delete</mat-icon>
+        Eliminar
+      </button>
     </div>
   </mat-dialog-actions>
 </div>

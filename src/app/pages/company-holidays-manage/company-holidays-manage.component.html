@@ -38,7 +38,7 @@
   <!-- calendar -->
   <aw-year-calendar-view
     (selectedChange)="handleSelectChange($event)"
-    [yearSelected]="yearSelected.year"
     [calendarEvents]="calendarEvents"
-    [loading]="loading" />
+    [loading]="loading"
+    [yearSelected]="yearSelected.year" />
 </aw-page-base>
