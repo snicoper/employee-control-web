@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild, input, output } from '@angular/core';
+import { Component, OnInit, input, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import {
-  MatCalendar,
   MatCalendarCellClassFunction,
   MatCalendarCellCssClasses,
   MatCalendarView,
@@ -28,8 +27,6 @@ export class MonthCalendarViewComponent implements OnInit {
   loading = input.required<boolean>();
 
   selectedChange = output<CalendarEvent>();
-
-  @ViewChild(MatCalendar) calendar!: MatCalendar<DateTime>;
 
   selected!: DateTime;
   title = '';
