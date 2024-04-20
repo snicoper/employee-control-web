@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { CompanyHolidaysManageComponent } from './company-holidays-manage.component';
+import { CompanyCalendarComponent } from './company-calendar.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: CompanyHolidaysManageComponent,
+    component: CompanyCalendarComponent,
     title: 'Edición días festivos'
   }
 ];

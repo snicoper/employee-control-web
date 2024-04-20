@@ -28,10 +28,10 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/category-absences/category-absences.routes').then((m) => m.routes)
   },
   {
-    path: 'company-holidays-manage',
+    path: 'company-calendar',
     data: { roles: [Role.HumanResources] },
     canActivate: [AuthGuard],
-    loadChildren: () => import('./pages/company-holidays-manage/company-holidays-manage.routes').then((m) => m.routes)
+    loadChildren: () => import('./pages/company-calendar/company-calendar.routes').then((m) => m.routes)
   },
   {
     path: 'company-settings',

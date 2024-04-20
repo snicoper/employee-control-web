@@ -24,8 +24,8 @@ import { CompanyHolidayUpdateComponent } from './company-holiday-update/company-
 
 @Component({
   selector: 'aw-company-holidays-manage',
-  templateUrl: './company-holidays-manage.component.html',
-  styleUrl: './company-holidays-manage.component.scss',
+  templateUrl: './company-calendar.component.html',
+  styleUrl: './company-calendar.component.scss',
   standalone: true,
   imports: [
     MatCardModule,
@@ -38,7 +38,7 @@ import { CompanyHolidayUpdateComponent } from './company-holiday-update/company-
     YearSelectorComponent
   ]
 })
-export class CompanyHolidaysManageComponent {
+export class CompanyCalendarComponent {
   private readonly workingDaysWeekStateService = inject(WorkingDaysWeekStateService);
   private readonly companyHolidaysApiService = inject(CompanyHolidaysApiService);
   private readonly companySettingsStateService = inject(CompanySettingsStateService);

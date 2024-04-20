@@ -63,8 +63,8 @@ export const sidenavMenu: Array<SidenavMenu> = [
         requiredRole: Role.HumanResources
       },
       {
-        title: 'Días festivos',
-        router: SiteUrl.companyHolidaysManage.manage,
+        title: 'Calendario',
+        router: SiteUrl.companyCalendar.home,
         active: false,
         requiredRole: Role.HumanResources
       }

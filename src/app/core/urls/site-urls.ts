@@ -20,8 +20,8 @@ export const SiteUrl = {
     update: '/category-absences/{id}/update'
   },
 
-  companyHolidaysManage: {
-    manage: '/company-holidays-manage'
+  companyCalendar: {
+    home: '/company-calendar'
   },
 
   companySettings: {
