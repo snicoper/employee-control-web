@@ -57,12 +57,13 @@ export class CompanyTaskListComponent {
 
   readonly breadcrumb = new BreadcrumbCollection();
 
-  displayedColumns = ['name', 'created', 'active', 'background', 'color'];
-  fieldsFilter = ['name'];
+  readonly displayedColumns = ['name', 'created', 'active', 'background', 'color'];
+  readonly fieldsFilter = ['name'];
+  readonly siteUrl = SiteUrl;
+
   dataSource!: MatTableDataSource<CompanyTask, MatPaginator>;
   apiResult = new ApiResult<CompanyTask>();
   loading = true;
-  siteUrl = SiteUrl;
 
   constructor() {
     this.setBreadcrumb();

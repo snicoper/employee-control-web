@@ -64,6 +64,10 @@ export const SiteUrl = {
     notFound: '/errors/404'
   },
 
+  manageHolidays: {
+    manage: '/manage-holidays'
+  },
+
   timeControlRecords: {
     list: '/time-control-records',
     details: '/time-control-records/{id}/details',

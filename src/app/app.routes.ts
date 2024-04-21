@@ -74,6 +74,12 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/errors/errors.routes').then((m) => m.routes)
   },
   {
+    path: 'manage-holidays',
+    data: { roles: [Role.HumanResources] },
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/manage-holidays/manage-holidays.routes').then((m) => m.routes)
+  },
+  {
     path: 'time-control-records',
     data: { roles: [Role.HumanResources] },
     canActivate: [AuthGuard],

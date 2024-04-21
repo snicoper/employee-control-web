@@ -35,9 +35,10 @@ export class EmployeeSettingsDetailsComponent {
   readonly loadingEmployeeSettings = computed(() => this.employeeSettingsStateService.loadingEmployeeSettings());
 
   readonly breadcrumb = new BreadcrumbCollection();
+  readonly siteUrl = SiteUrl;
+
   nowWithTimezone = '';
   timezoneInfo: TimeZone | undefined;
-  siteUrl = SiteUrl;
 
   constructor() {
     this.setBreadcrumb();

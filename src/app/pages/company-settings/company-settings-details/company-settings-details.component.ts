@@ -40,9 +40,10 @@ export class CompanySettingsDetailsComponent {
 
   readonly breadcrumb = new BreadcrumbCollection();
 
+  readonly siteUrl = SiteUrl;
+
   nowWithTimezone = '';
   timezoneInfo: TimeZone | undefined;
-  siteUrl = SiteUrl;
 
   constructor() {
     this.setBreadcrumb();

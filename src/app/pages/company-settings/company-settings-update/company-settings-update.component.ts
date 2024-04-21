@@ -52,14 +52,15 @@ export class CompanySettingsUpdateComponent {
 
   readonly breadcrumb = new BreadcrumbCollection();
 
+  readonly siteUrl = SiteUrl;
+  readonly formInputTypes = FormInputType;
+
   form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   loadingForm = false;
   submitted = false;
   nowWithOriginalTimezone = '';
   nowWithTimezoneSelected = '';
-  siteUrl = SiteUrl;
-  formInputTypes = FormInputType;
 
   constructor() {
     this.setBreadcrumb();

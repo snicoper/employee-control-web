@@ -55,13 +55,14 @@
           <mat-list-item [routerLink]="siteUrl.departments.list">Departamentos</mat-list-item>
           <mat-list-item [routerLink]="siteUrl.companyTasks.list">Tareas</mat-list-item>
           <mat-list-item [routerLink]="siteUrl.categoryAbsences.list">Ausencias</mat-list-item>
-          <a mat-list-item [routerLink]="siteUrl.timeControlRecords.list">
+          <mat-list-item [routerLink]="siteUrl.timeControlRecords.list">
             Registro de tiempos
             <mat-chip [highlighted]="timeControlIncidencesCount() > 0" color="warn">
               {{ timeControlIncidencesCount() }}
             </mat-chip>
-          </a>
+          </mat-list-item>
           <mat-list-item [routerLink]="siteUrl.companyCalendar.calendar">Calendario</mat-list-item>
+          <mat-list-item [routerLink]="siteUrl.manageHolidays.manage">Días festivos</mat-list-item>
         </mat-nav-list>
       </mat-expansion-panel>
 

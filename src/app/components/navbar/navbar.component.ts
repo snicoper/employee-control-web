@@ -22,15 +22,15 @@ export class NavbarComponent {
   private readonly themeManagerService = inject(ThemeManagerService);
   private readonly jwtService = inject(JwtService);
 
-  changeSidenavState = output<void>();
+  readonly changeSidenavState = output<void>();
 
   readonly theme = computed(() => this.themeManagerService.theme());
 
-  themeColor = ThemeColor;
-  siteName = AppEnvironment.siteName;
-  siteUrl = SiteUrl;
-  role = Role;
-  userName = this.jwtService.getName();
+  readonly themeColor = ThemeColor;
+  readonly siteName = AppEnvironment.siteName;
+  readonly siteUrl = SiteUrl;
+  readonly role = Role;
+  readonly userName = this.jwtService.getName();
 
   /** Alternar color del theme. */
   handleToggleThemeColor(): void {

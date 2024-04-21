@@ -50,13 +50,14 @@ export class EmployeeSettingsUpdateComponent {
 
   readonly breadcrumb = new BreadcrumbCollection();
 
+  readonly siteUrl = SiteUrl;
+
   form: FormGroup = this.formBuilder.group({});
   badRequest: BadRequest | undefined;
   loadingForm = false;
   submitted = false;
   nowWithOriginalTimezone = '';
   nowWithTimezoneSelected = '';
-  siteUrl = SiteUrl;
 
   constructor() {
     this.setBreadcrumb();
