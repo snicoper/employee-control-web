@@ -16,12 +16,13 @@
     </span>
   </button>
 
-  <button
-    mat-flat-button
-    [matBadge]="timeControlIncidencesCount()"
-    [matBadgeColor]="timeControlIncidencesCount() > 0 ? 'warn' : 'primary'"
-    [awRequiredRole]="role.Staff"
-    [routerLink]="siteUrl.timeControlRecords.list">
-    Incidencias
+  <button mat-button [mat-menu-trigger-for]="profile" aria-label="Perfil de usuario">
+    {{ userName }}
   </button>
+  <mat-menu #profile="matMenu">
+    <button mat-menu-item [routerLink]="siteUrl.auth.logout">
+      <mat-icon>logout</mat-icon>
+      Desconectar
+    </button>
+  </mat-menu>
 </mat-toolbar>
