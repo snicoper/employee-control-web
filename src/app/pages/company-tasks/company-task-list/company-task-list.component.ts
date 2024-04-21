@@ -77,7 +77,6 @@ export class CompanyTaskListComponent {
 
   handlePageEvent(pageEvent: PageEvent): void {
     this.apiResult = this.apiResult.handlePageEvent(pageEvent);
-
     this.loadCompanyTasks();
   }
 
