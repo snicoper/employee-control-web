@@ -56,6 +56,6 @@ export class EmployeeSettingsDetailsComponent {
   private setNowWithOriginalTimezone(): void {
     this.nowWithTimezone = DateTime.local()
       .setZone(this.employeeSettings()?.timezone)
-      .toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET);
+      .toLocaleString(DateTime.TIME_SIMPLE);
   }
 }

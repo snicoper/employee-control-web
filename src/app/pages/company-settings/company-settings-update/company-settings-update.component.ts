@@ -104,7 +104,7 @@ export class CompanySettingsUpdateComponent {
   private setNowWithOriginalTimezone(): void {
     this.nowWithOriginalTimezone = DateTime.local()
       .setZone(this.companySettings()?.timezone)
-      .toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET);
+      .toLocaleString(DateTime.TIME_SIMPLE);
   }
 
   private buildForm(): void {
@@ -122,7 +122,7 @@ export class CompanySettingsUpdateComponent {
   private eventListener(): void {
     this.form.controls['timezone'].valueChanges.pipe(takeUntilDestroyed()).subscribe((timezone: string) => {
       this.setNowWithOriginalTimezone();
-      this.nowWithTimezoneSelected = DateTime.local().setZone(timezone).toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET);
+      this.nowWithTimezoneSelected = DateTime.local().setZone(timezone).toLocaleString(DateTime.TIME_SIMPLE);
     });
   }
 }
