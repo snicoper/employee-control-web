@@ -7,11 +7,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { TimeZone, getTimeZones } from '@vvo/tzdb';
 import { DateTime } from 'luxon';
-import { BreadcrumbCollection } from '../../../../components/breadcrumb/breadcrumb-collection';
-import { PageBaseComponent } from '../../../../components/pages/page-base/page-base.component';
-import { PageHeaderComponent } from '../../../../components/pages/page-header/page-header.component';
-import { SiteUrl } from '../../../../core/urls/site-urls';
-import { EmployeeSettingsStateService } from '../../../../services/states/employee-settings-state.service';
+import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-collection';
+import { PageBaseComponent } from '../../../components/pages/page-base/page-base.component';
+import { PageHeaderComponent } from '../../../components/pages/page-header/page-header.component';
+import { SiteUrl } from '../../../core/urls/site-urls';
+import { EmployeeSettingsStateService } from '../../../services/states/employee-settings-state.service';
 
 @Component({
   selector: 'aw-employee-settings-details',
@@ -50,7 +50,7 @@ export class EmployeeSettingsDetailsComponent {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Configuración de empleado', SiteUrl.employees.settings, '', false);
+    this.breadcrumb.add('Configuración de empleado', SiteUrl.employeeSettings.settings, '', false);
   }
 
   private setNowWithOriginalTimezone(): void {
