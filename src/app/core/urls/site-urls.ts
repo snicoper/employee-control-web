@@ -21,7 +21,7 @@ export const SiteUrl = {
   },
 
   companyCalendar: {
-    home: '/company-calendar'
+    calendar: '/company-calendar'
   },
 
   companySettings: {
