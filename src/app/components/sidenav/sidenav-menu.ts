@@ -1,6 +1,8 @@
-export type SidenavMenu = { name: string; open: boolean };
+export type SidenavMenuItem = { name: string; open: boolean };
 
-export const SidenavMenus: Array<SidenavMenu> = [
+export type SidenavMenu = Array<SidenavMenuItem>;
+
+export const SidenavMenus: SidenavMenu = [
   { name: 'administration', open: false },
   { name: 'enterprise', open: false },
   { name: 'employee', open: false }

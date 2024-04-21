@@ -16,8 +16,7 @@ import { JwtService } from '../../services/jwt.service';
 import { CompanyEmployeeStateService } from '../../services/states/company-employee-state.service';
 import { TimeControlIncidencesCountStateService } from '../../services/states/time-control-incidences-count-state.service';
 import { UserTimeControlStateService } from '../../services/states/user-time-control-state.service';
-import { SidenavMenu, SidenavMenus } from './sidenav-menu';
-
+import { SidenavMenu, SidenavMenuItem, SidenavMenus } from './sidenav-menu';
 @Component({
   selector: 'aw-sidenav',
   standalone: true,
@@ -46,14 +45,14 @@ export class SidenavComponent {
   readonly currentTimeControl = computed(() => this.userTimeControlStateService.timeControl());
   readonly timeControlIncidencesCount = computed(() => this.timeControlIncidencesCountStateService.incidences());
 
-  private readonly sidenavMenus: SidenavMenu[];
+  private readonly sidenavMenu: SidenavMenu;
 
   readonly timeStates = TimeState;
   readonly role = Role;
   readonly siteUrl = SiteUrl;
 
   constructor() {
-    this.sidenavMenus = this.browserStorageService.getParse<SidenavMenu[]>(BrowserStorageKey.Sidenav) ?? SidenavMenus;
+    this.sidenavMenu = this.browserStorageService.getParse<SidenavMenu>(BrowserStorageKey.Sidenav) ?? SidenavMenus;
   }
 
   get username(): string {
@@ -70,35 +69,35 @@ export class SidenavComponent {
     return item ? item.open : false;
   }
 
-  handleOpenExpansionPanel(sidebarMenu: string): void {
-    const item = this.getSidenavMenuItem(sidebarMenu);
+  handleOpenExpansionPanel(name: string): void {
+    const sidebarMenuItem = this.getSidenavMenuItem(name);
 
-    if (!item) {
+    if (!sidebarMenuItem) {
       return;
     }
 
-    item.open = true;
+    sidebarMenuItem.open = true;
     this.saveSidenavState();
   }
 
-  handleClosedExpansionPanel(sidebarMenu: string): void {
-    const item = this.getSidenavMenuItem(sidebarMenu);
+  handleClosedExpansionPanel(name: string): void {
+    const sidebarMenuItem = this.getSidenavMenuItem(name);
 
-    if (!item) {
+    if (!sidebarMenuItem) {
       return;
     }
 
-    item.open = false;
+    sidebarMenuItem.open = false;
     this.saveSidenavState();
   }
 
-  private getSidenavMenuItem(sidebarMenu: string): SidenavMenu | undefined {
-    const item = this.sidenavMenus.find((sm: SidenavMenu) => sm.name === sidebarMenu);
+  private getSidenavMenuItem(name: string): SidenavMenuItem | undefined {
+    const sidebarMenuItem = this.sidenavMenu.find((item: SidenavMenuItem) => item.name === name);
 
-    return item;
+    return sidebarMenuItem;
   }
 
   private saveSidenavState(): void {
-    this.browserStorageService.setObject(BrowserStorageKey.Sidenav, this.sidenavMenus);
+    this.browserStorageService.setObject(BrowserStorageKey.Sidenav, this.sidenavMenu);
   }
 }
