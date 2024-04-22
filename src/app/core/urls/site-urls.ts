@@ -40,16 +40,20 @@ export const SiteUrl = {
     dashboard: '/dashboard'
   },
 
-  employeeSettings: {
-    settings: '/employee-settings',
-    update: '/employee-settings/update'
-  },
-
   departments: {
     list: '/departments',
     details: '/departments/{id}',
     create: '/departments/create',
     update: '/departments/{id}/update'
+  },
+
+  employeeCalendar: {
+    index: '/employee-calendar'
+  },
+
+  employeeSettings: {
+    settings: '/employee-settings',
+    update: '/employee-settings/update'
   },
 
   employees: {

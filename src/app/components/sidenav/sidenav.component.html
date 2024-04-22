@@ -56,13 +56,15 @@
           <mat-list-item [routerLink]="siteUrl.companyTasks.list">Tareas</mat-list-item>
           <mat-list-item [routerLink]="siteUrl.categoryAbsences.list">Ausencias</mat-list-item>
           <mat-list-item [routerLink]="siteUrl.timeControlRecords.list">
-            Registro de tiempos
-            <mat-chip [highlighted]="timeControlIncidencesCount() > 0" color="warn">
-              {{ timeControlIncidencesCount() }}
-            </mat-chip>
+            <div class="d-flex justify-content-start">
+              Registro de tiempos
+              <mat-chip [highlighted]="timeControlIncidencesCount() > 0" color="warn" class="ms-auto">
+                {{ timeControlIncidencesCount() }}
+              </mat-chip>
+            </div>
           </mat-list-item>
           <mat-list-item [routerLink]="siteUrl.companyCalendar.calendar">Calendario</mat-list-item>
-          <mat-list-item [routerLink]="siteUrl.manageHolidays.claims">Días festivos</mat-list-item>
+          <mat-list-item [routerLink]="siteUrl.manageHolidays.claims">Vacaciones</mat-list-item>
         </mat-nav-list>
       </mat-expansion-panel>
 
@@ -80,6 +82,7 @@
         <mat-nav-list role="list" [awRequiredRole]="role.Employee">
           <mat-list-item [routerLink]="siteUrl.employeeSettings.settings">Configuración</mat-list-item>
           <mat-list-item [routerLink]="siteUrl.timesControlProgress.list">Control de tiempo</mat-list-item>
+          <mat-list-item [routerLink]="siteUrl.employeeCalendar.index">Calendar</mat-list-item>
         </mat-nav-list>
       </mat-expansion-panel>
     </mat-accordion>
