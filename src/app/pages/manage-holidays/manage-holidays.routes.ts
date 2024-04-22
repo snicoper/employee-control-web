@@ -1,11 +1,13 @@
 import { Routes } from '@angular/router';
 
-import { AssignHolidaysComponent } from './assign-holidays/assign-holidays.component';
-import { ManageHolidaysDetailsComponent } from './manage-holidays-details/manage-holidays-details.component';
-import { ManageHolidaysComponent } from './manage-holidays-list/manage-holidays.component';
+import { HolidaysAssignComponent } from './holidays-assign/holidays-assign.component';
+import { HolidaysAssignedComponent } from './holidays-assigned/holidays-assigned.component';
+import { HolidaysClaimComponent } from './holidays-claim/holidays-claim.component';
+import { HolidaysDetailsComponent } from './holidays-details/holidays-details.component';
 
 export const routes: Routes = [
-  { path: '', component: ManageHolidaysComponent },
-  { path: 'assign', component: AssignHolidaysComponent },
-  { path: ':id/details', component: ManageHolidaysDetailsComponent }
+  { path: 'assigned', component: HolidaysAssignedComponent },
+  { path: 'assign', component: HolidaysAssignComponent },
+  { path: 'claims', component: HolidaysClaimComponent },
+  { path: ':id/details', component: HolidaysDetailsComponent }
 ];

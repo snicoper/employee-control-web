@@ -3,10 +3,10 @@ import { PageBaseComponent } from '../../../components/pages/page-base/page-base
 import { PageHeaderComponent } from '../../../components/pages/page-header/page-header.component';
 
 @Component({
-  selector: 'aw-assign-holidays',
-  templateUrl: './assign-holidays.component.html',
-  styleUrl: './assign-holidays.component.scss',
+  selector: 'aw-holidays-details',
+  templateUrl: './holidays-details.component.html',
+  styleUrl: './holidays-details.component.scss',
   standalone: true,
   imports: [PageBaseComponent, PageHeaderComponent]
 })
-export class AssignHolidaysComponent {}
+export class HolidaysDetailsComponent {}

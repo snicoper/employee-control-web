@@ -65,8 +65,9 @@ export const SiteUrl = {
   },
 
   manageHolidays: {
-    manage: '/manage-holidays',
+    claims: '/manage-holidays/claims',
     assign: '/manage-holidays/assign',
+    assigned: '/manage-holidays/assigned',
     details: '/manage-holidays/{id}/details'
   },
 
