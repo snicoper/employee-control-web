@@ -65,7 +65,9 @@ export const SiteUrl = {
   },
 
   manageHolidays: {
-    manage: '/manage-holidays'
+    manage: '/manage-holidays',
+    assign: '/manage-holidays/assign',
+    details: '/manage-holidays/{id}/details'
   },
 
   timeControlRecords: {

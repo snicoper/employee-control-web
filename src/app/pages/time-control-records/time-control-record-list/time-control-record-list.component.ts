@@ -79,8 +79,8 @@ export class TimeControlRecordListComponent {
   readonly breadcrumb = new BreadcrumbCollection();
 
   readonly displayedColumns = [
-    'firstName',
-    'lastName',
+    'user.firstName',
+    'user.lastName',
     'start',
     'finish',
     'closedBy',

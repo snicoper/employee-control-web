@@ -9,16 +9,16 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { DateTime } from 'luxon';
 import { finalize } from 'rxjs';
-import { BreadcrumbCollection } from '../../components/breadcrumb/breadcrumb-collection';
-import { PageBaseComponent } from '../../components/pages/page-base/page-base.component';
-import { PageHeaderComponent } from '../../components/pages/page-header/page-header.component';
-import { YearSelectorComponent } from '../../components/selectors/year-selector/year-selector.component';
-import { TableFilterComponent } from '../../components/tables/table-filter/table-filter.component';
-import { ApiResult } from '../../core/features/api-result/api-result';
-import { ApiUrl } from '../../core/urls/api-urls';
-import { SiteUrl } from '../../core/urls/site-urls';
-import { CommonUtils } from '../../core/utils/common-utils';
-import { EmployeeHolidaysApiService } from '../../services/api/employee-holidays-api.service';
+import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-collection';
+import { PageBaseComponent } from '../../../components/pages/page-base/page-base.component';
+import { PageHeaderComponent } from '../../../components/pages/page-header/page-header.component';
+import { YearSelectorComponent } from '../../../components/selectors/year-selector/year-selector.component';
+import { TableFilterComponent } from '../../../components/tables/table-filter/table-filter.component';
+import { ApiResult } from '../../../core/features/api-result/api-result';
+import { ApiUrl } from '../../../core/urls/api-urls';
+import { SiteUrl } from '../../../core/urls/site-urls';
+import { CommonUtils } from '../../../core/utils/common-utils';
+import { EmployeeHolidaysApiService } from '../../../services/api/employee-holidays-api.service';
 import { ManageHolidayResponse } from './manage-holidays.response';
 
 @Component({

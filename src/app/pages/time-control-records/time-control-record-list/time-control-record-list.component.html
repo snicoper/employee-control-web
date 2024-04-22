@@ -48,13 +48,13 @@
       @if (!loading) {
         <table mat-table matSort (matSortChange)="handleSortChange($event)" [dataSource]="dataSource">
           <!-- firstName -->
-          <ng-container matColumnDef="firstName">
+          <ng-container matColumnDef="user.firstName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
             <td mat-cell *matCellDef="let row">{{ row.firstName }}</td>
           </ng-container>
 
           <!-- lastName -->
-          <ng-container matColumnDef="lastName">
+          <ng-container matColumnDef="user.lastName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</th>
             <td mat-cell *matCellDef="let row">{{ row.lastName }}</td>
           </ng-container>
