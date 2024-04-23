@@ -40,7 +40,7 @@
           @if (loading) {
             <mat-progress-spinner color="primary" mode="indeterminate" [diameter]="50" />
           } @else if (!loading && employeeHoliday) {
-            {{ employeeHoliday.totalDays - employeeHoliday.consumed }}
+            {{ employeeHoliday.available }}
           } @else {
             <span>0</span>
           }

@@ -22,18 +22,16 @@ import { CalendarEvent } from '../calendar-event.model';
   imports: [CommonModule, MatCardModule, MatDatepickerModule, MatProgressSpinnerModule, DatetimeFormatPipe]
 })
 export class MonthCalendarViewComponent implements OnInit {
-  selectedDate = input.required<DateTime>();
+  month = input.required<DateTime>();
   calendarEvents = input.required<Array<CalendarEvent>>();
   loading = input.required<boolean>();
 
   selectedChange = output<CalendarEvent>();
 
-  selected!: DateTime;
   title = '';
 
   ngOnInit(): void {
-    this.selected = this.selectedDate();
-    this.title = CommonUtils.ucFirst(this.selected.toFormat('LLLL yyyy'));
+    this.title = CommonUtils.ucFirst(this.month().toFormat('LLLL yyyy'));
   }
 
   dateClass: MatCalendarCellClassFunction<DateTime> = (

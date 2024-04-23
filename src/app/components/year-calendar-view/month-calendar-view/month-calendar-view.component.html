@@ -1,9 +1,9 @@
 <mat-card class="calendar">
   <mat-card-content>
     <h4>{{ title }}</h4>
-    @if (!loading() && calendarEvents() && selected) {
+    @if (!loading() && calendarEvents() && month()) {
       <mat-calendar
-        [startAt]="selected"
+        [startAt]="month()"
         [dateClass]="dateClass"
         [dateFilter]="handleDateFilter"
         (selectedChange)="handleSelectedChange($event)" />

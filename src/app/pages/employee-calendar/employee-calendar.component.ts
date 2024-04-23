@@ -17,7 +17,6 @@ import { ApiUrl } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { DateTimeUtils } from '../../core/utils/datetime-utils';
 import { CompanyHoliday } from '../../models/entities/company-holiday.model';
-import { EmployeeHoliday } from '../../models/entities/employee-holiday.model';
 import { CompanyHolidaysApiService } from '../../services/api/company-holidays-api.service';
 import { EmployeeHolidaysApiService } from '../../services/api/employee-holidays-api.service';
 import { JwtService } from '../../services/jwt.service';
@@ -26,6 +25,7 @@ import { CompanySettingsStateService } from '../../services/states/company-setti
 import { WorkingDaysWeekStateService } from '../../services/states/working-days-week-state.service';
 import { EmployeeCalendarToolbarComponent } from './employee-calendar-toolbar/employee-calendar-toolbar.component';
 import { EmployeeCalendarToolbarService } from './employee-calendar-toolbar/employee-calendar-toolvar.service';
+import { EmployeeHolidayResponse } from './employee-holiday-response.model';
 
 @Component({
   selector: 'aw-employee-calendar',
@@ -66,7 +66,7 @@ export class EmployeeCalendarComponent {
   loading = true;
   workingHoursYear = 0;
   /** Holidays. */
-  employeeHoliday!: EmployeeHoliday;
+  employeeHoliday!: EmployeeHolidayResponse;
   calendarDaysSelected: Array<DateTime> = [];
 
   constructor() {
@@ -153,10 +153,10 @@ export class EmployeeCalendarComponent {
     });
 
     this.employeeHolidaysApiService
-      .get<EmployeeHoliday>(url)
+      .get<EmployeeHolidayResponse>(url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: EmployeeHoliday) => {
+        next: (result: EmployeeHolidayResponse) => {
           this.employeeHoliday = result;
         },
         error: (error: HttpErrorResponse) => {
