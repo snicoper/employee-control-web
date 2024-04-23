@@ -1,0 +1,31 @@
+<mat-sidenav-container>
+  <mat-sidenav [opened]="sidenavState()" opened="sidebarOpen" mode="side">
+    <!-- header -->
+    <div class="sidenav-header">
+      <img
+        [ngClass]="{
+          'time-state-open': currentTimeControl()?.timeState === timeStates.Open,
+          'time-state-close': currentTimeControl()?.timeState === timeStates.Close
+        }"
+        class="sidenav-header-image"
+        src="/assets/images/user.jpg"
+        alt="Avatar del empleado"
+        width="100"
+        height="100" />
+      <div class="header-text">
+        <h2 class="header-text-title">{{ companyName }}</h2>
+        <p class="header-text-content">{{ username }}</p>
+      </div>
+    </div>
+
+    <!-- menus -->
+    <aw-sidenav-menu [sidenavState]="sidenavState()" />
+  </mat-sidenav>
+
+  <!-- page content -->
+  <mat-sidenav-content class="sidenav-content">
+    <div class="mb-5">
+      <ng-content />
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FooterComponent } from '../../footer/footer.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
-import { SidenavComponent } from '../../sidenav/sidenav.component';
+import { SidenavComponent } from '../../sidenavs/sidenav/sidenav.component';
 
 @Component({
   selector: 'aw-page-base',
