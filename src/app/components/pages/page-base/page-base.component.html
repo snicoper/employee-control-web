@@ -1,11 +1,11 @@
 <!-- navbar -->
 <nav>
-  <aw-navbar (changeSidenavState)="handleToggleSidenavState()" />
+  <aw-navbar />
 </nav>
 
 <!-- sidebar and content -->
 <section>
-  <aw-sidenav [sidenavState]="sidenavState">
+  <aw-sidenav>
     <ng-content />
   </aw-sidenav>
 </section>

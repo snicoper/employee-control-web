@@ -1,5 +1,5 @@
 <mat-sidenav-container>
-  <mat-sidenav [opened]="sidenavState()" opened="sidebarOpen" mode="side">
+  <mat-sidenav [opened]="sidenavState()" opened="sidebarOpen" mode="side" class="sidenav">
     <!-- header -->
     <div class="sidenav-header">
       <img
@@ -20,6 +20,11 @@
 
     <!-- menus -->
     <aw-sidenav-menu [sidenavState]="sidenavState()" />
+  </mat-sidenav>
+
+  <!-- sidenav toolbar -->
+  <mat-sidenav [opened]="sidenavToolbarState()" mode="side" position="end" class="sidenav-toolbar">
+    <ng-content select="[sidenavToolbar]" />
   </mat-sidenav>
 
   <!-- page content -->
