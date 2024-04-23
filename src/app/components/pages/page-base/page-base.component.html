@@ -7,5 +7,10 @@
 <section>
   <aw-sidenav>
     <ng-content />
+
+    <!-- toolbar -->
+    <div sidenavToolbar>
+      <ng-content select="[sidenavToolbar]" />
+    </div>
   </aw-sidenav>
 </section>
