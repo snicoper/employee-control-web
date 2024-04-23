@@ -5,12 +5,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
-import { BrowserStorageKey } from '../../../../core/types/browser-storage-key';
-import { Role } from '../../../../core/types/role';
-import { SiteUrl } from '../../../../core/urls/site-urls';
-import { RequiredRoleDirective } from '../../../../directives/required-role.directive';
-import { BrowserStorageService } from '../../../../services/browser-storage.service';
-import { TimeControlIncidencesCountStateService } from '../../../../services/states/time-control-incidences-count-state.service';
+import { BrowserStorageKey } from '../../../core/types/browser-storage-key';
+import { Role } from '../../../core/types/role';
+import { SiteUrl } from '../../../core/urls/site-urls';
+import { RequiredRoleDirective } from '../../../directives/required-role.directive';
+import { BrowserStorageService } from '../../../services/browser-storage.service';
+import { TimeControlIncidencesCountStateService } from '../../../services/states/time-control-incidences-count-state.service';
 import { SidenavMenu, SidenavMenuItem, SidenavMenus } from './sidenav-menu';
 
 @Component({

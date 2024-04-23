@@ -2,11 +2,12 @@ import { NgClass } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
-import { TimeState } from '../../../models/entities/types/time-state.model';
-import { JwtService } from '../../../services/jwt.service';
-import { CompanyEmployeeStateService } from '../../../services/states/company-employee-state.service';
-import { UserTimeControlStateService } from '../../../services/states/user-time-control-state.service';
+import { TimeState } from '../../models/entities/types/time-state.model';
+import { JwtService } from '../../services/jwt.service';
+import { CompanyEmployeeStateService } from '../../services/states/company-employee-state.service';
+import { UserTimeControlStateService } from '../../services/states/user-time-control-state.service';
 import { SidenavMenuComponent } from './sidenav-menu/sidenav-menu.component';
+
 @Component({
   selector: 'aw-sidenav',
   standalone: true,
