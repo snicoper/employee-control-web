@@ -6,7 +6,8 @@
         [startAt]="month()"
         [dateClass]="dateClass"
         [dateFilter]="handleDateFilter"
-        (selectedChange)="handleSelectedChange($event)" />
+        (selectedChange)="handleSelectedChange($event)"
+        class="month-calendar" />
     } @else {
       <div class="d-flex justify-content-center p-5">
         <mat-progress-spinner color="primary" mode="indeterminate" />

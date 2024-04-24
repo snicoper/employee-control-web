@@ -61,8 +61,10 @@ export class EmployeeCalendarComponent {
   /** Días de la semana laborables. */
   private workingDaysInWeek!: number;
 
+  /** Año seleccionado. */
   yearSelected = DateTime.local();
   calendarEvents: Array<CalendarEvent> = [];
+  calendarHolidayEvents: Array<CalendarEvent> = [];
   loading = true;
   workingHoursYear = 0;
   /** Holidays. */
@@ -83,7 +85,27 @@ export class EmployeeCalendarComponent {
       this.sidenavService.toggleSidenavToolbarState();
     }
 
+    this.addOrRemoveCalendarHolidayEvent(calendarEvent);
     this.employeeCalendarToolbarService.toggleDatesSelected(calendarEvent.date);
+  }
+
+  private addOrRemoveCalendarHolidayEvent(calendarEvent: CalendarEvent): void {
+    const index = this.calendarHolidayEvents.findIndex((che) => che.date.valueOf() === calendarEvent.date.valueOf());
+
+    if (index >= 0) {
+      this.calendarHolidayEvents.splice(index, 1);
+    } else {
+      const calendarDayEvent = {
+        date: calendarEvent.date,
+        description: 'Día no laborable',
+        cssClass: CalendarClassColor.EmployeeHoliday,
+        selectable: true
+      } as CalendarEvent;
+
+      this.calendarHolidayEvents.push(calendarDayEvent);
+    }
+
+    this.initialize();
   }
 
   /** Obtener días no laborables de la empresa de año actual. */
@@ -207,7 +229,7 @@ export class EmployeeCalendarComponent {
   /** Inicializa cálculos y obtención de datos. */
   private initialize(): void {
     this.loading = true;
-    this.calendarEvents = [];
+    this.calendarEvents = [...this.calendarHolidayEvents];
     this.workingHoursYear = 0;
     this.workingDaysInWeek = 7;
     this.workingDaysInYear = this.yearSelected.daysInYear;

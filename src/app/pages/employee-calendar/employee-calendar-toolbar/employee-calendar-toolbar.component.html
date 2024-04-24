@@ -1,10 +1,20 @@
 <div class="employee-calendar-toolbar">
   <div class="d-flex justify-content-start">
-    <h1>Hello world</h1>
+    <h1>Reclamar días de vacaciones</h1>
     <button mat-button color="warn" class="ms-auto" (click)="handleCloseToolbar()">
       <mat-icon>close</mat-icon>
     </button>
   </div>
 
   <mat-divider />
+
+  <div>
+    <h3>Días seleccionados</h3>
+
+    <mat-list>
+      @for (dateSelected of calendarDatesSelected(); track $index) {
+        <mat-list-item>{{ dateSelected }}</mat-list-item>
+      }
+    </mat-list>
+  </div>
 </div>

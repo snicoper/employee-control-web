@@ -3,6 +3,7 @@ import { Component, computed, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { SidenavService } from '../../../services/sidenav.service';
 import { EmployeeCalendarToolbarService } from './employee-calendar-toolvar.service';
 
@@ -11,7 +12,7 @@ import { EmployeeCalendarToolbarService } from './employee-calendar-toolvar.serv
   templateUrl: './employee-calendar-toolbar.component.html',
   styleUrl: './employee-calendar-toolbar.component.scss',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, MatDividerModule]
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatDividerModule, MatListModule]
 })
 export class EmployeeCalendarToolbarComponent {
   private readonly employeeCalendarToolbarService = inject(EmployeeCalendarToolbarService);
