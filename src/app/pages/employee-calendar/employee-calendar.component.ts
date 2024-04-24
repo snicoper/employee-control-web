@@ -198,7 +198,7 @@ export class EmployeeCalendarComponent {
         date: date,
         description: ch.description,
         cssClass: CalendarClassColor.CompanyHoliday,
-        selectable: true
+        selectable: false
       } as CalendarEvent;
 
       this.calendarEvents.push(calendarDayEvent);
