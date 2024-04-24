@@ -24,7 +24,7 @@ import { DateTimeUtils } from '../../core/utils/datetime-utils';
 import { DeviceType, deviceToDeviceType } from '../../models/entities/types/device-type.model';
 import { TimeState } from '../../models/entities/types/time-state.model';
 import { ResultResponse } from '../../models/result-response.model';
-import { DateFormatPipe } from '../../pipes/datetime.pipe';
+import { DateFormatPipe } from '../../pipes/date-format.pipe';
 import { TimeControlApiService } from '../../services/api/time-control-api.service';
 import { JwtService } from '../../services/jwt.service';
 import { SimpleGeolocationService } from '../../services/simple-geolocation.service';

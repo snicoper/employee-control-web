@@ -20,7 +20,7 @@ import { RequiredRoleDirective } from '../../../../directives/required-role.dire
 import { TimeState } from '../../../../models/entities/types/time-state.model';
 import { ResultResponse } from '../../../../models/result-response.model';
 import { BoolToIconPipe } from '../../../../pipes/bool-to-icon.pipe';
-import { DateFormatPipe } from '../../../../pipes/datetime.pipe';
+import { DateFormatPipe } from '../../../../pipes/date-format.pipe';
 import { EmployeesApiService } from '../../../../services/api/employees-api.service';
 import { JwtService } from '../../../../services/jwt.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
