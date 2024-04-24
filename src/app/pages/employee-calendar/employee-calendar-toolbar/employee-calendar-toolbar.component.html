@@ -9,12 +9,23 @@
   <mat-divider />
 
   <div>
-    <h3>Días seleccionados</h3>
+    <h3 class="d-flex flex-column">
+      <span>
+        Días seleccionados
+        <span class="text-info">{{ calendarDatesSelected().length }}</span>
+      </span>
+      <span>
+        Días restantes
+        <span class="text-info">{{ employeeHoliday().available - calendarDatesSelected().length }}</span>
+      </span>
+    </h3>
 
     <mat-list>
       @for (dateSelected of calendarDatesSelected(); track $index) {
-        <mat-list-item>{{ dateSelected }}</mat-list-item>
+        <mat-list-item>{{ dateSelected | dateTimeFormat }}</mat-list-item>
       }
     </mat-list>
   </div>
+
+  <mat-divider />
 </div>

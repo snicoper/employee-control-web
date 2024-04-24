@@ -63,12 +63,17 @@ export class EmployeeCalendarComponent {
 
   /** Año seleccionado. */
   yearSelected = DateTime.local();
+  /** Eventos a marcar. */
   calendarEvents: Array<CalendarEvent> = [];
+  /** Días festivos como eventos a marcar. */
   calendarHolidayEvents: Array<CalendarEvent> = [];
+  /** Cargando datos. */
   loading = true;
+  /** Resultado del calculo de oras trabajadas en el año. */
   workingHoursYear = 0;
-  /** Holidays. */
+  /** Vacaciones calculadas en el año seleccionado. */
   employeeHoliday!: EmployeeHolidayResponse;
+  /** Días seleccionados para vacaciones. */
   calendarDaysSelected: Array<DateTime> = [];
 
   constructor() {
@@ -176,7 +181,11 @@ export class EmployeeCalendarComponent {
 
     this.employeeHolidaysApiService
       .get<EmployeeHolidayResponse>(url)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(
+        finalize(() => {
+          this.calculateWorkingHoursYear();
+        })
+      )
       .subscribe({
         next: (result: EmployeeHolidayResponse) => {
           this.employeeHoliday = result;
@@ -204,7 +213,7 @@ export class EmployeeCalendarComponent {
       this.calendarEvents.push(calendarDayEvent);
     });
 
-    this.calculateWorkingHoursYear();
+    this.loadEmployeeHolidays();
   }
 
   /** Obtener toas las fechas de un año por su week day. */
@@ -220,10 +229,11 @@ export class EmployeeCalendarComponent {
   private calculateWorkingHoursYear(): void {
     const dailyHours =
       (this.companySettingsStateService.companySettings()?.weeklyWorkingHours as number) / this.workingDaysInWeek;
+    const hoursHolidays = this.employeeHoliday?.totalDays ? dailyHours * this.employeeHoliday.totalDays : 0;
+    const total = hoursHolidays - dailyHours * this.workingDaysInYear;
 
-    this.workingHoursYear = Math.abs(Math.round(dailyHours * this.workingDaysInYear));
-
-    this.loadEmployeeHolidays();
+    this.workingHoursYear = Math.abs(Math.round(total));
+    this.loading = false;
   }
 
   /** Inicializa cálculos y obtención de datos. */
