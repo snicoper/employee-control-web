@@ -5,7 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { CompanyCalendar } from '../../../models/entities/company-calendar.model';
-import { CompanyCalendarsApiServiceService } from '../../../services/api/company-calendars-api.service';
+import { CompanyCalendarsApiService } from '../../../services/api/company-calendars-api.service';
 
 @Component({
   selector: 'aw-company-calendar-selector',
@@ -15,7 +15,7 @@ import { CompanyCalendarsApiServiceService } from '../../../services/api/company
   imports: [FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule]
 })
 export class CompanyCalendarSelectorComponent implements OnInit {
-  private readonly companyCalendarsApiServiceService = inject(CompanyCalendarsApiServiceService);
+  private readonly companyCalendarsApiServiceService = inject(CompanyCalendarsApiService);
 
   companyCalendarChange = output<CompanyCalendar>();
 
