@@ -78,6 +78,7 @@ export const ApiUrl = {
     updateEmployee: '/employees',
     addRoleHumanResources: '/employees/{id}/add-role-rrhh',
     removeRoleHumanResources: '/employees/{id}/remove-role-rrhh',
+    getCurrentEmployee: '/employees/current',
     getCurrentEmployeeSettings: '/employees/settings',
     updateEmployeeSettings: '/employees/{id}/employee-settings'
   },
