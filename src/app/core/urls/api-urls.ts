@@ -17,8 +17,13 @@ export const ApiUrl = {
     getCompanyByCurrentUser: '/companies/current-user'
   },
 
+  companyCalendar: {
+    getCompanyCalendars: '/company-calendars'
+  },
+
   companyCalendarHolidays: {
-    getCompanyCalendarHolidaysByYear: '/company-calendar-holidays/year/{year}',
+    getCompanyCalendarHolidaysByCompanyCalendarIdAndYear:
+      '/company-calendar-holidays/company-calendars/{companyCalendarId}/year/{year}',
     createCompanyCalendarHoliday: '/company-calendar-holidays',
     updateCompanyCalendarHoliday: '/company-calendar-holidays/{id}',
     deleteCompanyCalendarHoliday: '/company-calendar-holidays/{id}'

@@ -7,6 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DateTime } from 'luxon';
 import { PageBaseComponent } from '../../components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../components/pages/page-header/page-header.component';
+import { CompanyCalendarSelectorComponent } from '../../components/selectors/company-calendar-selector/company-calendar-selector.component';
 import { YearSelectorComponent } from '../../components/selectors/year-selector/year-selector.component';
 import { CalendarClassColor } from '../../components/year-calendar-view/calendar-class-color';
 import { CalendarEvent } from '../../components/year-calendar-view/calendar-event.model';
@@ -15,6 +16,7 @@ import { WeekDay } from '../../core/types/week-day';
 import { ApiUrl } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { DateTimeUtils } from '../../core/utils/datetime-utils';
+import { CompanyCalendar } from '../../models/entities/company-calendar.model';
 import { CompanyHoliday } from '../../models/entities/company-holiday.model';
 import { CompanyHolidaysApiService } from '../../services/api/company-holidays-api.service';
 import { CompanySettingsStateService } from '../../services/states/company-settings-state.service';
@@ -35,7 +37,8 @@ import { CompanyHolidayUpdateComponent } from './company-holiday-update/company-
     PageBaseComponent,
     PageHeaderComponent,
     YearCalendarViewComponent,
-    YearSelectorComponent
+    YearSelectorComponent,
+    CompanyCalendarSelectorComponent
   ]
 })
 export class CompanyCalendarComponent {
@@ -50,11 +53,14 @@ export class CompanyCalendarComponent {
   private workingDaysInWeek!: number;
 
   yearSelected = DateTime.local();
+  companyCalendarSelected!: CompanyCalendar;
   calendarEvents: Array<CalendarEvent> = [];
   loading = true;
   workingHoursYear = 0;
 
-  constructor() {
+  /** Se inicializa aquí,  */
+  handleCompanyCalendarChange(companyCalendar: CompanyCalendar): void {
+    this.companyCalendarSelected = companyCalendar;
     this.initialize();
   }
 
@@ -73,7 +79,7 @@ export class CompanyCalendarComponent {
 
   private createHolidayOpenDialog(calendarEvent: CalendarEvent): void {
     const dialogRef = this.matDialog.open(CompanyHolidayCreateComponent, {
-      data: { calendarEvent: calendarEvent }
+      data: { calendarEvent: calendarEvent, companyCalendarId: this.companyCalendarSelected.id }
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -139,9 +145,13 @@ export class CompanyCalendarComponent {
   }
 
   private loadCompanyHolidays(): void {
-    const url = CommonUtils.urlReplaceParams(ApiUrl.companyCalendarHolidays.getCompanyCalendarHolidaysByYear, {
-      year: String(this.yearSelected.year)
-    });
+    const url = CommonUtils.urlReplaceParams(
+      ApiUrl.companyCalendarHolidays.getCompanyCalendarHolidaysByCompanyCalendarIdAndYear,
+      {
+        companyCalendarId: this.companyCalendarSelected.id,
+        year: String(this.yearSelected.year)
+      }
+    );
 
     this.companyHolidaysApiService.get<Array<CompanyHoliday>>(url).subscribe({
       next: (result: Array<CompanyHoliday>) => {

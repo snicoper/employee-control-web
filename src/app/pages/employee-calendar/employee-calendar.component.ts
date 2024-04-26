@@ -161,9 +161,13 @@ export class EmployeeCalendarComponent {
   }
 
   private loadCompanyHolidays(): void {
-    const url = CommonUtils.urlReplaceParams(ApiUrl.companyCalendarHolidays.getCompanyCalendarHolidaysByYear, {
-      year: String(this.yearSelected.year)
-    });
+    const url = CommonUtils.urlReplaceParams(
+      ApiUrl.companyCalendarHolidays.getCompanyCalendarHolidaysByCompanyCalendarIdAndYear,
+      {
+        companyCalendarId: 'TODO: REPARAR',
+        year: String(this.yearSelected.year)
+      }
+    );
 
     this.companyHolidaysApiService.get<Array<CompanyHoliday>>(url).subscribe({
       next: (result: Array<CompanyHoliday>) => {
