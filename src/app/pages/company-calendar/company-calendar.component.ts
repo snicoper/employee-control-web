@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DateTime } from 'luxon';
+import { BreadcrumbCollection } from '../../components/breadcrumb/breadcrumb-collection';
 import { PageBaseComponent } from '../../components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../components/pages/page-header/page-header.component';
 import { CompanyCalendarSelectorComponent } from '../../components/selectors/company-calendar-selector/company-calendar-selector.component';
@@ -14,6 +15,7 @@ import { CalendarEvent } from '../../components/year-calendar-view/calendar-even
 import { YearCalendarViewComponent } from '../../components/year-calendar-view/year-calendar-view.component';
 import { WeekDay } from '../../core/types/week-day';
 import { ApiUrl } from '../../core/urls/api-urls';
+import { SiteUrl } from '../../core/urls/site-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { DateTimeUtils } from '../../core/utils/datetime-utils';
 import { CompanyCalendar } from '../../models/entities/company-calendar.model';
@@ -54,11 +56,17 @@ export class CompanyCalendarComponent {
   /** Días de la semana laborables. */
   private workingDaysInWeek!: number;
 
+  readonly breadcrumb = new BreadcrumbCollection();
+
   yearSelected = DateTime.local();
   companyCalendarSelected!: CompanyCalendar;
   calendarEvents: Array<CalendarEvent> = [];
   loading = true;
   workingHoursYear = 0;
+
+  constructor() {
+    this.setBreadcrumb();
+  }
 
   /** Se inicializa aquí,  */
   handleCompanyCalendarChange(companyCalendar: CompanyCalendar): void {
@@ -199,6 +207,10 @@ export class CompanyCalendarComponent {
 
     this.workingHoursYear = Math.abs(Math.round(dailyHours * this.workingDaysInYear));
     this.loading = false;
+  }
+
+  private setBreadcrumb(): void {
+    this.breadcrumb.add('Calendarios', SiteUrl.companyCalendar.calendar, '', false);
   }
 
   /** Inicializa cálculos y obtención de datos. */
