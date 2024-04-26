@@ -21,6 +21,7 @@ import { CompanyHoliday } from '../../models/entities/company-holiday.model';
 import { CompanyHolidaysApiService } from '../../services/api/company-holidays-api.service';
 import { CompanySettingsStateService } from '../../services/states/company-settings-state.service';
 import { WorkingDaysWeekStateService } from '../../services/states/working-days-week-state.service';
+import { CompanyCalendarHeaderLinksComponent } from './company-calendar-header-links/company-calendar-header-links.component';
 import { CompanyHolidayCreateComponent } from './company-holiday-create/company-holiday-create.component';
 import { CompanyHolidayUpdateComponent } from './company-holiday-update/company-holiday-update.component';
 
@@ -38,7 +39,8 @@ import { CompanyHolidayUpdateComponent } from './company-holiday-update/company-
     PageHeaderComponent,
     YearCalendarViewComponent,
     YearSelectorComponent,
-    CompanyCalendarSelectorComponent
+    CompanyCalendarSelectorComponent,
+    CompanyCalendarHeaderLinksComponent
   ]
 })
 export class CompanyCalendarComponent {
