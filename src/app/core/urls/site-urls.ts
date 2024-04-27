@@ -22,7 +22,8 @@ export const SiteUrl = {
 
   companyCalendar: {
     calendar: '/company-calendar',
-    list: '/company-calendar/list'
+    list: '/company-calendar/list',
+    details: '/company-calendar/{id}/details'
   },
 
   companySettings: {

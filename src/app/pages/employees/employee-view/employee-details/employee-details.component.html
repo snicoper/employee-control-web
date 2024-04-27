@@ -36,6 +36,7 @@
                         color="warn"
                         icon="close"
                         btnText="Desactivar"
+                        onkeypress=""
                         (click)="handleDeactivateEmployee()"
                         [loading]="loadingUpdateActive" />
                     }
@@ -45,6 +46,7 @@
                         color="primary"
                         icon="done"
                         btnText="Activar"
+                        onkeypress=""
                         (click)="handleActivateEmployee()"
                         [loading]="loadingUpdateActive" />
                     }
@@ -107,7 +109,7 @@
         <!-- no data -->
         <tbody>
           <tr>
-            <td class="text-center" colspan="100%">
+            <td class="d-flex justify-content-center" colspan="100%">
               <h6>Error al cargar datos de empleado.</h6>
             </td>
           </tr>
@@ -116,7 +118,7 @@
         <!-- loading spinner -->
         <tbody>
           <tr>
-            <td class="text-center" colspan="100%">
+            <td class="d-flex justify-content-center" colspan="100%">
               <mat-progress-spinner color="primary" mode="indeterminate" />
             </td>
           </tr>

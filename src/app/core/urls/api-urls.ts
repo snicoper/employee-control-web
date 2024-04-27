@@ -18,7 +18,9 @@ export const ApiUrl = {
   },
 
   companyCalendar: {
-    getCompanyCalendars: '/company-calendars'
+    getCompanyCalendars: '/company-calendars',
+    getCompanyCalendarById: '/company-calendars/{id}',
+    setDefaultCalendar: '/company-calendars/{id}/default'
   },
 
   companyCalendarHolidays: {
