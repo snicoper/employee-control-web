@@ -93,6 +93,10 @@
             </td>
           </tr>
           <tr class="table-list-row">
+            <td>Calendario asignado</td>
+            <td>{{ employeeSelected()?.companyCalendarName }}</td>
+          </tr>
+          <tr class="table-list-row">
             <td>Estado control de tiempos</td>
             <td>
               @if (employeeTimeControlState()?.timeState === timeStates.Open) {
