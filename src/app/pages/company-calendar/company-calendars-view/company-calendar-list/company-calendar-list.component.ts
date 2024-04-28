@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/breadcrumb-collection';
 import { BtnBackComponent } from '../../../../components/buttons/btn-back/btn-back.component';
@@ -27,6 +27,7 @@ import { CompanyCalendarsApiService } from '../../../../services/api/company-cal
   standalone: true,
   imports: [
     CommonModule,
+    RouterLink,
     MatCardModule,
     MatTableModule,
     MatSortModule,

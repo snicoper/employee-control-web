@@ -20,6 +20,8 @@ export const ApiUrl = {
   companyCalendar: {
     getCompanyCalendars: '/company-calendars',
     getCompanyCalendarById: '/company-calendars/{id}',
+    createCompanyCalendar: '/company-calendars',
+    updateCompanyCalendar: '/company-calendars/{id}',
     setDefaultCalendar: '/company-calendars/{id}/default'
   },
 

@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/breadcrumb-collection';
 import { BtnBackComponent } from '../../../../components/buttons/btn-back/btn-back.component';
@@ -36,6 +36,7 @@ import { SnackBarService } from '../../../../services/snackbar.service';
 })
 export class CompanyCalendarDetailsComponent {
   private readonly companyCalendarsApiService = inject(CompanyCalendarsApiService);
+  private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private snackBarService = inject(SnackBarService);
 
@@ -59,6 +60,11 @@ export class CompanyCalendarDetailsComponent {
         this.loadCompanyCalendar();
       }
     });
+  }
+
+  handleClickUpdate(): void {
+    const url = CommonUtils.urlReplaceParams(SiteUrl.companyCalendar.update, { id: this.companyCalendarId });
+    this.router.navigateByUrl(url);
   }
 
   private setBreadcrumb(): void {
