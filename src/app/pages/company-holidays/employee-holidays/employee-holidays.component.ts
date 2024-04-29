@@ -1,6 +1,8 @@
+import { NgClass } from '@angular/common';
 import { Component, ViewChild, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -19,15 +21,16 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { EmployeeHolidaysApiService } from '../../../services/api/employee-holidays-api.service';
-import { HolidayAssignedResponse } from './holidays-assigned.response';
+import { CompanyHolidayHeadersComponent } from '../company-holiday-headers/company-holiday-headers.component';
+import { EmployeeHolidayResponse } from './employee-holiday-response.model';
 
 @Component({
-  selector: 'aw-holidays-assigned',
-  templateUrl: './holidays-assigned.component.html',
-  styleUrl: './holidays-assigned.component.scss',
+  selector: 'aw-employee-holidays',
+  templateUrl: './employee-holidays.component.html',
   standalone: true,
   imports: [
     RouterLink,
+    NgClass,
     MatCardModule,
     MatTableModule,
     MatSortModule,
@@ -35,13 +38,15 @@ import { HolidayAssignedResponse } from './holidays-assigned.response';
     MatProgressSpinnerModule,
     MatIconModule,
     MatButtonModule,
+    MatDividerModule,
     PageBaseComponent,
     PageHeaderComponent,
     TableFilterComponent,
-    YearSelectorComponent
+    YearSelectorComponent,
+    CompanyHolidayHeadersComponent
   ]
 })
-export class HolidaysAssignedComponent {
+export class EmployeeHolidaysComponent {
   private readonly employeeHolidaysApiService = inject(EmployeeHolidaysApiService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -49,11 +54,11 @@ export class HolidaysAssignedComponent {
 
   readonly breadcrumb = new BreadcrumbCollection();
   readonly displayedColumns = ['firstName', 'lastName', 'email', 'totalDays', 'consumed', 'remaining'];
-  readonly fieldsFilter = ['user.firstName', 'user.lastName', 'user.email', 'totalDays', 'consumed'];
+  readonly fieldsFilter = ['firstName', 'lastName', 'email'];
   readonly siteUrl = SiteUrl;
 
-  dataSource!: MatTableDataSource<HolidayAssignedResponse>;
-  apiResult = new ApiResult<HolidayAssignedResponse>();
+  dataSource!: MatTableDataSource<EmployeeHolidayResponse>;
+  apiResult = new ApiResult<EmployeeHolidayResponse>();
   loading = true;
   yearSelected = DateTime.local();
 
@@ -72,7 +77,7 @@ export class HolidaysAssignedComponent {
     this.loadEmployeeHolidays();
   }
 
-  handleFilterChange(apiResult: ApiResult<HolidayAssignedResponse>): void {
+  handleFilterChange(apiResult: ApiResult<EmployeeHolidayResponse>): void {
     this.apiResult = apiResult;
     this.loadEmployeeHolidays();
   }
@@ -83,7 +88,7 @@ export class HolidaysAssignedComponent {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Días festivos', SiteUrl.manageHolidays.assigned, '', false);
+    this.breadcrumb.add('Días festivos', SiteUrl.companyHolidays.employees, '', false);
   }
 
   private loadEmployeeHolidays(): void {
@@ -92,11 +97,11 @@ export class HolidaysAssignedComponent {
     });
 
     this.employeeHolidaysApiService
-      .getPaginated<HolidayAssignedResponse>(this.apiResult, url)
+      .getPaginated<EmployeeHolidayResponse>(this.apiResult, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ApiResult<HolidayAssignedResponse>) => {
-          this.apiResult = ApiResult.clone<HolidayAssignedResponse>(result);
+        next: (result: ApiResult<EmployeeHolidayResponse>) => {
+          this.apiResult = ApiResult.clone<EmployeeHolidayResponse>(result);
           this.dataSource = new MatTableDataSource(result.items);
           this.dataSource.sort = this.sort;
         }

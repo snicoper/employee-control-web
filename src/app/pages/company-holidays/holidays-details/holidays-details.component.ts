@@ -5,7 +5,6 @@ import { PageHeaderComponent } from '../../../components/pages/page-header/page-
 @Component({
   selector: 'aw-holidays-details',
   templateUrl: './holidays-details.component.html',
-  styleUrl: './holidays-details.component.scss',
   standalone: true,
   imports: [PageBaseComponent, PageHeaderComponent]
 })

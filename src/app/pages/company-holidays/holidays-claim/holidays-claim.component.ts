@@ -5,13 +5,13 @@ import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-
 import { PageBaseComponent } from '../../../components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../components/pages/page-header/page-header.component';
 import { SiteUrl } from '../../../core/urls/site-urls';
+import { CompanyHolidayHeadersComponent } from '../company-holiday-headers/company-holiday-headers.component';
 
 @Component({
   selector: 'aw-holidays-claim',
   templateUrl: './holidays-claim.component.html',
-  styleUrl: './holidays-claim.component.scss',
   standalone: true,
-  imports: [RouterLink, PageBaseComponent, PageHeaderComponent]
+  imports: [RouterLink, PageBaseComponent, PageHeaderComponent, CompanyHolidayHeadersComponent]
 })
 export class HolidaysClaimComponent {
   readonly breadcrumb = new BreadcrumbCollection();
@@ -24,6 +24,6 @@ export class HolidaysClaimComponent {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Pendientes', SiteUrl.manageHolidays.claims, '', false);
+    this.breadcrumb.add('Pendientes', SiteUrl.companyHolidays.claims, '', false);
   }
 }
