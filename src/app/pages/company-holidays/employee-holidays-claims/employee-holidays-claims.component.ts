@@ -5,15 +5,15 @@ import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-
 import { PageBaseComponent } from '../../../components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../components/pages/page-header/page-header.component';
 import { SiteUrl } from '../../../core/urls/site-urls';
-import { CompanyHolidayHeadersComponent } from '../company-holiday-headers/company-holiday-headers.component';
+import { CompanyHolidaysHeadersComponent } from '../company-holidays-headers/company-holidays-headers.component';
 
 @Component({
-  selector: 'aw-holidays-claim',
-  templateUrl: './holidays-claim.component.html',
+  selector: 'aw-employee-holidays-claims',
+  templateUrl: './employee-holidays-claims.component.html',
   standalone: true,
-  imports: [RouterLink, PageBaseComponent, PageHeaderComponent, CompanyHolidayHeadersComponent]
+  imports: [RouterLink, PageBaseComponent, PageHeaderComponent, CompanyHolidaysHeadersComponent]
 })
-export class HolidaysClaimComponent {
+export class EmployeeHolidaysClaimsComponent {
   readonly breadcrumb = new BreadcrumbCollection();
   readonly siteUrl = SiteUrl;
 

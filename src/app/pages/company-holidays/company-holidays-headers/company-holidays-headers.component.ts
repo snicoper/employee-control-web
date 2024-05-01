@@ -4,12 +4,11 @@ import { RouterLink } from '@angular/router';
 import { SiteUrl } from '../../../core/urls/site-urls';
 
 @Component({
-  selector: 'aw-company-holiday-headers',
-  templateUrl: './company-holiday-headers.component.html',
+  selector: 'aw-company-holidays-headers',
+  templateUrl: './company-holidays-headers.component.html',
   standalone: true,
   imports: [RouterLink, MatButtonModule]
 })
-export class CompanyHolidayHeadersComponent {
+export class CompanyHolidaysHeadersComponent {
   readonly siteUrl = SiteUrl;
-  yearSelected = 2024;
 }

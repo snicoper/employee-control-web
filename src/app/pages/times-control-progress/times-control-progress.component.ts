@@ -69,7 +69,7 @@ export class TimesControlProgressComponent {
   loadingTimeState = false;
   dateSelected = DateTime.local();
   timeStates = TimeState;
-  loadingTimeControls = false;
+  loadingTimeControls = true;
   timeTotalInMonth = '';
   latitude: number | undefined;
   longitude: number | undefined;

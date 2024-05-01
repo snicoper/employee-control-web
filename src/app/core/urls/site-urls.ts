@@ -31,7 +31,7 @@ export const SiteUrl = {
   companyHolidays: {
     employees: '/company-holidays',
     claims: '/company-holidays/claims',
-    details: '/company-holidays/{id}/details'
+    details: '/company-holidays/year/{year}/employees/{employeeId}'
   },
 
   companySettings: {

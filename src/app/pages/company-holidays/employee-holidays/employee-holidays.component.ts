@@ -8,7 +8,7 @@ import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/p
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { DateTime } from 'luxon';
 import { finalize } from 'rxjs';
 import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-collection';
@@ -21,12 +21,13 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { EmployeeHolidaysApiService } from '../../../services/api/employee-holidays-api.service';
-import { CompanyHolidayHeadersComponent } from '../company-holiday-headers/company-holiday-headers.component';
-import { EmployeeHolidayResponse } from './employee-holiday-response.model';
+import { CompanyHolidaysHeadersComponent } from '../company-holidays-headers/company-holidays-headers.component';
+import { EmployeeHolidaysResponse } from './employee-holidays-response.model';
 
 @Component({
   selector: 'aw-employee-holidays',
   templateUrl: './employee-holidays.component.html',
+  styleUrl: './employee-holidays.component.scss',
   standalone: true,
   imports: [
     RouterLink,
@@ -43,11 +44,12 @@ import { EmployeeHolidayResponse } from './employee-holiday-response.model';
     PageHeaderComponent,
     TableFilterComponent,
     YearSelectorComponent,
-    CompanyHolidayHeadersComponent
+    CompanyHolidaysHeadersComponent
   ]
 })
 export class EmployeeHolidaysComponent {
   private readonly employeeHolidaysApiService = inject(EmployeeHolidaysApiService);
+  private readonly router = inject(Router);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -57,8 +59,8 @@ export class EmployeeHolidaysComponent {
   readonly fieldsFilter = ['firstName', 'lastName', 'email'];
   readonly siteUrl = SiteUrl;
 
-  dataSource!: MatTableDataSource<EmployeeHolidayResponse>;
-  apiResult = new ApiResult<EmployeeHolidayResponse>();
+  dataSource!: MatTableDataSource<EmployeeHolidaysResponse>;
+  apiResult = new ApiResult<EmployeeHolidaysResponse>();
   loading = true;
   yearSelected = DateTime.local();
 
@@ -72,12 +74,21 @@ export class EmployeeHolidaysComponent {
     this.loadEmployeeHolidays();
   }
 
+  handleSelectRow(employeeHolidayResponse: EmployeeHolidaysResponse): void {
+    const url = CommonUtils.urlReplaceParams(SiteUrl.companyHolidays.details, {
+      year: String(this.yearSelected.year),
+      employeeId: employeeHolidayResponse.userId
+    });
+
+    this.router.navigateByUrl(url);
+  }
+
   handlePageEvent(pageEvent: PageEvent): void {
     this.apiResult = this.apiResult.handlePageEvent(pageEvent);
     this.loadEmployeeHolidays();
   }
 
-  handleFilterChange(apiResult: ApiResult<EmployeeHolidayResponse>): void {
+  handleFilterChange(apiResult: ApiResult<EmployeeHolidaysResponse>): void {
     this.apiResult = apiResult;
     this.loadEmployeeHolidays();
   }
@@ -88,7 +99,7 @@ export class EmployeeHolidaysComponent {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Días festivos', SiteUrl.companyHolidays.employees, '', false);
+    this.breadcrumb.add('Empleados', SiteUrl.companyHolidays.employees, '', false);
   }
 
   private loadEmployeeHolidays(): void {
@@ -97,11 +108,11 @@ export class EmployeeHolidaysComponent {
     });
 
     this.employeeHolidaysApiService
-      .getPaginated<EmployeeHolidayResponse>(this.apiResult, url)
+      .getPaginated<EmployeeHolidaysResponse>(this.apiResult, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ApiResult<EmployeeHolidayResponse>) => {
-          this.apiResult = ApiResult.clone<EmployeeHolidayResponse>(result);
+        next: (result: ApiResult<EmployeeHolidaysResponse>) => {
+          this.apiResult = ApiResult.clone<EmployeeHolidaysResponse>(result);
           this.dataSource = new MatTableDataSource(result.items);
           this.dataSource.sort = this.sort;
         }

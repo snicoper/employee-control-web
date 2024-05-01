@@ -1,9 +1,9 @@
 <aw-page-base>
   <aw-page-header [breadcrumb]="breadcrumb">
-    Días de vacaciones
+    Vacaciones de empleados
 
     <div class="header-links">
-      <aw-company-holiday-headers />
+      <aw-company-holidays-headers />
     </div>
   </aw-page-header>
 
@@ -81,7 +81,7 @@
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="handleSelectRow(row)"></tr>
 
           <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell p-4" [attr.colspan]="displayedColumns.length">No hay datos a mostrar</td>

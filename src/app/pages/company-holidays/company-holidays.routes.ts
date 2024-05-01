@@ -1,23 +1,23 @@
 import { Routes } from '@angular/router';
 
+import { EmployeeHolidaysClaimsComponent } from './employee-holidays-claims/employee-holidays-claims.component';
+import { EmployeeHolidaysDetailsComponent } from './employee-holidays-details/employee-holidays-details.component';
 import { EmployeeHolidaysComponent } from './employee-holidays/employee-holidays.component';
-import { HolidaysClaimComponent } from './holidays-claim/holidays-claim.component';
-import { HolidaysDetailsComponent } from './holidays-details/holidays-details.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: EmployeeHolidaysComponent,
-    title: ''
+    title: 'Vacaciones de empleados'
   },
   {
     path: 'claims',
-    component: HolidaysClaimComponent,
-    title: ''
+    component: EmployeeHolidaysClaimsComponent,
+    title: 'Reclamo de vacaciones'
   },
   {
-    path: ':id/details',
-    component: HolidaysDetailsComponent,
-    title: ''
+    path: 'year/:year/employees/:employeeId',
+    component: EmployeeHolidaysDetailsComponent,
+    title: 'Detalle de vacaciones'
   }
 ];
