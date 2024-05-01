@@ -99,7 +99,7 @@ export class EmployeeHolidaysComponent {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Empleados', SiteUrl.companyHolidays.employees, '', false);
+    this.breadcrumb.add('Vacaciones de empelados', SiteUrl.companyHolidays.employees, '', false);
   }
 
   private loadEmployeeHolidays(): void {

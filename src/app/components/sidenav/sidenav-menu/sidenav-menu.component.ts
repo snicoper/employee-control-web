@@ -16,6 +16,7 @@ import { SidenavMenu, SidenavMenuItem, SidenavMenus } from './sidenav-menu';
 @Component({
   selector: 'aw-sidenav-menu',
   templateUrl: './sidenav-menu.component.html',
+  styleUrl: './sidenav-menu.component.scss',
   standalone: true,
   imports: [
     RouterLink,
