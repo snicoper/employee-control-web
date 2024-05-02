@@ -1,4 +1,4 @@
-import { EmployeeHolidayClaimLine } from './employee-holiday-claim-line.model';
+import { EmployeeHolidayClaimItem } from './employee-holiday-claim-litem.model';
 import { User } from './user.model';
 
 export interface EmployeeHolidayClaim {
@@ -8,5 +8,5 @@ export interface EmployeeHolidayClaim {
   accepted: boolean;
   userId: string;
   user: User;
-  employeeHolidayClaimLines: Array<EmployeeHolidayClaimLine>;
+  employeeHolidayClaimItems: Array<EmployeeHolidayClaimItem>;
 }
