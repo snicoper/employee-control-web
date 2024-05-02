@@ -16,8 +16,7 @@ import { ApiUrl } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { DateTimeUtils } from '../../core/utils/datetime-utils';
 import { CompanyHoliday } from '../../models/entities/company-holiday.model';
-import { CompanyHolidaysApiService } from '../../services/api/company-holidays-api.service';
-import { EmployeeHolidaysApiService } from '../../services/api/employee-holidays-api.service';
+import { ApiService } from '../../services/api/api-service.service';
 import { JwtService } from '../../services/jwt.service';
 import { SidenavService } from '../../services/sidenav.service';
 import { CompanySettingsStateService } from '../../services/states/company-settings-state.service';
@@ -47,9 +46,8 @@ import { EmployeeHolidayResponse } from './employee-holiday-response.model';
 })
 export class EmployeeCalendarComponent implements OnDestroy {
   private readonly workingDaysWeekStateService = inject(WorkingDaysWeekStateService);
-  private readonly companyHolidaysApiService = inject(CompanyHolidaysApiService);
+  private readonly apiService = inject(ApiService);
   private readonly companySettingsStateService = inject(CompanySettingsStateService);
-  private readonly employeeHolidaysApiService = inject(EmployeeHolidaysApiService);
   private readonly employeeCalendarToolbarService = inject(EmployeeCalendarToolbarService);
   private readonly currentEmployeeStateService = inject(CurrentEmployeeStateService);
   private readonly sidenavService = inject(SidenavService);
@@ -185,8 +183,8 @@ export class EmployeeCalendarComponent implements OnDestroy {
     type resultResponse = { companyHolidays$: Array<CompanyHoliday>; employeeHoliday$: EmployeeHolidayResponse };
 
     forkJoin({
-      companyHolidays$: this.companyHolidaysApiService.get<Array<CompanyHoliday>>(companyHolidaysUrl),
-      employeeHoliday$: this.employeeHolidaysApiService.get<EmployeeHolidayResponse>(employeeHolidayUrl)
+      companyHolidays$: this.apiService.get<Array<CompanyHoliday>>(companyHolidaysUrl),
+      employeeHoliday$: this.apiService.get<EmployeeHolidayResponse>(employeeHolidayUrl)
     }).subscribe({
       next: (result: resultResponse) => {
         this.workingDaysInYear -= result.companyHolidays$.length;

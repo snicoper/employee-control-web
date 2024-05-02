@@ -18,7 +18,7 @@ import { SiteUrl } from '../../../../core/urls/site-urls';
 import { BadRequest } from '../../../../models/bad-request';
 import { CompanyCalendar } from '../../../../models/entities/company-calendar.model';
 import { ResultResponse } from '../../../../models/result-response.model';
-import { CompanyCalendarsApiService } from '../../../../services/api/company-calendars-api.service';
+import { ApiService } from '../../../../services/api/api-service.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
 
 @Component({
@@ -40,7 +40,7 @@ import { SnackBarService } from '../../../../services/snackbar.service';
 })
 export class CompanyCalendarCreateComponent {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly companyCalendarsApiService = inject(CompanyCalendarsApiService);
+  private readonly apiService = inject(ApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
 
@@ -67,7 +67,7 @@ export class CompanyCalendarCreateComponent {
 
     const companyCalendar = this.form.value as CompanyCalendar;
 
-    this.companyCalendarsApiService
+    this.apiService
       .post<CompanyCalendar, ResultResponse>(companyCalendar, ApiUrl.companyCalendar.createCompanyCalendar)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
@@ -82,7 +82,6 @@ export class CompanyCalendarCreateComponent {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb;
     this.breadcrumb
       .add('Calendarios', SiteUrl.companyCalendar.calendar, '')
       .add('Lista de calendarios', SiteUrl.companyCalendar.list, '')

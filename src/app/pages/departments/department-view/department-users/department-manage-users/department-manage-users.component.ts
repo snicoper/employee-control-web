@@ -6,7 +6,7 @@ import { DualListBox } from '../../../../../components/dual-list-box/dual-list-b
 import { ApiUrl } from '../../../../../core/urls/api-urls';
 import { CommonUtils } from '../../../../../core/utils/common-utils';
 import { ResultResponse } from '../../../../../models/result-response.model';
-import { DepartmentApiService } from '../../../../../services/api/department-api.service';
+import { ApiService } from '../../../../../services/api/api-service.service';
 import { SnackBarService } from '../../../../../services/snackbar.service';
 import { DepartmentSelectedService } from '../../department-selected.service';
 import { DepartmentManageUserResponse } from './department-manage-user-response.model';
@@ -18,7 +18,7 @@ import { DepartmentManageUserResponse } from './department-manage-user-response.
   imports: [DualListBoxComponent]
 })
 export class DepartmentManageUsersComponent {
-  private readonly departmentApiService = inject(DepartmentApiService);
+  private readonly apiService = inject(ApiService);
   private readonly departmentSelectedService = inject(DepartmentSelectedService);
   private readonly snackBarService = inject(SnackBarService);
 
@@ -50,7 +50,7 @@ export class DepartmentManageUsersComponent {
       id: departmentId
     });
 
-    this.departmentApiService
+    this.apiService
       .post<typeof data, ResultResponse>(data, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
@@ -69,7 +69,7 @@ export class DepartmentManageUsersComponent {
       id: this.departmentSelected()?.id as string
     });
 
-    this.departmentApiService
+    this.apiService
       .get<DepartmentManageUserResponse[]>(url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

@@ -25,8 +25,7 @@ import { BadRequest } from '../../../models/bad-request';
 import { CompanyCalendar } from '../../../models/entities/company-calendar.model';
 import { User } from '../../../models/entities/user.model';
 import { ResultResponse } from '../../../models/result-response.model';
-import { CompanyCalendarsApiService } from '../../../services/api/company-calendars-api.service';
-import { EmployeesApiService } from '../../../services/api/employees-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 
 @Component({
@@ -54,8 +53,7 @@ export class EmployeeUpdateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
-  private readonly employeesApiService = inject(EmployeesApiService);
-  private readonly companyCalendarsApiService = inject(CompanyCalendarsApiService);
+  private readonly apiService = inject(ApiService);
   private readonly snackBarService = inject(SnackBarService);
 
   readonly siteUrl = SiteUrl;
@@ -91,7 +89,7 @@ export class EmployeeUpdateComponent {
     const employee = this.form.value as User;
     employee.id = this.employeeId;
 
-    this.employeesApiService
+    this.apiService
       .put<User, ResultResponse>(employee, ApiUrl.employees.updateEmployee)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
@@ -135,7 +133,7 @@ export class EmployeeUpdateComponent {
 
     const url = CommonUtils.urlReplaceParams(ApiUrl.employees.getEmployeeById, { id: this.employeeId });
 
-    this.employeesApiService
+    this.apiService
       .get<User>(url)
       .pipe(finalize(() => (this.loadingEmployee = false)))
       .subscribe({

@@ -16,7 +16,7 @@ import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { TimeControl } from '../../../models/entities/time-control.model';
 import { ResultResponse } from '../../../models/result-response.model';
-import { TimeControlApiService } from '../../../services/api/time-control-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { TimeControlIncidenceCreateRequest } from './time-control-incidence-create-request.model';
 
@@ -41,7 +41,7 @@ import { TimeControlIncidenceCreateRequest } from './time-control-incidence-crea
 })
 export class TimeControlIncidenceCreateComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly timeControlApiService = inject(TimeControlApiService);
+  private readonly apiService = inject(ApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly dialogData = inject<{ timeControlId: string }>(MAT_DIALOG_DATA);
   private readonly dialogRef = inject(MatDialogRef<TimeControlIncidenceCreateComponent>);
@@ -76,7 +76,7 @@ export class TimeControlIncidenceCreateComponent implements OnInit {
     const timeControlIncidenceCreateRequest = this.form.value as TimeControlIncidenceCreateRequest;
     timeControlIncidenceCreateRequest.timeControlId = this.timeControlId;
 
-    this.timeControlApiService
+    this.apiService
       .put<TimeControlIncidenceCreateRequest, ResultResponse>(timeControlIncidenceCreateRequest, url)
       .subscribe({
         next: (result: ResultResponse) => {
@@ -106,7 +106,7 @@ export class TimeControlIncidenceCreateComponent implements OnInit {
     this.loadingTimeControl = true;
     const url = CommonUtils.urlReplaceParams(ApiUrl.timeControl.getTimeControlById, { id: this.timeControlId });
 
-    this.timeControlApiService
+    this.apiService
       .get<TimeControl>(url)
       .pipe(finalize(() => (this.loadingTimeControl = false)))
       .subscribe({

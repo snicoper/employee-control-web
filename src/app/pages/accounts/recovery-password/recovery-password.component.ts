@@ -16,7 +16,7 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { BadRequest } from '../../../models/bad-request';
 import { ResultResponse } from '../../../models/result-response.model';
-import { AccountsApiService } from '../../../services/api/accounts-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 import { RecoveryPasswordRequest } from './recovery-password-request.model';
 
 @Component({
@@ -39,7 +39,7 @@ import { RecoveryPasswordRequest } from './recovery-password-request.model';
 })
 export class RecoveryPasswordComponent {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly accountsApiService = inject(AccountsApiService);
+  private readonly apiService = inject(ApiService);
 
   readonly siteUrl = SiteUrl;
   readonly formInputType = FormInputType;
@@ -65,7 +65,7 @@ export class RecoveryPasswordComponent {
     this.loading = true;
     const recoveryPasswordRequest = this.form.value as RecoveryPasswordRequest;
 
-    this.accountsApiService
+    this.apiService
       .post<RecoveryPasswordRequest, ResultResponse>(recoveryPasswordRequest, ApiUrl.accounts.recoveryPassword)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

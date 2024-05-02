@@ -14,7 +14,7 @@ import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { ResultResponse } from '../../../../models/result-response.model';
 import { BoolToIconPipe } from '../../../../pipes/bool-to-icon.pipe';
-import { DepartmentApiService } from '../../../../services/api/department-api.service';
+import { ApiService } from '../../../../services/api/api-service.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
 import { DepartmentSelectedService } from '../department-selected.service';
 
@@ -38,7 +38,7 @@ import { DepartmentSelectedService } from '../department-selected.service';
 export class DepartmentDetailsComponent implements OnInit {
   private readonly snackBarService = inject(SnackBarService);
   private readonly departmentSelectedService = inject(DepartmentSelectedService);
-  private readonly departmentApiService = inject(DepartmentApiService);
+  private readonly apiService = inject(ApiService);
 
   departmentId = input.required<string>();
 
@@ -58,7 +58,7 @@ export class DepartmentDetailsComponent implements OnInit {
     this.loadingDepartmentState = true;
     const data = { departmentId: this.departmentId() };
 
-    this.departmentApiService
+    this.apiService
       .put<typeof data, ResultResponse>(data, ApiUrl.departments.activateDepartment)
       .pipe(finalize(() => (this.loadingDepartmentState = false)))
       .subscribe({
@@ -75,7 +75,7 @@ export class DepartmentDetailsComponent implements OnInit {
     this.loadingDepartmentState = true;
     const data = { departmentId: this.departmentId() };
 
-    this.departmentApiService
+    this.apiService
       .put<typeof data, ResultResponse>(data, ApiUrl.departments.deactivateDepartment)
       .pipe(finalize(() => (this.loadingDepartmentState = false)))
       .subscribe({

@@ -17,7 +17,7 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BoolToIconPipe } from '../../../pipes/bool-to-icon.pipe';
-import { EmployeesApiService } from '../../../services/api/employees-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 import { EmployeeSelectedService } from '../employee-view/employee-selected.service';
 import { EmployeeListResponse } from './employee-list-response.model';
 
@@ -42,7 +42,7 @@ import { EmployeeListResponse } from './employee-list-response.model';
   ]
 })
 export class EmployeeListComponent {
-  private readonly employeesApiService = inject(EmployeesApiService);
+  private readonly apiService = inject(ApiService);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
   private readonly router = inject(Router);
 
@@ -91,7 +91,7 @@ export class EmployeeListComponent {
   }
 
   private loadEmployees(): void {
-    this.employeesApiService
+    this.apiService
       .getPaginated<EmployeeListResponse>(this.apiResult, ApiUrl.employees.getEmployeesPaginated)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

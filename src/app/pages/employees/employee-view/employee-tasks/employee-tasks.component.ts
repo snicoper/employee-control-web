@@ -13,7 +13,7 @@ import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { CompanyTask } from '../../../../models/entities/company-task.model';
 import { BoolToIconPipe } from '../../../../pipes/bool-to-icon.pipe';
-import { CompanyTaskApiService } from '../../../../services/api/company-task-api.service';
+import { ApiService } from '../../../../services/api/api-service.service';
 import { EmployeeSelectedService } from '../employee-selected.service';
 
 @Component({
@@ -32,7 +32,7 @@ import { EmployeeSelectedService } from '../employee-selected.service';
   ]
 })
 export class EmployeeTasksComponent {
-  private readonly companyTaskApiService = inject(CompanyTaskApiService);
+  private readonly apiService = inject(ApiService);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
   private readonly router = inject(Router);
 
@@ -77,7 +77,7 @@ export class EmployeeTasksComponent {
       employeeId: this.employeeSelected()?.id ?? ''
     });
 
-    this.companyTaskApiService
+    this.apiService
       .getPaginated<CompanyTask>(this.apiResult, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

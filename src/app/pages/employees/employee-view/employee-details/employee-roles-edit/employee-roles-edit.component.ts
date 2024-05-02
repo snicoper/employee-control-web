@@ -11,7 +11,7 @@ import { Role } from '../../../../../core/types/role';
 import { ApiUrl } from '../../../../../core/urls/api-urls';
 import { CommonUtils } from '../../../../../core/utils/common-utils';
 import { ResultResponse } from '../../../../../models/result-response.model';
-import { EmployeesApiService } from '../../../../../services/api/employees-api.service';
+import { ApiService } from '../../../../../services/api/api-service.service';
 import { SnackBarService } from '../../../../../services/snackbar.service';
 import { EmployeeSelectedService } from '../../employee-selected.service';
 import { EmployeeRolesRequest } from './employee-roles-request.model';
@@ -32,7 +32,7 @@ import { EmployeeRolesRequest } from './employee-roles-request.model';
   ]
 })
 export class EmployeeRolesEditComponent {
-  private readonly employeesApiService = inject(EmployeesApiService);
+  private readonly apiService = inject(ApiService);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly dialogRef = inject(MatDialogRef<EmployeeRolesEditComponent>);
@@ -88,7 +88,7 @@ export class EmployeeRolesEditComponent {
 
     rolesToAdd.rolesToAdd.push(Role.Employee);
 
-    this.employeesApiService
+    this.apiService
       .put<EmployeeRolesRequest, ResultResponse>(rolesToAdd, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

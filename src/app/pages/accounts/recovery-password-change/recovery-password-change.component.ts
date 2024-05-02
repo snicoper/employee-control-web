@@ -17,7 +17,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CustomValidators } from '../../../core/validators/custom-validators-form';
 import { BadRequest } from '../../../models/bad-request';
 import { ResultResponse } from '../../../models/result-response.model';
-import { AccountsApiService } from '../../../services/api/accounts-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { RecoveryPasswordChangeRequest } from './recovery-password-change-request.model';
 
@@ -43,7 +43,7 @@ export class RecoveryPasswordChangeComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly accountsApiService = inject(AccountsApiService);
+  private readonly apiService = inject(ApiService);
   private readonly snackBarService = inject(SnackBarService);
 
   readonly formInputType = FormInputType;
@@ -81,7 +81,7 @@ export class RecoveryPasswordChangeComponent {
     this.recoveryPasswordChangeRequest.password = this.form.get('password')?.value;
     this.recoveryPasswordChangeRequest.confirmPassword = this.form.get('confirmPassword')?.value;
 
-    this.accountsApiService
+    this.apiService
       .post<RecoveryPasswordChangeRequest, ResultResponse>(
         this.recoveryPasswordChangeRequest,
         ApiUrl.accounts.recoveryPasswordChange

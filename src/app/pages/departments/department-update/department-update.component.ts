@@ -19,7 +19,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { Department } from '../../../models/entities/department.model';
-import { DepartmentApiService } from '../../../services/api/department-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 
 @Component({
@@ -45,7 +45,7 @@ export class DepartmentUpdateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
-  private readonly departmentApiService = inject(DepartmentApiService);
+  private readonly apiService = inject(ApiService);
   private readonly snackBarService = inject(SnackBarService);
 
   readonly breadcrumb = new BreadcrumbCollection();
@@ -80,7 +80,7 @@ export class DepartmentUpdateComponent {
 
     const url = CommonUtils.urlReplaceParams(ApiUrl.departments.updateDepartment, { id: this.departmentId });
 
-    this.departmentApiService
+    this.apiService
       .put<Department, undefined>(department, url)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
@@ -111,7 +111,7 @@ export class DepartmentUpdateComponent {
     this.loadingDepartment = true;
     const url = CommonUtils.urlReplaceParams(ApiUrl.departments.getDepartmentById, { id: this.departmentId });
 
-    this.departmentApiService
+    this.apiService
       .get<Department>(url)
       .pipe(finalize(() => (this.loadingDepartment = false)))
       .subscribe({

@@ -20,7 +20,7 @@ import { CommonUtils } from '../../../../core/utils/common-utils';
 import { BadRequest } from '../../../../models/bad-request';
 import { CompanyCalendar } from '../../../../models/entities/company-calendar.model';
 import { ResultResponse } from '../../../../models/result-response.model';
-import { CompanyCalendarsApiService } from '../../../../services/api/company-calendars-api.service';
+import { ApiService } from '../../../../services/api/api-service.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
 
 @Component({
@@ -43,7 +43,7 @@ import { SnackBarService } from '../../../../services/snackbar.service';
 })
 export class CompanyCalendarUpdateComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly companyCalendarsApiService = inject(CompanyCalendarsApiService);
+  private readonly apiService = inject(ApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
@@ -80,7 +80,7 @@ export class CompanyCalendarUpdateComponent implements OnInit {
     const companyCalendar = this.form.value as CompanyCalendar;
     companyCalendar.id = this.companyCalendarId;
 
-    this.companyCalendarsApiService
+    this.apiService
       .put<CompanyCalendar, ResultResponse>(companyCalendar, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
@@ -109,7 +109,7 @@ export class CompanyCalendarUpdateComponent implements OnInit {
       id: this.companyCalendarId
     });
 
-    this.companyCalendarsApiService
+    this.apiService
       .get<CompanyCalendar>(url)
       .pipe(finalize(() => (this.loadingCompanyCalendar = false)))
       .subscribe({

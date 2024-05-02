@@ -20,7 +20,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { BadRequest } from '../../../models/bad-request';
 import { CompanySettings } from '../../../models/entities/company-settings.model';
 import { ResultResponse } from '../../../models/result-response.model';
-import { CompanySettingsApiService } from '../../../services/api/company-settings-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { CompanySettingsStateService } from '../../../services/states/company-settings-state.service';
 
@@ -43,7 +43,7 @@ import { CompanySettingsStateService } from '../../../services/states/company-se
 })
 export class CompanySettingsUpdateComponent {
   private readonly companySettingsStateService = inject(CompanySettingsStateService);
-  private readonly companySettingsApiService = inject(CompanySettingsApiService);
+  private readonly apiService = inject(ApiService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
@@ -82,7 +82,7 @@ export class CompanySettingsUpdateComponent {
     const companySettings = this.form.value as CompanySettings;
     companySettings.id = this.companySettings()?.id as string;
 
-    this.companySettingsApiService
+    this.apiService
       .put<CompanySettings, ResultResponse>(companySettings, ApiUrl.companySettings.updateCompanySettings)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({

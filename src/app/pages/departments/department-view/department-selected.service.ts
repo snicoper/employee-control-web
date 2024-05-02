@@ -3,11 +3,11 @@ import { finalize } from 'rxjs';
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { Department } from '../../../models/entities/department.model';
-import { DepartmentApiService } from '../../../services/api/department-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 
 @Injectable()
 export class DepartmentSelectedService {
-  private readonly departmentApiService = inject(DepartmentApiService);
+  private readonly apiService = inject(ApiService);
 
   private readonly departmentSelected$ = signal<Department | null>(null);
   private readonly departmentSelectedLoading$ = signal(false);
@@ -29,7 +29,7 @@ export class DepartmentSelectedService {
     this.departmentSelectedLoading$.set(true);
     const url = CommonUtils.urlReplaceParams(ApiUrl.departments.getDepartmentById, { id: id });
 
-    this.departmentApiService
+    this.apiService
       .get<Department>(url)
       .pipe(finalize(() => this.departmentSelectedLoading$.set(false)))
       .subscribe({

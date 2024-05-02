@@ -18,7 +18,7 @@ import { CustomValidators } from '../../../../core/validators/custom-validators-
 import { BadRequest } from '../../../../models/bad-request';
 import { DeviceType } from '../../../../models/entities/types/device-type.model';
 import { TimeState } from '../../../../models/entities/types/time-state.model';
-import { TimeControlApiService } from '../../../../services/api/time-control-api.service';
+import { ApiService } from '../../../../services/api/api-service.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
 import { TimeControlRecordCreateRequest } from '../time-control-record-create-request.model';
 import { TimeControlRecordCreateService } from '../time-control-record-create.service';
@@ -42,7 +42,7 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly snackBarService = inject(SnackBarService);
-  private readonly timeControlApiService = inject(TimeControlApiService);
+  private readonly apiService = inject(ApiService);
   private readonly timeControlRecordCreateService = inject(TimeControlRecordCreateService);
 
   readonly employeeSelected = computed(() => this.timeControlRecordCreateService.employeeSelected());
@@ -90,7 +90,7 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
     // Crear tiempo.
     this.loadingForm = true;
 
-    this.timeControlApiService
+    this.apiService
       .post<TimeControlRecordCreateRequest, string>(timeControl, ApiUrl.timeControl.createTimeControl)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({

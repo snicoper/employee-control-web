@@ -18,7 +18,7 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
-import { EmployeesApiService } from '../../../services/api/employees-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { CompanySettingsStateService } from '../../../services/states/company-settings-state.service';
 import { InviteEmployeeRequest } from './employee-invite-request.model';
@@ -42,7 +42,7 @@ import { InviteEmployeeRequest } from './employee-invite-request.model';
 })
 export class EmployeeInviteComponent {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly employeesApiService = inject(EmployeesApiService);
+  private readonly apiService = inject(ApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
   private readonly companySettingsStateService = inject(CompanySettingsStateService);
@@ -73,7 +73,7 @@ export class EmployeeInviteComponent {
     // Continue.
     const inviteEmployeeRequest = this.form.value as InviteEmployeeRequest;
 
-    this.employeesApiService
+    this.apiService
       .post<InviteEmployeeRequest, string>(inviteEmployeeRequest, ApiUrl.employees.inviteEmployee)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

@@ -35,7 +35,7 @@ import { ClosedByPipe } from '../../../pipes/closed-by.pipe';
 import { DateFormatPipe as DateTimePipe } from '../../../pipes/date-format.pipe';
 import { DeviceTypePipe } from '../../../pipes/device-type.pipe';
 import { DurationToTimePipe } from '../../../pipes/duration-to-time.pipe';
-import { TimeControlApiService } from '../../../services/api/time-control-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 import { SimpleGeolocationService } from '../../../services/simple-geolocation.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { TimeControlRecordResponse } from './time-control-record-response.model';
@@ -68,7 +68,7 @@ import { TimeControlRecordResponse } from './time-control-record-response.model'
   ]
 })
 export class TimeControlRecordListComponent {
-  private readonly timeControlApiService = inject(TimeControlApiService);
+  private readonly apiService = inject(ApiService);
   private readonly simpleGeolocationService = inject(SimpleGeolocationService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
@@ -184,7 +184,7 @@ export class TimeControlRecordListComponent {
     this.loadingTimeState = true;
     const data = { timeControlId: timeControl.id };
 
-    this.timeControlApiService
+    this.apiService
       .put<typeof data, ResultResponse>(data, ApiUrl.timeControl.finishTimeControlByStaff)
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
@@ -203,7 +203,7 @@ export class TimeControlRecordListComponent {
   handleDeleteTimeControl(timeControl: TimeControlRecordResponse): void {
     const url = CommonUtils.urlReplaceParams(ApiUrl.timeControl.deleteTimeControl, { id: timeControl.id });
 
-    this.timeControlApiService.delete<ResultResponse>(url).subscribe({
+    this.apiService.delete<ResultResponse>(url).subscribe({
       next: (result: ResultResponse) => {
         if (result.succeeded) {
           this.loadTimesControl();
@@ -267,7 +267,7 @@ export class TimeControlRecordListComponent {
     // Update filters.
     this.updateFilters();
 
-    this.timeControlApiService
+    this.apiService
       .getPaginated<TimeControlRecordResponse>(this.apiResult, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

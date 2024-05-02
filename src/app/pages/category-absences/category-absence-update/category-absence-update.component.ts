@@ -20,7 +20,7 @@ import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { CategoryAbsence } from '../../../models/entities/category-absence.model';
 import { ResultResponse } from '../../../models/result-response.model';
-import { CategoryAbsencesApiService } from '../../../services/api/category-absences-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 
 @Component({
@@ -47,7 +47,7 @@ export class CategoryAbsenceUpdateComponent {
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
-  private readonly categoryAbsencesApiService = inject(CategoryAbsencesApiService);
+  private readonly apiService = inject(ApiService);
 
   readonly breadcrumb = new BreadcrumbCollection();
   readonly categoryAbsenceId: string;
@@ -81,7 +81,7 @@ export class CategoryAbsenceUpdateComponent {
       id: this.categoryAbsenceId
     });
 
-    this.categoryAbsencesApiService
+    this.apiService
       .put<CategoryAbsence, ResultResponse>(categoryAbsence, url)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
@@ -116,7 +116,7 @@ export class CategoryAbsenceUpdateComponent {
       id: this.categoryAbsenceId
     });
 
-    this.categoryAbsencesApiService
+    this.apiService
       .get<CategoryAbsence>(url)
       .pipe(finalize(() => (this.loadingCategoryAbsence = false)))
       .subscribe({

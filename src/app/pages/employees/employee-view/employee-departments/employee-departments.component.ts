@@ -13,7 +13,7 @@ import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { Department } from '../../../../models/entities/department.model';
 import { BoolToIconPipe } from '../../../../pipes/bool-to-icon.pipe';
-import { DepartmentApiService } from './../../../../services/api/department-api.service';
+import { ApiService } from '../../../../services/api/api-service.service';
 import { EmployeeSelectedService } from './../employee-selected.service';
 
 @Component({
@@ -32,7 +32,7 @@ import { EmployeeSelectedService } from './../employee-selected.service';
   ]
 })
 export class EmployeeDepartmentsComponent {
-  private readonly departmentApiService = inject(DepartmentApiService);
+  private readonly apiService = inject(ApiService);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
   private readonly router = inject(Router);
 
@@ -77,7 +77,7 @@ export class EmployeeDepartmentsComponent {
       employeeId: this.employeeSelected()?.id ?? ''
     });
 
-    this.departmentApiService
+    this.apiService
       .getPaginated<Department>(this.apiResult, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

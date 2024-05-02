@@ -6,7 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ApiUrl } from '../../../../core/urls/api-urls';
 import { BadRequest } from '../../../../models/bad-request';
 import { CompanyCalendar } from '../../../../models/entities/company-calendar.model';
-import { CompanyCalendarsApiService } from '../../../../services/api/company-calendars-api.service';
+import { ApiService } from '../../../../services/api/api-service.service';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -27,7 +27,7 @@ import { FieldErrorComponent } from '../../errors/field-error/field-error.compon
   imports: [FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, FieldErrorComponent]
 })
 export class FormCompanyCalendarsComponent implements ControlValueAccessor {
-  private readonly companyCalendarsApiService = inject(CompanyCalendarsApiService);
+  private readonly apiService = inject(ApiService);
 
   badRequest = input.required<BadRequest | undefined>();
   form = input.required<FormGroup>();
@@ -40,7 +40,7 @@ export class FormCompanyCalendarsComponent implements ControlValueAccessor {
   companyCalendars: Array<CompanyCalendar> = [];
 
   constructor() {
-    this.companyCalendarsApiService.get<Array<CompanyCalendar>>(ApiUrl.companyCalendar.getCompanyCalendars).subscribe({
+    this.apiService.get<Array<CompanyCalendar>>(ApiUrl.companyCalendar.getCompanyCalendars).subscribe({
       next: (result: Array<CompanyCalendar>) => {
         this.companyCalendars = result;
       }

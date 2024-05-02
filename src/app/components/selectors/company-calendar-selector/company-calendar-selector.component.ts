@@ -5,7 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { CompanyCalendar } from '../../../models/entities/company-calendar.model';
-import { CompanyCalendarsApiService } from '../../../services/api/company-calendars-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 
 @Component({
   selector: 'aw-company-calendar-selector',
@@ -15,7 +15,7 @@ import { CompanyCalendarsApiService } from '../../../services/api/company-calend
   imports: [FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule]
 })
 export class CompanyCalendarSelectorComponent implements OnInit {
-  private readonly companyCalendarsApiServiceService = inject(CompanyCalendarsApiService);
+  private readonly apiService = inject(ApiService);
 
   companyCalendarChange = output<CompanyCalendar>();
 
@@ -35,15 +35,13 @@ export class CompanyCalendarSelectorComponent implements OnInit {
   }
 
   private loadCompanyCalendars(): void {
-    this.companyCalendarsApiServiceService
-      .get<Array<CompanyCalendar>>(ApiUrl.companyCalendar.getCompanyCalendars)
-      .subscribe({
-        next: (result: Array<CompanyCalendar>) => {
-          const defaultCompanyCalendar = result.find((cc) => cc.default) as CompanyCalendar;
-          this.companyCalendars = result;
-          this.companyCalendarIdSelected = defaultCompanyCalendar?.id;
-          this.companyCalendarChange.emit(defaultCompanyCalendar);
-        }
-      });
+    this.apiService.get<Array<CompanyCalendar>>(ApiUrl.companyCalendar.getCompanyCalendars).subscribe({
+      next: (result: Array<CompanyCalendar>) => {
+        const defaultCompanyCalendar = result.find((cc) => cc.default) as CompanyCalendar;
+        this.companyCalendars = result;
+        this.companyCalendarIdSelected = defaultCompanyCalendar?.id;
+        this.companyCalendarChange.emit(defaultCompanyCalendar);
+      }
+    });
   }
 }

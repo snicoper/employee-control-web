@@ -20,7 +20,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { Department } from '../../../models/entities/department.model';
 import { BoolToIconPipe } from '../../../pipes/bool-to-icon.pipe';
-import { DepartmentApiService } from '../../../services/api/department-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 
 @Component({
   selector: 'aw-department-list',
@@ -45,7 +45,7 @@ import { DepartmentApiService } from '../../../services/api/department-api.servi
   ]
 })
 export class DepartmentListComponent {
-  private readonly departmentApiService = inject(DepartmentApiService);
+  private readonly apiService = inject(ApiService);
   private readonly router = inject(Router);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -94,7 +94,7 @@ export class DepartmentListComponent {
   private loadDepartments(): void {
     this.loading = true;
 
-    this.departmentApiService
+    this.apiService
       .getPaginated<Department>(this.apiResult, ApiUrl.departments.getDepartmentsPaginated)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

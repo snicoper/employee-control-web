@@ -11,8 +11,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { User } from '../../../models/entities/user.model';
-import { EmployeeHolidaysApiService } from '../../../services/api/employee-holidays-api.service';
-import { EmployeesApiService } from '../../../services/api/employees-api.service';
+import { ApiService } from '../../../services/api/api-service.service';
 import { EmployeeHolidaysDetailsResponse } from './employee-holidays-details-response.model';
 
 @Component({
@@ -24,8 +23,7 @@ import { EmployeeHolidaysDetailsResponse } from './employee-holidays-details-res
 export class EmployeeHolidaysDetailsComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
-  private readonly employeeHolidaysApiService = inject(EmployeeHolidaysApiService);
-  private readonly employeesApiService = inject(EmployeesApiService);
+  private readonly apiService = inject(ApiService);
 
   readonly breadcrumb = new BreadcrumbCollection();
   readonly employeeId: string;
@@ -70,8 +68,8 @@ export class EmployeeHolidaysDetailsComponent {
     type resultResponse = { employeeHoliday$: EmployeeHolidaysDetailsResponse; employee$: User };
 
     forkJoin({
-      employeeHoliday$: this.employeeHolidaysApiService.get<EmployeeHolidaysDetailsResponse>(employeeHolidaysUrl),
-      employee$: this.employeesApiService.get<User>(employeesUrl)
+      employeeHoliday$: this.apiService.get<EmployeeHolidaysDetailsResponse>(employeeHolidaysUrl),
+      employee$: this.apiService.get<User>(employeesUrl)
     })
       .pipe(finalize(() => (this.loadingData = false)))
       .subscribe({

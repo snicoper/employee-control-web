@@ -14,7 +14,7 @@ import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { BoolToIconPipe } from '../../../../pipes/bool-to-icon.pipe';
 import { DateFormatPipe } from '../../../../pipes/date-format.pipe';
-import { CompanyTaskApiService } from '../../../../services/api/company-task-api.service';
+import { ApiService } from '../../../../services/api/api-service.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
 import { CompanyTaskViewService } from '../company-task-view.service';
 
@@ -40,7 +40,7 @@ import { CompanyTaskViewService } from '../company-task-view.service';
 export class CompanyTaskDetailsComponent implements OnInit {
   private readonly snackBarService = inject(SnackBarService);
   private readonly companyTaskViewService = inject(CompanyTaskViewService);
-  private readonly companyTaskApiService = inject(CompanyTaskApiService);
+  private readonly apiService = inject(ApiService);
 
   companyTaskId = input.required<string>();
 
@@ -61,7 +61,7 @@ export class CompanyTaskDetailsComponent implements OnInit {
     const url = CommonUtils.urlReplaceParams(ApiUrl.companyTasks.activateCompanyTask, { id: this.companyTaskId() });
     const data = { companyTaskId: this.companyTaskId() };
 
-    this.companyTaskApiService
+    this.apiService
       .put<typeof data, undefined>(data, url)
       .pipe(finalize(() => (this.loadingStateTask = false)))
       .subscribe({
@@ -77,7 +77,7 @@ export class CompanyTaskDetailsComponent implements OnInit {
     const url = CommonUtils.urlReplaceParams(ApiUrl.companyTasks.deactivateCompanyTask, { id: this.companyTaskId() });
     const data = { companyTaskId: this.companyTaskId() };
 
-    this.companyTaskApiService
+    this.apiService
       .put<typeof data, undefined>(data, url)
       .pipe(finalize(() => (this.loadingStateTask = false)))
       .subscribe({
