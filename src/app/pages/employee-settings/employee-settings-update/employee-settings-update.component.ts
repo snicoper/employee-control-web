@@ -18,7 +18,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { EmployeeSettings } from '../../../models/entities/employee-settings.model';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { EmployeeSettingsStateService } from '../../../services/states/employee-settings-state.service';
 
@@ -41,7 +41,7 @@ import { EmployeeSettingsStateService } from '../../../services/states/employee-
 })
 export class EmployeeSettingsUpdateComponent {
   private readonly employeeSettingsStateService = inject(EmployeeSettingsStateService);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
@@ -80,7 +80,7 @@ export class EmployeeSettingsUpdateComponent {
 
     employeeSettings.timezone = this.form.get('timezone')?.value;
 
-    this.apiService
+    this.httpClientApiService
       .put<EmployeeSettings, EmployeeSettings>(employeeSettings, url)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({

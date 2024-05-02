@@ -12,7 +12,7 @@ import { ApiResult } from '../../../../../core/features/api-result/api-result';
 import { ApiUrl } from '../../../../../core/urls/api-urls';
 import { SiteUrl } from '../../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../../core/utils/common-utils';
-import { ApiService } from '../../../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../../../services/api/http-client-api.service';
 import { DepartmentSelectedService } from '../../department-selected.service';
 import { DepartmentUserResponse } from '../department-users-response.model';
 
@@ -24,7 +24,7 @@ import { DepartmentUserResponse } from '../department-users-response.model';
   imports: [MatTableModule, MatIcon, MatButton, MatSortModule, MatPaginator, MatProgressSpinner, TableFilterComponent]
 })
 export class DepartmentUserListComponent {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly departmentSelectedService = inject(DepartmentSelectedService);
   private readonly router = inject(Router);
 
@@ -69,7 +69,7 @@ export class DepartmentUserListComponent {
       id: this.departmentSelectedService.departmentSelected()?.id ?? ''
     });
 
-    this.apiService
+    this.httpClientApiService
       .getPaginated<DepartmentUserResponse>(this.apiResult, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

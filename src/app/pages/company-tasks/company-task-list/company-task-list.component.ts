@@ -22,7 +22,7 @@ import { CommonUtils } from '../../../core/utils/common-utils';
 import { CompanyTask } from '../../../models/entities/company-task.model';
 import { BoolToIconPipe } from '../../../pipes/bool-to-icon.pipe';
 import { DateFormatPipe } from '../../../pipes/date-format.pipe';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 
 @Component({
   selector: 'aw-company-tasks-list',
@@ -49,7 +49,7 @@ import { ApiService } from '../../../services/api/api-service.service';
   ]
 })
 export class CompanyTaskListComponent {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly router = inject(Router);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -94,7 +94,7 @@ export class CompanyTaskListComponent {
   }
 
   private loadCompanyTasks(): void {
-    this.apiService
+    this.httpClientApiService
       .getPaginated<CompanyTask>(this.apiResult, ApiUrl.companyTasks.getCompanyTasksPaginated)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

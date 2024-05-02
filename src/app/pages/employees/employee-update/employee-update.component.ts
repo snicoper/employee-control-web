@@ -25,7 +25,7 @@ import { BadRequest } from '../../../models/bad-request';
 import { CompanyCalendar } from '../../../models/entities/company-calendar.model';
 import { User } from '../../../models/entities/user.model';
 import { ResultResponse } from '../../../models/result-response.model';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 
 @Component({
@@ -53,7 +53,7 @@ export class EmployeeUpdateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly snackBarService = inject(SnackBarService);
 
   readonly siteUrl = SiteUrl;
@@ -89,7 +89,7 @@ export class EmployeeUpdateComponent {
     const employee = this.form.value as User;
     employee.id = this.employeeId;
 
-    this.apiService
+    this.httpClientApiService
       .put<User, ResultResponse>(employee, ApiUrl.employees.updateEmployee)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
@@ -133,7 +133,7 @@ export class EmployeeUpdateComponent {
 
     const url = CommonUtils.urlReplaceParams(ApiUrl.employees.getEmployeeById, { id: this.employeeId });
 
-    this.apiService
+    this.httpClientApiService
       .get<User>(url)
       .pipe(finalize(() => (this.loadingEmployee = false)))
       .subscribe({

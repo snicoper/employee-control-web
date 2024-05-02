@@ -13,7 +13,7 @@ import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { DateUtils } from '../../../../core/utils/date-utils';
 import { DateTimeUtils } from '../../../../core/utils/datetime-utils';
-import { ApiService } from '../../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { EmployeeSelectedService } from '../employee-selected.service';
 
 @Component({
@@ -23,7 +23,7 @@ import { EmployeeSelectedService } from '../employee-selected.service';
   imports: [MonthSelectorComponent, TimeControlProgressComponent]
 })
 export class EmployeeTimeControlProgressComponent {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
   private readonly router = inject(Router);
 
@@ -62,7 +62,7 @@ export class EmployeeTimeControlProgressComponent {
       to: DateTimeUtils.toISOString(endDate)
     });
 
-    this.apiService
+    this.httpClientApiService
       .get<TimeControlGroupResponse[]>(url)
       .pipe(finalize(() => (this.loadingTimeControls = false)))
       .subscribe({

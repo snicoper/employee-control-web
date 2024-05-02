@@ -15,7 +15,7 @@ import { FormInputType } from '../../../core/types/form-input-type';
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { BadRequest } from '../../../models/bad-request';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { JwtService } from '../../../services/jwt.service';
 import { UserStatesService } from '../../../services/states/user-states.service';
 import { LoginRequest } from './login-request.model';
@@ -41,7 +41,7 @@ import { LoginResponse } from './login-response.model';
 })
 export class LoginComponent {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly userStatesService = inject(UserStatesService);
   private readonly jwtService = inject(JwtService);
   private readonly router = inject(Router);
@@ -73,7 +73,7 @@ export class LoginComponent {
     this.loading = true;
     const loginRequest = this.form.value as LoginRequest;
 
-    this.apiService
+    this.httpClientApiService
       .post<LoginRequest, LoginResponse>(loginRequest, ApiUrl.auth.login)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

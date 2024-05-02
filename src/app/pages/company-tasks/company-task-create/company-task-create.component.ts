@@ -18,7 +18,7 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { CompanyTaskCreateRequest } from './company-task-create-request.model';
 
@@ -42,7 +42,7 @@ import { CompanyTaskCreateRequest } from './company-task-create-request.model';
 })
 export class CompanyTaskCreateComponent {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
 
@@ -71,7 +71,7 @@ export class CompanyTaskCreateComponent {
 
     const companyTaskCreateRequest = this.form.value as CompanyTaskCreateRequest;
 
-    this.apiService
+    this.httpClientApiService
       .post<CompanyTaskCreateRequest, string>(companyTaskCreateRequest, ApiUrl.companyTasks.createCompanyTask)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

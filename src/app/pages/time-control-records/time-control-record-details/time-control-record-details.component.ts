@@ -24,7 +24,7 @@ import { ClosedByPipe } from '../../../pipes/closed-by.pipe';
 import { DateFormatPipe } from '../../../pipes/date-format.pipe';
 import { DeviceTypePipe } from '../../../pipes/device-type.pipe';
 import { DurationToTimePipe } from '../../../pipes/duration-to-time.pipe';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SimpleGeolocationService } from '../../../services/simple-geolocation.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { TimeControlRecordDetailsResponse } from './time-control-record-details-response.model';
@@ -55,7 +55,7 @@ export class TimeControlRecordDetailsComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly snackBarService = inject(SnackBarService);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly simpleGeolocationService = inject(SimpleGeolocationService);
 
   private timeControlId = '';
@@ -106,7 +106,7 @@ export class TimeControlRecordDetailsComponent implements OnInit {
   handleTimeControlDelete(timeControl: TimeControlRecordDetailsResponse): void {
     const url = CommonUtils.urlReplaceParams(ApiUrl.timeControl.deleteTimeControl, { id: timeControl.id });
 
-    this.apiService.delete<ResultResponse>(url).subscribe({
+    this.httpClientApiService.delete<ResultResponse>(url).subscribe({
       next: (result: ResultResponse) => {
         if (result.succeeded) {
           this.snackBarService.success('Tiempo eliminado con éxito.');
@@ -123,7 +123,7 @@ export class TimeControlRecordDetailsComponent implements OnInit {
     this.loadingTimeControl = true;
     const data = { timeControlId: timeControl.id };
 
-    this.apiService
+    this.httpClientApiService
       .put<typeof data, ResultResponse>(data, ApiUrl.timeControl.finishTimeControlByStaff)
       .pipe(finalize(() => (this.loadingTimeControl = false)))
       .subscribe({
@@ -143,7 +143,7 @@ export class TimeControlRecordDetailsComponent implements OnInit {
     const url = CommonUtils.urlReplaceParams(ApiUrl.timeControl.closeIncidence, { id: this.timeControlId });
     const data = { id: this.timeControlId };
 
-    this.apiService.put<typeof data, ResultResponse>(data, url).subscribe({
+    this.httpClientApiService.put<typeof data, ResultResponse>(data, url).subscribe({
       next: (result: ResultResponse) => {
         if (result.succeeded) {
           this.snackBarService.success('Incidencia cerrada con éxito.');
@@ -167,7 +167,7 @@ export class TimeControlRecordDetailsComponent implements OnInit {
     });
     this.loadingTimeControl = true;
 
-    this.apiService
+    this.httpClientApiService
       .get<TimeControlRecordDetailsResponse>(url)
       .pipe(finalize(() => (this.loadingTimeControl = false)))
       .subscribe({

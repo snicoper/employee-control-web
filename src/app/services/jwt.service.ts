@@ -9,7 +9,7 @@ import { ApiUrl } from '../core/urls/api-urls';
 import { SiteUrl } from '../core/urls/site-urls';
 import { RefreshTokenRequest } from '../models/refresh-token-request.model';
 import { RefreshTokenResponse } from '../models/refresh-token-response.model';
-import { ApiService } from './api/api-service.service';
+import { HttpClientApiService } from './api/http-client-api.service';
 import { AuthService } from './auth.service';
 import { BrowserStorageService } from './browser-storage.service';
 
@@ -17,7 +17,7 @@ import { BrowserStorageService } from './browser-storage.service';
 export class JwtService {
   private readonly router = inject(Router);
   private readonly authService = inject(AuthService);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly browserStorageService = inject(BrowserStorageService);
 
   /** Comprueba si el token se esta refrescando. */
@@ -68,11 +68,13 @@ export class JwtService {
   refreshingTokens(): Observable<RefreshTokenResponse> {
     const model = { refreshToken: this.refreshToken } as RefreshTokenRequest;
 
-    return this.apiService.post<RefreshTokenRequest, RefreshTokenResponse>(model, ApiUrl.auth.refreshToken).pipe(
-      tap((result) => {
-        this.setTokens(result.accessToken, result.refreshToken);
-      })
-    );
+    return this.httpClientApiService
+      .post<RefreshTokenRequest, RefreshTokenResponse>(model, ApiUrl.auth.refreshToken)
+      .pipe(
+        tap((result) => {
+          this.setTokens(result.accessToken, result.refreshToken);
+        })
+      );
   }
 
   isExpired(): boolean {

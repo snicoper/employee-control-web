@@ -3,7 +3,7 @@ import { finalize } from 'rxjs';
 import { ApiUrl } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { TimeControlStateResponse } from '../../models/states/time-control-state-response.model';
-import { ApiService } from '../api/api-service.service';
+import { HttpClientApiService } from '../api/http-client-api.service';
 import { JwtService } from '../jwt.service';
 import { StateService } from './state.service';
 
@@ -11,7 +11,7 @@ import { StateService } from './state.service';
 @Injectable({ providedIn: 'root' })
 export class UserTimeControlStateService implements StateService<TimeControlStateResponse | null> {
   private readonly jwtService = inject(JwtService);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
 
   private readonly timeControlStateResponse$ = signal<TimeControlStateResponse | null>(null);
   private readonly loadingTimeControlState$ = signal(false);
@@ -39,7 +39,7 @@ export class UserTimeControlStateService implements StateService<TimeControlStat
       employeeId: this.jwtService.getSid()
     });
 
-    this.apiService
+    this.httpClientApiService
       .get<TimeControlStateResponse>(url)
       .pipe(finalize(() => this.loadingTimeControlState$.set(false)))
       .subscribe({

@@ -19,7 +19,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { Department } from '../../../models/entities/department.model';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { DepartmentCreateResponse } from './department-create-response.model';
 
@@ -43,7 +43,7 @@ import { DepartmentCreateResponse } from './department-create-response.model';
 })
 export class DepartmentCreateComponent {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
 
@@ -72,7 +72,7 @@ export class DepartmentCreateComponent {
 
     const department = this.form.value as Department;
 
-    this.apiService
+    this.httpClientApiService
       .post<Department, DepartmentCreateResponse>(department, ApiUrl.departments.createDepartment)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

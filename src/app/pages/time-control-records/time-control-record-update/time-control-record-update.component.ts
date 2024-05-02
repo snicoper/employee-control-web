@@ -24,7 +24,7 @@ import { CustomValidators } from '../../../core/validators/custom-validators-for
 import { BadRequest } from '../../../models/bad-request';
 import { TimeControl } from '../../../models/entities/time-control.model';
 import { ResultResponse } from '../../../models/result-response.model';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { TimeControlRecordRequest } from './time-control-record-request';
 
@@ -47,7 +47,7 @@ import { TimeControlRecordRequest } from './time-control-record-request';
   ]
 })
 export class TimeControlRecordUpdateComponent implements OnInit {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
@@ -138,7 +138,7 @@ export class TimeControlRecordUpdateComponent implements OnInit {
     this.loadingForm = true;
     const url = CommonUtils.urlReplaceParams(ApiUrl.timeControl.getTimeControlById, { id: this.timeControlId });
 
-    this.apiService
+    this.httpClientApiService
       .get<TimeControl>(url)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
@@ -154,7 +154,7 @@ export class TimeControlRecordUpdateComponent implements OnInit {
     this.loadingForm = true;
     const url = CommonUtils.urlReplaceParams(ApiUrl.timeControl.updateTimeControl, { id: this.timeControlId });
 
-    this.apiService
+    this.httpClientApiService
       .put<TimeControlRecordRequest, ResultResponse>(timeControl, url)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({

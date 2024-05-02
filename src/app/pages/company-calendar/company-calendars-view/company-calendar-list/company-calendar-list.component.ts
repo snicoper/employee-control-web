@@ -18,7 +18,7 @@ import { ApiUrl } from '../../../../core/urls/api-urls';
 import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { CompanyCalendar } from '../../../../models/entities/company-calendar.model';
-import { ApiService } from '../../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 
 @Component({
   selector: 'aw-company-calendar-list',
@@ -42,7 +42,7 @@ import { ApiService } from '../../../../services/api/api-service.service';
   ]
 })
 export class CompanyCalendarListComponent {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly router = inject(Router);
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -76,7 +76,7 @@ export class CompanyCalendarListComponent {
   }
 
   private loadCompanyCalendars(): void {
-    this.apiService
+    this.httpClientApiService
       .get<Array<CompanyCalendar>>(ApiUrl.companyCalendar.getCompanyCalendars)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

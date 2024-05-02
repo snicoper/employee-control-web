@@ -5,13 +5,13 @@ import { ApiUrl } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { WorkingDaysWeek } from '../../models/entities/working-days-week.model';
 import { ResultResponse } from '../../models/result-response.model';
-import { ApiService } from '../api/api-service.service';
+import { HttpClientApiService } from '../api/http-client-api.service';
 import { SnackBarService } from '../snackbar.service';
 import { StateService } from './state.service';
 
 @Injectable({ providedIn: 'root' })
 export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek | null> {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly snackBarService = inject(SnackBarService);
 
   private readonly workingDaysWeek$ = signal<WorkingDaysWeek | null>(null);
@@ -68,7 +68,7 @@ export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek
       id: this.get()?.id as string
     });
 
-    this.apiService
+    this.httpClientApiService
       .put<WorkingDaysWeek, ResultResponse>(workingDaysWeek, url)
       .pipe(finalize(() => this.loadingWorkingDaysWeek$.set(false)))
       .subscribe({
@@ -88,7 +88,7 @@ export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek
   private loadWorkingDaysWeek(): void {
     this.loadingWorkingDaysWeek$.set(true);
 
-    this.apiService
+    this.httpClientApiService
       .get<WorkingDaysWeek>(ApiUrl.workingDaysWeek.getWorkingDaysWeek)
       .pipe(finalize(() => this.loadingWorkingDaysWeek$.set(false)))
       .subscribe({

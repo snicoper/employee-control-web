@@ -25,7 +25,7 @@ import { DeviceType, deviceToDeviceType } from '../../models/entities/types/devi
 import { TimeState } from '../../models/entities/types/time-state.model';
 import { ResultResponse } from '../../models/result-response.model';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
-import { ApiService } from '../../services/api/api-service.service';
+import { HttpClientApiService } from '../../services/api/http-client-api.service';
 import { JwtService } from '../../services/jwt.service';
 import { SimpleGeolocationService } from '../../services/simple-geolocation.service';
 import { SnackBarService } from '../../services/snackbar.service';
@@ -51,7 +51,7 @@ import { TimeControlProgressChangeStateRequest } from './time-control-progress-c
   ]
 })
 export class TimesControlProgressComponent {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly jwtService = inject(JwtService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly userTimeControlStateService = inject(UserTimeControlStateService);
@@ -110,7 +110,7 @@ export class TimesControlProgressComponent {
       longitude: this.longitude
     };
 
-    this.apiService
+    this.httpClientApiService
       .post<TimeControlProgressChangeStateRequest, ResultResponse>(data, ApiUrl.timeControl.startTimeControl)
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
@@ -137,7 +137,7 @@ export class TimesControlProgressComponent {
       longitude: this.longitude
     };
 
-    this.apiService
+    this.httpClientApiService
       .put<TimeControlProgressChangeStateRequest, ResultResponse>(data, ApiUrl.timeControl.finishTimeControl)
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
@@ -176,7 +176,7 @@ export class TimesControlProgressComponent {
       to: endDate
     });
 
-    this.apiService
+    this.httpClientApiService
       .get<TimeControlGroupResponse[]>(url)
       .pipe(finalize(() => (this.loadingTimeControls = false)))
       .subscribe({

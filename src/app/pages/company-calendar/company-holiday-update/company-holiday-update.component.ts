@@ -14,7 +14,7 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { ResultResponse } from '../../../models/result-response.model';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { CompanyHolidayManageUpdateRequest } from './company-holiday-manage-update.request';
 
@@ -37,7 +37,7 @@ import { CompanyHolidayManageUpdateRequest } from './company-holiday-manage-upda
 export class CompanyHolidayUpdateComponent implements OnInit {
   private readonly dialogData = inject<{ calendarEvent: CalendarEvent }>(MAT_DIALOG_DATA);
   private readonly dialogRef = inject(MatDialogRef<CompanyHolidayUpdateComponent>);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
 
@@ -68,7 +68,7 @@ export class CompanyHolidayUpdateComponent implements OnInit {
       id: this.dialogData.calendarEvent.id as string
     });
 
-    this.apiService.delete<ResultResponse>(url).subscribe({
+    this.httpClientApiService.delete<ResultResponse>(url).subscribe({
       next: () => {
         this.snackBarService.success('Día festivo eliminado con éxito.');
         this.dialogRef.close();
@@ -88,7 +88,7 @@ export class CompanyHolidayUpdateComponent implements OnInit {
       id: this.dialogData.calendarEvent.id as string
     });
 
-    this.apiService
+    this.httpClientApiService
       .put<CompanyHolidayManageUpdateRequest, string>(companyHoliday, url)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({

@@ -5,7 +5,7 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { UserRole } from '../../../models/entities/user-role.model';
 import { TimeControlStateResponse } from '../../../models/states/time-control-state-response.model';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { EmployeeSelectedResponse } from './employee-selected-response.model';
 
 /**
@@ -16,7 +16,7 @@ import { EmployeeSelectedResponse } from './employee-selected-response.model';
  */
 @Injectable({ providedIn: 'root' })
 export class EmployeeSelectedService {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
 
   private readonly employeeSelected$ = signal<EmployeeSelectedResponse | null>(null);
   private readonly employeeSelectedRoles$ = signal<UserRole[]>([]);
@@ -55,21 +55,21 @@ export class EmployeeSelectedService {
       employeeId: employeeId
     });
 
-    this.apiService
+    this.httpClientApiService
       .get<TimeControlStateResponse>(urlTimeState)
       .pipe(finalize(() => this.loadingEmployeeTimeControlState$.set(false)))
       .subscribe({
         next: (result) => this.timeControlStateResponse$.set(result)
       });
 
-    this.apiService
+    this.httpClientApiService
       .get<EmployeeSelectedResponse>(urlEmployee)
       .pipe(finalize(() => this.loadingEmployee$.set(false)))
       .subscribe({
         next: (result: EmployeeSelectedResponse) => this.employeeSelected$.set(result)
       });
 
-    this.apiService
+    this.httpClientApiService
       .get<UserRole[]>(urlEmployeeRoles)
       .pipe(finalize(() => this.loadingEmployeeRoles$.set(false)))
       .subscribe({

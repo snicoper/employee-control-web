@@ -22,7 +22,7 @@ import { CommonUtils } from '../../core/utils/common-utils';
 import { DateTimeUtils } from '../../core/utils/datetime-utils';
 import { CompanyCalendar } from '../../models/entities/company-calendar.model';
 import { CompanyHoliday } from '../../models/entities/company-holiday.model';
-import { ApiService } from '../../services/api/api-service.service';
+import { HttpClientApiService } from '../../services/api/http-client-api.service';
 import { CompanySettingsStateService } from '../../services/states/company-settings-state.service';
 import { WorkingDaysWeekStateService } from '../../services/states/working-days-week-state.service';
 import { CompanyHolidayCreateComponent } from './company-holiday-create/company-holiday-create.component';
@@ -49,7 +49,7 @@ import { CompanyHolidayUpdateComponent } from './company-holiday-update/company-
 })
 export class CompanyCalendarComponent {
   private readonly workingDaysWeekStateService = inject(WorkingDaysWeekStateService);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly companySettingsStateService = inject(CompanySettingsStateService);
   private readonly matDialog = inject(MatDialog);
 
@@ -166,7 +166,7 @@ export class CompanyCalendarComponent {
       }
     );
 
-    this.apiService.get<Array<CompanyHoliday>>(url).subscribe({
+    this.httpClientApiService.get<Array<CompanyHoliday>>(url).subscribe({
       next: (result: Array<CompanyHoliday>) => {
         this.workingDaysInYear -= result.length;
         this.parseCompanyHolidays(result);

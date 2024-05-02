@@ -20,7 +20,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { CategoryAbsence } from '../../../models/entities/category-absence.model';
 import { BoolToIconPipe } from '../../../pipes/bool-to-icon.pipe';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 
 @Component({
   selector: 'aw-category-absence-list',
@@ -44,7 +44,7 @@ import { ApiService } from '../../../services/api/api-service.service';
   ]
 })
 export class CategoryAbsenceListComponent {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly router = inject(Router);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -91,7 +91,7 @@ export class CategoryAbsenceListComponent {
   }
 
   private loadCategoryAbsences(): void {
-    this.apiService
+    this.httpClientApiService
       .getPaginated<CategoryAbsence>(this.apiResult, ApiUrl.categoryAbsences.getCategoryAbsencePaginated)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

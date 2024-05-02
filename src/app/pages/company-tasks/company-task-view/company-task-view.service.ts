@@ -3,7 +3,7 @@ import { finalize } from 'rxjs';
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { CompanyTask } from '../../../models/entities/company-task.model';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 
 /**
  * Tarea seleccionada desde la lista (company-task-list).
@@ -11,7 +11,7 @@ import { ApiService } from '../../../services/api/api-service.service';
  */
 @Injectable()
 export class CompanyTaskViewService {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
 
   private readonly companyTaskSelected$ = signal<CompanyTask | null>(null);
   private readonly companyTaskVLoading$ = signal(false);
@@ -33,7 +33,7 @@ export class CompanyTaskViewService {
     this.companyTaskVLoading$.set(true);
     const url = CommonUtils.urlReplaceParams(ApiUrl.companyTasks.getCompanyTasksById, { id: companyTaskId });
 
-    this.apiService
+    this.httpClientApiService
       .get<CompanyTask>(url)
       .pipe(finalize(() => this.companyTaskVLoading$.set(false)))
       .subscribe({

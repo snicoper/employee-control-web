@@ -3,4 +3,4 @@ import { BaseApiService } from './base-api.service';
 
 /** Genérico para HttpClient. */
 @Injectable({ providedIn: 'root' })
-export class ApiService extends BaseApiService {}
+export class HttpClientApiService extends BaseApiService {}

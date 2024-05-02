@@ -2,12 +2,12 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { finalize } from 'rxjs';
 import { ApiUrl } from '../../core/urls/api-urls';
 import { User } from '../../models/entities/user.model';
-import { ApiService } from '../api/api-service.service';
+import { HttpClientApiService } from '../api/http-client-api.service';
 import { StateService } from './state.service';
 
 @Injectable({ providedIn: 'root' })
 export class CurrentEmployeeStateService implements StateService<User | null> {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
 
   private readonly currentEmployee$ = signal<User | null>(null);
   private readonly loadingCurrentEmployee$ = signal(false);
@@ -30,7 +30,7 @@ export class CurrentEmployeeStateService implements StateService<User | null> {
   private loadCurrentEmployee(): void {
     this.loadingCurrentEmployee$.set(true);
 
-    this.apiService
+    this.httpClientApiService
       .get<User>(ApiUrl.employees.getCurrentEmployee)
       .pipe(finalize(() => this.loadingCurrentEmployee$.set(false)))
       .subscribe({

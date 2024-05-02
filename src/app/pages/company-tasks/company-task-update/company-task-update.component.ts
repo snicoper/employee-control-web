@@ -19,7 +19,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { CompanyTask } from '../../../models/entities/company-task.model';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 
 @Component({
@@ -45,7 +45,7 @@ export class CompanyTaskUpdateComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly snackBarService = inject(SnackBarService);
 
   readonly breadcrumb = new BreadcrumbCollection();
@@ -82,7 +82,7 @@ export class CompanyTaskUpdateComponent {
 
     const url = CommonUtils.urlReplaceParams(ApiUrl.companyTasks.updateCompanyTask, { id: this.companyTaskId });
 
-    this.apiService
+    this.httpClientApiService
       .put<CompanyTask, undefined>(companyTask, url)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
@@ -113,7 +113,7 @@ export class CompanyTaskUpdateComponent {
     this.loadingCompanyTask = true;
     const url = CommonUtils.urlReplaceParams(ApiUrl.companyTasks.updateCompanyTask, { id: this.companyTaskId });
 
-    this.apiService
+    this.httpClientApiService
       .get<CompanyTask>(url)
       .pipe(finalize(() => (this.loadingCompanyTask = false)))
       .subscribe({

@@ -16,7 +16,7 @@ import { ApiUrl } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { DateTimeUtils } from '../../core/utils/datetime-utils';
 import { CompanyHoliday } from '../../models/entities/company-holiday.model';
-import { ApiService } from '../../services/api/api-service.service';
+import { HttpClientApiService } from '../../services/api/http-client-api.service';
 import { JwtService } from '../../services/jwt.service';
 import { SidenavService } from '../../services/sidenav.service';
 import { CompanySettingsStateService } from '../../services/states/company-settings-state.service';
@@ -46,7 +46,7 @@ import { EmployeeHolidayResponse } from './employee-holiday-response.model';
 })
 export class EmployeeCalendarComponent implements OnDestroy {
   private readonly workingDaysWeekStateService = inject(WorkingDaysWeekStateService);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly companySettingsStateService = inject(CompanySettingsStateService);
   private readonly employeeCalendarToolbarService = inject(EmployeeCalendarToolbarService);
   private readonly currentEmployeeStateService = inject(CurrentEmployeeStateService);
@@ -183,8 +183,8 @@ export class EmployeeCalendarComponent implements OnDestroy {
     type resultResponse = { companyHolidays$: Array<CompanyHoliday>; employeeHoliday$: EmployeeHolidayResponse };
 
     forkJoin({
-      companyHolidays$: this.apiService.get<Array<CompanyHoliday>>(companyHolidaysUrl),
-      employeeHoliday$: this.apiService.get<EmployeeHolidayResponse>(employeeHolidayUrl)
+      companyHolidays$: this.httpClientApiService.get<Array<CompanyHoliday>>(companyHolidaysUrl),
+      employeeHoliday$: this.httpClientApiService.get<EmployeeHolidayResponse>(employeeHolidayUrl)
     }).subscribe({
       next: (result: resultResponse) => {
         this.workingDaysInYear -= result.companyHolidays$.length;

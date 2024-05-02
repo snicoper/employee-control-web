@@ -18,7 +18,7 @@ import { SiteUrl } from '../../../../core/urls/site-urls';
 import { BadRequest } from '../../../../models/bad-request';
 import { CompanyCalendar } from '../../../../models/entities/company-calendar.model';
 import { ResultResponse } from '../../../../models/result-response.model';
-import { ApiService } from '../../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
 
 @Component({
@@ -40,7 +40,7 @@ import { SnackBarService } from '../../../../services/snackbar.service';
 })
 export class CompanyCalendarCreateComponent {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly router = inject(Router);
 
@@ -67,7 +67,7 @@ export class CompanyCalendarCreateComponent {
 
     const companyCalendar = this.form.value as CompanyCalendar;
 
-    this.apiService
+    this.httpClientApiService
       .post<CompanyCalendar, ResultResponse>(companyCalendar, ApiUrl.companyCalendar.createCompanyCalendar)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

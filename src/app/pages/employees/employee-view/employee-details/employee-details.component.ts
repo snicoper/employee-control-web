@@ -21,7 +21,7 @@ import { TimeState } from '../../../../models/entities/types/time-state.model';
 import { ResultResponse } from '../../../../models/result-response.model';
 import { BoolToIconPipe } from '../../../../pipes/bool-to-icon.pipe';
 import { DateFormatPipe } from '../../../../pipes/date-format.pipe';
-import { ApiService } from '../../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { JwtService } from '../../../../services/jwt.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
 import { EmployeeSelectedService } from '../employee-selected.service';
@@ -48,7 +48,7 @@ import { EmployeeRolesEditComponent } from './employee-roles-edit/employee-roles
   ]
 })
 export class EmployeeDetailsComponent {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly employeeSelectedService = inject(EmployeeSelectedService);
   private readonly jwtService = inject(JwtService);
@@ -85,7 +85,7 @@ export class EmployeeDetailsComponent {
     const data = { employeeId: this.employeeSelected()?.id };
     const url = this.generateApiUrl(ApiUrl.employees.deactivateEmployee);
 
-    this.apiService
+    this.httpClientApiService
       .put<typeof data, ResultResponse>(data, url)
       .pipe(finalize(() => (this.loadingUpdateActive = false)))
       .subscribe({
@@ -102,7 +102,7 @@ export class EmployeeDetailsComponent {
     const data = { employeeId: this.employeeSelected()?.id };
     const url = this.generateApiUrl(ApiUrl.employees.activateEmployee);
 
-    this.apiService
+    this.httpClientApiService
       .put<typeof data, ResultResponse>(data, url)
       .pipe(finalize(() => (this.loadingUpdateActive = false)))
       .subscribe({

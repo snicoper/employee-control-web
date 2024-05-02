@@ -6,7 +6,7 @@ import { DualListBox } from '../../../../../components/dual-list-box/dual-list-b
 import { ApiUrl } from '../../../../../core/urls/api-urls';
 import { CommonUtils } from '../../../../../core/utils/common-utils';
 import { ResultResponse } from '../../../../../models/result-response.model';
-import { ApiService } from '../../../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../../../services/snackbar.service';
 import { CompanyTaskViewService } from '../../company-task-view.service';
 import { CompanyTaskManageUsersResponse } from './company-task-add-manage-response.model';
@@ -18,7 +18,7 @@ import { CompanyTaskManageUsersResponse } from './company-task-add-manage-respon
   imports: [DualListBoxComponent]
 })
 export class CompanyTaskManageUsersComponent {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly companyTaskViewService = inject(CompanyTaskViewService);
   private readonly snackBarService = inject(SnackBarService);
 
@@ -50,7 +50,7 @@ export class CompanyTaskManageUsersComponent {
       id: companyTaskId
     });
 
-    this.apiService
+    this.httpClientApiService
       .post<typeof data, ResultResponse>(data, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
@@ -70,7 +70,7 @@ export class CompanyTaskManageUsersComponent {
       id: this.companyTaskSelected()?.id as string
     });
 
-    this.apiService
+    this.httpClientApiService
       .get<CompanyTaskManageUsersResponse[]>(url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

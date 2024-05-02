@@ -20,7 +20,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { CustomValidators } from '../../../core/validators/custom-validators-form';
 import { BadRequest } from '../../../models/bad-request';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { JwtService } from '../../../services/jwt.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { CategoryAbsenceCreateRequest } from './category-absence-create-request.model';
@@ -46,7 +46,7 @@ import { CategoryAbsenceCreateRequest } from './category-absence-create-request.
 })
 export class CategoryAbsenceCreateComponent {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly snackBarService = inject(SnackBarService);
   private readonly jwtService = inject(JwtService);
   private readonly router = inject(Router);
@@ -74,7 +74,7 @@ export class CategoryAbsenceCreateComponent {
     const categoryAbsenceCreateRequest = this.form.value as CategoryAbsenceCreateRequest;
     categoryAbsenceCreateRequest.companyId = this.jwtService.getCompanyId();
 
-    this.apiService
+    this.httpClientApiService
       .post<CategoryAbsenceCreateRequest, string>(
         categoryAbsenceCreateRequest,
         ApiUrl.categoryAbsences.createCompanyAbsence

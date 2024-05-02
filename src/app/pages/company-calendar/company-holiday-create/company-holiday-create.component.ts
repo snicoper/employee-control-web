@@ -12,7 +12,7 @@ import { FormInputComponent } from '../../../components/forms/inputs/form-input/
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { DateTimeUtils } from '../../../core/utils/datetime-utils';
 import { BadRequest } from '../../../models/bad-request';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { CompanyHolidayCreateData } from './company-holiday-create-data.model';
 import { CompanyHolidayManageCreateRequest } from './company-holiday-manage-create.request';
@@ -36,7 +36,7 @@ import { CompanyHolidayManageCreateRequest } from './company-holiday-manage-crea
 export class CompanyHolidayCreateComponent implements OnInit {
   private readonly dialogData = inject<CompanyHolidayCreateData>(MAT_DIALOG_DATA);
   private readonly dialogRef = inject(MatDialogRef<CompanyHolidayCreateComponent>);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly snackBarService = inject(SnackBarService);
 
@@ -72,7 +72,7 @@ export class CompanyHolidayCreateComponent implements OnInit {
   private createCompanyHoliday(companyHoliday: CompanyHolidayManageCreateRequest): void {
     companyHoliday.companyCalendarId = this.dialogData.companyCalendarId;
 
-    this.apiService
+    this.httpClientApiService
       .post<CompanyHolidayManageCreateRequest, string>(
         companyHoliday,
         ApiUrl.companyCalendarHolidays.createCompanyCalendarHoliday

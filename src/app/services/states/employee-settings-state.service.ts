@@ -3,13 +3,13 @@ import { finalize } from 'rxjs';
 import { LocalizationService } from '../../core/features/localizations/localization.service';
 import { ApiUrl } from '../../core/urls/api-urls';
 import { EmployeeSettings } from '../../models/entities/employee-settings.model';
-import { ApiService } from '../api/api-service.service';
+import { HttpClientApiService } from '../api/http-client-api.service';
 import { StateService } from './state.service';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeeSettingsStateService implements StateService<EmployeeSettings | null> {
   private readonly localizationService = inject(LocalizationService);
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
 
   private readonly employeeSettings$ = signal<EmployeeSettings | null>(null);
   private readonly loadingEmployeeSettings$ = signal(false);
@@ -32,7 +32,7 @@ export class EmployeeSettingsStateService implements StateService<EmployeeSettin
   private loadEmployeeSettings(): void {
     this.loadingEmployeeSettings$.set(true);
 
-    this.apiService
+    this.httpClientApiService
       .get<EmployeeSettings>(ApiUrl.employees.getCurrentEmployeeSettings)
       .pipe(finalize(() => this.loadingEmployeeSettings$.set(false)))
       .subscribe({

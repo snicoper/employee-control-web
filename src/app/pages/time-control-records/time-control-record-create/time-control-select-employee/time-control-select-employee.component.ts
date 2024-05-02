@@ -11,7 +11,7 @@ import { BtnBackComponent } from '../../../../components/buttons/btn-back/btn-ba
 import { TableFilterComponent } from '../../../../components/tables/table-filter/table-filter.component';
 import { ApiResult } from '../../../../core/features/api-result/api-result';
 import { ApiUrl } from '../../../../core/urls/api-urls';
-import { ApiService } from '../../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { TimeControlRecordCreateService } from '../time-control-record-create.service';
 import { TimeControlRecordEmployeeResponse } from '../time-control-record-employee-response.model';
 
@@ -33,7 +33,7 @@ import { TimeControlRecordEmployeeResponse } from '../time-control-record-employ
   ]
 })
 export class TimeControlSelectEmployeeComponent {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly timeControlRecordCreateService = inject(TimeControlRecordCreateService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -72,7 +72,7 @@ export class TimeControlSelectEmployeeComponent {
   }
 
   private loadEmployees(): void {
-    this.apiService
+    this.httpClientApiService
       .getPaginated<TimeControlRecordEmployeeResponse>(this.apiResult, ApiUrl.employees.getEmployeesPaginated)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

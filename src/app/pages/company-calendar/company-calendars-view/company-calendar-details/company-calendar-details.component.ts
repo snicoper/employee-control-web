@@ -15,7 +15,7 @@ import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { CompanyCalendar } from '../../../../models/entities/company-calendar.model';
 import { ResultResponse } from '../../../../models/result-response.model';
-import { ApiService } from '../../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
 
 @Component({
@@ -35,7 +35,7 @@ import { SnackBarService } from '../../../../services/snackbar.service';
   ]
 })
 export class CompanyCalendarDetailsComponent {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private snackBarService = inject(SnackBarService);
@@ -54,7 +54,7 @@ export class CompanyCalendarDetailsComponent {
 
   handleSetDefaultCalendar(): void {
     const url = CommonUtils.urlReplaceParams(ApiUrl.companyCalendar.setDefaultCalendar, { id: this.companyCalendarId });
-    this.apiService.put<string, ResultResponse>(this.companyCalendarId, url).subscribe({
+    this.httpClientApiService.put<string, ResultResponse>(this.companyCalendarId, url).subscribe({
       next: () => {
         this.snackBarService.success('Calendario establecido por defecto con éxito.');
         this.loadCompanyCalendar();
@@ -79,7 +79,7 @@ export class CompanyCalendarDetailsComponent {
       id: this.companyCalendarId
     });
 
-    this.apiService
+    this.httpClientApiService
       .get<CompanyCalendar>(url)
       .pipe(finalize(() => (this.loadingCompanyCalendar = false)))
       .subscribe({

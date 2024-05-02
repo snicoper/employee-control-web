@@ -20,7 +20,7 @@ import { ApiResult } from '../../../core/features/api-result/api-result';
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { CompanyHolidaysHeadersComponent } from '../company-holidays-headers/company-holidays-headers.component';
 import { EmployeeHolidaysResponse } from './employee-holidays-response.model';
 
@@ -48,7 +48,7 @@ import { EmployeeHolidaysResponse } from './employee-holidays-response.model';
   ]
 })
 export class EmployeeHolidaysComponent {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly router = inject(Router);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -107,7 +107,7 @@ export class EmployeeHolidaysComponent {
       year: String(this.yearSelected.year)
     });
 
-    this.apiService
+    this.httpClientApiService
       .getPaginated<EmployeeHolidaysResponse>(this.apiResult, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({

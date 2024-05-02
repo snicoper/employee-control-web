@@ -5,7 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { CompanyCalendar } from '../../../models/entities/company-calendar.model';
-import { ApiService } from '../../../services/api/api-service.service';
+import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 
 @Component({
   selector: 'aw-company-calendar-selector',
@@ -15,7 +15,7 @@ import { ApiService } from '../../../services/api/api-service.service';
   imports: [FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule]
 })
 export class CompanyCalendarSelectorComponent implements OnInit {
-  private readonly apiService = inject(ApiService);
+  private readonly httpClientApiService = inject(HttpClientApiService);
 
   companyCalendarChange = output<CompanyCalendar>();
 
@@ -35,7 +35,7 @@ export class CompanyCalendarSelectorComponent implements OnInit {
   }
 
   private loadCompanyCalendars(): void {
-    this.apiService.get<Array<CompanyCalendar>>(ApiUrl.companyCalendar.getCompanyCalendars).subscribe({
+    this.httpClientApiService.get<Array<CompanyCalendar>>(ApiUrl.companyCalendar.getCompanyCalendars).subscribe({
       next: (result: Array<CompanyCalendar>) => {
         const defaultCompanyCalendar = result.find((cc) => cc.default) as CompanyCalendar;
         this.companyCalendars = result;
