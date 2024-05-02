@@ -66,10 +66,10 @@ export class JwtService {
   }
 
   refreshingTokens(): Observable<RefreshTokenResponse> {
-    const model = { refreshToken: this.refreshToken } as RefreshTokenRequest;
+    const data = { refreshToken: this.refreshToken } as RefreshTokenRequest;
 
     return this.httpClientApiService
-      .post<RefreshTokenRequest, RefreshTokenResponse>(model, ApiUrl.auth.refreshToken)
+      .post<RefreshTokenRequest, RefreshTokenResponse>(data, ApiUrl.auth.refreshToken)
       .pipe(
         tap((result) => {
           this.setTokens(result.accessToken, result.refreshToken);

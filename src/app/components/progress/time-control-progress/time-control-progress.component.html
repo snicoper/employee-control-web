@@ -1,4 +1,4 @@
-<!-- times -->
+<!-- progress -->
 @if (!loading() && progressStackedCollection().length) {
   @for (progressStacked of progressStackedCollection(); track progressStacked) {
     <aw-progress-stacked [progressStackedCollection]="progressStacked" (clickProgress)="handleClickProgress($event)" />
@@ -12,5 +12,7 @@
 
 <!-- loading -->
 @if (loading()) {
-  <mat-progress-spinner color="primary" mode="indeterminate" />
+  <div class="d-flex justify-content-center p-5">
+    <mat-progress-spinner color="primary" mode="indeterminate" />
+  </div>
 }
