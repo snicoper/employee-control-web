@@ -24,6 +24,12 @@ export class ApiInterceptor implements HttpInterceptor {
       });
     }
 
+    if (!request.headers.has('Content-Language')) {
+      request = request.clone({
+        headers: request.headers.set('Content-Language', this.localizationService.getLocaleValue())
+      });
+    }
+
     if (!request.headers.has('Content-Type')) {
       request = request.clone({
         headers: request.headers.set('Content-Type', 'application/json')
