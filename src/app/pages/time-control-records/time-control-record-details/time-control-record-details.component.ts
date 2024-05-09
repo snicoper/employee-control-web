@@ -19,7 +19,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { ClosedBy } from '../../../models/entities/types/closed-by.model';
 import { TimeState } from '../../../models/entities/types/time-state.model';
-import { ResultResponse } from '../../../models/result-response.model';
+import { Result } from '../../../models/result-response.model';
 import { ClosedByPipe } from '../../../pipes/closed-by.pipe';
 import { DateFormatPipe } from '../../../pipes/date-format.pipe';
 import { DeviceTypePipe } from '../../../pipes/device-type.pipe';
@@ -106,8 +106,8 @@ export class TimeControlRecordDetailsComponent implements OnInit {
   handleTimeControlDelete(timeControl: TimeControlRecordDetailsResponse): void {
     const url = CommonUtils.urlReplaceParams(ApiUrl.timeControl.deleteTimeControl, { id: timeControl.id });
 
-    this.httpClientApiService.delete<ResultResponse>(url).subscribe({
-      next: (result: ResultResponse) => {
+    this.httpClientApiService.delete<Result>(url).subscribe({
+      next: (result: Result) => {
         if (result.succeeded) {
           this.snackBarService.success('Tiempo eliminado con éxito.');
           this.router.navigateByUrl(SiteUrl.timeControlRecords.list);
@@ -124,10 +124,10 @@ export class TimeControlRecordDetailsComponent implements OnInit {
     const data = { timeControlId: timeControl.id };
 
     this.httpClientApiService
-      .put<typeof data, ResultResponse>(data, ApiUrl.timeControl.finishTimeControlByStaff)
+      .put<typeof data, Result>(data, ApiUrl.timeControl.finishTimeControlByStaff)
       .pipe(finalize(() => (this.loadingTimeControl = false)))
       .subscribe({
-        next: (result: ResultResponse) => {
+        next: (result: Result) => {
           if (result.succeeded) {
             this.snackBarService.success('Tiempo finalizado con éxito.');
             this.loadTimeControl();
@@ -143,8 +143,8 @@ export class TimeControlRecordDetailsComponent implements OnInit {
     const url = CommonUtils.urlReplaceParams(ApiUrl.timeControl.closeIncidence, { id: this.timeControlId });
     const data = { id: this.timeControlId };
 
-    this.httpClientApiService.put<typeof data, ResultResponse>(data, url).subscribe({
-      next: (result: ResultResponse) => {
+    this.httpClientApiService.put<typeof data, Result>(data, url).subscribe({
+      next: (result: Result) => {
         if (result.succeeded) {
           this.snackBarService.success('Incidencia cerrada con éxito.');
           this.loadTimeControl();

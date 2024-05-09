@@ -23,7 +23,7 @@ import { DateTimeUtils } from '../../../core/utils/datetime-utils';
 import { CustomValidators } from '../../../core/validators/custom-validators-form';
 import { BadRequest } from '../../../models/bad-request';
 import { TimeControl } from '../../../models/entities/time-control.model';
-import { ResultResponse } from '../../../models/result-response.model';
+import { Result } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { TimeControlRecordRequest } from './time-control-record-request';
@@ -155,7 +155,7 @@ export class TimeControlRecordUpdateComponent implements OnInit {
     const url = CommonUtils.urlReplaceParams(ApiUrl.timeControl.updateTimeControl, { id: this.timeControlId });
 
     this.httpClientApiService
-      .put<TimeControlRecordRequest, ResultResponse>(timeControl, url)
+      .put<TimeControlRecordRequest, Result>(timeControl, url)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
         next: () => {

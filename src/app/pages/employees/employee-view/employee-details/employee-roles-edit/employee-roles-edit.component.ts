@@ -10,7 +10,7 @@ import { BtnLoadingComponent } from '../../../../../components/buttons/btn-loadi
 import { Role } from '../../../../../core/types/role';
 import { ApiUrl } from '../../../../../core/urls/api-urls';
 import { CommonUtils } from '../../../../../core/utils/common-utils';
-import { ResultResponse } from '../../../../../models/result-response.model';
+import { Result } from '../../../../../models/result-response.model';
 import { HttpClientApiService } from '../../../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../../../services/snackbar.service';
 import { EmployeeSelectedService } from '../../employee-selected.service';
@@ -89,7 +89,7 @@ export class EmployeeRolesEditComponent {
     rolesToAdd.rolesToAdd.push(Role.Employee);
 
     this.httpClientApiService
-      .put<EmployeeRolesRequest, ResultResponse>(rolesToAdd, url)
+      .put<EmployeeRolesRequest, Result>(rolesToAdd, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (result) => {

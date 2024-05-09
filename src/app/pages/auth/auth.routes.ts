@@ -12,10 +12,5 @@ export const routes: Routes = [
     path: 'logout',
     component: LogoutComponent,
     title: 'Cerrar sesión'
-  },
-  {
-    path: '**',
-    redirectTo: '/errors/404',
-    pathMatch: 'full'
   }
 ];

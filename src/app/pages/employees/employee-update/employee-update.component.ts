@@ -24,7 +24,7 @@ import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { CompanyCalendar } from '../../../models/entities/company-calendar.model';
 import { User } from '../../../models/entities/user.model';
-import { ResultResponse } from '../../../models/result-response.model';
+import { Result } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 
@@ -90,10 +90,10 @@ export class EmployeeUpdateComponent {
     employee.id = this.employeeId;
 
     this.httpClientApiService
-      .put<User, ResultResponse>(employee, ApiUrl.employees.updateEmployee)
+      .put<User, Result>(employee, ApiUrl.employees.updateEmployee)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
-        next: (result: ResultResponse) => {
+        next: (result: Result) => {
           if (!result.succeeded) {
             this.snackBarService.error('Ha ocurrido un error al actualizar el empleado.');
 

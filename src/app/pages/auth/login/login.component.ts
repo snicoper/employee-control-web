@@ -15,6 +15,7 @@ import { FormInputType } from '../../../core/types/form-input-type';
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { BadRequest } from '../../../models/bad-request';
+import { ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { JwtService } from '../../../services/jwt.service';
 import { UserStatesService } from '../../../services/states/user-states.service';
@@ -74,11 +75,11 @@ export class LoginComponent {
     const loginRequest = this.form.value as LoginRequest;
 
     this.httpClientApiService
-      .post<LoginRequest, LoginResponse>(loginRequest, ApiUrl.auth.login)
+      .post<LoginRequest, ResultValue<LoginResponse>>(loginRequest, ApiUrl.auth.login)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result) => {
-          this.jwtService.setTokens(result.accessToken, result.refreshToken);
+        next: (result: ResultValue<LoginResponse>) => {
+          this.jwtService.setTokens(result.value.accessToken, result.value.refreshToken);
           this.userStatesService.load();
 
           if (this.jwtService.getToken()) {

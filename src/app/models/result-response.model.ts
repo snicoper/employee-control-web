@@ -1,6 +1,6 @@
 import { BadRequestErrors } from './bad-request-errors';
 
-export interface ResultResponse {
+export interface Result {
   succeeded: boolean;
   status: number;
   errors: BadRequestErrors;
@@ -8,6 +8,6 @@ export interface ResultResponse {
   type?: string;
 }
 
-export interface ResultValueResponse<TValue> extends ResultResponse {
+export interface ResultValue<TValue> extends Result {
   value: TValue;
 }

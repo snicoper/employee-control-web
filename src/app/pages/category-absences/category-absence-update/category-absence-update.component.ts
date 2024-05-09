@@ -19,7 +19,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { CategoryAbsence } from '../../../models/entities/category-absence.model';
-import { ResultResponse } from '../../../models/result-response.model';
+import { Result } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 
@@ -82,7 +82,7 @@ export class CategoryAbsenceUpdateComponent {
     });
 
     this.httpClientApiService
-      .put<CategoryAbsence, ResultResponse>(categoryAbsence, url)
+      .put<CategoryAbsence, Result>(categoryAbsence, url)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
         next: () => {

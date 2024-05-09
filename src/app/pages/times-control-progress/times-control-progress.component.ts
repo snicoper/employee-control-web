@@ -23,7 +23,7 @@ import { DateUtils } from '../../core/utils/date-utils';
 import { DateTimeUtils } from '../../core/utils/datetime-utils';
 import { DeviceType, deviceToDeviceType } from '../../models/entities/types/device-type.model';
 import { TimeState } from '../../models/entities/types/time-state.model';
-import { ResultResponse } from '../../models/result-response.model';
+import { Result } from '../../models/result-response.model';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
 import { HttpClientApiService } from '../../services/api/http-client-api.service';
 import { JwtService } from '../../services/jwt.service';
@@ -111,10 +111,10 @@ export class TimesControlProgressComponent {
     };
 
     this.httpClientApiService
-      .post<TimeControlProgressChangeStateRequest, ResultResponse>(data, ApiUrl.timeControl.startTimeControl)
+      .post<TimeControlProgressChangeStateRequest, Result>(data, ApiUrl.timeControl.startTimeControl)
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
-        next: (result: ResultResponse) => {
+        next: (result: Result) => {
           if (result.succeeded && this.currentTimeControl !== undefined) {
             this.userTimeControlStateService.refresh();
             this.loadTimesControl();
@@ -138,10 +138,10 @@ export class TimesControlProgressComponent {
     };
 
     this.httpClientApiService
-      .put<TimeControlProgressChangeStateRequest, ResultResponse>(data, ApiUrl.timeControl.finishTimeControl)
+      .put<TimeControlProgressChangeStateRequest, Result>(data, ApiUrl.timeControl.finishTimeControl)
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
-        next: (result: ResultResponse) => {
+        next: (result: Result) => {
           if (result.succeeded && this.currentTimeControl !== undefined) {
             this.userTimeControlStateService.refresh();
             this.loadTimesControl();

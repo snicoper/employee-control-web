@@ -15,6 +15,7 @@ import { ValidationError } from '../core/types/validation-error';
 import { SiteUrl } from '../core/urls/site-urls';
 import { BadRequestErrors } from '../models/bad-request-errors';
 import { RefreshTokenResponse } from '../models/refresh-token-response.model';
+import { ResultValue } from '../models/result-response.model';
 import { JwtService } from '../services/jwt.service';
 import { SnackBarService } from '../services/snackbar.service';
 
@@ -62,16 +63,16 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     if (!this.jwtService.isRefreshing$() && this.jwtService.isExpired()) {
       logWarning('Se va a renovar el token...');
 
-      this.jwtService.refreshedTokens$.set(null);
       this.jwtService.isRefreshing$.set(true);
+      this.jwtService.refreshedTokens$.set(null);
 
       return this.jwtService.refreshingTokens().pipe(
         finalize(() => this.jwtService.isRefreshing$.set(false)),
-        switchMap((result: RefreshTokenResponse) => {
-          this.jwtService.refreshedTokens$.set(result);
+        switchMap((result: ResultValue<RefreshTokenResponse>) => {
+          this.jwtService.refreshedTokens$.set(result.value);
 
           request = request.clone({
-            headers: request.headers.set('Authorization', `Bearer ${result.accessToken}`)
+            headers: request.headers.set('Authorization', `Bearer ${result.value.accessToken}`)
           });
 
           logDebug('Se a renovado el token con éxito.');

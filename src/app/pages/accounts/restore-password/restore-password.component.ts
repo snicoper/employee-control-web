@@ -16,7 +16,7 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { CustomValidators } from '../../../core/validators/custom-validators-form';
 import { BadRequest } from '../../../models/bad-request';
-import { ResultResponse } from '../../../models/result-response.model';
+import { Result } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { RestorePasswordRequest } from './restore-password-request.model';
@@ -81,10 +81,7 @@ export class RestorePasswordComponent {
     this.recoveryPasswordChangeRequest.confirmPassword = this.form.get('confirmPassword')?.value;
 
     this.httpClientApiService
-      .post<RestorePasswordRequest, ResultResponse>(
-        this.recoveryPasswordChangeRequest,
-        ApiUrl.accounts.recoveryPasswordChange
-      )
+      .post<RestorePasswordRequest, Result>(this.recoveryPasswordChangeRequest, ApiUrl.accounts.recoveryPasswordChange)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: () => {

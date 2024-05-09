@@ -30,7 +30,7 @@ import { DateTimeUtils } from '../../../core/utils/datetime-utils';
 import { ClosedBy } from '../../../models/entities/types/closed-by.model';
 import { TimeState } from '../../../models/entities/types/time-state.model';
 import { PeriodDatetime } from '../../../models/period-datetime';
-import { ResultResponse } from '../../../models/result-response.model';
+import { Result } from '../../../models/result-response.model';
 import { ClosedByPipe } from '../../../pipes/closed-by.pipe';
 import { DateFormatPipe as DateTimePipe } from '../../../pipes/date-format.pipe';
 import { DeviceTypePipe } from '../../../pipes/device-type.pipe';
@@ -185,10 +185,10 @@ export class TimeControlRecordListComponent {
     const data = { timeControlId: timeControl.id };
 
     this.httpClientApiService
-      .put<typeof data, ResultResponse>(data, ApiUrl.timeControl.finishTimeControlByStaff)
+      .put<typeof data, Result>(data, ApiUrl.timeControl.finishTimeControlByStaff)
       .pipe(finalize(() => (this.loadingTimeState = false)))
       .subscribe({
-        next: (result: ResultResponse) => {
+        next: (result: Result) => {
           if (result.succeeded) {
             this.loadTimesControl();
             this.snackBarService.success('Tiempo finalizado con éxito.');
@@ -203,8 +203,8 @@ export class TimeControlRecordListComponent {
   handleDeleteTimeControl(timeControl: TimeControlRecordResponse): void {
     const url = CommonUtils.urlReplaceParams(ApiUrl.timeControl.deleteTimeControl, { id: timeControl.id });
 
-    this.httpClientApiService.delete<ResultResponse>(url).subscribe({
-      next: (result: ResultResponse) => {
+    this.httpClientApiService.delete<Result>(url).subscribe({
+      next: (result: Result) => {
         if (result.succeeded) {
           this.loadTimesControl();
           this.snackBarService.success('Tiempo eliminado con éxito.');

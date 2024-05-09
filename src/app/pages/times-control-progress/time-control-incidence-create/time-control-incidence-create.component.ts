@@ -15,7 +15,7 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { TimeControl } from '../../../models/entities/time-control.model';
-import { ResultResponse } from '../../../models/result-response.model';
+import { Result } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { TimeControlIncidenceCreateRequest } from './time-control-incidence-create-request.model';
@@ -77,9 +77,9 @@ export class TimeControlIncidenceCreateComponent implements OnInit {
     timeControlIncidenceCreateRequest.timeControlId = this.timeControlId;
 
     this.httpClientApiService
-      .put<TimeControlIncidenceCreateRequest, ResultResponse>(timeControlIncidenceCreateRequest, url)
+      .put<TimeControlIncidenceCreateRequest, Result>(timeControlIncidenceCreateRequest, url)
       .subscribe({
-        next: (result: ResultResponse) => {
+        next: (result: Result) => {
           if (result.succeeded) {
             this.snackBarService.success('Incidencia creada con éxito');
           }

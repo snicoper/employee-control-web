@@ -19,7 +19,7 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { BadRequest } from '../../../models/bad-request';
 import { CompanySettings } from '../../../models/entities/company-settings.model';
-import { ResultResponse } from '../../../models/result-response.model';
+import { Result } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { CompanySettingsStateService } from '../../../services/states/company-settings-state.service';
@@ -83,10 +83,10 @@ export class CompanySettingsUpdateComponent {
     companySettings.id = this.companySettings()?.id as string;
 
     this.httpClientApiService
-      .put<CompanySettings, ResultResponse>(companySettings, ApiUrl.companySettings.updateCompanySettings)
+      .put<CompanySettings, Result>(companySettings, ApiUrl.companySettings.updateCompanySettings)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
-        next: (result: ResultResponse) => {
+        next: (result: Result) => {
           if (result.succeeded) {
             this.snackBarService.success('Configuración actualizada con éxito');
             this.router.navigateByUrl(SiteUrl.companySettings.details);

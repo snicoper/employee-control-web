@@ -9,6 +9,7 @@ import { ApiUrl } from '../core/urls/api-urls';
 import { SiteUrl } from '../core/urls/site-urls';
 import { RefreshTokenRequest } from '../models/refresh-token-request.model';
 import { RefreshTokenResponse } from '../models/refresh-token-response.model';
+import { ResultValue } from '../models/result-response.model';
 import { HttpClientApiService } from './api/http-client-api.service';
 import { AuthService } from './auth.service';
 import { BrowserStorageService } from './browser-storage.service';
@@ -65,14 +66,14 @@ export class JwtService {
     return request;
   }
 
-  refreshingTokens(): Observable<RefreshTokenResponse> {
+  refreshingTokens(): Observable<ResultValue<RefreshTokenResponse>> {
     const data = { refreshToken: this.refreshToken } as RefreshTokenRequest;
 
     return this.httpClientApiService
-      .post<RefreshTokenRequest, RefreshTokenResponse>(data, ApiUrl.auth.refreshToken)
+      .post<RefreshTokenRequest, ResultValue<RefreshTokenResponse>>(data, ApiUrl.auth.refreshToken)
       .pipe(
         tap((result) => {
-          this.setTokens(result.accessToken, result.refreshToken);
+          this.setTokens(result.value.accessToken, result.value.refreshToken);
         })
       );
   }

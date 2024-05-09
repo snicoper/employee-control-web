@@ -12,7 +12,7 @@ import { BtnLoadingComponent } from '../../../../components/buttons/btn-loading/
 import { ApiUrl } from '../../../../core/urls/api-urls';
 import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
-import { ResultResponse } from '../../../../models/result-response.model';
+import { Result } from '../../../../models/result-response.model';
 import { BoolToIconPipe } from '../../../../pipes/bool-to-icon.pipe';
 import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
@@ -59,7 +59,7 @@ export class DepartmentDetailsComponent implements OnInit {
     const data = { departmentId: this.departmentId() };
 
     this.httpClientApiService
-      .put<typeof data, ResultResponse>(data, ApiUrl.departments.activateDepartment)
+      .put<typeof data, Result>(data, ApiUrl.departments.activateDepartment)
       .pipe(finalize(() => (this.loadingDepartmentState = false)))
       .subscribe({
         next: (result) => {
@@ -76,7 +76,7 @@ export class DepartmentDetailsComponent implements OnInit {
     const data = { departmentId: this.departmentId() };
 
     this.httpClientApiService
-      .put<typeof data, ResultResponse>(data, ApiUrl.departments.deactivateDepartment)
+      .put<typeof data, Result>(data, ApiUrl.departments.deactivateDepartment)
       .pipe(finalize(() => (this.loadingDepartmentState = false)))
       .subscribe({
         next: (result) => {

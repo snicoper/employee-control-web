@@ -13,7 +13,7 @@ import { CalendarEvent } from '../../../components/year-calendar-view/calendar-e
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
-import { ResultResponse } from '../../../models/result-response.model';
+import { Result } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { CompanyHolidayManageUpdateRequest } from './company-holiday-manage-update.request';
@@ -68,7 +68,7 @@ export class CompanyHolidayUpdateComponent implements OnInit {
       id: this.dialogData.calendarEvent.id as string
     });
 
-    this.httpClientApiService.delete<ResultResponse>(url).subscribe({
+    this.httpClientApiService.delete<Result>(url).subscribe({
       next: () => {
         this.snackBarService.success('Día festivo eliminado con éxito.');
         this.dialogRef.close();

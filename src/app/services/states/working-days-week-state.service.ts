@@ -4,7 +4,7 @@ import { WeekDay } from '../../core/types/week-day';
 import { ApiUrl } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { WorkingDaysWeek } from '../../models/entities/working-days-week.model';
-import { ResultResponse } from '../../models/result-response.model';
+import { Result } from '../../models/result-response.model';
 import { HttpClientApiService } from '../api/http-client-api.service';
 import { SnackBarService } from '../snackbar.service';
 import { StateService } from './state.service';
@@ -69,10 +69,10 @@ export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek
     });
 
     this.httpClientApiService
-      .put<WorkingDaysWeek, ResultResponse>(workingDaysWeek, url)
+      .put<WorkingDaysWeek, Result>(workingDaysWeek, url)
       .pipe(finalize(() => this.loadingWorkingDaysWeek$.set(false)))
       .subscribe({
-        next: (result: ResultResponse) => {
+        next: (result: Result) => {
           if (!result.succeeded) {
             this.snackBarService.error('Error al actualizar día laborable.');
           }

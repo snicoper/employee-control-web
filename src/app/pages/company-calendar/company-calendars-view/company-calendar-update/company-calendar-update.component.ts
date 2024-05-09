@@ -19,7 +19,7 @@ import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { BadRequest } from '../../../../models/bad-request';
 import { CompanyCalendar } from '../../../../models/entities/company-calendar.model';
-import { ResultResponse } from '../../../../models/result-response.model';
+import { Result } from '../../../../models/result-response.model';
 import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
 
@@ -81,7 +81,7 @@ export class CompanyCalendarUpdateComponent implements OnInit {
     companyCalendar.id = this.companyCalendarId;
 
     this.httpClientApiService
-      .put<CompanyCalendar, ResultResponse>(companyCalendar, url)
+      .put<CompanyCalendar, Result>(companyCalendar, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: () => {

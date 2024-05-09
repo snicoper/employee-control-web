@@ -18,7 +18,7 @@ import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { RequiredRoleDirective } from '../../../../directives/required-role.directive';
 import { TimeState } from '../../../../models/entities/types/time-state.model';
-import { ResultResponse } from '../../../../models/result-response.model';
+import { Result } from '../../../../models/result-response.model';
 import { BoolToIconPipe } from '../../../../pipes/bool-to-icon.pipe';
 import { DateFormatPipe } from '../../../../pipes/date-format.pipe';
 import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
@@ -86,7 +86,7 @@ export class EmployeeDetailsComponent {
     const url = this.generateApiUrl(ApiUrl.employees.deactivateEmployee);
 
     this.httpClientApiService
-      .put<typeof data, ResultResponse>(data, url)
+      .put<typeof data, Result>(data, url)
       .pipe(finalize(() => (this.loadingUpdateActive = false)))
       .subscribe({
         next: () => {
@@ -103,7 +103,7 @@ export class EmployeeDetailsComponent {
     const url = this.generateApiUrl(ApiUrl.employees.activateEmployee);
 
     this.httpClientApiService
-      .put<typeof data, ResultResponse>(data, url)
+      .put<typeof data, Result>(data, url)
       .pipe(finalize(() => (this.loadingUpdateActive = false)))
       .subscribe({
         next: () => {

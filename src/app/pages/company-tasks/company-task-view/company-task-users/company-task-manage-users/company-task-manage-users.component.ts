@@ -5,7 +5,7 @@ import { DualListBoxComponent } from '../../../../../components/dual-list-box/du
 import { DualListBox } from '../../../../../components/dual-list-box/dual-list-box.model';
 import { ApiUrl } from '../../../../../core/urls/api-urls';
 import { CommonUtils } from '../../../../../core/utils/common-utils';
-import { ResultResponse } from '../../../../../models/result-response.model';
+import { Result } from '../../../../../models/result-response.model';
 import { HttpClientApiService } from '../../../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../../../services/snackbar.service';
 import { CompanyTaskViewService } from '../../company-task-view.service';
@@ -51,10 +51,10 @@ export class CompanyTaskManageUsersComponent {
     });
 
     this.httpClientApiService
-      .post<typeof data, ResultResponse>(data, url)
+      .post<typeof data, Result>(data, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ResultResponse) => {
+        next: (result: Result) => {
           if (result.succeeded) {
             this.snackBarService.success('Empleados asignados a la tarea con éxito.');
             this.handleChangeComponent();
