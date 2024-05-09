@@ -77,22 +77,7 @@ export class CategoryAbsenceUpdateComponent {
     const categoryAbsence = this.form.value as CategoryAbsence;
     categoryAbsence.id = this.categoryAbsenceId;
 
-    const url = CommonUtils.urlReplaceParams(ApiUrl.categoryAbsences.updateCategoryAbsence, {
-      id: this.categoryAbsenceId
-    });
-
-    this.httpClientApiService
-      .put<CategoryAbsence, Result>(categoryAbsence, url)
-      .pipe(finalize(() => (this.loadingForm = false)))
-      .subscribe({
-        next: () => {
-          this.snackBarService.success('Tarea editada con éxito.');
-          this.router.navigateByUrl(SiteUrl.categoryAbsences.list);
-        },
-        error: (error) => {
-          this.badRequest = error.error;
-        }
-      });
+    this.updateCategoryAbsence(categoryAbsence);
   }
 
   private setBreadcrumb(): void {
@@ -112,6 +97,7 @@ export class CategoryAbsenceUpdateComponent {
 
   private loadCategoryAbsence(): void {
     this.loadingCategoryAbsence = true;
+
     const url = CommonUtils.urlReplaceParams(ApiUrl.categoryAbsences.getCategoryAbsenceById, {
       id: this.categoryAbsenceId
     });
@@ -123,6 +109,25 @@ export class CategoryAbsenceUpdateComponent {
         next: (result: CategoryAbsence) => {
           this.categoryAbsence = result;
           this.buildForm();
+        }
+      });
+  }
+
+  private updateCategoryAbsence(categoryAbsence: CategoryAbsence): void {
+    const url = CommonUtils.urlReplaceParams(ApiUrl.categoryAbsences.updateCategoryAbsence, {
+      id: this.categoryAbsenceId
+    });
+
+    this.httpClientApiService
+      .put<CategoryAbsence, Result>(categoryAbsence, url)
+      .pipe(finalize(() => (this.loadingForm = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Tarea editada con éxito.');
+          this.router.navigateByUrl(SiteUrl.categoryAbsences.list);
+        },
+        error: (error) => {
+          this.badRequest = error.error;
         }
       });
   }
