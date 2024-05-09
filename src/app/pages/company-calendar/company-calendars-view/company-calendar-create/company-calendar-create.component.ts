@@ -64,21 +64,9 @@ export class CompanyCalendarCreateComponent {
     }
 
     this.loading = true;
-
     const companyCalendar = this.form.value as CompanyCalendar;
 
-    this.httpClientApiService
-      .post<CompanyCalendar, Result>(companyCalendar, ApiUrl.companyCalendar.createCompanyCalendar)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: () => {
-          this.snackBarService.success('Calendario creado con éxito');
-          this.router.navigateByUrl(SiteUrl.companyCalendar.list);
-        },
-        error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error;
-        }
-      });
+    this.createCompanyCalendar(companyCalendar);
   }
 
   private setBreadcrumb(): void {
@@ -94,5 +82,20 @@ export class CompanyCalendarCreateComponent {
       description: ['', [Validators.required, Validators.max(256)]],
       default: [false]
     });
+  }
+
+  private createCompanyCalendar(companyCalendar: CompanyCalendar): void {
+    this.httpClientApiService
+      .post<CompanyCalendar, Result>(companyCalendar, ApiUrl.companyCalendar.createCompanyCalendar)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Calendario creado con éxito');
+          this.router.navigateByUrl(SiteUrl.companyCalendar.list);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error;
+        }
+      });
   }
 }
