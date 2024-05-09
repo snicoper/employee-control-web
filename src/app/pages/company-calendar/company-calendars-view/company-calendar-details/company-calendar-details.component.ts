@@ -14,7 +14,7 @@ import { ApiUrl } from '../../../../core/urls/api-urls';
 import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { CompanyCalendar } from '../../../../models/entities/company-calendar.model';
-import { Result } from '../../../../models/result-response.model';
+import { Result, ResultValue } from '../../../../models/result-response.model';
 import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
 
@@ -80,11 +80,11 @@ export class CompanyCalendarDetailsComponent {
     });
 
     this.httpClientApiService
-      .get<CompanyCalendar>(url)
+      .get<ResultValue<CompanyCalendar>>(url)
       .pipe(finalize(() => (this.loadingCompanyCalendar = false)))
       .subscribe({
-        next: (result: CompanyCalendar) => {
-          this.companyCalendar = result;
+        next: (result: ResultValue<CompanyCalendar>) => {
+          this.companyCalendar = result.value;
         }
       });
   }
