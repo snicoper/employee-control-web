@@ -121,7 +121,7 @@ export class TimesControlProgressComponent {
             this.snackBarService.success('Tiempo iniciado con éxito.');
           } else {
             this.snackBarService.error('Ha ocurrido un error al iniciar el tiempo.');
-            logError(result.errors.join());
+            logError(result.errors.details.join());
           }
         }
       });
@@ -148,7 +148,7 @@ export class TimesControlProgressComponent {
             this.snackBarService.success('Tiempo finalizado con éxito.');
           } else {
             this.snackBarService.error('Ha ocurrido un error al iniciar el tiempo.');
-            logError(result.errors.join());
+            logError(result.errors.details.join());
           }
         }
       });

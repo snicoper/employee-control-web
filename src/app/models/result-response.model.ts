@@ -1,4 +1,4 @@
 export interface ResultResponse {
   succeeded: boolean;
-  errors: Array<string>;
+  errors: { name: string; details: string[] };
 }

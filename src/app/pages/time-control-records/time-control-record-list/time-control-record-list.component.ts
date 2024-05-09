@@ -194,7 +194,7 @@ export class TimeControlRecordListComponent {
             this.snackBarService.success('Tiempo finalizado con éxito.');
           } else {
             this.snackBarService.error('Ha ocurrido un error al iniciar el tiempo.');
-            logError(result.errors.join());
+            logError(result.errors.details.join());
           }
         }
       });
@@ -210,7 +210,7 @@ export class TimeControlRecordListComponent {
           this.snackBarService.success('Tiempo eliminado con éxito.');
         } else {
           this.snackBarService.error('Ha ocurrido un error al eliminar el tiempo.');
-          logError(result.errors.join());
+          logError(result.errors.details.join());
         }
       }
     });

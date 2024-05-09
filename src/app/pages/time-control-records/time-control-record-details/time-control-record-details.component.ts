@@ -113,7 +113,7 @@ export class TimeControlRecordDetailsComponent implements OnInit {
           this.router.navigateByUrl(SiteUrl.timeControlRecords.list);
         } else {
           this.snackBarService.error('Ha ocurrido un error al eliminar el tiempo.');
-          logError(result.errors.join());
+          logError(result.errors.details.join());
         }
       }
     });
@@ -133,7 +133,7 @@ export class TimeControlRecordDetailsComponent implements OnInit {
             this.loadTimeControl();
           } else {
             this.snackBarService.error('Ha ocurrido un error al iniciar el tiempo.');
-            logError(result.errors.join());
+            logError(result.errors.details.join());
           }
         }
       });
