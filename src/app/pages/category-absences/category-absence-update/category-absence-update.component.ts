@@ -19,7 +19,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { CategoryAbsence } from '../../../models/entities/category-absence.model';
-import { Result } from '../../../models/result-response.model';
+import { Result, ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 
@@ -103,11 +103,11 @@ export class CategoryAbsenceUpdateComponent {
     });
 
     this.httpClientApiService
-      .get<CategoryAbsence>(url)
+      .get<ResultValue<CategoryAbsence>>(url)
       .pipe(finalize(() => (this.loadingCategoryAbsence = false)))
       .subscribe({
-        next: (result: CategoryAbsence) => {
-          this.categoryAbsence = result;
+        next: (result: ResultValue<CategoryAbsence>) => {
+          this.categoryAbsence = result.value;
           this.buildForm();
         }
       });
