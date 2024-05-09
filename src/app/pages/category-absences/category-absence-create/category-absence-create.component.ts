@@ -20,6 +20,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { CustomValidators } from '../../../core/validators/custom-validators-form';
 import { BadRequest } from '../../../models/bad-request';
+import { ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { JwtService } from '../../../services/jwt.service';
 import { SnackBarService } from '../../../services/snackbar.service';
@@ -74,21 +75,7 @@ export class CategoryAbsenceCreateComponent {
     const categoryAbsenceCreateRequest = this.form.value as CategoryAbsenceCreateRequest;
     categoryAbsenceCreateRequest.companyId = this.jwtService.getCompanyId();
 
-    this.httpClientApiService
-      .post<CategoryAbsenceCreateRequest, string>(
-        categoryAbsenceCreateRequest,
-        ApiUrl.categoryAbsences.createCompanyAbsence
-      )
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: () => {
-          this.snackBarService.success('Ausencia creada con éxito');
-          this.router.navigateByUrl(SiteUrl.categoryAbsences.list);
-        },
-        error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error;
-        }
-      });
+    this.createCategoryAbsence(categoryAbsenceCreateRequest);
   }
 
   private setBreadcrumb(): void {
@@ -103,5 +90,23 @@ export class CategoryAbsenceCreateComponent {
       background: [CommonUtils.getRandomColorHexadecimal(), [Validators.required, CustomValidators.colorHexadecimal]],
       color: [CommonUtils.getRandomColorHexadecimal(), [Validators.required, CustomValidators.colorHexadecimal]]
     });
+  }
+
+  private createCategoryAbsence(categoryAbsenceCreateRequest: CategoryAbsenceCreateRequest): void {
+    this.httpClientApiService
+      .post<CategoryAbsenceCreateRequest, ResultValue<string>>(
+        categoryAbsenceCreateRequest,
+        ApiUrl.categoryAbsences.createCompanyAbsence
+      )
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Ausencia creada con éxito');
+          this.router.navigateByUrl(SiteUrl.categoryAbsences.list);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error;
+        }
+      });
   }
 }

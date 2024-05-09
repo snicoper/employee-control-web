@@ -1,5 +1,7 @@
 import { Injectable, inject } from '@angular/core';
+import { BrowserStorageKey } from '../../core/types/browser-storage-key';
 import { Role } from '../../core/types/role';
+import { BrowserStorageService } from '../browser-storage.service';
 import { JwtService } from '../jwt.service';
 import { SignalRService } from '../signalr.service';
 import { CompanyEmployeeStateService } from './company-employee-state.service';
@@ -22,6 +24,7 @@ export class UserStatesService {
   private readonly timeControlIncidencesCountStateService = inject(TimeControlIncidencesCountStateService);
   private readonly workingDaysWeekStateService = inject(WorkingDaysWeekStateService);
   private readonly currentEmployeeStateService = inject(CurrentEmployeeStateService);
+  private readonly browserStorageService = inject(BrowserStorageService);
 
   /** Carga estados del usuario. */
   async load(): Promise<void> {
@@ -53,9 +56,12 @@ export class UserStatesService {
     this.userTimeControlStateService.clean();
     this.workingDaysWeekStateService.clean();
     this.currentEmployeeStateService.clean();
+    this.browserStorageService.remove(BrowserStorageKey.Sidenav);
 
     if (this.jwtService.isInRole(Role.Staff)) {
       this.timeControlIncidencesCountStateService.clean();
     }
+
+    this.jwtService.removeTokens();
   }
 }
