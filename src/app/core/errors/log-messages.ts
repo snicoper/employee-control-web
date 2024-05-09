@@ -14,7 +14,7 @@ const logSettings = {
   debug: { key: 'DEBUG', color: '#009933' }
 };
 
-const displayLogMessage = (message: string, settings: LogSettings): void => {
+const displayMessage = (message: string, settings: LogSettings): void => {
   if (AppEnvironment.isDebug) {
     const background = `background: ${settings.color}; color: white`;
     const formatMessage = `%c ${settings.key}: ${message} `;
@@ -37,12 +37,23 @@ const displayLogMessage = (message: string, settings: LogSettings): void => {
 };
 
 /**
+ * Muestra con un console.log el valor de obj si se esta en desarrollo.
+ *
+ * @param obj Objeto.
+ */
+export const logObject = (obj: object): void => {
+  if (AppEnvironment.isDebug) {
+    console.log(obj);
+  }
+};
+
+/**
  * Muestra message de tipo error solo si se esta en desarrollo.
  *
  * @param message Error a mostrar.
  */
 export const logError = (message: string): void => {
-  displayLogMessage(message, logSettings.error);
+  displayMessage(message, logSettings.error);
 };
 
 /**
@@ -51,7 +62,7 @@ export const logError = (message: string): void => {
  * @param message Error a mostrar.
  */
 export const logWarning = (message: string): void => {
-  displayLogMessage(message, logSettings.warning);
+  displayMessage(message, logSettings.warning);
 };
 
 /**
@@ -60,7 +71,7 @@ export const logWarning = (message: string): void => {
  * @param message Error a mostrar.
  */
 export const logInfo = (message: string): void => {
-  displayLogMessage(message, logSettings.info);
+  displayMessage(message, logSettings.info);
 };
 
 /**
@@ -69,5 +80,5 @@ export const logInfo = (message: string): void => {
  * @param message Error a mostrar.
  */
 export const logDebug = (message: string): void => {
-  displayLogMessage(message, logSettings.debug);
+  displayMessage(message, logSettings.debug);
 };

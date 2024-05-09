@@ -90,7 +90,7 @@ export class RecoveryPasswordChangeComponent {
       .subscribe({
         next: (result: ResultResponse) => {
           if (!result.succeeded) {
-            this.errorMessages = result.errors.details;
+            this.errorMessages = result.errors[0];
 
             return;
           }

@@ -14,7 +14,7 @@ import { ProgressStackedCollection } from '../../components/progress/progress-st
 import { ProgressStackedItem } from '../../components/progress/progress-stacked/progress-stacked-item.model';
 import { TimeControlProgressComponent } from '../../components/progress/time-control-progress/time-control-progress.component';
 import { MonthSelectorComponent } from '../../components/selectors/month-selector/month-selector.component';
-import { logError } from '../../core/errors/log-messages';
+import { logError, logObject } from '../../core/errors/log-messages';
 import { TimeControlProgressStacked } from '../../core/features/times-control/time-control-group';
 import { TimeControlGroupResponse } from '../../core/features/times-control/times-control-response.model';
 import { ApiUrl } from '../../core/urls/api-urls';
@@ -121,7 +121,7 @@ export class TimesControlProgressComponent {
             this.snackBarService.success('Tiempo iniciado con éxito.');
           } else {
             this.snackBarService.error('Ha ocurrido un error al iniciar el tiempo.');
-            logError(result.errors.details.join());
+            logObject(result.errors);
           }
         }
       });
@@ -148,7 +148,7 @@ export class TimesControlProgressComponent {
             this.snackBarService.success('Tiempo finalizado con éxito.');
           } else {
             this.snackBarService.error('Ha ocurrido un error al iniciar el tiempo.');
-            logError(result.errors.details.join());
+            logObject(result.errors);
           }
         }
       });

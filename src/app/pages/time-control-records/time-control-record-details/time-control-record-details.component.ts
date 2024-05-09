@@ -13,7 +13,7 @@ import { DotDangerComponent } from '../../../components/colors/dot-danger/dot-da
 import { DotSuccessComponent } from '../../../components/colors/dot-success/dot-success.component';
 import { PageBaseComponent } from '../../../components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../components/pages/page-header/page-header.component';
-import { logError } from '../../../core/errors/log-messages';
+import { logObject } from '../../../core/errors/log-messages';
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
@@ -113,7 +113,7 @@ export class TimeControlRecordDetailsComponent implements OnInit {
           this.router.navigateByUrl(SiteUrl.timeControlRecords.list);
         } else {
           this.snackBarService.error('Ha ocurrido un error al eliminar el tiempo.');
-          logError(result.errors.details.join());
+          logObject(result.errors);
         }
       }
     });
@@ -133,7 +133,7 @@ export class TimeControlRecordDetailsComponent implements OnInit {
             this.loadTimeControl();
           } else {
             this.snackBarService.error('Ha ocurrido un error al iniciar el tiempo.');
-            logError(result.errors.details.join());
+            logObject(result.errors);
           }
         }
       });

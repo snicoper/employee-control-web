@@ -18,7 +18,7 @@ import { PageBaseComponent } from '../../../components/pages/page-base/page-base
 import { PageHeaderComponent } from '../../../components/pages/page-header/page-header.component';
 import { DateRangeSelectorComponent } from '../../../components/selectors/date-range-selector/date-range-selector.component';
 import { TableFilterComponent } from '../../../components/tables/table-filter/table-filter.component';
-import { logError } from '../../../core/errors/log-messages';
+import { logObject } from '../../../core/errors/log-messages';
 import { ApiResult } from '../../../core/features/api-result/api-result';
 import { LogicalOperator } from '../../../core/features/api-result/types/logical-operator';
 import { OrderType } from '../../../core/features/api-result/types/order-type';
@@ -194,7 +194,7 @@ export class TimeControlRecordListComponent {
             this.snackBarService.success('Tiempo finalizado con éxito.');
           } else {
             this.snackBarService.error('Ha ocurrido un error al iniciar el tiempo.');
-            logError(result.errors.details.join());
+            logObject(result.errors);
           }
         }
       });
@@ -210,7 +210,7 @@ export class TimeControlRecordListComponent {
           this.snackBarService.success('Tiempo eliminado con éxito.');
         } else {
           this.snackBarService.error('Ha ocurrido un error al eliminar el tiempo.');
-          logError(result.errors.details.join());
+          logObject(result.errors);
         }
       }
     });
