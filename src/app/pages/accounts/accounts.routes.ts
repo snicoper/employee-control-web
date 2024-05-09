@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { RecoveryPasswordChangeComponent } from './recovery-password-change/recovery-password-change.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
+import { RestorePasswordComponent } from './restore-password/restore-password.component';
 
 export const routes: Routes = [
   {
@@ -9,8 +9,8 @@ export const routes: Routes = [
     title: 'Recordar contraseña'
   },
   {
-    path: 'recovery-password-change',
-    component: RecoveryPasswordChangeComponent,
+    path: 'restore-password',
+    component: RestorePasswordComponent,
     title: 'Cambiar contraseña olvidada'
   }
 ];

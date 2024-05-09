@@ -48,7 +48,7 @@ export class RecoveryPasswordComponent {
   badRequest: BadRequest | undefined;
   submitted = false;
   loading = false;
-  messageResponse = false;
+  isSucceeded = false;
 
   constructor() {
     this.buildForm();
@@ -56,7 +56,7 @@ export class RecoveryPasswordComponent {
 
   handleSubmit(): void {
     this.submitted = true;
-    this.messageResponse = false;
+    this.isSucceeded = false;
 
     if (this.form.invalid) {
       return;
@@ -70,7 +70,7 @@ export class RecoveryPasswordComponent {
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: () => {
-          this.messageResponse = true;
+          this.isSucceeded = true;
         },
         error: (error: HttpErrorResponse) => {
           this.badRequest = error.error;

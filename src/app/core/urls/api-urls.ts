@@ -6,11 +6,8 @@ export const ApiUrl = {
   },
 
   accounts: {
-    registerAccount: '/accounts/register',
-    registerValidateEmail: '/accounts/validate-email',
-    emailValidationForwarding: '/accounts/resend-email-validation',
     recoveryPassword: '/accounts/recovery-password',
-    recoveryPasswordChange: '/accounts/recovery-password-change'
+    recoveryPasswordChange: '/accounts/restore-password'
   },
 
   companies: {

@@ -19,12 +19,12 @@ import { BadRequest } from '../../../models/bad-request';
 import { ResultResponse } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
-import { RecoveryPasswordChangeRequest } from './recovery-password-change-request.model';
+import { RestorePasswordRequest } from './restore-password-request.model';
 
 @Component({
-  selector: 'aw-recovery-password-change',
-  templateUrl: './recovery-password-change.component.html',
-  styleUrls: ['./recovery-password-change.component.scss'],
+  selector: 'aw-restore-password',
+  templateUrl: './restore-password.component.html',
+  styleUrls: ['./restore-password.component.scss'],
   standalone: true,
   imports: [
     RouterLink,
@@ -39,12 +39,14 @@ import { RecoveryPasswordChangeRequest } from './recovery-password-change-reques
     FieldErrorComponent
   ]
 })
-export class RecoveryPasswordChangeComponent {
+export class RestorePasswordComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly httpClientApiService = inject(HttpClientApiService);
   private readonly snackBarService = inject(SnackBarService);
+
+  private readonly recoveryPasswordChangeRequest: RestorePasswordRequest;
 
   readonly formInputType = FormInputType;
   readonly siteUrl = SiteUrl;
@@ -53,9 +55,7 @@ export class RecoveryPasswordChangeComponent {
   badRequest: BadRequest | undefined;
   submitted = false;
   loading = false;
-  errorMessages: Array<string> = [];
-
-  private readonly recoveryPasswordChangeRequest: RecoveryPasswordChangeRequest;
+  hasRequiredData = true;
 
   constructor() {
     this.recoveryPasswordChangeRequest = { userId: '', code: '', password: '', confirmPassword: '' };
@@ -63,7 +63,7 @@ export class RecoveryPasswordChangeComponent {
     this.recoveryPasswordChangeRequest.userId = this.route.snapshot.queryParamMap.get('userId') as string;
 
     if (!this.recoveryPasswordChangeRequest.code || !this.recoveryPasswordChangeRequest.userId) {
-      this.errorMessages.push('Faltan datos necesarios para validar el correo electrónico.');
+      this.hasRequiredData = false;
     }
 
     this.buildForm();
@@ -71,7 +71,6 @@ export class RecoveryPasswordChangeComponent {
 
   handleSubmit(): void {
     this.submitted = true;
-    this.errorMessages = [];
 
     if (this.form.invalid) {
       return;
@@ -82,19 +81,13 @@ export class RecoveryPasswordChangeComponent {
     this.recoveryPasswordChangeRequest.confirmPassword = this.form.get('confirmPassword')?.value;
 
     this.httpClientApiService
-      .post<RecoveryPasswordChangeRequest, ResultResponse>(
+      .post<RestorePasswordRequest, ResultResponse>(
         this.recoveryPasswordChangeRequest,
         ApiUrl.accounts.recoveryPasswordChange
       )
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ResultResponse) => {
-          if (!result.succeeded) {
-            this.errorMessages = result.errors[0];
-
-            return;
-          }
-
+        next: () => {
           this.snackBarService.success('Contraseña restablecida con éxito');
           this.router.navigateByUrl(SiteUrl.auth.login);
         },

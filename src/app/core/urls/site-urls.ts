@@ -3,10 +3,8 @@ export const SiteUrl = {
   home: '/',
 
   accounts: {
-    register: '/accounts/register',
-    registerSuccess: '/accounts/register-success',
-    registerValidate: '/accounts/register-validate',
-    recoveryPassword: '/accounts/recovery-password'
+    recoveryPassword: '/accounts/recovery-password',
+    registerSuccess: '/accounts/restore-password'
   },
 
   auth: {

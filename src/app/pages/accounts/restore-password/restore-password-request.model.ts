@@ -1,4 +1,4 @@
-export interface RecoveryPasswordChangeRequest {
+export interface RestorePasswordRequest {
   userId: string;
   code: string;
   password: string;
