@@ -3,6 +3,7 @@ import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppEnvironment } from '../../core/config/app-environment';
 import { ApiResult } from '../../core/features/api-result/api-result';
+import { ResultValue } from '../../models/result-response.model';
 
 export abstract class BaseApiService {
   protected readonly http = inject(HttpClient);
@@ -19,6 +20,19 @@ export abstract class BaseApiService {
     const url = `${this.baseUrl}${urlPart}?${this.prepareQueryParams(apiResult)}`;
 
     return this.http.get<ApiResult<TModel>>(url);
+  }
+
+  /**
+   * Obtener una lista paginada con ResultValue<ApiResult<TModel>>.
+   * Es igual getPaginated() pero envuelto en un ResultValue<>.
+   *
+   * @param apiResult ApiResult<TModel>.
+   * @returns ResultValue<ApiResult<TModel>>.
+   */
+  getResultPaginated<TModel>(apiResult: ApiResult<TModel>, urlPart = ''): Observable<ResultValue<ApiResult<TModel>>> {
+    const url = `${this.baseUrl}${urlPart}?${this.prepareQueryParams(apiResult)}`;
+
+    return this.http.get<ResultValue<ApiResult<TModel>>>(url);
   }
 
   /**

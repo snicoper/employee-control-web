@@ -19,6 +19,7 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { CategoryAbsence } from '../../../models/entities/category-absence.model';
+import { ResultValue } from '../../../models/result-response.model';
 import { BoolToIconPipe } from '../../../pipes/bool-to-icon.pipe';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 
@@ -92,12 +93,12 @@ export class CategoryAbsenceListComponent {
 
   private loadCategoryAbsences(): void {
     this.httpClientApiService
-      .getPaginated<CategoryAbsence>(this.apiResult, ApiUrl.categoryAbsences.getCategoryAbsencePaginated)
+      .getResultPaginated<CategoryAbsence>(this.apiResult, ApiUrl.categoryAbsences.getCategoryAbsencePaginated)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ApiResult<CategoryAbsence>) => {
-          this.apiResult = ApiResult.clone<CategoryAbsence>(result);
-          this.dataSource = new MatTableDataSource(result.items);
+        next: (result: ResultValue<ApiResult<CategoryAbsence>>) => {
+          this.apiResult = ApiResult.clone<CategoryAbsence>(result.value);
+          this.dataSource = new MatTableDataSource(result.value.items);
           this.dataSource.sort = this.sort;
         }
       });
