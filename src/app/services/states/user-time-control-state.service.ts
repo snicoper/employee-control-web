@@ -2,6 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { finalize } from 'rxjs';
 import { ApiUrl } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
+import { ResultValue } from '../../models/result-response.model';
 import { TimeControlStateResponse } from '../../models/states/time-control-state-response.model';
 import { HttpClientApiService } from '../api/http-client-api.service';
 import { JwtService } from '../jwt.service';
@@ -40,11 +41,11 @@ export class UserTimeControlStateService implements StateService<TimeControlStat
     });
 
     this.httpClientApiService
-      .get<TimeControlStateResponse>(url)
+      .get<ResultValue<TimeControlStateResponse>>(url)
       .pipe(finalize(() => this.loadingTimeControlState$.set(false)))
       .subscribe({
-        next: (result: TimeControlStateResponse) => {
-          this.timeControlStateResponse$.set(result);
+        next: (result: ResultValue<TimeControlStateResponse>) => {
+          this.timeControlStateResponse$.set(result.value);
         }
       });
   }

@@ -2,6 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { finalize } from 'rxjs';
 import { ApiUrl } from '../../core/urls/api-urls';
 import { User } from '../../models/entities/user.model';
+import { ResultValue } from '../../models/result-response.model';
 import { HttpClientApiService } from '../api/http-client-api.service';
 import { StateService } from './state.service';
 
@@ -31,11 +32,11 @@ export class CurrentEmployeeStateService implements StateService<User | null> {
     this.loadingCurrentEmployee$.set(true);
 
     this.httpClientApiService
-      .get<User>(ApiUrl.employees.getCurrentEmployee)
+      .get<ResultValue<User>>(ApiUrl.employees.getCurrentEmployee)
       .pipe(finalize(() => this.loadingCurrentEmployee$.set(false)))
       .subscribe({
-        next: (result: User) => {
-          this.currentEmployee$.set(result);
+        next: (result: ResultValue<User>) => {
+          this.currentEmployee$.set(result.value);
         }
       });
   }

@@ -2,6 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { finalize } from 'rxjs';
 import { ApiUrl } from '../../core/urls/api-urls';
 import { CompanySettings } from '../../models/entities/company-settings.model';
+import { ResultValue } from '../../models/result-response.model';
 import { HttpClientApiService } from '../api/http-client-api.service';
 import { StateService } from './state.service';
 
@@ -33,10 +34,10 @@ export class CompanySettingsStateService implements StateService<CompanySettings
     this.loadingCompanySettings$.set(true);
 
     this.httpClientApiService
-      .get<CompanySettings>(ApiUrl.companySettings.getCompanySettings)
+      .get<ResultValue<CompanySettings>>(ApiUrl.companySettings.getCompanySettings)
       .pipe(finalize(() => this.loadingCompanySettings$.set(false)))
       .subscribe({
-        next: (result: CompanySettings) => this.companySettings$.set(result)
+        next: (result: ResultValue<CompanySettings>) => this.companySettings$.set(result.value)
       });
   }
 }
