@@ -19,7 +19,7 @@ import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { BadRequest } from '../../../../models/bad-request';
 import { CompanyCalendar } from '../../../../models/entities/company-calendar.model';
-import { Result } from '../../../../models/result-response.model';
+import { Result, ResultValue } from '../../../../models/result-response.model';
 import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
 
@@ -72,30 +72,13 @@ export class CompanyCalendarUpdateComponent implements OnInit {
     }
 
     this.loading = true;
-
-    const url = CommonUtils.urlReplaceParams(ApiUrl.companyCalendar.updateCompanyCalendar, {
-      id: this.companyCalendarId
-    });
-
     const companyCalendar = this.form.value as CompanyCalendar;
     companyCalendar.id = this.companyCalendarId;
 
-    this.httpClientApiService
-      .put<CompanyCalendar, Result>(companyCalendar, url)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: () => {
-          this.snackBarService.success('Calendario creado con éxito');
-          this.router.navigateByUrl(SiteUrl.companyCalendar.list);
-        },
-        error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error;
-        }
-      });
+    this.updateCompanyCalendar(companyCalendar);
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb;
     this.breadcrumb
       .add('Calendarios', SiteUrl.companyCalendar.calendar, '')
       .add('Lista de calendarios', SiteUrl.companyCalendar.list, '')
@@ -110,12 +93,31 @@ export class CompanyCalendarUpdateComponent implements OnInit {
     });
 
     this.httpClientApiService
-      .get<CompanyCalendar>(url)
+      .get<ResultValue<CompanyCalendar>>(url)
       .pipe(finalize(() => (this.loadingCompanyCalendar = false)))
       .subscribe({
-        next: (result: CompanyCalendar) => {
-          this.companyCalendar = result;
+        next: (result: ResultValue<CompanyCalendar>) => {
+          this.companyCalendar = result.value;
           this.buildForm();
+        }
+      });
+  }
+
+  private updateCompanyCalendar(companyCalendar: CompanyCalendar): void {
+    const url = CommonUtils.urlReplaceParams(ApiUrl.companyCalendar.updateCompanyCalendar, {
+      id: this.companyCalendarId
+    });
+
+    this.httpClientApiService
+      .put<CompanyCalendar, Result>(companyCalendar, url)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Calendario creado con éxito');
+          this.router.navigateByUrl(SiteUrl.companyCalendar.list);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error;
         }
       });
   }
