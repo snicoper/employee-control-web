@@ -19,9 +19,9 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { Department } from '../../../models/entities/department.model';
+import { ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
-import { DepartmentCreateResponse } from './department-create-response.model';
 
 @Component({
   selector: 'aw-department-create',
@@ -69,22 +69,9 @@ export class DepartmentCreateComponent {
     }
 
     this.loading = true;
-
     const department = this.form.value as Department;
 
-    this.httpClientApiService
-      .post<Department, DepartmentCreateResponse>(department, ApiUrl.departments.createDepartment)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: (result: DepartmentCreateResponse) => {
-          const url = CommonUtils.urlReplaceParams(SiteUrl.departments.details, { id: result.departmentId });
-          this.snackBarService.success('Departamento creado con éxito.');
-          this.router.navigateByUrl(url);
-        },
-        error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error;
-        }
-      });
+    this.createDepartment(department);
   }
 
   private setBreadcrumb(): void {
@@ -97,5 +84,21 @@ export class DepartmentCreateComponent {
       background: [CommonUtils.getRandomColorHexadecimal(), Validators.required],
       color: [CommonUtils.getRandomColorHexadecimal(), Validators.required]
     });
+  }
+
+  private createDepartment(department: Department): void {
+    this.httpClientApiService
+      .post<Department, ResultValue<string>>(department, ApiUrl.departments.createDepartment)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (result: ResultValue<string>) => {
+          const url = CommonUtils.urlReplaceParams(SiteUrl.departments.details, { id: result.value });
+          this.snackBarService.success('Departamento creado con éxito.');
+          this.router.navigateByUrl(url);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error;
+        }
+      });
   }
 }
