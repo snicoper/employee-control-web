@@ -19,6 +19,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { CompanyTask } from '../../../models/entities/company-task.model';
+import { Result, ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 
@@ -80,17 +81,7 @@ export class CompanyTaskUpdateComponent {
     const companyTask = this.form.value as CompanyTask;
     companyTask.id = this.companyTaskId;
 
-    const url = CommonUtils.urlReplaceParams(ApiUrl.companyTasks.updateCompanyTask, { id: this.companyTaskId });
-
-    this.httpClientApiService
-      .put<CompanyTask, undefined>(companyTask, url)
-      .pipe(finalize(() => (this.loadingForm = false)))
-      .subscribe({
-        next: () => {
-          this.snackBarService.success('Tarea editada con éxito.');
-          this.router.navigateByUrl(this.urlCompanyTaskDetails);
-        }
-      });
+    this.updateCompanyTask(companyTask);
   }
 
   private setBreadcrumb(): void {
@@ -111,15 +102,29 @@ export class CompanyTaskUpdateComponent {
 
   private loadCompanyTask(): void {
     this.loadingCompanyTask = true;
+    const url = CommonUtils.urlReplaceParams(ApiUrl.companyTasks.getCompanyTasksById, { id: this.companyTaskId });
+
+    this.httpClientApiService
+      .get<ResultValue<CompanyTask>>(url)
+      .pipe(finalize(() => (this.loadingCompanyTask = false)))
+      .subscribe({
+        next: (result: ResultValue<CompanyTask>) => {
+          this.companyTask = result.value;
+          this.buildForm();
+        }
+      });
+  }
+
+  private updateCompanyTask(companyTask: CompanyTask): void {
     const url = CommonUtils.urlReplaceParams(ApiUrl.companyTasks.updateCompanyTask, { id: this.companyTaskId });
 
     this.httpClientApiService
-      .get<CompanyTask>(url)
-      .pipe(finalize(() => (this.loadingCompanyTask = false)))
+      .put<CompanyTask, Result>(companyTask, url)
+      .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
-        next: (result: CompanyTask) => {
-          this.companyTask = result;
-          this.buildForm();
+        next: () => {
+          this.snackBarService.success('Tarea editada con éxito.');
+          this.router.navigateByUrl(this.urlCompanyTaskDetails);
         }
       });
   }
