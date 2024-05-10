@@ -60,6 +60,7 @@ export class CompanyHolidayUpdateComponent implements OnInit {
     this.loadingForm = true;
     const companyHolidayManageCreateRequest = this.form.value as CompanyHolidayManageUpdateRequest;
     companyHolidayManageCreateRequest.id = this.dialogData.calendarEvent.id as string;
+
     this.updateCompanyHoliday(companyHolidayManageCreateRequest);
   }
 
@@ -89,11 +90,11 @@ export class CompanyHolidayUpdateComponent implements OnInit {
     });
 
     this.httpClientApiService
-      .put<CompanyHolidayManageUpdateRequest, string>(companyHoliday, url)
+      .put<CompanyHolidayManageUpdateRequest, Result>(companyHoliday, url)
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
-        next: (result: string) => {
-          if (result) {
+        next: (result: Result) => {
+          if (result.succeeded) {
             this.snackBarService.success('Día festivo actualizado con éxito.');
             this.dialogRef.close();
           }
