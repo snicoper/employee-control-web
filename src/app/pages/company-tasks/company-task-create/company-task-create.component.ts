@@ -18,6 +18,7 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
+import { ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { CompanyTaskCreateRequest } from './company-task-create-request.model';
@@ -68,22 +69,9 @@ export class CompanyTaskCreateComponent {
     }
 
     this.loading = true;
-
     const companyTaskCreateRequest = this.form.value as CompanyTaskCreateRequest;
 
-    this.httpClientApiService
-      .post<CompanyTaskCreateRequest, string>(companyTaskCreateRequest, ApiUrl.companyTasks.createCompanyTask)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: (result: string) => {
-          const url = CommonUtils.urlReplaceParams(SiteUrl.companyTasks.details, { id: result });
-          this.snackBarService.success('Tarea creada con éxito.');
-          this.router.navigateByUrl(url);
-        },
-        error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error;
-        }
-      });
+    this.createCompanyTask(companyTaskCreateRequest);
   }
 
   private setBreadcrumb(): void {
@@ -96,5 +84,24 @@ export class CompanyTaskCreateComponent {
       background: [CommonUtils.getRandomColorHexadecimal(), [Validators.required]],
       color: [CommonUtils.getRandomColorHexadecimal(), [Validators.required]]
     });
+  }
+
+  private createCompanyTask(companyTaskCreateRequest: CompanyTaskCreateRequest): void {
+    this.httpClientApiService
+      .post<CompanyTaskCreateRequest, ResultValue<string>>(
+        companyTaskCreateRequest,
+        ApiUrl.companyTasks.createCompanyTask
+      )
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (result: ResultValue<string>) => {
+          const url = CommonUtils.urlReplaceParams(SiteUrl.companyTasks.details, { id: result.value });
+          this.snackBarService.success('Tarea creada con éxito.');
+          this.router.navigateByUrl(url);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error;
+        }
+      });
   }
 }
