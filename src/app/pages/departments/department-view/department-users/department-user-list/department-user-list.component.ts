@@ -12,6 +12,7 @@ import { ApiResult } from '../../../../../core/features/api-result/api-result';
 import { ApiUrl } from '../../../../../core/urls/api-urls';
 import { SiteUrl } from '../../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../../core/utils/common-utils';
+import { ResultValue } from '../../../../../models/result-response.model';
 import { HttpClientApiService } from '../../../../../services/api/http-client-api.service';
 import { DepartmentSelectedService } from '../../department-selected.service';
 import { DepartmentUserResponse } from '../department-users-response.model';
@@ -70,12 +71,12 @@ export class DepartmentUserListComponent {
     });
 
     this.httpClientApiService
-      .getPaginated<DepartmentUserResponse>(this.apiResult, url)
+      .getResultPaginated<DepartmentUserResponse>(this.apiResult, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ApiResult<DepartmentUserResponse>) => {
-          this.apiResult = ApiResult.clone<DepartmentUserResponse>(result);
-          this.dataSource = new MatTableDataSource(result.items);
+        next: (result: ResultValue<ApiResult<DepartmentUserResponse>>) => {
+          this.apiResult = ApiResult.clone<DepartmentUserResponse>(result.value);
+          this.dataSource = new MatTableDataSource(result.value.items);
           this.dataSource.sort = this.sort;
         }
       });

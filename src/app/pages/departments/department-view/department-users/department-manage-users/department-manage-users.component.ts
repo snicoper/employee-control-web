@@ -5,7 +5,7 @@ import { DualListBoxComponent } from '../../../../../components/dual-list-box/du
 import { DualListBox } from '../../../../../components/dual-list-box/dual-list-box.model';
 import { ApiUrl } from '../../../../../core/urls/api-urls';
 import { CommonUtils } from '../../../../../core/utils/common-utils';
-import { Result } from '../../../../../models/result-response.model';
+import { Result, ResultValue } from '../../../../../models/result-response.model';
 import { HttpClientApiService } from '../../../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../../../services/snackbar.service';
 import { DepartmentSelectedService } from '../../department-selected.service';
@@ -70,11 +70,11 @@ export class DepartmentManageUsersComponent {
     });
 
     this.httpClientApiService
-      .get<DepartmentManageUserResponse[]>(url)
+      .get<ResultValue<DepartmentManageUserResponse[]>>(url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: DepartmentManageUserResponse[]) => {
-          result.forEach((item: DepartmentManageUserResponse) => {
+        next: (result: ResultValue<DepartmentManageUserResponse[]>) => {
+          result.value.forEach((item: DepartmentManageUserResponse) => {
             const newItem = { id: item.id, value: item.name, selected: false } as DualListBoxItem;
             this.dualListBoxItems.push(newItem);
           });
