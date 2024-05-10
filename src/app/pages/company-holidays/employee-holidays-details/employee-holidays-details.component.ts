@@ -11,6 +11,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { User } from '../../../models/entities/user.model';
+import { ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { EmployeeHolidaysDetailsResponse } from './employee-holidays-details-response.model';
 
@@ -65,17 +66,21 @@ export class EmployeeHolidaysDetailsComponent {
 
     const employeesUrl = CommonUtils.urlReplaceParams(ApiUrl.employees.getEmployeeById, { id: this.employeeId });
 
-    type resultResponse = { employeeHoliday$: EmployeeHolidaysDetailsResponse; employee$: User };
+    type resultResponse = {
+      employeeHoliday$: ResultValue<EmployeeHolidaysDetailsResponse>;
+      employee$: ResultValue<User>;
+    };
 
     forkJoin({
-      employeeHoliday$: this.httpClientApiService.get<EmployeeHolidaysDetailsResponse>(employeeHolidaysUrl),
-      employee$: this.httpClientApiService.get<User>(employeesUrl)
+      employeeHoliday$:
+        this.httpClientApiService.get<ResultValue<EmployeeHolidaysDetailsResponse>>(employeeHolidaysUrl),
+      employee$: this.httpClientApiService.get<ResultValue<User>>(employeesUrl)
     })
       .pipe(finalize(() => (this.loadingData = false)))
       .subscribe({
         next: (result: resultResponse) => {
-          this.employeeHoliday = result.employeeHoliday$;
-          this.employee = result.employee$;
+          this.employeeHoliday = result.employeeHoliday$.value;
+          this.employee = result.employee$.value;
 
           this.buildForm();
         }
