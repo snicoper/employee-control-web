@@ -12,6 +12,7 @@ import { ApiResult } from '../../../../../core/features/api-result/api-result';
 import { ApiUrl } from '../../../../../core/urls/api-urls';
 import { SiteUrl } from '../../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../../core/utils/common-utils';
+import { ResultValue } from '../../../../../models/result-response.model';
 import { HttpClientApiService } from '../../../../../services/api/http-client-api.service';
 import { CompanyTaskViewService } from '../../company-task-view.service';
 import { CompanyTaskUserResponse } from '../company-task-users-response.model';
@@ -70,12 +71,12 @@ export class CompanyTaskUserListComponent {
     });
 
     this.httpClientApiService
-      .getPaginated<CompanyTaskUserResponse>(this.apiResult, url)
+      .getResultPaginated<CompanyTaskUserResponse>(this.apiResult, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ApiResult<CompanyTaskUserResponse>) => {
-          this.apiResult = ApiResult.clone<CompanyTaskUserResponse>(result);
-          this.dataSource = new MatTableDataSource(result.items);
+        next: (result: ResultValue<ApiResult<CompanyTaskUserResponse>>) => {
+          this.apiResult = ApiResult.clone<CompanyTaskUserResponse>(result.value);
+          this.dataSource = new MatTableDataSource(result.value.items);
           this.dataSource.sort = this.sort;
         }
       });
