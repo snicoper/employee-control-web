@@ -3,6 +3,7 @@ import { finalize } from 'rxjs';
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { CompanyTask } from '../../../models/entities/company-task.model';
+import { ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 
 /**
@@ -34,11 +35,11 @@ export class CompanyTaskViewService {
     const url = CommonUtils.urlReplaceParams(ApiUrl.companyTasks.getCompanyTasksById, { id: companyTaskId });
 
     this.httpClientApiService
-      .get<CompanyTask>(url)
+      .get<ResultValue<CompanyTask>>(url)
       .pipe(finalize(() => this.companyTaskVLoading$.set(false)))
       .subscribe({
-        next: (result: CompanyTask) => {
-          this.companyTaskSelected$.set(result);
+        next: (result: ResultValue<CompanyTask>) => {
+          this.companyTaskSelected$.set(result.value);
         }
       });
   }

@@ -12,6 +12,7 @@ import { BtnLoadingComponent } from '../../../../components/buttons/btn-loading/
 import { ApiUrl } from '../../../../core/urls/api-urls';
 import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
+import { Result } from '../../../../models/result-response.model';
 import { BoolToIconPipe } from '../../../../pipes/bool-to-icon.pipe';
 import { DateFormatPipe } from '../../../../pipes/date-format.pipe';
 import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
@@ -62,7 +63,7 @@ export class CompanyTaskDetailsComponent implements OnInit {
     const data = { companyTaskId: this.companyTaskId() };
 
     this.httpClientApiService
-      .put<typeof data, undefined>(data, url)
+      .put<typeof data, Result>(data, url)
       .pipe(finalize(() => (this.loadingStateTask = false)))
       .subscribe({
         next: () => {
@@ -78,7 +79,7 @@ export class CompanyTaskDetailsComponent implements OnInit {
     const data = { companyTaskId: this.companyTaskId() };
 
     this.httpClientApiService
-      .put<typeof data, undefined>(data, url)
+      .put<typeof data, Result>(data, url)
       .pipe(finalize(() => (this.loadingStateTask = false)))
       .subscribe({
         next: () => {
