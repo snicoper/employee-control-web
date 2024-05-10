@@ -30,7 +30,7 @@ import { DateTimeUtils } from '../../../core/utils/datetime-utils';
 import { ClosedBy } from '../../../models/entities/types/closed-by.model';
 import { TimeState } from '../../../models/entities/types/time-state.model';
 import { PeriodDatetime } from '../../../models/period-datetime';
-import { Result } from '../../../models/result-response.model';
+import { Result, ResultValue } from '../../../models/result-response.model';
 import { ClosedByPipe } from '../../../pipes/closed-by.pipe';
 import { DateFormatPipe as DateTimePipe } from '../../../pipes/date-format.pipe';
 import { DeviceTypePipe } from '../../../pipes/device-type.pipe';
@@ -268,12 +268,12 @@ export class TimeControlRecordListComponent {
     this.updateFilters();
 
     this.httpClientApiService
-      .getPaginated<TimeControlRecordResponse>(this.apiResult, url)
+      .getResultPaginated<TimeControlRecordResponse>(this.apiResult, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ApiResult<TimeControlRecordResponse>) => {
-          this.apiResult = ApiResult.clone<TimeControlRecordResponse>(result);
-          this.dataSource = new MatTableDataSource(result.items);
+        next: (result: ResultValue<ApiResult<TimeControlRecordResponse>>) => {
+          this.apiResult = ApiResult.clone<TimeControlRecordResponse>(result.value);
+          this.dataSource = new MatTableDataSource(result.value.items);
           this.dataSource.sort = this.sort;
         }
       });

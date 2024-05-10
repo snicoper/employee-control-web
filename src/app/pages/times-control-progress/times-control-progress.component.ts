@@ -23,7 +23,7 @@ import { DateUtils } from '../../core/utils/date-utils';
 import { DateTimeUtils } from '../../core/utils/datetime-utils';
 import { DeviceType, deviceToDeviceType } from '../../models/entities/types/device-type.model';
 import { TimeState } from '../../models/entities/types/time-state.model';
-import { Result } from '../../models/result-response.model';
+import { Result, ResultValue } from '../../models/result-response.model';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
 import { HttpClientApiService } from '../../services/api/http-client-api.service';
 import { JwtService } from '../../services/jwt.service';
@@ -177,14 +177,14 @@ export class TimesControlProgressComponent {
     });
 
     this.httpClientApiService
-      .get<TimeControlGroupResponse[]>(url)
+      .get<ResultValue<TimeControlGroupResponse[]>>(url)
       .pipe(finalize(() => (this.loadingTimeControls = false)))
       .subscribe({
-        next: (result: TimeControlGroupResponse[]) => {
-          const timeControlProgressStacked = new TimeControlProgressStacked(result, this.dateSelected);
+        next: (result: ResultValue<TimeControlGroupResponse[]>) => {
+          const timeControlProgressStacked = new TimeControlProgressStacked(result.value, this.dateSelected);
           this.progressStackedCollection = timeControlProgressStacked.compose();
 
-          const timeTotal = result
+          const timeTotal = result.value
             .filter((group) => group.totalMinutes > 0)
             .reduce((current, next) => current + next.totalMinutes, 0);
 

@@ -18,6 +18,7 @@ import { CustomValidators } from '../../../../core/validators/custom-validators-
 import { BadRequest } from '../../../../models/bad-request';
 import { DeviceType } from '../../../../models/entities/types/device-type.model';
 import { TimeState } from '../../../../models/entities/types/time-state.model';
+import { ResultValue } from '../../../../models/result-response.model';
 import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../../services/snackbar.service';
 import { TimeControlRecordCreateRequest } from '../time-control-record-create-request.model';
@@ -87,18 +88,8 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
       return;
     }
 
-    // Crear tiempo.
     this.loadingForm = true;
-
-    this.httpClientApiService
-      .post<TimeControlRecordCreateRequest, string>(timeControl, ApiUrl.timeControl.createTimeControl)
-      .pipe(finalize(() => (this.loadingForm = false)))
-      .subscribe({
-        next: () => {
-          this.snackBarService.success('Tiempo creado con éxito.');
-          this.router.navigateByUrl(SiteUrl.timeControlRecords.list);
-        }
-      });
+    this.createTimeControl(timeControl);
   }
 
   private getFomData(): TimeControlRecordCreateRequest {
@@ -160,5 +151,17 @@ export class TimeControlRecordCreateFormComponent implements OnInit {
 
     this.form.removeValidators([]);
     this.form.updateValueAndValidity();
+  }
+
+  private createTimeControl(timeControl: TimeControlRecordCreateRequest): void {
+    this.httpClientApiService
+      .post<TimeControlRecordCreateRequest, ResultValue<string>>(timeControl, ApiUrl.timeControl.createTimeControl)
+      .pipe(finalize(() => (this.loadingForm = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Tiempo creado con éxito.');
+          this.router.navigateByUrl(SiteUrl.timeControlRecords.list);
+        }
+      });
   }
 }

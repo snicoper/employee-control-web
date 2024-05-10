@@ -71,7 +71,6 @@ export class EmployeeRolesEditComponent {
   handleSaveChanges(): void {
     this.loading = true;
     const employeeId = this.employeeSelected()?.id as string;
-    const url = CommonUtils.urlReplaceParams(ApiUrl.employees.updateEmployeeRoles, { id: employeeId });
     const rolesToAdd: EmployeeRolesRequest = { employeeId: employeeId, rolesToAdd: [] };
 
     if (this.isAdmin) {
@@ -87,6 +86,12 @@ export class EmployeeRolesEditComponent {
     }
 
     rolesToAdd.rolesToAdd.push(Role.Employee);
+
+    this.updateRoles(rolesToAdd, employeeId);
+  }
+
+  private updateRoles(rolesToAdd: EmployeeRolesRequest, employeeId: string): void {
+    const url = CommonUtils.urlReplaceParams(ApiUrl.employees.updateEmployeeRoles, { id: employeeId });
 
     this.httpClientApiService
       .put<EmployeeRolesRequest, Result>(rolesToAdd, url)

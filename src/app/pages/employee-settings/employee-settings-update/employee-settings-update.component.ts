@@ -18,6 +18,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { EmployeeSettings } from '../../../models/entities/employee-settings.model';
+import { ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { EmployeeSettingsStateService } from '../../../services/states/employee-settings-state.service';
@@ -76,22 +77,9 @@ export class EmployeeSettingsUpdateComponent {
     this.loadingForm = true;
 
     const employeeSettings = Object.assign({} as EmployeeSettings, this.employeeSettings());
-    const url = CommonUtils.urlReplaceParams(ApiUrl.employees.updateEmployeeSettings, { id: employeeSettings.userId });
-
     employeeSettings.timezone = this.form.get('timezone')?.value;
 
-    this.httpClientApiService
-      .put<EmployeeSettings, EmployeeSettings>(employeeSettings, url)
-      .pipe(finalize(() => (this.loadingForm = false)))
-      .subscribe({
-        next: (result: EmployeeSettings) => {
-          if (result) {
-            this.snackBarService.success('Configuración actualizada con éxito');
-            this.router.navigateByUrl(SiteUrl.employeeSettings.settings);
-            this.employeeSettingsStateService.refresh();
-          }
-        }
-      });
+    this.updateEmployeeSettings(employeeSettings);
   }
 
   private setBreadcrumb(): void {
@@ -117,5 +105,22 @@ export class EmployeeSettingsUpdateComponent {
       this.setNowWithOriginalTimezone();
       this.nowWithTimezoneSelected = DateTime.local().setZone(timezone).toLocaleString(DateTime.TIME_SIMPLE);
     });
+  }
+
+  private updateEmployeeSettings(employeeSettings: EmployeeSettings): void {
+    const url = CommonUtils.urlReplaceParams(ApiUrl.employees.updateEmployeeSettings, { id: employeeSettings.userId });
+
+    this.httpClientApiService
+      .put<EmployeeSettings, ResultValue<EmployeeSettings>>(employeeSettings, url)
+      .pipe(finalize(() => (this.loadingForm = false)))
+      .subscribe({
+        next: (result: ResultValue<EmployeeSettings>) => {
+          if (result.succeeded) {
+            this.snackBarService.success('Configuración actualizada con éxito');
+            this.router.navigateByUrl(SiteUrl.employeeSettings.settings);
+            this.employeeSettingsStateService.refresh();
+          }
+        }
+      });
   }
 }

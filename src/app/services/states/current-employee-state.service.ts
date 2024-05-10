@@ -10,7 +10,7 @@ export class CurrentEmployeeStateService implements StateService<User | null> {
   private readonly httpClientApiService = inject(HttpClientApiService);
 
   private readonly currentEmployee$ = signal<User | null>(null);
-  private readonly loadingCurrentEmployee$ = signal(false);
+  private readonly loadingCurrentEmployee$ = signal(true);
 
   readonly currentEmployee = computed(() => this.currentEmployee$());
   readonly loadingCurrentEmployee = computed(() => this.loadingCurrentEmployee$());

@@ -15,7 +15,7 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { TimeControl } from '../../../models/entities/time-control.model';
-import { Result } from '../../../models/result-response.model';
+import { Result, ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { TimeControlIncidenceCreateRequest } from './time-control-incidence-create-request.model';
@@ -72,24 +72,10 @@ export class TimeControlIncidenceCreateComponent implements OnInit {
   }
 
   handleSubmit(): void {
-    const url = CommonUtils.urlReplaceParams(ApiUrl.timeControl.createIncidence, { id: this.timeControlId });
     const timeControlIncidenceCreateRequest = this.form.value as TimeControlIncidenceCreateRequest;
     timeControlIncidenceCreateRequest.timeControlId = this.timeControlId;
 
-    this.httpClientApiService
-      .put<TimeControlIncidenceCreateRequest, Result>(timeControlIncidenceCreateRequest, url)
-      .subscribe({
-        next: (result: Result) => {
-          if (result.succeeded) {
-            this.snackBarService.success('Incidencia creada con éxito');
-          }
-
-          this.dialogRef.close();
-        },
-        error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error;
-        }
-      });
+    this.createIncidence(timeControlIncidenceCreateRequest);
   }
 
   private buildForm(): void {
@@ -107,20 +93,39 @@ export class TimeControlIncidenceCreateComponent implements OnInit {
     const url = CommonUtils.urlReplaceParams(ApiUrl.timeControl.getTimeControlById, { id: this.timeControlId });
 
     this.httpClientApiService
-      .get<TimeControl>(url)
+      .get<ResultValue<TimeControl>>(url)
       .pipe(finalize(() => (this.loadingTimeControl = false)))
       .subscribe({
-        next: (result: TimeControl) => {
-          this.timeControl = result;
+        next: (result: ResultValue<TimeControl>) => {
+          this.timeControl = result.value;
 
           if (!this.timeControl.incidence) {
             this.timeControl.incidenceDescription = '';
           }
 
           this.disabled = this.timeControl.incidence;
-          this.incidenceLength = result.incidenceDescription?.length ?? 0;
+          this.incidenceLength = result.value.incidenceDescription?.length ?? 0;
 
           this.buildForm();
+        }
+      });
+  }
+
+  private createIncidence(timeControlIncidenceCreateRequest: TimeControlIncidenceCreateRequest): void {
+    const url = CommonUtils.urlReplaceParams(ApiUrl.timeControl.createIncidence, { id: this.timeControlId });
+
+    this.httpClientApiService
+      .put<TimeControlIncidenceCreateRequest, Result>(timeControlIncidenceCreateRequest, url)
+      .subscribe({
+        next: (result: Result) => {
+          if (result.succeeded) {
+            this.snackBarService.success('Incidencia creada con éxito');
+          }
+
+          this.dialogRef.close();
+        },
+        error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error;
         }
       });
   }

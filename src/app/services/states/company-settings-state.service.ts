@@ -11,7 +11,7 @@ export class CompanySettingsStateService implements StateService<CompanySettings
   private readonly httpClientApiService = inject(HttpClientApiService);
 
   private readonly companySettings$ = signal<CompanySettings | null>(null);
-  private readonly loadingCompanySettings$ = signal(false);
+  private readonly loadingCompanySettings$ = signal(true);
 
   readonly companySettings = computed(() => this.companySettings$());
   readonly loadingCompanySettings = computed(() => this.loadingCompanySettings$());

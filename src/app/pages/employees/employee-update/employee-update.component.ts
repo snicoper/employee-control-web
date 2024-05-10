@@ -24,7 +24,7 @@ import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { CompanyCalendar } from '../../../models/entities/company-calendar.model';
 import { User } from '../../../models/entities/user.model';
-import { Result } from '../../../models/result-response.model';
+import { Result, ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 
@@ -85,29 +85,10 @@ export class EmployeeUpdateComponent {
     }
 
     this.loadingForm = true;
-
     const employee = this.form.value as User;
     employee.id = this.employeeId;
 
-    this.httpClientApiService
-      .put<User, Result>(employee, ApiUrl.employees.updateEmployee)
-      .pipe(finalize(() => (this.loadingForm = false)))
-      .subscribe({
-        next: (result: Result) => {
-          if (!result.succeeded) {
-            this.snackBarService.error('Ha ocurrido un error al actualizar el empleado.');
-
-            return;
-          }
-
-          const url = CommonUtils.urlReplaceParams(SiteUrl.employees.details, { id: this.employeeId });
-          this.snackBarService.success('Datos de empleado actualizados con éxito.');
-          this.router.navigateByUrl(url);
-        },
-        error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error;
-        }
-      });
+    this.updateEmployee(employee);
   }
 
   private setBreadcrumb(): void {
@@ -134,13 +115,35 @@ export class EmployeeUpdateComponent {
     const url = CommonUtils.urlReplaceParams(ApiUrl.employees.getEmployeeById, { id: this.employeeId });
 
     this.httpClientApiService
-      .get<User>(url)
+      .get<ResultValue<User>>(url)
       .pipe(finalize(() => (this.loadingEmployee = false)))
       .subscribe({
-        next: (result: User) => {
-          this.employee = result;
+        next: (result: ResultValue<User>) => {
+          this.employee = result.value;
 
           this.buildForm();
+        }
+      });
+  }
+
+  private updateEmployee(employee: User): void {
+    this.httpClientApiService
+      .put<User, Result>(employee, ApiUrl.employees.updateEmployee)
+      .pipe(finalize(() => (this.loadingForm = false)))
+      .subscribe({
+        next: (result: Result) => {
+          if (!result.succeeded) {
+            this.snackBarService.error('Ha ocurrido un error al actualizar el empleado.');
+
+            return;
+          }
+
+          const url = CommonUtils.urlReplaceParams(SiteUrl.employees.details, { id: this.employeeId });
+          this.snackBarService.success('Datos de empleado actualizados con éxito.');
+          this.router.navigateByUrl(url);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error;
         }
       });
   }

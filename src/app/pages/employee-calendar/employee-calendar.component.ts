@@ -16,6 +16,7 @@ import { ApiUrl } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { DateTimeUtils } from '../../core/utils/datetime-utils';
 import { CompanyHoliday } from '../../models/entities/company-holiday.model';
+import { ResultValue } from '../../models/result-response.model';
 import { HttpClientApiService } from '../../services/api/http-client-api.service';
 import { JwtService } from '../../services/jwt.service';
 import { SidenavService } from '../../services/sidenav.service';
@@ -180,16 +181,19 @@ export class EmployeeCalendarComponent implements OnDestroy {
       }
     );
 
-    type resultResponse = { companyHolidays$: Array<CompanyHoliday>; employeeHoliday$: EmployeeHolidayResponse };
+    type resultResponse = {
+      companyHolidays$: ResultValue<Array<CompanyHoliday>>;
+      employeeHoliday$: ResultValue<EmployeeHolidayResponse>;
+    };
 
     forkJoin({
-      companyHolidays$: this.httpClientApiService.get<Array<CompanyHoliday>>(companyHolidaysUrl),
-      employeeHoliday$: this.httpClientApiService.get<EmployeeHolidayResponse>(employeeHolidayUrl)
+      companyHolidays$: this.httpClientApiService.get<ResultValue<Array<CompanyHoliday>>>(companyHolidaysUrl),
+      employeeHoliday$: this.httpClientApiService.get<ResultValue<EmployeeHolidayResponse>>(employeeHolidayUrl)
     }).subscribe({
       next: (result: resultResponse) => {
-        this.workingDaysInYear -= result.companyHolidays$.length;
-        this.employeeHoliday = result.employeeHoliday$;
-        this.parseCompanyHolidays(result.companyHolidays$);
+        this.workingDaysInYear -= result.companyHolidays$.value.length;
+        this.employeeHoliday = result.employeeHoliday$.value;
+        this.parseCompanyHolidays(result.companyHolidays$.value);
       }
     });
   }

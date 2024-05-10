@@ -14,7 +14,7 @@ export class UserTimeControlStateService implements StateService<TimeControlStat
   private readonly httpClientApiService = inject(HttpClientApiService);
 
   private readonly timeControlStateResponse$ = signal<TimeControlStateResponse | null>(null);
-  private readonly loadingTimeControlState$ = signal(false);
+  private readonly loadingTimeControlState$ = signal(true);
 
   readonly timeControl = computed(() => this.timeControlStateResponse$());
   readonly loadingTimeControl = computed(() => this.loadingTimeControlState$());

@@ -15,7 +15,7 @@ export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek
   private readonly snackBarService = inject(SnackBarService);
 
   private readonly workingDaysWeek$ = signal<WorkingDaysWeek | null>(null);
-  private readonly loadingWorkingDaysWeek$ = signal(false);
+  private readonly loadingWorkingDaysWeek$ = signal(true);
 
   readonly workingDaysWeek = computed(() => this.workingDaysWeek$());
   readonly loadingWorkingDaysWeek = computed(() => this.loadingWorkingDaysWeek$());

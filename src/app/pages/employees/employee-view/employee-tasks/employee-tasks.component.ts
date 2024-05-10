@@ -12,6 +12,7 @@ import { ApiUrl } from '../../../../core/urls/api-urls';
 import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { CompanyTask } from '../../../../models/entities/company-task.model';
+import { ResultValue } from '../../../../models/result-response.model';
 import { BoolToIconPipe } from '../../../../pipes/bool-to-icon.pipe';
 import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { EmployeeSelectedService } from '../employee-selected.service';
@@ -78,12 +79,12 @@ export class EmployeeTasksComponent {
     });
 
     this.httpClientApiService
-      .getPaginated<CompanyTask>(this.apiResult, url)
+      .getResultPaginated<CompanyTask>(this.apiResult, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ApiResult<CompanyTask>) => {
-          this.apiResult = ApiResult.clone<CompanyTask>(result);
-          this.dataSource = new MatTableDataSource(result.items);
+        next: (result: ResultValue<ApiResult<CompanyTask>>) => {
+          this.apiResult = ApiResult.clone<CompanyTask>(result.value);
+          this.dataSource = new MatTableDataSource(result.value.items);
           this.dataSource.sort = this.sort;
         }
       });

@@ -18,6 +18,7 @@ import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
+import { ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { CompanySettingsStateService } from '../../../services/states/company-settings-state.service';
@@ -69,23 +70,9 @@ export class EmployeeInviteComponent {
     }
 
     this.loading = true;
-
-    // Continue.
     const inviteEmployeeRequest = this.form.value as InviteEmployeeRequest;
 
-    this.httpClientApiService
-      .post<InviteEmployeeRequest, string>(inviteEmployeeRequest, ApiUrl.employees.inviteEmployee)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: (result: string) => {
-          const url = CommonUtils.urlReplaceParams(SiteUrl.employees.details, { id: result });
-          this.snackBarService.success('Invitación enviada con éxito.');
-          this.router.navigateByUrl(url);
-        },
-        error: (error: HttpErrorResponse) => {
-          this.badRequest = error.error as BadRequest;
-        }
-      });
+    this.inviteEmployee(inviteEmployeeRequest);
   }
 
   private setBreadcrumb(): void {
@@ -104,5 +91,21 @@ export class EmployeeInviteComponent {
       timezone: [companySettings?.timezone, [Validators.required]],
       companyCalendarId: ['', [Validators.required]]
     });
+  }
+
+  private inviteEmployee(inviteEmployeeRequest: InviteEmployeeRequest): void {
+    this.httpClientApiService
+      .post<InviteEmployeeRequest, ResultValue<string>>(inviteEmployeeRequest, ApiUrl.employees.inviteEmployee)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (result: ResultValue<string>) => {
+          const url = CommonUtils.urlReplaceParams(SiteUrl.employees.details, { id: result.value as string });
+          this.snackBarService.success('Invitación enviada con éxito.');
+          this.router.navigateByUrl(url);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error as BadRequest;
+        }
+      });
   }
 }

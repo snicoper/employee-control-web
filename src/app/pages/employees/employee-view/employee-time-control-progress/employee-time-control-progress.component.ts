@@ -13,6 +13,7 @@ import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { DateUtils } from '../../../../core/utils/date-utils';
 import { DateTimeUtils } from '../../../../core/utils/datetime-utils';
+import { ResultValue } from '../../../../models/result-response.model';
 import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { EmployeeSelectedService } from '../employee-selected.service';
 
@@ -63,14 +64,14 @@ export class EmployeeTimeControlProgressComponent {
     });
 
     this.httpClientApiService
-      .get<TimeControlGroupResponse[]>(url)
+      .get<ResultValue<TimeControlGroupResponse[]>>(url)
       .pipe(finalize(() => (this.loadingTimeControls = false)))
       .subscribe({
-        next: (result: TimeControlGroupResponse[]) => {
-          const timeControlProgressStacked = new TimeControlProgressStacked(result, this.dateSelected);
+        next: (result: ResultValue<TimeControlGroupResponse[]>) => {
+          const timeControlProgressStacked = new TimeControlProgressStacked(result.value, this.dateSelected);
           this.progressStackedCollection = timeControlProgressStacked.compose();
 
-          const timeTotal = result
+          const timeTotal = result.value
             .filter((group) => group.totalMinutes > 0)
             .reduce((current, next) => current + next.totalMinutes, 0);
 

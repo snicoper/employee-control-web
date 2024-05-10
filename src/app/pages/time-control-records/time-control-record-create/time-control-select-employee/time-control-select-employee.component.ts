@@ -11,6 +11,7 @@ import { BtnBackComponent } from '../../../../components/buttons/btn-back/btn-ba
 import { TableFilterComponent } from '../../../../components/tables/table-filter/table-filter.component';
 import { ApiResult } from '../../../../core/features/api-result/api-result';
 import { ApiUrl } from '../../../../core/urls/api-urls';
+import { ResultValue } from '../../../../models/result-response.model';
 import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { TimeControlRecordCreateService } from '../time-control-record-create.service';
 import { TimeControlRecordEmployeeResponse } from '../time-control-record-employee-response.model';
@@ -73,12 +74,12 @@ export class TimeControlSelectEmployeeComponent {
 
   private loadEmployees(): void {
     this.httpClientApiService
-      .getPaginated<TimeControlRecordEmployeeResponse>(this.apiResult, ApiUrl.employees.getEmployeesPaginated)
+      .getResultPaginated<TimeControlRecordEmployeeResponse>(this.apiResult, ApiUrl.employees.getEmployeesPaginated)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ApiResult<TimeControlRecordEmployeeResponse>) => {
-          this.apiResult = ApiResult.clone<TimeControlRecordEmployeeResponse>(result);
-          this.dataSource = new MatTableDataSource(result.items);
+        next: (result: ResultValue<ApiResult<TimeControlRecordEmployeeResponse>>) => {
+          this.apiResult = ApiResult.clone<TimeControlRecordEmployeeResponse>(result.value);
+          this.dataSource = new MatTableDataSource(result.value.items);
           this.dataSource.sort = this.sort;
         }
       });

@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TimeZone, getTimeZones } from '@vvo/tzdb';
 import { DateTime } from 'luxon';
 import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-collection';
@@ -30,6 +30,7 @@ import { EmployeeSettingsStateService } from '../../../services/states/employee-
 })
 export class EmployeeSettingsDetailsComponent {
   private readonly employeeSettingsStateService = inject(EmployeeSettingsStateService);
+  private readonly route = inject(ActivatedRoute);
 
   readonly employeeSettings = computed(() => this.employeeSettingsStateService.employeeSettings());
   readonly loadingEmployeeSettings = computed(() => this.employeeSettingsStateService.loadingEmployeeSettings());

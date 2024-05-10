@@ -19,7 +19,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { ClosedBy } from '../../../models/entities/types/closed-by.model';
 import { TimeState } from '../../../models/entities/types/time-state.model';
-import { Result } from '../../../models/result-response.model';
+import { Result, ResultValue } from '../../../models/result-response.model';
 import { ClosedByPipe } from '../../../pipes/closed-by.pipe';
 import { DateFormatPipe } from '../../../pipes/date-format.pipe';
 import { DeviceTypePipe } from '../../../pipes/device-type.pipe';
@@ -168,11 +168,11 @@ export class TimeControlRecordDetailsComponent implements OnInit {
     this.loadingTimeControl = true;
 
     this.httpClientApiService
-      .get<TimeControlRecordDetailsResponse>(url)
+      .get<ResultValue<TimeControlRecordDetailsResponse>>(url)
       .pipe(finalize(() => (this.loadingTimeControl = false)))
       .subscribe({
-        next: (result: TimeControlRecordDetailsResponse) => {
-          this.timeControl = result;
+        next: (result: ResultValue<TimeControlRecordDetailsResponse>) => {
+          this.timeControl = result.value;
         }
       });
   }

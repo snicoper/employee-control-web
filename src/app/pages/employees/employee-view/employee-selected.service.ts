@@ -4,6 +4,7 @@ import { Role } from '../../../core/types/role';
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { UserRole } from '../../../models/entities/user-role.model';
+import { ResultValue } from '../../../models/result-response.model';
 import { TimeControlStateResponse } from '../../../models/states/time-control-state-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { EmployeeSelectedResponse } from './employee-selected-response.model';
@@ -56,24 +57,24 @@ export class EmployeeSelectedService {
     });
 
     this.httpClientApiService
-      .get<TimeControlStateResponse>(urlTimeState)
+      .get<ResultValue<TimeControlStateResponse>>(urlTimeState)
       .pipe(finalize(() => this.loadingEmployeeTimeControlState$.set(false)))
       .subscribe({
-        next: (result) => this.timeControlStateResponse$.set(result)
+        next: (result: ResultValue<TimeControlStateResponse>) => this.timeControlStateResponse$.set(result.value)
       });
 
     this.httpClientApiService
-      .get<EmployeeSelectedResponse>(urlEmployee)
+      .get<ResultValue<EmployeeSelectedResponse>>(urlEmployee)
       .pipe(finalize(() => this.loadingEmployee$.set(false)))
       .subscribe({
-        next: (result: EmployeeSelectedResponse) => this.employeeSelected$.set(result)
+        next: (result: ResultValue<EmployeeSelectedResponse>) => this.employeeSelected$.set(result.value)
       });
 
     this.httpClientApiService
-      .get<UserRole[]>(urlEmployeeRoles)
+      .get<ResultValue<UserRole[]>>(urlEmployeeRoles)
       .pipe(finalize(() => this.loadingEmployeeRoles$.set(false)))
       .subscribe({
-        next: (result: UserRole[]) => this.employeeSelectedRoles$.set(result)
+        next: (result: ResultValue<UserRole[]>) => this.employeeSelectedRoles$.set(result.value)
       });
   }
 }

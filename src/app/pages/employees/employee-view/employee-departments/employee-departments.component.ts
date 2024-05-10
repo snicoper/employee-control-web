@@ -12,6 +12,7 @@ import { ApiUrl } from '../../../../core/urls/api-urls';
 import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { Department } from '../../../../models/entities/department.model';
+import { ResultValue } from '../../../../models/result-response.model';
 import { BoolToIconPipe } from '../../../../pipes/bool-to-icon.pipe';
 import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { EmployeeSelectedService } from './../employee-selected.service';
@@ -78,12 +79,12 @@ export class EmployeeDepartmentsComponent {
     });
 
     this.httpClientApiService
-      .getPaginated<Department>(this.apiResult, url)
+      .getResultPaginated<Department>(this.apiResult, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ApiResult<Department>) => {
-          this.apiResult = ApiResult.clone<Department>(result);
-          this.dataSource = new MatTableDataSource(result.items);
+        next: (result: ResultValue<ApiResult<Department>>) => {
+          this.apiResult = ApiResult.clone<Department>(result.value);
+          this.dataSource = new MatTableDataSource(result.value.items);
           this.dataSource.sort = this.sort;
         }
       });

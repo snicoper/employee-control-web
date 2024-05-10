@@ -16,6 +16,7 @@ import { ApiResult } from '../../../core/features/api-result/api-result';
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
+import { ResultValue } from '../../../models/result-response.model';
 import { BoolToIconPipe } from '../../../pipes/bool-to-icon.pipe';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { EmployeeSelectedService } from '../employee-view/employee-selected.service';
@@ -92,12 +93,12 @@ export class EmployeeListComponent {
 
   private loadEmployees(): void {
     this.httpClientApiService
-      .getPaginated<EmployeeListResponse>(this.apiResult, ApiUrl.employees.getEmployeesPaginated)
+      .getResultPaginated<EmployeeListResponse>(this.apiResult, ApiUrl.employees.getEmployeesPaginated)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ApiResult<EmployeeListResponse>) => {
-          this.apiResult = ApiResult.clone<EmployeeListResponse>(result);
-          this.dataSource = new MatTableDataSource(result.items);
+        next: (result: ResultValue<ApiResult<EmployeeListResponse>>) => {
+          this.apiResult = ApiResult.clone<EmployeeListResponse>(result.value);
+          this.dataSource = new MatTableDataSource(result.value.items);
           this.dataSource.sort = this.sort;
         }
       });

@@ -6,6 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ApiUrl } from '../../../../core/urls/api-urls';
 import { BadRequest } from '../../../../models/bad-request';
 import { CompanyCalendar } from '../../../../models/entities/company-calendar.model';
+import { ResultValue } from '../../../../models/result-response.model';
 import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 import { FieldErrorComponent } from '../../errors/field-error/field-error.component';
 
@@ -40,11 +41,13 @@ export class FormCompanyCalendarsComponent implements ControlValueAccessor {
   companyCalendars: Array<CompanyCalendar> = [];
 
   constructor() {
-    this.httpClientApiService.get<Array<CompanyCalendar>>(ApiUrl.companyCalendar.getCompanyCalendars).subscribe({
-      next: (result: Array<CompanyCalendar>) => {
-        this.companyCalendars = result;
-      }
-    });
+    this.httpClientApiService
+      .get<ResultValue<Array<CompanyCalendar>>>(ApiUrl.companyCalendar.getCompanyCalendars)
+      .subscribe({
+        next: (result: ResultValue<Array<CompanyCalendar>>) => {
+          this.companyCalendars = result.value;
+        }
+      });
   }
 
   onChange = (_: string): void => {};
