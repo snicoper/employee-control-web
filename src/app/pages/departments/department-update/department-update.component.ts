@@ -19,6 +19,7 @@ import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
 import { BadRequest } from '../../../models/bad-request';
 import { Department } from '../../../models/entities/department.model';
+import { Result, ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 
@@ -78,17 +79,7 @@ export class DepartmentUpdateComponent {
     const department = this.form.value as Department;
     department.id = this.departmentId;
 
-    const url = CommonUtils.urlReplaceParams(ApiUrl.departments.updateDepartment, { id: this.departmentId });
-
-    this.httpClientApiService
-      .put<Department, undefined>(department, url)
-      .pipe(finalize(() => (this.loadingForm = false)))
-      .subscribe({
-        next: () => {
-          this.snackBarService.success('Departamento editado con éxito.');
-          this.router.navigateByUrl(this.urlDepartmentDetails);
-        }
-      });
+    this.updateDepartment(department);
   }
 
   private setBreadcrumb(): void {
@@ -112,12 +103,26 @@ export class DepartmentUpdateComponent {
     const url = CommonUtils.urlReplaceParams(ApiUrl.departments.getDepartmentById, { id: this.departmentId });
 
     this.httpClientApiService
-      .get<Department>(url)
+      .get<ResultValue<Department>>(url)
       .pipe(finalize(() => (this.loadingDepartment = false)))
       .subscribe({
-        next: (result: Department) => {
-          this.department = result;
+        next: (result: ResultValue<Department>) => {
+          this.department = result.value;
           this.buildForm();
+        }
+      });
+  }
+
+  private updateDepartment(department: Department): void {
+    const url = CommonUtils.urlReplaceParams(ApiUrl.departments.updateDepartment, { id: this.departmentId });
+
+    this.httpClientApiService
+      .put<Department, Result>(department, url)
+      .pipe(finalize(() => (this.loadingForm = false)))
+      .subscribe({
+        next: () => {
+          this.snackBarService.success('Departamento editado con éxito.');
+          this.router.navigateByUrl(this.urlDepartmentDetails);
         }
       });
   }
