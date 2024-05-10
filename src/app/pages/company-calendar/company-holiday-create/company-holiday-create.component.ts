@@ -12,6 +12,7 @@ import { FormInputComponent } from '../../../components/forms/inputs/form-input/
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { DateTimeUtils } from '../../../core/utils/datetime-utils';
 import { BadRequest } from '../../../models/bad-request';
+import { ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { SnackBarService } from '../../../services/snackbar.service';
 import { CompanyHolidayCreateData } from './company-holiday-create-data.model';
@@ -73,14 +74,14 @@ export class CompanyHolidayCreateComponent implements OnInit {
     companyHoliday.companyCalendarId = this.dialogData.companyCalendarId;
 
     this.httpClientApiService
-      .post<CompanyHolidayManageCreateRequest, string>(
+      .post<CompanyHolidayManageCreateRequest, ResultValue<string>>(
         companyHoliday,
         ApiUrl.companyCalendarHolidays.createCompanyCalendarHoliday
       )
       .pipe(finalize(() => (this.loadingForm = false)))
       .subscribe({
-        next: (result: string) => {
-          if (result) {
+        next: (result: ResultValue<string>) => {
+          if (result.succeeded) {
             this.snackBarService.success('Día festivo creado con éxito.');
             this.dialogRef.close();
           }
