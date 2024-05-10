@@ -62,7 +62,7 @@ export class DepartmentDetailsComponent implements OnInit {
       .put<typeof data, Result>(data, ApiUrl.departments.activateDepartment)
       .pipe(finalize(() => (this.loadingDepartmentState = false)))
       .subscribe({
-        next: (result) => {
+        next: (result: Result) => {
           if (result.succeeded) {
             this.snackBarService.success('Departamento desactivado con éxito');
             this.departmentSelectedService.loadDepartmentById(this.departmentId());
@@ -79,7 +79,7 @@ export class DepartmentDetailsComponent implements OnInit {
       .put<typeof data, Result>(data, ApiUrl.departments.deactivateDepartment)
       .pipe(finalize(() => (this.loadingDepartmentState = false)))
       .subscribe({
-        next: (result) => {
+        next: (result: Result) => {
           if (result.succeeded) {
             this.snackBarService.success('Departamento activado con éxito');
             this.departmentSelectedService.loadDepartmentById(this.departmentId());
