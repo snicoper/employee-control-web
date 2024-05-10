@@ -13,7 +13,7 @@
           @if (bread.icon) {
             <mat-icon>{{ bread.icon }}</mat-icon>
           }
-          {{ bread.text }}
+          <span class="text-muted">{{ bread.text }}</span>
         }
 
         @if ($index !== breadcrumb().getItems().length - 1) {
