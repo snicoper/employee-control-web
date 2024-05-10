@@ -66,7 +66,6 @@ export class CompanySettingsUpdateComponent {
     this.setBreadcrumb();
     this.buildForm();
     this.setNowWithOriginalTimezone();
-
     this.eventListener();
   }
 
@@ -82,18 +81,7 @@ export class CompanySettingsUpdateComponent {
     const companySettings = this.form.value as CompanySettings;
     companySettings.id = this.companySettings()?.id as string;
 
-    this.httpClientApiService
-      .put<CompanySettings, Result>(companySettings, ApiUrl.companySettings.updateCompanySettings)
-      .pipe(finalize(() => (this.loadingForm = false)))
-      .subscribe({
-        next: (result: Result) => {
-          if (result.succeeded) {
-            this.snackBarService.success('Configuración actualizada con éxito');
-            this.router.navigateByUrl(SiteUrl.companySettings.details);
-            this.companySettingsStateService.refresh();
-          }
-        }
-      });
+    this.updateCompanySettings(companySettings);
   }
 
   private setBreadcrumb(): void {
@@ -106,6 +94,21 @@ export class CompanySettingsUpdateComponent {
     this.nowWithOriginalTimezone = DateTime.local()
       .setZone(this.companySettings()?.timezone)
       .toLocaleString(DateTime.TIME_SIMPLE);
+  }
+
+  private updateCompanySettings(companySettings: CompanySettings): void {
+    this.httpClientApiService
+      .put<CompanySettings, Result>(companySettings, ApiUrl.companySettings.updateCompanySettings)
+      .pipe(finalize(() => (this.loadingForm = false)))
+      .subscribe({
+        next: (result: Result) => {
+          if (result.succeeded) {
+            this.snackBarService.success('Configuración actualizada con éxito');
+            this.router.navigateByUrl(SiteUrl.companySettings.details);
+            this.companySettingsStateService.refresh();
+          }
+        }
+      });
   }
 
   private buildForm(): void {
