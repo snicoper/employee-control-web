@@ -20,6 +20,7 @@ import { ApiResult } from '../../../core/features/api-result/api-result';
 import { ApiUrl } from '../../../core/urls/api-urls';
 import { SiteUrl } from '../../../core/urls/site-urls';
 import { CommonUtils } from '../../../core/utils/common-utils';
+import { ResultValue } from '../../../models/result-response.model';
 import { HttpClientApiService } from '../../../services/api/http-client-api.service';
 import { CompanyHolidaysHeadersComponent } from '../company-holidays-headers/company-holidays-headers.component';
 import { EmployeeHolidaysResponse } from './employee-holidays-response.model';
@@ -108,12 +109,12 @@ export class EmployeeHolidaysComponent {
     });
 
     this.httpClientApiService
-      .getPaginated<EmployeeHolidaysResponse>(this.apiResult, url)
+      .getResultPaginated<EmployeeHolidaysResponse>(this.apiResult, url)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: ApiResult<EmployeeHolidaysResponse>) => {
-          this.apiResult = ApiResult.clone<EmployeeHolidaysResponse>(result);
-          this.dataSource = new MatTableDataSource(result.items);
+        next: (result: ResultValue<ApiResult<EmployeeHolidaysResponse>>) => {
+          this.apiResult = ApiResult.clone<EmployeeHolidaysResponse>(result.value);
+          this.dataSource = new MatTableDataSource(result.value.items);
           this.dataSource.sort = this.sort;
         }
       });
