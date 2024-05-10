@@ -4,7 +4,7 @@ import { WeekDay } from '../../core/types/week-day';
 import { ApiUrl } from '../../core/urls/api-urls';
 import { CommonUtils } from '../../core/utils/common-utils';
 import { WorkingDaysWeek } from '../../models/entities/working-days-week.model';
-import { Result } from '../../models/result-response.model';
+import { Result, ResultValue } from '../../models/result-response.model';
 import { HttpClientApiService } from '../api/http-client-api.service';
 import { SnackBarService } from '../snackbar.service';
 import { StateService } from './state.service';
@@ -89,11 +89,11 @@ export class WorkingDaysWeekStateService implements StateService<WorkingDaysWeek
     this.loadingWorkingDaysWeek$.set(true);
 
     this.httpClientApiService
-      .get<WorkingDaysWeek>(ApiUrl.workingDaysWeek.getWorkingDaysWeek)
+      .get<ResultValue<WorkingDaysWeek>>(ApiUrl.workingDaysWeek.getWorkingDaysWeek)
       .pipe(finalize(() => this.loadingWorkingDaysWeek$.set(false)))
       .subscribe({
-        next: (result: WorkingDaysWeek) => {
-          this.workingDaysWeek$.set(result);
+        next: (result: ResultValue<WorkingDaysWeek>) => {
+          this.workingDaysWeek$.set(result.value);
         }
       });
   }
