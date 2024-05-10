@@ -22,6 +22,7 @@ import { CommonUtils } from '../../core/utils/common-utils';
 import { DateTimeUtils } from '../../core/utils/datetime-utils';
 import { CompanyCalendar } from '../../models/entities/company-calendar.model';
 import { CompanyHoliday } from '../../models/entities/company-holiday.model';
+import { ResultValue } from '../../models/result-response.model';
 import { HttpClientApiService } from '../../services/api/http-client-api.service';
 import { CompanySettingsStateService } from '../../services/states/company-settings-state.service';
 import { WorkingDaysWeekStateService } from '../../services/states/working-days-week-state.service';
@@ -71,7 +72,7 @@ export class CompanyCalendarComponent {
     this.setBreadcrumb();
   }
 
-  /** Se inicializa aquí,  */
+  /** Se inicializa aquí.  */
   handleCompanyCalendarChange(companyCalendar: CompanyCalendar): void {
     this.companyCalendarSelected = companyCalendar;
     this.initialize();
@@ -166,10 +167,10 @@ export class CompanyCalendarComponent {
       }
     );
 
-    this.httpClientApiService.get<Array<CompanyHoliday>>(url).subscribe({
-      next: (result: Array<CompanyHoliday>) => {
-        this.workingDaysInYear -= result.length;
-        this.parseCompanyHolidays(result);
+    this.httpClientApiService.get<ResultValue<Array<CompanyHoliday>>>(url).subscribe({
+      next: (result: ResultValue<Array<CompanyHoliday>>) => {
+        this.workingDaysInYear -= result.value.length;
+        this.parseCompanyHolidays(result.value);
       }
     });
   }
