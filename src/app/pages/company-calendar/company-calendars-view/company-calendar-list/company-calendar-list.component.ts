@@ -18,6 +18,7 @@ import { ApiUrl } from '../../../../core/urls/api-urls';
 import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
 import { CompanyCalendar } from '../../../../models/entities/company-calendar.model';
+import { ResultValue } from '../../../../models/result-response.model';
 import { HttpClientApiService } from '../../../../services/api/http-client-api.service';
 
 @Component({
@@ -77,11 +78,11 @@ export class CompanyCalendarListComponent {
 
   private loadCompanyCalendars(): void {
     this.httpClientApiService
-      .get<Array<CompanyCalendar>>(ApiUrl.companyCalendar.getCompanyCalendars)
+      .get<ResultValue<Array<CompanyCalendar>>>(ApiUrl.companyCalendar.getCompanyCalendars)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (result: Array<CompanyCalendar>) => {
-          this.dataSource = new MatTableDataSource(result);
+        next: (result: ResultValue<Array<CompanyCalendar>>) => {
+          this.dataSource = new MatTableDataSource(result.value);
           this.dataSource.sort = this.sort;
         }
       });
