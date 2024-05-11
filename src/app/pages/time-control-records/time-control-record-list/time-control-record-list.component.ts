@@ -264,7 +264,6 @@ export class TimeControlRecordListComponent {
       to: this.filterDateRangeState ? end : String(null)
     });
 
-    // Update filters.
     this.updateFilters();
 
     this.httpClientApiService
@@ -284,12 +283,7 @@ export class TimeControlRecordListComponent {
     this.apiResult.removeFilterByPropertyName('timeState');
 
     if (this.filterOpenTimes) {
-      this.apiResult.addFilter(
-        'timeState',
-        RelationalOperator.EqualTo,
-        TimeState.Open.toString(),
-        this.apiResult.filters.length === 0 ? LogicalOperator.None : LogicalOperator.And
-      );
+      this.apiResult.addFilter('timeState', RelationalOperator.EqualTo, TimeState.Open.toString(), LogicalOperator.And);
     }
 
     if (this.filterIncidences) {
@@ -297,7 +291,7 @@ export class TimeControlRecordListComponent {
         'incidence',
         RelationalOperator.EqualTo,
         this.filterIncidences ? 'true' : 'false',
-        this.apiResult.filters.length === 0 ? LogicalOperator.None : LogicalOperator.And
+        LogicalOperator.And
       );
     }
   }

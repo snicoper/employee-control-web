@@ -21,18 +21,26 @@ export class TableFilterComponent<T> {
 
   term = '';
 
+  /**
+   * Elimina todos los filtros en base a fieldsFilter y genera unos nuevos
+   * em base al valor de term.
+   */
   handleFilterChange(event: Event): void {
-    this.apiResult().cleanFilters();
+    this.fieldsFilter().forEach((propertyName) => this.apiResult().removeFilterByPropertyName(propertyName));
+
     this.term = String(event);
 
     // Las búsquedas siempre lo hace desde la pagina 1.
     if (this.term.length > 0) {
       this.apiResult().pageNumber = 1;
+    } else {
+      this.filterChange.emit(this.apiResult());
+
+      return;
     }
 
     this.fieldsFilter().forEach((element: string) => {
-      const logicalOperator = this.apiResult().filters.length === 0 ? LogicalOperator.None : LogicalOperator.Or;
-      this.apiResult().addFilter(element, RelationalOperator.Contains, this.term, logicalOperator);
+      this.apiResult().addFilter(element, RelationalOperator.Contains, this.term, LogicalOperator.Or);
     });
 
     this.filterChange.emit(this.apiResult());

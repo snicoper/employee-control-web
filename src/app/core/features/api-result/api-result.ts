@@ -54,6 +54,8 @@ export class ApiResult<T> {
 
   /**
    * Añade un nuevo filtro.
+   * Si es el primer filtro que añade, concat lo cambiara por LogicalOperator.None
+   * independientemente del valor en concat que se pase.
    *
    * @param propertyName Nombre de la propiedad.
    * @param operator Operador lógico.
@@ -62,6 +64,10 @@ export class ApiResult<T> {
    * @returns ApiResult<T>.
    */
   addFilter(propertyName: string, operator: RelationalOperator, value: string, concat = LogicalOperator.None): this {
+    if (this.filters.length === 0) {
+      concat = LogicalOperator.None;
+    }
+
     const filter = new ApiResultItemFilter(propertyName, operator, value, concat);
     this.filters.push(filter);
 
@@ -81,6 +87,8 @@ export class ApiResult<T> {
       this.filters.splice(index, 1);
     }
 
+    this.logicalOperatorInFirstFilter();
+
     return this;
   }
 
@@ -96,6 +104,8 @@ export class ApiResult<T> {
     if (index >= 0) {
       this.filters.splice(index, 1);
     }
+
+    this.logicalOperatorInFirstFilter();
 
     return this;
   }
@@ -169,5 +179,20 @@ export class ApiResult<T> {
   /** Limpiar order. */
   cleanOrder(): void {
     this.order = '';
+  }
+
+  /**
+   * Comprueba si el primer elemento en los filtros tiene el LogicalOperator != None.
+   */
+  private logicalOperatorInFirstFilter(): void {
+    if (this.filters.length === 0) {
+      return;
+    }
+
+    const firstFilter = this.filters[0];
+
+    if (firstFilter.logicalOperator !== LogicalOperator.None) {
+      firstFilter.logicalOperator = LogicalOperator.None;
+    }
   }
 }
