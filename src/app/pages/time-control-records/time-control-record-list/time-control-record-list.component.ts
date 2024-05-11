@@ -29,7 +29,7 @@ import { CommonUtils } from '../../../core/utils/common-utils';
 import { DateTimeUtils } from '../../../core/utils/datetime-utils';
 import { ClosedBy } from '../../../models/entities/types/closed-by.model';
 import { TimeState } from '../../../models/entities/types/time-state.model';
-import { PeriodDatetime } from '../../../models/period-datetime';
+import { PeriodDateTime } from '../../../models/period-datetime';
 import { Result, ResultValue } from '../../../models/result-response.model';
 import { ClosedByPipe } from '../../../pipes/closed-by.pipe';
 import { DateFormatPipe as DateTimePipe } from '../../../pipes/date-format.pipe';
@@ -101,7 +101,7 @@ export class TimeControlRecordListComponent {
   loadingTimeState = false;
 
   /** Custom filters. */
-  filterPeriod!: PeriodDatetime;
+  filterPeriod!: PeriodDateTime;
   filterOpenTimes = false;
   filterIncidences = false;
   filterDateRangeState = true;
@@ -112,7 +112,7 @@ export class TimeControlRecordListComponent {
 
     const end = DateTime.local();
     const start = end.minus({ days: 7 });
-    this.filterPeriod = new PeriodDatetime(start, end);
+    this.filterPeriod = new PeriodDateTime(start, end);
     this.loadTimesControl();
   }
 
@@ -219,7 +219,7 @@ export class TimeControlRecordListComponent {
   }
 
   /** Cambia el valor del filtro para date range. */
-  handleDateChange(period: PeriodDatetime): void {
+  handleDateChange(period: PeriodDateTime): void {
     this.apiResult.pageNumber = 1;
     this.filterPeriod = period;
     this.loadTimesControl();

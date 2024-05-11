@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { DateTimeUtils } from '../core/utils/datetime-utils';
 
-export class PeriodDatetime {
+export class PeriodDateTime {
   start: DateTime;
   end: DateTime;
 

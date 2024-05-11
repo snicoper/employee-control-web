@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { PeriodDatetime } from '../../../models/period-datetime';
+import { PeriodDateTime } from '../../../models/period-datetime';
 import { logDebug } from '../../errors/log-messages';
 import { CommonUtils } from '../../utils/common-utils';
 import { DateTimeUtils } from '../../utils/datetime-utils';
@@ -35,7 +35,7 @@ export class ProcessTimeControlGroups {
 
   /** Procesa cada TimeControlGroupResponse. */
   private processTimeControlGroup(timeControlGroup: TimeControlGroupResponse): void {
-    this.processTimesInTimeControl(timeControlGroup.times, timeControlGroup.day);
+    this.processTimesInTimeControl(timeControlGroup.times);
   }
 
   /**
@@ -71,15 +71,15 @@ export class ProcessTimeControlGroups {
   }
 
   /** Procesa una lista de Array<TimeResponse>. */
-  private processTimesInTimeControl(times: Array<TimeResponse>, day: number): void {
+  private processTimesInTimeControl(times: Array<TimeResponse>): void {
     times.forEach((time) => {
       const start = DateTime.fromJSDate(new Date(time.start));
       const end = DateTime.fromJSDate(new Date(time.finish));
-      const period = new PeriodDatetime(start, end);
+      const period = new PeriodDateTime(start, end);
 
       // No siempre el day obtenido es el real por que están basados
       // en el Start UTC y puede diferir del timezone del usuario.
-      day = period.start.day;
+      const day = period.start.day;
 
       // Tiempo dentro del día actual.
       // |----------------| Current day.
@@ -113,7 +113,7 @@ export class ProcessTimeControlGroups {
    * |----------------| Current day.
    *    |--------| Time.
    */
-  private processTimeInRange(time: TimeResponse, period: PeriodDatetime, day: number): void {
+  private processTimeInRange(time: TimeResponse, period: PeriodDateTime, day: number): void {
     const currentItemControl = this.getTimeControlGroupByDay(day);
 
     if (!currentItemControl) {
@@ -134,7 +134,7 @@ export class ProcessTimeControlGroups {
    *                    |--------| Time.
    *            |--------| Time.
    */
-  private processOverTime(time: TimeResponse, period: PeriodDatetime, day: number): void {
+  private processOverTime(time: TimeResponse, period: PeriodDateTime, day: number): void {
     const nextTimeControl = this.nextTimeControlGroup(day);
     const currentItemControl = this.getTimeControlGroupByDay(day);
     const diffMidnight = Math.round(period.start.endOf('day').diff(period.start, ['minutes']).minutes);
@@ -185,7 +185,7 @@ export class ProcessTimeControlGroups {
    * |---------| Time.
    *          |---------| Time.
    */
-  private processUnderTime(time: TimeResponse, period: PeriodDatetime, day: number): void {
+  private processUnderTime(time: TimeResponse, period: PeriodDateTime, day: number): void {
     const prevTimeControl = this.prevTimeControlGroup(day);
     const currentItemControl = this.getTimeControlGroupByDay(day);
     const diffMidnight = Math.round(period.end.diff(period.end.startOf('day'), ['minutes']).minutes);

@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { PeriodDatetime } from './period-datetime';
+import { PeriodDateTime } from './period-datetime';
 
 export class Period {
   start: Date;
@@ -10,7 +10,7 @@ export class Period {
     this.end = end;
   }
 
-  toDateTime(): PeriodDatetime {
-    return new PeriodDatetime(DateTime.fromJSDate(this.start), DateTime.fromJSDate(this.end));
+  toDateTime(): PeriodDateTime {
+    return new PeriodDateTime(DateTime.fromJSDate(this.start), DateTime.fromJSDate(this.end));
   }
 }

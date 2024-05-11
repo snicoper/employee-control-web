@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DateTime } from 'luxon';
-import { PeriodDatetime } from '../../../models/period-datetime';
+import { PeriodDateTime } from '../../../models/period-datetime';
 
 @Component({
   selector: 'aw-date-range-selector',
@@ -14,12 +14,12 @@ import { PeriodDatetime } from '../../../models/period-datetime';
 })
 export class DateRangeSelectorComponent {
   label = input('Rango de fechas');
-  rangeValue = input<PeriodDatetime>();
+  rangeValue = input<PeriodDateTime>();
   disabled = input(false);
   readonly = input(true);
   hint = input<string>();
 
-  dateChange = output<PeriodDatetime>();
+  dateChange = output<PeriodDateTime>();
 
   dateStart = DateTime.local();
   dateEnd = DateTime.local();
@@ -33,7 +33,7 @@ export class DateRangeSelectorComponent {
       return;
     }
 
-    const period = new PeriodDatetime(this.dateStart.startOf('day'), this.dateEnd.endOf('day'));
+    const period = new PeriodDateTime(this.dateStart.startOf('day'), this.dateEnd.endOf('day'));
     this.dateChange.emit(period);
   }
 
