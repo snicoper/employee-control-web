@@ -173,6 +173,8 @@ export class ApiResult<T> {
         this.cleanOrder();
     }
 
+    this.pageNumber = 1;
+
     return this;
   }
 

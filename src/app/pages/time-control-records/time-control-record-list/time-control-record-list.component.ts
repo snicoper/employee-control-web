@@ -136,6 +136,8 @@ export class TimeControlRecordListComponent {
   }
 
   handleCustomFilters(eventValue: string): void {
+    this.apiResult.pageNumber = 1;
+
     // filterOpenTimesValue.
     if (eventValue === 'open-times' && !this.filterOpenTimes) {
       this.filterOpenTimes = true;
@@ -218,6 +220,7 @@ export class TimeControlRecordListComponent {
 
   /** Cambia el valor del filtro para date range. */
   handleDateChange(period: PeriodDatetime): void {
+    this.apiResult.pageNumber = 1;
     this.filterPeriod = period;
     this.loadTimesControl();
   }

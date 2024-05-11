@@ -32,10 +32,18 @@ export class ApiResultInterceptor implements HttpInterceptor {
 
   private apiResultFilter(event: HttpResponse<any>): HttpResponse<any> {
     // Filtros de ResultValue<ApiResult>.
-    if (Object.hasOwn(event.body?.value, 'filters') && event.body.value.filters.length) {
+    if (
+      Object.hasOwn(event.body, 'value') &&
+      Object.hasOwn(event.body.value, 'filters') &&
+      event.body.value.filters.length
+    ) {
       event.body.value.filters = JSON.parse(event.body.value.filters) as Array<ApiResultItemFilter>;
-    } else if (Object.hasOwn(event.body?.value, 'filters')) {
+
+      return event;
+    } else if (Object.hasOwn(event.body, 'value') && Object.hasOwn(event.body.value, 'filters')) {
       event.body.value.filters = [] as Array<ApiResultItemFilter>;
+
+      return event;
     }
 
     // Filtros de ApiResult.
@@ -50,10 +58,18 @@ export class ApiResultInterceptor implements HttpInterceptor {
 
   private apiResultOrder(event: HttpResponse<any>): HttpResponse<any> {
     // Order de ResultValue<ApiResult>.
-    if (Object.hasOwn(event.body?.value, 'order') && event.body.value.order.length) {
+    if (
+      Object.hasOwn(event.body, 'value') &&
+      Object.hasOwn(event.body.value, 'order') &&
+      event.body.value.order.length
+    ) {
       event.body.value.order = JSON.parse(event.body.value.order) as ApiResultItemOrderBy;
-    } else if (Object.hasOwn(event.body?.value, 'order')) {
+
+      return event;
+    } else if (Object.hasOwn(event.body, 'value') && Object.hasOwn(event.body.value, 'order')) {
       event.body.value.order = '';
+
+      return event;
     }
 
     // Order de ApiResult.
