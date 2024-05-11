@@ -77,6 +77,10 @@ export class ProcessTimeControlGroups {
       const end = DateTime.fromJSDate(new Date(time.finish));
       const period = new PeriodDatetime(start, end);
 
+      // No siempre el day obtenido es el real por que están basados
+      // en el Start UTC y puede diferir del timezone del usuario.
+      day = period.start.day;
+
       // Tiempo dentro del día actual.
       // |----------------| Current day.
       //     |--------| Time.
