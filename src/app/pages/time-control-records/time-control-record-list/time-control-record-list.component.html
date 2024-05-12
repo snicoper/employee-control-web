@@ -27,178 +27,166 @@
 
         <div>
           <!-- date range filter -->
-          <aw-date-range-selector
-            (dateChange)="handleDateChange($event)"
-            [disabled]="!filterDateRangeState"
+          <aw-date-range-selector (dateChange)="handleDateChange($event)" [disabled]="!filterDateRangeState"
             [rangeValue]="filterPeriod" />
 
-          <button
-            mat-icon-button
-            class="ms-2 align-center"
-            (click)="handleToggleFilterDate()"
+          <button mat-icon-button class="ms-2 align-center" (click)="handleToggleFilterDate()"
             [color]="filterDateRangeState ? 'warn' : 'primary'">
             <mat-icon>event_available</mat-icon>
           </button>
         </div>
 
         <!-- input filter -->
-        <aw-table-filter
-          (filterChange)="handleFilterChange($event)"
-          [apiResult]="apiResult"
+        <aw-table-filter (filterChange)="handleFilterChange($event)" [apiResult]="apiResult"
           [fieldsFilter]="fieldsFilter" />
       </div>
 
       <!-- table -->
       @if (!loading) {
-        <table mat-table matSort (matSortChange)="handleSortChange($event)" [dataSource]="dataSource">
-          <!-- firstName -->
-          <ng-container matColumnDef="user.firstName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-            <td mat-cell *matCellDef="let row">{{ row.firstName }}</td>
-          </ng-container>
+      <table mat-table matSort (matSortChange)="handleSortChange($event)" [dataSource]="dataSource">
+        <!-- firstName -->
+        <ng-container matColumnDef="user.firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+          <td mat-cell *matCellDef="let row">{{ row.firstName }}</td>
+        </ng-container>
 
-          <!-- lastName -->
-          <ng-container matColumnDef="user.lastName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</th>
-            <td mat-cell *matCellDef="let row">{{ row.lastName }}</td>
-          </ng-container>
+        <!-- lastName -->
+        <ng-container matColumnDef="user.lastName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</th>
+          <td mat-cell *matCellDef="let row">{{ row.lastName }}</td>
+        </ng-container>
 
-          <!-- start -->
-          <ng-container matColumnDef="start">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Apertura</th>
-            <td mat-cell *matCellDef="let row">
-              <span [innerHTML]="row.deviceTypeStart | deviceType"></span>
-              {{ row.start | dateFormat: dateTimeShortFormat }}
+        <!-- start -->
+        <ng-container matColumnDef="start">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Apertura</th>
+          <td mat-cell *matCellDef="let row">
+            <span [innerHTML]="row.deviceTypeStart | deviceType"></span>
+            {{ row.start | dateFormat: dateTimeShortFormat }}
 
-              @if (getStartOpenStreetMapLink(row)) {
-                <a matTooltip="Ver en mapa" [href]="getStartOpenStreetMapLink(row)" target="_blank">
-                  <mat-icon class="align-center">location_on</mat-icon>
-                </a>
-              }
-            </td>
-          </ng-container>
+            @if (getStartOpenStreetMapLink(row)) {
+            <a matTooltip="Ver en mapa" [href]="getStartOpenStreetMapLink(row)" target="_blank" rel="noreferrer">
+              <mat-icon class="align-center">location_on</mat-icon>
+            </a>
+            }
+          </td>
+        </ng-container>
 
-          <!-- finish -->
-          <ng-container matColumnDef="finish">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cierre</th>
-            <td mat-cell *matCellDef="let row">
-              <span [innerHTML]="row.deviceTypeFinish | deviceType"></span>
+        <!-- finish -->
+        <ng-container matColumnDef="finish">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cierre</th>
+          <td mat-cell *matCellDef="let row">
+            <span [innerHTML]="row.deviceTypeFinish | deviceType"></span>
+
+            @if (row.timeState === timeState.Close) {
+            {{ row.finish | dateFormat: dateTimeShortFormat }}
+            @if (getFinishOpenStreetMapLink(row)) {
+            <a matTooltip="Ver en mapa" [href]="getFinishOpenStreetMapLink(row)" target="_blank" rel="noreferrer">
+              <mat-icon class="align-center">location_on</mat-icon>
+            </a>
+            }
+            }
+          </td>
+        </ng-container>
+
+        <!-- closedBy -->
+        <ng-container matColumnDef="closedBy">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cerrado por</th>
+          <td mat-cell *matCellDef="let row">
+            @if (row.closedBy === closedBy.Staff || row.closedBy === closedBy.System) {
+            <mat-icon class="align-center text-warning">warning</mat-icon>
+            }
+
+            {{ row.closedBy | closedBy }}
+          </td>
+        </ng-container>
+
+        <!-- timeState -->
+        <ng-container matColumnDef="timeState">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+          <td mat-cell *matCellDef="let row">
+            @if (row.timeState === timeState.Open) {
+            <span matTooltip="Abierto">
+              <aw-dot-success />
+            </span>
+            } @else {
+            <span matTooltip="Cerrado">
+              <aw-dot-danger />
+            </span>
+            }
+          </td>
+        </ng-container>
+
+        <!-- duration -->
+        <ng-container matColumnDef="duration">
+          <th mat-header-cell *matHeaderCellDef>Duración</th>
+          <td mat-cell *matCellDef="let row">
+            @if (row.duration > 1) {
+            {{ row.duration | durationToTime }}
+            } @else {
+            <span>...</span>
+            }
+          </td>
+        </ng-container>
+
+        <!-- incidence -->
+        <ng-container matColumnDef="incidence">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Incidencia</th>
+          <td mat-cell *matCellDef="let row">
+            @if (row.incidence) {
+            <span [matTooltip]="row.incidenceDescription" class="text-danger">
+              <mat-icon>priority_high</mat-icon>
+            </span>
+            } @else {
+            <span>&nbsp;</span>
+            }
+          </td>
+        </ng-container>
+
+        <!-- actions -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row">
+            <span class="d-flex justify-content-end">
+              <button mat-icon-button color="primary" matTooltip="Detalles" (click)="handleDetailsTimeControl(row)">
+                <mat-icon>visibility</mat-icon>
+              </button>
 
               @if (row.timeState === timeState.Close) {
-                {{ row.finish | dateFormat: dateTimeShortFormat }}
-                @if (getFinishOpenStreetMapLink(row)) {
-                  <a matTooltip="Ver en mapa" [href]="getFinishOpenStreetMapLink(row)" target="_blank">
-                    <mat-icon class="align-center">location_on</mat-icon>
-                  </a>
-                }
-              }
-            </td>
-          </ng-container>
+              <button mat-icon-button color="accent" matTooltip="Editar" (click)="handleTimeControlUpdate(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
 
-          <!-- closedBy -->
-          <ng-container matColumnDef="closedBy">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cerrado por</th>
-            <td mat-cell *matCellDef="let row">
-              @if (row.closedBy === closedBy.Staff || row.closedBy === closedBy.System) {
-                <mat-icon class="align-center text-warning">warning</mat-icon>
-              }
-
-              {{ row.closedBy | closedBy }}
-            </td>
-          </ng-container>
-
-          <!-- timeState -->
-          <ng-container matColumnDef="timeState">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
-            <td mat-cell *matCellDef="let row">
-              @if (row.timeState === timeState.Open) {
-                <span matTooltip="Abierto">
-                  <aw-dot-success />
-                </span>
+              <button mat-icon-button color="warn" matTooltip="Eliminar" (click)="handleDeleteTimeControl(row)">
+                <mat-icon>delete</mat-icon>
+              </button>
               } @else {
-                <span matTooltip="Cerrado">
-                  <aw-dot-danger />
-                </span>
+              <button mat-icon-button color="warn" matTooltip="Cerrar" (click)="handleCloseTimeControl(row)">
+                <mat-icon>close</mat-icon>
+              </button>
               }
-            </td>
-          </ng-container>
+            </span>
+          </td>
+        </ng-container>
 
-          <!-- duration -->
-          <ng-container matColumnDef="duration">
-            <th mat-header-cell *matHeaderCellDef>Duración</th>
-            <td mat-cell *matCellDef="let row">
-              @if (row.duration > 1) {
-                {{ row.duration | durationToTime }}
-              } @else {
-                <span>...</span>
-              }
-            </td>
-          </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
-          <!-- incidence -->
-          <ng-container matColumnDef="incidence">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Incidencia</th>
-            <td mat-cell *matCellDef="let row">
-              @if (row.incidence) {
-                <span [matTooltip]="row.incidenceDescription" class="text-danger">
-                  <mat-icon>priority_high</mat-icon>
-                </span>
-              } @else {
-                <span>&nbsp;</span>
-              }
-            </td>
-          </ng-container>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell p-4" [attr.colspan]="displayedColumns.length">No hay datos a mostrar</td>
+        </tr>
+      </table>
 
-          <!-- actions -->
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let row">
-              <span class="d-flex justify-content-end">
-                <button mat-icon-button color="primary" matTooltip="Detalles" (click)="handleDetailsTimeControl(row)">
-                  <mat-icon>visibility</mat-icon>
-                </button>
-
-                @if (row.timeState === timeState.Close) {
-                  <button mat-icon-button color="accent" matTooltip="Editar" (click)="handleTimeControlUpdate(row)">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-
-                  <button mat-icon-button color="warn" matTooltip="Eliminar" (click)="handleDeleteTimeControl(row)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                } @else {
-                  <button mat-icon-button color="warn" matTooltip="Cerrar" (click)="handleCloseTimeControl(row)">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                }
-              </span>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-          <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell p-4" [attr.colspan]="displayedColumns.length">No hay datos a mostrar</td>
-          </tr>
-        </table>
-
-        <!-- paginator -->
-        @if (dataSource) {
-          <mat-paginator
-            showFirstLastButtons
-            (page)="handlePageEvent($event)"
-            [length]="apiResult.totalItems"
-            [pageSize]="apiResult.pageSize"
-            [pageIndex]="apiResult.pageNumber - 1"
-            [pageSizeOptions]="[25, 50, 100]"
-            aria-label="Selección de pagina" />
-        }
+      <!-- paginator -->
+      @if (dataSource) {
+      <mat-paginator showFirstLastButtons (page)="handlePageEvent($event)" [length]="apiResult.totalItems"
+        [pageSize]="apiResult.pageSize" [pageIndex]="apiResult.pageNumber - 1" [pageSizeOptions]="[25, 50, 100]"
+        aria-label="Selección de pagina" />
+      }
       } @else {
-        <!-- spinner -->
-        <div class="d-flex justify-content-center p-5">
-          <mat-progress-spinner color="primary" mode="indeterminate" />
-        </div>
+      <!-- spinner -->
+      <div class="d-flex justify-content-center p-5">
+        <mat-progress-spinner color="primary" mode="indeterminate" />
+      </div>
       }
     </mat-card-content>
   </mat-card>
