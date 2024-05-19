@@ -4,7 +4,7 @@ export interface EmployeeHoliday {
   id: string;
   year: number;
   totalDays: number;
-  consumed: number;
+  consumedDays: number;
   userId: string;
   user: User;
 }

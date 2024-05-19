@@ -56,7 +56,7 @@ export class EmployeeHolidaysComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
   readonly breadcrumb = new BreadcrumbCollection();
-  readonly displayedColumns = ['firstName', 'lastName', 'email', 'totalDays', 'consumed', 'remaining'];
+  readonly displayedColumns = ['firstName', 'lastName', 'email', 'totalDays', 'consumedDays', 'remaining'];
   readonly fieldsFilter = ['firstName', 'lastName', 'email'];
   readonly siteUrl = SiteUrl;
 

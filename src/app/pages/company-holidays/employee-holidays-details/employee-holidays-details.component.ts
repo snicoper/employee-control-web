@@ -90,7 +90,7 @@ export class EmployeeHolidaysDetailsComponent {
   private buildForm(): void {
     this.form = this.formBuilder.group({
       totalDays: [this.employeeHoliday.totalDays, [Validators.required, Validators.min(1)]],
-      consumed: [{ value: this.employeeHoliday.consumed, disabled: true }],
+      consumedDays: [{ value: this.employeeHoliday.consumedDays, disabled: true }],
       available: [{ value: this.employeeHoliday.available, disabled: true }]
     });
   }

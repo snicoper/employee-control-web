@@ -54,16 +54,16 @@
             </td>
           </ng-container>
 
-          <!-- consumed -->
-          <ng-container matColumnDef="consumed">
+          <!-- consumedDays -->
+          <ng-container matColumnDef="consumedDays">
             <th mat-header-cell *matHeaderCellDef>Utilizados</th>
             <td mat-cell *matCellDef="let row">
               <span
                 [ngClass]="{
-                  'text-success': row.totalDays > row.consumed,
-                  'text-danger': row.totalDays === row.consumed
+                  'text-success': row.totalDays > row.consumedDays,
+                  'text-danger': row.totalDays === row.consumedDays
                 }">
-                {{ row.consumed }}
+                {{ row.consumedDays }}
               </span>
             </td>
           </ng-container>
