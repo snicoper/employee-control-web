@@ -19,7 +19,7 @@
           class="box-list-select"
           [(ngModel)]="itemsLeftSelected"
           [id]="boxLeftId"
-          [size]="size"
+          [size]="size()"
           aria-label="Items unselected"
           multiple>
           @for (item of dualListBoxItemsLeft; track item) {
@@ -55,7 +55,7 @@
           class="box-list-select"
           [(ngModel)]="itemsRightSelected"
           [id]="boxRightId"
-          [size]="size"
+          [size]="size()"
           aria-label="Items selected"
           multiple>
           @for (item of dualListBoxItemsRight; track item) {
