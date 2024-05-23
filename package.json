@@ -26,7 +26,7 @@
     "@material-design-icons/font": "^0.14.13",
     "@microsoft/signalr": "^8.0.0",
     "@thednp/color-picker": "2.0.0-alpha10",
-    "@vvo/tzdb": "^6.138.0",
+    "@vvo/tzdb": "^6.139.0",
     "bootstrap": "^5.3.3",
     "jwt-decode": "^4.0.0",
     "luxon": "^3.4.4",
