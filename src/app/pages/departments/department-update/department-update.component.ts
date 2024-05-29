@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -123,6 +124,9 @@ export class DepartmentUpdateComponent {
         next: () => {
           this.snackBarService.success('Departamento editado con éxito.');
           this.router.navigateByUrl(this.urlDepartmentDetails);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.badRequest = error.error;
         }
       });
   }
