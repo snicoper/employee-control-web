@@ -7,11 +7,18 @@ interface LogSettings {
   color: string;
 }
 
+const TypeErrors = {
+  error: 'ERROR',
+  warning: 'WARNING',
+  info: 'INFO',
+  debug: 'DEBUG'
+};
+
 const logSettings = {
-  error: { key: 'ERROR', color: '#cc0066' },
-  warning: { key: 'WARNING', color: '#cc7a00' },
-  info: { key: 'INFO', color: '#4169e1' },
-  debug: { key: 'DEBUG', color: '#009933' }
+  error: { key: TypeErrors.error, color: '#cc0066' },
+  warning: { key: TypeErrors.warning, color: '#cc7a00' },
+  info: { key: TypeErrors.info, color: '#4169e1' },
+  debug: { key: TypeErrors.debug, color: '#009933' }
 };
 
 const displayMessage = (message: string, settings: LogSettings): void => {
@@ -19,17 +26,17 @@ const displayMessage = (message: string, settings: LogSettings): void => {
     const background = `background: ${settings.color}; color: white`;
     const formatMessage = `%c ${settings.key}: ${message} `;
 
-    switch (settings.key.toString()) {
-      case 'ERROR':
+    switch (settings.key) {
+      case TypeErrors.error:
         console.error(formatMessage, background);
         break;
-      case 'WARNING':
+      case TypeErrors.warning:
         console.warn(formatMessage, background);
         break;
-      case 'INFO':
+      case TypeErrors.info:
         console.info(formatMessage, background);
         break;
-      case 'DEBUG':
+      case TypeErrors.debug:
         console.log(formatMessage, background);
         break;
     }
