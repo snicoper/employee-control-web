@@ -2,6 +2,13 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DateTime } from 'luxon';
 
 export abstract class CustomValidators {
+  static readonly email = (control: AbstractControl): ValidationErrors | null => {
+    const emailRegex = /^([\w.-]+)@([\w-]+)((\.(\w){2,3})+)$/;
+    const isValid = emailRegex.test(control.value);
+
+    return isValid ? null : { email: true };
+  };
+
   /** Comprobar que una fecha sea menor a otra. */
   static readonly dateStartGreaterThanFinish = (controlDateStart: string, controlDateFinish: string): ValidatorFn => {
     return (controls: AbstractControl): ValidationErrors | null => {

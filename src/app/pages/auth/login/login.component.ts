@@ -7,7 +7,6 @@ import { MatDivider } from '@angular/material/divider';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { BtnLoadingComponent } from '../../../components/buttons/btn-loading/btn-loading.component';
-import { FieldErrorComponent } from '../../../components/forms/errors/field-error/field-error.component';
 import { NonFieldErrorsComponent } from '../../../components/forms/errors/non-field-errors/non-field-errors.component';
 import { FormInputComponent } from '../../../components/forms/inputs/form-input/form-input.component';
 import { PageSimpleComponent } from '../../../components/pages/page-simple/page-simple.component';
@@ -35,7 +34,6 @@ import { LoginResponse } from './login-response.model';
     MatDivider,
     PageSimpleComponent,
     FormInputComponent,
-    FieldErrorComponent,
     NonFieldErrorsComponent,
     BtnLoadingComponent
   ]

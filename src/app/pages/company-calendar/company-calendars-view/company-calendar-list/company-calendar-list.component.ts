@@ -13,7 +13,6 @@ import { BreadcrumbCollection } from '../../../../components/breadcrumb/breadcru
 import { BtnBackComponent } from '../../../../components/buttons/btn-back/btn-back.component';
 import { PageBaseComponent } from '../../../../components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../../components/pages/page-header/page-header.component';
-import { TableFilterComponent } from '../../../../components/tables/table-filter/table-filter.component';
 import { ApiUrl } from '../../../../core/urls/api-urls';
 import { SiteUrl } from '../../../../core/urls/site-urls';
 import { CommonUtils } from '../../../../core/utils/common-utils';
@@ -38,7 +37,6 @@ import { HttpClientApiService } from '../../../../services/api/http-client-api.s
     MatDividerModule,
     PageBaseComponent,
     PageHeaderComponent,
-    TableFilterComponent,
     BtnBackComponent
   ]
 })
