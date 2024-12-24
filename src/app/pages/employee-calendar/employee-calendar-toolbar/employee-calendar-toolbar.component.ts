@@ -4,7 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { BadgeComponent } from '../../../components/badge/badge.component';
 import { DateTimeFormatPipe } from '../../../pipes/date-time-format.pipe';
 import { SidenavService } from '../../../services/sidenav.service';
 import { EmployeeHolidayResponse } from '../employee-holiday-response.model';
@@ -15,15 +14,7 @@ import { EmployeeCalendarToolbarService } from './employee-calendar-toolvar.serv
   templateUrl: './employee-calendar-toolbar.component.html',
   styleUrl: './employee-calendar-toolbar.component.scss',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatListModule,
-    DateTimeFormatPipe,
-    BadgeComponent
-  ]
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatDividerModule, MatListModule, DateTimeFormatPipe]
 })
 export class EmployeeCalendarToolbarComponent implements OnDestroy {
   private readonly employeeCalendarToolbarService = inject(EmployeeCalendarToolbarService);

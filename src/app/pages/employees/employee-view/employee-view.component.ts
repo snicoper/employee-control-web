@@ -3,8 +3,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-collection';
-import { DotDangerComponent } from '../../../components/colors/dot-danger/dot-danger.component';
-import { DotSuccessComponent } from '../../../components/colors/dot-success/dot-success.component';
 import { PageBaseComponent } from '../../../components/pages/page-base/page-base.component';
 import { PageHeaderComponent } from '../../../components/pages/page-header/page-header.component';
 import { SiteUrl } from '../../../core/urls/site-urls';
@@ -25,8 +23,6 @@ import { EmployeeTimeControlProgressComponent } from './employee-time-control-pr
     MatTabsModule,
     PageBaseComponent,
     PageHeaderComponent,
-    DotSuccessComponent,
-    DotDangerComponent,
     EmployeeDetailsComponent,
     EmployeeDepartmentsComponent,
     EmployeeTasksComponent,
