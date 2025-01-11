@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import { Component, computed, inject, output } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -9,7 +8,7 @@ import { WorkingDaysWeekStateService } from '../../../../services/states/working
 @Component({
   selector: 'aw-working-days-week',
   standalone: true,
-  imports: [NgClass, MatButtonToggleModule, MatProgressSpinnerModule],
+  imports: [MatButtonToggleModule, MatProgressSpinnerModule],
   templateUrl: './working-days-week.component.html',
   styleUrl: './working-days-week.component.scss'
 })

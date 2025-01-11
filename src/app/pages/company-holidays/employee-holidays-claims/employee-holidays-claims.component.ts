@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { DateTime } from 'luxon';
 import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-collection';
 import { PageBaseComponent } from '../../../components/pages/page-base/page-base.component';
@@ -11,7 +10,7 @@ import { CompanyHolidaysHeadersComponent } from '../company-holidays-headers/com
   selector: 'aw-employee-holidays-claims',
   templateUrl: './employee-holidays-claims.component.html',
   standalone: true,
-  imports: [RouterLink, PageBaseComponent, PageHeaderComponent, CompanyHolidaysHeadersComponent]
+  imports: [PageBaseComponent, PageHeaderComponent, CompanyHolidaysHeadersComponent]
 })
 export class EmployeeHolidaysClaimsComponent {
   readonly breadcrumb = new BreadcrumbCollection();

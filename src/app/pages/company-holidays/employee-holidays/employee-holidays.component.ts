@@ -8,7 +8,7 @@ import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/p
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { DateTime } from 'luxon';
 import { finalize } from 'rxjs';
 import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-collection';
@@ -31,7 +31,6 @@ import { EmployeeHolidaysResponse } from './employee-holidays-response.model';
   styleUrl: './employee-holidays.component.scss',
   standalone: true,
   imports: [
-    RouterLink,
     NgClass,
     MatCardModule,
     MatTableModule,
